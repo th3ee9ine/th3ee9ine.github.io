@@ -84,7 +84,7 @@
     
       
       
-<div class="widget-wrap" id="recent"><div class="widget-header h4 dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/04/05/%E7%BE%8E%E5%8C%96blog/">美化Blog</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/09/16/%E5%BD%A9%E7%AC%94%E7%9A%84%E4%B8%80%E5%A4%A9%E4%B9%8B%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">彩笔的一天之面试总结</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/12/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">从零开始学习lambda表达式</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/04/05/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/">Java基础复习</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/12/02/HBase%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">HBase学习笔记</a></div></div></div>
+<div class="widget-wrap" id="recent"><div class="widget-header h4 dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2021/04/30/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/">分布式锁原理分析与应用</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/04/05/%E7%BE%8E%E5%8C%96blog/">美化Blog</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/09/16/%E5%BD%A9%E7%AC%94%E7%9A%84%E4%B8%80%E5%A4%A9%E4%B9%8B%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">彩笔的一天之面试总结</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/12/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">从零开始学习lambda表达式</a></div><div class="post-title reveal"><div class="cap"><time>2021-05-01</time></div><a href="/2019/04/05/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/">Java基础复习</a></div></div></div>
 
     
   
@@ -136,7 +136,30 @@
   </nav>
 </div>
 
-  <div class="post-list post"><a class="post-card post article" href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/"><article class="excerpt md">
+  <div class="post-list post"><a class="post-card post article" href="/2021/04/30/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/"><article class="excerpt md">
+
+<h2 class="post-title">
+  分布式锁原理分析与应用
+</h2>
+<div class='excerpt'>
+  
+    <p>摘要：这篇文章主要是介绍分布式锁相关的内容。
+前言：对于锁大家肯定不会陌生，比如 synchronized 关键字 和 ReentrantLock 可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊...</p>
+  
+</div>
+<div class='meta cap'>
+  <span class='cap' id='post-meta'>
+    Posted on&nbsp;<time datetime='2021-04-30T13:53:06.943Z'>2021-04-30</time>
+  </span>
+  
+    
+      
+      <span class="cap breadcrumb">分布式系统</span>
+    
+  
+  
+</div>
+</article></a><a class="post-card post article" href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/"><article class="excerpt md">
 
 <h2 class="post-title">
   乌班图安装Tools等教程
@@ -374,29 +397,6 @@ Jooq简介JOOQ 是基于Java访问关系型数据库的工具包，轻量，简�
   
   
 </div>
-</article></a><a class="post-card post article" href="/2020/02/14/Google%20Java%20%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97%EF%BC%88%E4%B8%AD%E6%96%87%EF%BC%89/"><article class="excerpt md">
-
-<h2 class="post-title">
-  Google Java编程风格规范（中文）
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：这份文档是Google Java编程风格规范的完整定义。
-前言：这份文档是Google Java编程风格规范的完整定义。当且仅当一个Java源文件符合此文档中的规则，我们才认为它符合Google的Java编程风格。与其它的编程风格指南一样，这里所讨论的不仅仅是编码格式美不美观的问题，同时也讨论一些约定及编码标准。然而，这份文档主要侧重于我们所普遍遵循的规则，对于那些不是明确强制要求的，...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-02-14T00:09:15.341Z'>2020-02-14</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">Java</span>
-    
-  
-  
-</div>
 </article></a></div>
   
   <div class='paginator-wrap dis-select'>
@@ -404,7 +404,7 @@ Jooq简介JOOQ 是基于Java访问关系型数据库的工具包，轻量，简�
       <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/f049bbd4e88ec.svg'/>
     </a>
     <div class='paginator current'>
-      1<span class='sep'></span>4
+      1<span class='sep'></span>5
     </div>
     <a class='paginator next' href='/page/2/'>
       <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/064b95430caf4.svg'/>

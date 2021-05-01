@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>分布式锁原理分析与应用 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这篇文章主要是介绍分布式锁相关的内容。 前言：对于锁大家肯定不会陌生，比如 synchronized 关键字 和 ReentrantLock 可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式锁原理分析与应用">
+<meta property="og:url" content="http://example.com/2021/04/30/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这篇文章主要是介绍分布式锁相关的内容。 前言：对于锁大家肯定不会陌生，比如 synchronized 关键字 和 ReentrantLock 可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-30T13:53:06.943Z">
+<meta property="article:modified_time" content="2021-05-01T13:24:01.396Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="分布式锁">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">分布式锁的使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E7%89%B9%E6%80%A7"><span class="toc-text">分布式锁的几种特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">分布式锁的几种实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E4%BA%8E-Mysql-%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="toc-text">一、基于 Mysql 实现分布式锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E4%BA%8E%E5%8D%95Redis%E8%8A%82%E7%82%B9%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="toc-text">二、基于单Redis节点的分布式锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-text">关键点总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%82%B9%EF%BC%9A%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="toc-text">第一点：过期时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%82%B9%EF%BC%9A%E8%8E%B7%E5%8F%96%E9%94%81"><span class="toc-text">第二点：获取锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%82%B9%EF%BC%9Amy-random-value"><span class="toc-text">第三点：my_random_value</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%82%B9%EF%BC%9ALua%E8%84%9A%E6%9C%AC"><span class="toc-text">第四点：Lua脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AARedis%E8%8A%82%E7%82%B9%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E4%BA%A7%E7%94%9F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">多个Redis节点的情况下会产生的问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81-Redlock"><span class="toc-text">三、分布式锁 Redlock</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%B4%A9%E6%BA%83%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">节点崩溃可能导致的问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BA%94%E8%AF%A5%E5%90%91%E6%89%80%E6%9C%89Redis%E8%8A%82%E7%82%B9%E5%8F%91%E8%B5%B7%E9%87%8A%E6%94%BE%E9%94%81%E7%9A%84%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="toc-text">客户端应该向所有Redis节点发起释放锁的操作？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%9F%BA%E4%BA%8Ezk%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="toc-text">四、基于zk实现分布式锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">可能存在的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#zk%E7%9A%84watch%E6%9C%BA%E5%88%B6"><span class="toc-text">zk的watch机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/">分布式系统</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2021-04-30T13:53:06.943Z'>2021-04-30</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>分布式锁原理分析与应用</span></h1>
+<h1 id="摘要：这篇文章主要是介绍分布式锁相关的内容。"><a href="#摘要：这篇文章主要是介绍分布式锁相关的内容。" class="headerlink" title="摘要：这篇文章主要是介绍分布式锁相关的内容。"></a>摘要：这篇文章主要是介绍分布式锁相关的内容。</h1><hr>
+<h1 id="前言：对于锁大家肯定不会陌生，比如-synchronized-关键字-和-ReentrantLock-可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。"><a href="#前言：对于锁大家肯定不会陌生，比如-synchronized-关键字-和-ReentrantLock-可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。" class="headerlink" title="前言：对于锁大家肯定不会陌生，比如 synchronized 关键字 和 ReentrantLock 可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。"></a>前言：对于锁大家肯定不会陌生，比如 synchronized 关键字 和 ReentrantLock 可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。</h1><hr>
+<h2 id="分布式锁的使用场景"><a href="#分布式锁的使用场景" class="headerlink" title="分布式锁的使用场景"></a>分布式锁的使用场景</h2><ul>
+<li><p>效率性:使用分布式锁可以避免不同节点重复相同的工作。</p>
+</li>
+<li><p>正确性:分布式锁可以避免破坏正确性的发生，如果两个节点在同一条数据上面操作，比如多个节点机器对同一个订单操作不同的流程有可能会导致该笔订单最后状态出现错误，造成损失。</p>
+</li>
+</ul>
+<h2 id="分布式锁的几种特性"><a href="#分布式锁的几种特性" class="headerlink" title="分布式锁的几种特性"></a>分布式锁的几种特性</h2><ul>
+<li><p>互斥性:和我们本地锁一样互斥性是最基本，但是分布式锁需要保证在不同节点的不同线程的互斥。</p>
+</li>
+<li><p>可重入性:同一个节点上的同一个线程如果获取了锁之后那么也可以再次获取这个锁。</p>
+</li>
+<li><p>锁超时:和本地锁一样支持锁超时，防止死锁。</p>
+</li>
+<li><p>高效，高可用:加锁和解锁需要高效，同时也需要保证高可用防止分布式锁失效，可以增加降级。</p>
+</li>
+<li><p>支持阻塞和非阻塞:和ReentrantLock一样支持lock和trylock以及tryLock(long timeOut)。</p>
+</li>
+<li><p>支持公平锁和非公平锁(可选):公平锁的意思是按照请求加锁的顺序获得锁，非公平锁就相反是无序的。</p>
+</li>
+</ul>
+<h2 id="分布式锁的几种实现方式"><a href="#分布式锁的几种实现方式" class="headerlink" title="分布式锁的几种实现方式"></a>分布式锁的几种实现方式</h2><p>分布式锁有以下几个方式:</p>
+<ul>
+<li>MySql</li>
+<li>Zk</li>
+<li>Redis</li>
+<li>一些自研的分布式锁(Chubby)</li>
+</ul>
+<h3 id="一、基于-Mysql-实现分布式锁"><a href="#一、基于-Mysql-实现分布式锁" class="headerlink" title="一、基于 Mysql 实现分布式锁"></a>一、基于 Mysql 实现分布式锁</h3><p>1、首先，我们需要创建一个锁表:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CREATE TABLE &#96;resource_lock&#96; (</span><br><span class="line">    &#96;id&#96; int(11) unsigned NOT NULL AUTO_INCREMENT,</span><br><span class="line">    &#96;resource_name&#96; varchar(128) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;资源名称&#39;,</span><br><span class="line">    &#39;node_info&#39; varchar(128) DEFAULT &#39;0&#39; COMMENT &#39;节点信息&#39;,</span><br><span class="line">    &#39;count&#39; int(11) NOT NULL DEFAULT &#39;0&#39; COMMENT  &#39;锁的次数，统计可重入锁&#39;,</span><br><span class="line">    &#39;desc&#39; varchar(128) DEFAULT NULL COMMENT &#39;额外的描述信息&#39;,</span><br><span class="line">    &#96;create_time&#96; DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;创建时间&#39;,</span><br><span class="line">    &#96;update_time&#96; DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT &#39;更新时间&#39;,</span><br><span class="line">    PRIMARY KEY (&#39;id&#39;),</span><br><span class="line">    UNIQUE KEY &#39;un_resource_name&#39; (&#39;resource_name&#39;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET &#x3D; utf8mb4;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2、lock</p>
+<p>先进行查询，如果有值，那么需要比较 node_info 是否一致，这里的 node_info 可以用机器 IP 和线程名字来表示，如果一致那么就加可重入锁 count 的值，如果不一致那么就返回 false 。如果没有值那么直接插入一条数据。伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; 添加事务，原子性</span><br><span class="line">@Transaction</span><br><span class="line">public void lock() &#123;</span><br><span class="line">    if (select * from resource_lock where resource_name &#x3D; &#39;xxx&#39; for update;) &#123;</span><br><span class="line">        &#x2F;&#x2F; 判断节点信息是否一致</span><br><span class="line">        if (currentNodeInfo &#x3D;&#x3D; resultNodeInfo) &#123;</span><br><span class="line">            &#x2F;&#x2F; 保住锁的可重入性</span><br><span class="line">            update resource_lock set count &#x3D; count + 1 where resource_name &#x3D; &#39;xxx&#39;;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 插入新数据</span><br><span class="line">        insert into resourceLock;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3、tryLock</p>
+<p>伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public boolean tryLock(long timeOut) &#123;</span><br><span class="line">    long stTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    long endTimeOut &#x3D; stTime + timeOut;</span><br><span class="line"></span><br><span class="line">    while (endTimeOut &gt; stTime) &#123;</span><br><span class="line">        if (mysqlLock.lock()) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 休眠3s后重试</span><br><span class="line">        LockSupport.parkNanos(1000 * 1000 * 1000 * 1);</span><br><span class="line">        stTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4、unlock</p>
+<p>伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Transaction</span><br><span class="line">public boolean unlock() &#123;</span><br><span class="line">    &#x2F;&#x2F; 查询是否有数据</span><br><span class="line">    if (select * from resource_lock where resource_name &#x3D; &#39;xxx&#39; for update;) &#123;</span><br><span class="line">        &#x2F;&#x2F; count为1那么可以删除，如果大于1那么需要减去1。</span><br><span class="line">        if (count &gt; 1) &#123;</span><br><span class="line">            update count &#x3D; count - 1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            delete;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5、定时清理因为机器宕机导致的锁未被释放的问题</p>
+<p>启动一个定时任务，当这个锁远超过任务的执行时间，没有被释放我们就可以认定是节点挂了然后将其直接释放。</p>
+<h3 id="二、基于单Redis节点的分布式锁"><a href="#二、基于单Redis节点的分布式锁" class="headerlink" title="二、基于单Redis节点的分布式锁"></a>二、基于单Redis节点的分布式锁</h3><p>首先，Redis客户端为了获取锁，向Redis节点发送如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SET resource_name my_random_value NX PX 30000</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的命令如果执行成功，则客户端成功获取到了锁，接下来就可以访问共享资源了；而如果上面的命令执行失败，则说明获取锁失败。</p>
+<p>注意，在上面的SET命令中：</p>
+<ul>
+<li>my_random_value是由客户端生成的一个随机字符串，它要保证在足够长的一段时间内在所有客户端的所有获取锁的请求中都是唯一的。</li>
+<li>NX表示只有当resource_name对应的key值不存在的时候才能SET成功。这保证了只有第一个请求的客户端才能获得锁，而其它客户端在锁被释放之前都无法获得锁。</li>
+<li>PX 30000表示这个锁有一个30秒的自动过期时间。当然，这里30秒只是一个例子，客户端可以选择合适的过期时间。</li>
+</ul>
+<p>最后，当客户端完成了对共享资源的操作之后，执行下面的Redis Lua脚本来释放锁：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if redis.call(&quot;get&quot;,KEYS[1]) &#x3D;&#x3D; ARGV[1] then</span><br><span class="line">     return redis.call(&quot;del&quot;,KEYS[1])</span><br><span class="line"> else</span><br><span class="line">     return 0</span><br><span class="line"> end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这段Lua脚本在执行的时候要把前面的my_random_value作为 ARGV[1] 的值传进去，把 resource_name 作为 KEYS[1] 的值传进去。</p>
+<p>至此，基于单Redis节点的分布式锁的算法就描述完了。</p>
+<h4 id="关键点总结"><a href="#关键点总结" class="headerlink" title="关键点总结"></a>关键点总结</h4><h5 id="第一点：过期时间"><a href="#第一点：过期时间" class="headerlink" title="第一点：过期时间"></a>第一点：过期时间</h5><p>首先第一个问题，这个锁必须要设置一个过期时间。<br>否则的话，当一个客户端获取锁成功之后，假如它崩溃了，或者由于发生了网络分割（network partition）导致它再也无法和Redis节点通信了，那么它就会一直持有这个锁，而其它客户端永远无法获得锁了，而且把这个过期时间称为锁的有效时间(lock validity time)。获得锁的客户端必须在这个时间之内完成对共享资源的访问。</p>
+<h5 id="第二点：获取锁"><a href="#第二点：获取锁" class="headerlink" title="第二点：获取锁"></a>第二点：获取锁</h5><p>第二个问题，第一步获取锁的操作，网上不少文章把它实现成了两个Redis命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SETNX resource_name my_random_value</span><br><span class="line">EXPIRE resource_name 30</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>虽然这两个命令和前面算法描述中的一个SET命令执行效果相同，但却不是原子的。如果客户端在执行完SETNX后崩溃了，那么就没有机会执行EXPIRE了，导致它一直持有这个锁。</p>
+<h5 id="第三点：my-random-value"><a href="#第三点：my-random-value" class="headerlink" title="第三点：my_random_value"></a>第三点：my_random_value</h5><p>第三个问题，设置一个随机字符串 my_random_value 是很有必要的，它保证了一个客户端释放的锁必须是自己持有的那个锁。</p>
+<p>假如获取锁时SET的不是一个随机字符串，而是一个固定值，那么可能会发生下面的执行序列：</p>
+<ul>
+<li>客户端1获取锁成功。</li>
+<li>客户端1在某个操作上阻塞了很长时间。</li>
+<li>过期时间到了，锁自动释放了。</li>
+<li>客户端2获取到了对应同一个资源的锁。</li>
+<li>客户端1从阻塞中恢复过来，释放掉了客户端2持有的锁。</li>
+<li>之后，客户端2在访问共享资源的时候，就没有锁为它提供保护了。</li>
+</ul>
+<h5 id="第四点：Lua脚本"><a href="#第四点：Lua脚本" class="headerlink" title="第四点：Lua脚本"></a>第四点：Lua脚本</h5><p>第四个问题，释放锁的操作必须使用Lua脚本来实现。释放锁其实包含三步操作：获取、判断和删除，用Lua脚本来实现能保证这三步的原子性。</p>
+<p>否则，如果把这三步操作放到客户端逻辑中去执行的话，就有可能发生与前面第三个问题类似的执行序列：</p>
+<ul>
+<li>客户端1获取锁成功。</li>
+<li>客户端1访问共享资源。</li>
+<li>客户端1为了释放锁，先执行’GET’操作获取随机字符串的值。</li>
+<li>客户端1判断随机字符串的值，与预期的值相等。</li>
+<li>客户端1由于某个原因阻塞住了很长时间。</li>
+<li>过期时间到了，锁自动释放了。</li>
+<li>客户端2获取到了对应同一个资源的锁。</li>
+<li>客户端1从阻塞中恢复过来，执行DEL操纵，释放掉了客户端2持有的锁。</li>
+</ul>
+<p>实际上，在上述第三个问题和第四个问题的分析中，如果不是客户端阻塞住了，而是出现了大的网络延迟，也有可能导致类似的执行序列发生。</p>
+<p>这四个问题，只要实现分布式锁的时候加以注意，就都能够被正确处理。</p>
+<p>但除此之外，还有一个问题，是由 failover（故障转移） 引起的，却是基于单Redis节点的分布式锁无法解决的。正是这个问题催生了Redlock的出现。</p>
+<h5 id="多个Redis节点的情况下会产生的问题"><a href="#多个Redis节点的情况下会产生的问题" class="headerlink" title="多个Redis节点的情况下会产生的问题"></a>多个Redis节点的情况下会产生的问题</h5><p>这个问题是这样的。假如Redis节点宕机了，那么所有客户端就都无法获得锁了，服务变得不可用。为了提高可用性，我们可以给这个Redis节点挂一个Slave，当Master节点不可用的时候，系统自动切到Slave上（failover）。但由于Redis的主从复制（replication）是异步的，这可能导致在failover过程中丧失锁的安全性。</p>
+<p>例如下面的执行序列：</p>
+<ul>
+<li>客户端1从Master获取了锁。</li>
+<li>Master宕机了，存储锁的key还没有来得及同步到Slave上。</li>
+<li>Slave升级为Master。</li>
+<li>客户端2从新的Master获取到了对应同一个资源的锁。</li>
+</ul>
+<p>于是，客户端1和客户端2同时持有了同一个资源的锁。锁的安全性被打破。</p>
+<h4 id="三、分布式锁-Redlock"><a href="#三、分布式锁-Redlock" class="headerlink" title="三、分布式锁 Redlock"></a>三、分布式锁 Redlock</h4><p>前面介绍的基于单Redis节点的分布式锁在failover的时候会产生解决不了的安全性问题，因此antirez提出了新的分布式锁的算法Redlock，它基于N个完全独立的Redis节点（通常情况下N可以设置成5）。</p>
+<p>运行Redlock算法的客户端依次执行下面各个步骤，来完成获取锁的操作：</p>
+<p>1、获取当前时间（毫秒数）。</p>
+<p>2、按顺序依次向N个Redis节点执行获取锁的操作。这个获取操作跟前面基于单Redis节点的获取锁的过程相同，包含随机字符串my_random_value，也包含过期时间(比如PX 30000，即锁的有效时间)。为了保证在某个Redis节点不可用的时候算法能够继续运行，这个获取锁的操作还有一个超时时间(time out)，它要远小于锁的有效时间（几十毫秒量级）。客户端在向某个Redis节点获取锁失败以后，应该立即尝试下一个Redis节点。这里的失败，应该包含任何类型的失败，比如该Redis节点不可用，或者该Redis节点上的锁已经被其它客户端持有（注：Redlock原文中这里只提到了Redis节点不可用的情况，但也应该包含其它的失败情况）。</p>
+<p>3、计算整个获取锁的过程总共消耗了多长时间，计算方法是用当前时间减去第1步记录的时间。如果客户端从大多数Redis节点（&gt;= N/2+1）成功获取到了锁，并且获取锁总共消耗的时间没有超过锁的有效时间(lock validity time)，那么这时客户端才认为最终获取锁成功；否则，认为最终获取锁失败。</p>
+<p>4、如果最终获取锁成功了，那么这个锁的有效时间应该重新计算，它等于最初的锁的有效时间减去第3步计算出来的获取锁消耗的时间。</p>
+<p>5、如果最终获取锁失败了（可能由于获取到锁的Redis节点个数少于N/2+1，或者整个获取锁的过程消耗的时间超过了锁的最初有效时间），那么客户端应该立即向所有Redis节点发起释放锁的操作（即前面介绍的Redis Lua脚本）。</p>
+<p>上面描述的只是获取锁的过程，而释放锁的过程比较简单：客户端向所有Redis节点发起释放锁的操作，不管这些节点当时在获取锁的时候成功与否。</p>
+<p>由于N个Redis节点中的大多数能正常工作就能保证Redlock正常工作，因此理论上它的可用性更高。我们前面讨论的单Redis节点的分布式锁在failover的时候锁失效的问题，在Redlock中不存在了，但如果有节点发生崩溃重启，还是会对锁的安全性有影响的。具体的影响程度跟Redis对数据的持久化程度有关。</p>
+<h5 id="节点崩溃可能导致的问题"><a href="#节点崩溃可能导致的问题" class="headerlink" title="节点崩溃可能导致的问题"></a>节点崩溃可能导致的问题</h5><p>假设一共有5个Redis节点：A, B, C, D, E。设想发生了如下的事件序列：</p>
+<p>1、客户端1成功锁住了A, B, C，获取锁成功（但D和E没有锁住）。</p>
+<p>2、节点C崩溃重启了，但客户端1在C上加的锁没有持久化下来，丢失了。</p>
+<p>3、节点C重启后，客户端2锁住了C, D, E，获取锁成功。</p>
+<p>4、这样，客户端1和客户端2同时获得了锁（针对同一资源）。</p>
+<p>在默认情况下，Redis的AOF持久化方式是每秒写一次磁盘（即执行fsync），因此最坏情况下可能丢失1秒的数据。为了尽可能不丢数据，Redis允许设置成每次修改数据都进行fsync，但这会降低性能。当然，即使执行了fsync也仍然有可能丢失数据（这取决于系统而不是Redis的实现）。所以，上面分析的由于节点重启引发的锁失效问题，总是有可能出现的。为了应对这一问题，antirez又提出了延迟重启(delayed restarts)的概念。也就是说，一个节点崩溃后，先不立即重启它，而是等待一段时间再重启，这段时间应该大于锁的有效时间(lock validity time)。这样的话，这个节点在重启前所参与的锁都会过期，它在重启后就不会对现有的锁造成影响。</p>
+<h5 id="客户端应该向所有Redis节点发起释放锁的操作？"><a href="#客户端应该向所有Redis节点发起释放锁的操作？" class="headerlink" title="客户端应该向所有Redis节点发起释放锁的操作？"></a>客户端应该向所有Redis节点发起释放锁的操作？</h5><p>在最后释放锁的时候，antirez在算法描述中特别强调，客户端应该向所有Redis节点发起释放锁的操作。也就是说，即使当时向某个节点获取锁没有成功，在释放锁的时候也不应该漏掉这个节点。这是为什么呢？</p>
+<p>设想这样一种情况，客户端发给某个Redis节点的获取锁的请求成功到达了该Redis节点，这个节点也成功执行了SET操作，但是它返回给客户端的响应包却丢失了。这在客户端看来，获取锁的请求由于超时而失败了，但在Redis这边看来，加锁已经成功了。因此，释放锁的时候，客户端也应该对当时获取锁失败的那些Redis节点同样发起请求。实际上，这种情况在异步通信模型中是有可能发生的：客户端向服务器通信是正常的，但反方向却是有问题的。</p>
+<h3 id="四、基于zk实现分布式锁"><a href="#四、基于zk实现分布式锁" class="headerlink" title="四、基于zk实现分布式锁"></a>四、基于zk实现分布式锁</h3><p>ZooKeeper是以Paxos算法为基础分布式应用程序协调服务。Zk的数据节点和文件目录类似，所以我们可以用此特性实现分布式锁。</p>
+<p>基本实现步骤如下：</p>
+<p>1、客户端尝试创建一个znode节点，比如/lock。那么第一个客户端就创建成功了，相当于拿到了锁；而其它的客户端会创建失败（znode已存在），获取锁失败。</p>
+<p>2、持有锁的客户端访问共享资源完成后，将znode删掉，这样其它客户端接下来就能来获取锁了。</p>
+<p>注意：<br>  这里的znode应该被创建成ephemeral的（临时节点）。这是znode的一个特性，它保证如果创建znode的那个客户端崩溃了，那么相应的znode会被自动删除。这保证了锁一定会被释放。</p>
+<h4 id="可能存在的问题"><a href="#可能存在的问题" class="headerlink" title="可能存在的问题"></a>可能存在的问题</h4><p>看起来这个锁相当完美，没有Redlock过期时间的问题，而且能在需要的时候让锁自动释放。但其实也存在这其中也存在问题。</p>
+<p>ZooKeeper是怎么检测出某个客户端已经崩溃了呢？实际上，每个客户端都与ZooKeeper的某台服务器维护着一个Session，这个Session依赖定期的心跳(heartbeat)来维持。如果ZooKeeper长时间收不到客户端的心跳（这个时间称为Sesion的过期时间），那么它就认为Session过期了，通过这个Session所创建的所有的ephemeral类型的znode节点都会被自动删除。</p>
+<p>假如按照下面的顺序执行：</p>
+<p>1、客户端1创建了znode节点/lock，获得了锁。</p>
+<p>2、客户端1进入了长时间的GC pause。</p>
+<p>3、客户端1连接到ZooKeeper的Session过期了。znode节点/lock被自动删除。</p>
+<p>4、客户端2创建了znode节点/lock，从而获得了锁。</p>
+<p>5、客户端1从GC pause中恢复过来，它仍然认为自己持有锁。</p>
+<p>由上面的执行顺序，可以发现最后客户端1和客户端2都认为自己持有了锁，冲突了。所以说，用ZooKeeper实现的分布式锁也不一定就是安全的，该有的问题它还是有。</p>
+<h4 id="zk的watch机制"><a href="#zk的watch机制" class="headerlink" title="zk的watch机制"></a>zk的watch机制</h4><p>ZooKeeper有个很特殊的机制–watch机制。这个机制可以这样来使用，比如当客户端试图创建 /lock 节点的时候，发现它已经存在了，这时候创建失败，但客户端不一定就此对外宣告获取锁失败。客户端可以进入一种等待状态，等待当/lock节点被删除的时候，ZooKeeper通过watch机制通知它，这样它就可以继续完成创建操作（获取锁）。这可以让分布式锁在客户端用起来就像一个本地的锁一样：加锁失败就阻塞住，直到获取到锁为止。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903688088059912">https://juejin.cn/post/6844903688088059912</a></li>
+<li>Redlock的算法：<a target="_blank" rel="noopener" href="https://redis.io/topics/distlock">https://redis.io/topics/distlock</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/redisson/redisson">https://github.com/redisson/redisson</a></li>
+<li>linux的同步IO操作函数: sync、fsync与fdatasync：<a target="_blank" rel="noopener" href="https://my.oschina.net/u/1377774/blog/529847">https://my.oschina.net/u/1377774/blog/529847</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/JTsJCDuasgIJ0j95K8Ay8w">https://mp.weixin.qq.com/s/JTsJCDuasgIJ0j95K8Ay8w</a></li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/">乌班图安装Tools等教程</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
