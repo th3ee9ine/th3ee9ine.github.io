@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>美化Blog - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这篇文章是紧接着上一篇文章的，介绍如何美化自己的blog。 前言：上一篇文章我们已经学会了如何使用Github Pages和Hexo搭建自己的博客，但是博客并不好看，那怎么办的？这很简单，要知道很多前端开发者在Hexo框架下开发了很多的主题给我们使用，我们只需要把他们的主题克隆过来，然后通过修改配置文件即可达到我们所需要的效果。 一、克隆主题1、进入Hexo的官网主题专栏 2、挑选我们喜欢的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="美化Blog">
+<meta property="og:url" content="http://example.com/2019/04/05/%E7%BE%8E%E5%8C%96blog/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这篇文章是紧接着上一篇文章的，介绍如何美化自己的blog。 前言：上一篇文章我们已经学会了如何使用Github Pages和Hexo搭建自己的博客，但是博客并不好看，那怎么办的？这很简单，要知道很多前端开发者在Hexo框架下开发了很多的主题给我们使用，我们只需要把他们的主题克隆过来，然后通过修改配置文件即可达到我们所需要的效果。 一、克隆主题1、进入Hexo的官网主题专栏 2、挑选我们喜欢的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/2/1.png">
+<meta property="og:image" content="http://example.com/blog/2/2.png">
+<meta property="og:image" content="http://example.com/blog/2/3.png">
+<meta property="og:image" content="http://example.com/blog/2/4.png">
+<meta property="og:image" content="http://example.com/blog/2/5.png">
+<meta property="og:image" content="http://example.com/blog/2/6.png">
+<meta property="article:published_time" content="2019-04-05T03:07:50.669Z">
+<meta property="article:modified_time" content="2021-05-01T13:10:37.904Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/2/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%8B%E9%9A%86%E4%B8%BB%E9%A2%98"><span class="toc-text">一、克隆主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E8%BF%9B%E5%85%A5Hexo%E7%9A%84%E5%AE%98%E7%BD%91%E4%B8%BB%E9%A2%98%E4%B8%93%E6%A0%8F"><span class="toc-text">1、进入Hexo的官网主题专栏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%8C%91%E9%80%89%E6%88%91%E4%BB%AC%E5%96%9C%E6%AC%A2%E7%9A%84%E4%B8%BB%E9%A2%98"><span class="toc-text">2、挑选我们喜欢的主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BF%AE%E6%94%B9Hexo%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">3、修改Hexo配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E9%83%A8%E7%BD%B2%E4%B8%BB%E9%A2%98"><span class="toc-text">4、部署主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81hexo%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="toc-text">二、hexo配置说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81hexo%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">1、hexo文件目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E8%AF%A6%E6%83%85%E4%BB%8B%E7%BB%8D"><span class="toc-text">2、文件目录详情介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-config-yml"><span class="toc-text">①_config.yml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1package-json"><span class="toc-text">②package.json</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2scaffolds"><span class="toc-text">③scaffolds</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3source"><span class="toc-text">④source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4themes"><span class="toc-text">⑤themes</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81hexo%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-text">3、hexo常用指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#init"><span class="toc-text">init</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#new"><span class="toc-text">new</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#generate"><span class="toc-text">generate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#publish"><span class="toc-text">publish</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#server"><span class="toc-text">server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#deploy"><span class="toc-text">deploy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#render"><span class="toc-text">render</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#migrate"><span class="toc-text">migrate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#clean"><span class="toc-text">clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#list"><span class="toc-text">list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#version"><span class="toc-text">version</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">安全模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F"><span class="toc-text">调试模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E6%B4%81%E6%A8%A1%E5%BC%8F"><span class="toc-text">简洁模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="toc-text">自定义配置文件的路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E8%8D%89%E7%A8%BF"><span class="toc-text">显示草稿</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-CWD"><span class="toc-text">自定义 CWD</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E4%BC%98%E5%8C%96"><span class="toc-text">三、主题个性化优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%AD%97%E4%BD%93"><span class="toc-text">设置字体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE%E4%B8%BB%E9%A2%98"><span class="toc-text">设置代码高亮主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%B0%8F%E5%9E%8B%E4%BB%A3%E7%A0%81%E5%9D%97%E9%A2%9C%E8%89%B2"><span class="toc-text">设置小型代码块颜色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E4%B8%8A%E8%A7%92%E6%88%96%E5%8F%B3%E4%B8%8A%E8%A7%92%E7%9A%84Github%E6%A0%B7%E5%BC%8F"><span class="toc-text">左上角或右上角的Github样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%83%8C%E6%99%AF%E5%8A%A8%E7%94%BB"><span class="toc-text">添加背景动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%A1%B6%E9%83%A8%E5%8A%A0%E8%BD%BD%E6%9D%A1"><span class="toc-text">添加顶部加载条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E5%87%BB%E5%87%BA%E7%8E%B0%E5%B0%8F%E7%88%B1%E5%BF%83%E6%95%88%E6%9E%9C"><span class="toc-text">点击出现小爱心效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0%E5%86%85%E9%93%BE%E6%8E%A5%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F"><span class="toc-text">修改文章内链接文本样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%BD%9C%E8%80%85%E5%A4%B4%E5%83%8F%E5%B9%B6%E6%97%8B%E8%BD%AC"><span class="toc-text">修改作者头像并旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E9%98%B4%E5%BD%B1%E6%95%88%E6%9E%9C"><span class="toc-text">文章添加阴影效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%BC%A0%E6%A0%87%E6%A0%B7%E5%BC%8F"><span class="toc-text">自定义鼠标样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A9Hexo%E6%94%AF%E6%8C%81%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">让Hexo支持流程图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85hexo%E6%8F%92%E4%BB%B6"><span class="toc-text">安装hexo插件</span></a></li></ol></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/Blog/">Blog</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.669Z'>2019-04-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>美化Blog</span></h1>
+<h1 id="摘要：这篇文章是紧接着上一篇文章的，介绍如何美化自己的blog。"><a href="#摘要：这篇文章是紧接着上一篇文章的，介绍如何美化自己的blog。" class="headerlink" title="摘要：这篇文章是紧接着上一篇文章的，介绍如何美化自己的blog。"></a>摘要：这篇文章是紧接着上一篇文章的，介绍如何美化自己的blog。</h1><hr>
+<h1 id="前言：上一篇文章我们已经学会了如何使用Github-Pages和Hexo搭建自己的博客，但是博客并不好看，那怎么办的？这很简单，要知道很多前端开发者在Hexo框架下开发了很多的主题给我们使用，我们只需要把他们的主题克隆过来，然后通过修改配置文件即可达到我们所需要的效果。"><a href="#前言：上一篇文章我们已经学会了如何使用Github-Pages和Hexo搭建自己的博客，但是博客并不好看，那怎么办的？这很简单，要知道很多前端开发者在Hexo框架下开发了很多的主题给我们使用，我们只需要把他们的主题克隆过来，然后通过修改配置文件即可达到我们所需要的效果。" class="headerlink" title="前言：上一篇文章我们已经学会了如何使用Github Pages和Hexo搭建自己的博客，但是博客并不好看，那怎么办的？这很简单，要知道很多前端开发者在Hexo框架下开发了很多的主题给我们使用，我们只需要把他们的主题克隆过来，然后通过修改配置文件即可达到我们所需要的效果。"></a>前言：上一篇文章我们已经学会了如何使用Github Pages和Hexo搭建自己的博客，但是博客并不好看，那怎么办的？这很简单，要知道很多前端开发者在Hexo框架下开发了很多的主题给我们使用，我们只需要把他们的主题克隆过来，然后通过修改配置文件即可达到我们所需要的效果。</h1><hr>
+<h2 id="一、克隆主题"><a href="#一、克隆主题" class="headerlink" title="一、克隆主题"></a>一、克隆主题</h2><h3 id="1、进入Hexo的官网主题专栏"><a href="#1、进入Hexo的官网主题专栏" class="headerlink" title="1、进入Hexo的官网主题专栏"></a>1、进入<a target="_blank" rel="noopener" href="https://hexo.io/themes/">Hexo的官网主题专栏</a></h3><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/2/1.png"></p>
+<h3 id="2、挑选我们喜欢的主题"><a href="#2、挑选我们喜欢的主题" class="headerlink" title="2、挑选我们喜欢的主题"></a>2、挑选我们喜欢的主题</h3><p>选择自己喜爱的主题，点击图片是查看预览，点击文字是跳转到主题的github地址去。<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/2/2.png"></p>
+<p>然后在Hexo文件夹下的themes目录下（例如：F:\Blog\hexo\themes），右键Git Bash，在命令行输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;iissnan&#x2F;hexo-theme-next  #此处地址替换成你需要使用的主题的地址</span><br></pre></td></tr></table></figure>
+<p>显示如下界面则表示，主题下载完成<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/2/3.png"></p>
+<h3 id="3、修改Hexo配置文件"><a href="#3、修改Hexo配置文件" class="headerlink" title="3、修改Hexo配置文件"></a>3、修改Hexo配置文件</h3><p>下载完成后，打开Hexo文件夹下的配置文件 <code>_config.yml</code></p>
+<p>修改参数：<code>theme: hexo-theme-next （这里为刚刚你下载的项目名称）</code></p>
+<h3 id="4、部署主题"><a href="#4、部署主题" class="headerlink" title="4、部署主题"></a>4、部署主题</h3><p>返回Hexo目录，右键Git Bash，输入如下代码，进行本地测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>打开浏览器，输入 <code>http://localhost:4000/</code> 即可看见我们的主题已经更换了。如果觉得效果满意，输入如下代码，将主题部署GitHub上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean   (必须要，不然有时因为缓存问题，服务器更新不了主题)</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>然后打开自己的主页，即可看到修改后的效果。</p>
+<h2 id="二、hexo配置说明"><a href="#二、hexo配置说明" class="headerlink" title="二、hexo配置说明"></a>二、hexo配置说明</h2><h3 id="1、hexo文件目录结构"><a href="#1、hexo文件目录结构" class="headerlink" title="1、hexo文件目录结构"></a>1、hexo文件目录结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|-- _config.yml</span><br><span class="line">|-- package.json</span><br><span class="line">|-- scaffolds</span><br><span class="line">|-- source</span><br><span class="line">   |-- _posts</span><br><span class="line">|-- themes</span><br><span class="line">|-- .gitignore</span><br><span class="line">|-- package.json</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、文件目录详情介绍"><a href="#2、文件目录详情介绍" class="headerlink" title="2、文件目录详情介绍"></a>2、文件目录详情介绍</h3><h4 id="①-config-yml"><a href="#①-config-yml" class="headerlink" title="①_config.yml"></a>①_config.yml</h4><p>全局配置文件，网站的很多信息都在这里配置，诸如网站名称，副标题，描述，作者，语言，主题，部署等等参数。</p>
+<p>_config.yml 采用YAML语法格式，具体语法参加下一篇文章 。</p>
+<p>具体配置可以参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">官方文档</a>，_config.yml 文件中的内容，并对主要参数做简单的介绍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;configuration.html</span><br><span class="line">## Source: https:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo&#x2F;</span><br><span class="line"></span><br><span class="line"># Site</span><br><span class="line">title: Hexo #网站标题</span><br><span class="line">subtitle:   #网站副标题</span><br><span class="line">description:  #网站描述</span><br><span class="line">author: John Doe  #作者</span><br><span class="line">language:    #语言</span><br><span class="line">timezone:    #网站时区。Hexo 默认使用您电脑的时区。时区列表。比如说：America&#x2F;New_York, Japan, 和 UTC 。</span><br><span class="line"></span><br><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &#39;http:&#x2F;&#x2F;yoursite.com&#x2F;child&#39; and root as &#39;&#x2F;child&#x2F;&#39;</span><br><span class="line">url: http:&#x2F;&#x2F;yoursite.com   #你的站点Url</span><br><span class="line">root: &#x2F;                       #站点的根目录</span><br><span class="line">permalink: :year&#x2F;:month&#x2F;:day&#x2F;:title&#x2F;   #文章的 永久链接 格式</span><br><span class="line">permalink_defaults:    #永久链接中各部分的默认值</span><br><span class="line"></span><br><span class="line"># Directory</span><br><span class="line">source_dir: source   #资源文件夹，这个文件夹用来存放内容</span><br><span class="line">public_dir: public     #公共文件夹，这个文件夹用于存放生成的站点文件。</span><br><span class="line">tag_dir: tags         # 标签文件夹</span><br><span class="line">archive_dir: archives    #归档文件夹</span><br><span class="line">category_dir: categories      #分类文件夹</span><br><span class="line">code_dir: downloads&#x2F;code     #Include code 文件夹</span><br><span class="line">i18n_dir: :lang                #国际化（i18n）文件夹</span><br><span class="line">skip_render:                #跳过指定文件的渲染，您可使用 glob 表达式来匹配路径。</span><br><span class="line"></span><br><span class="line"># Writing</span><br><span class="line">new_post_name: :title.md # 新文章的文件名称</span><br><span class="line">default_layout: post     #预设布局</span><br><span class="line">titlecase: false # 把标题转换为 title case</span><br><span class="line">external_link: true # 在新标签中打开链接</span><br><span class="line">filename_case: 0     #把文件名称转换为 (1) 小写或 (2) 大写</span><br><span class="line">render_drafts: false  #是否显示草稿</span><br><span class="line">post_asset_folder: false  #是否启动 Asset 文件夹</span><br><span class="line">relative_link: false      #把链接改为与根目录的相对位址</span><br><span class="line">future: true                #显示未来的文章</span><br><span class="line">highlight:                    #内容中代码块的设置</span><br><span class="line">  enable: true</span><br><span class="line">  line_number: true</span><br><span class="line">  auto_detect: false</span><br><span class="line">  tab_replace:</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag</span><br><span class="line">default_category: uncategorized</span><br><span class="line">category_map:          #分类别名</span><br><span class="line">tag_map:            #标签别名</span><br><span class="line"></span><br><span class="line"># Date &#x2F; Time format</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http:&#x2F;&#x2F;momentjs.com&#x2F;docs&#x2F;#&#x2F;displaying&#x2F;format&#x2F;</span><br><span class="line">date_format: YYYY-MM-DD         #日期格式</span><br><span class="line">time_format: HH:mm:ss        #时间格式</span><br><span class="line"></span><br><span class="line"># Pagination</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10    #分页数量</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">theme: landscape   #主题名称</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;deployment.html</span><br><span class="line">#  部署部分的设置</span><br><span class="line">deploy:</span><br><span class="line">  type:  #类型，常用的git</span><br><span class="line">  repository:  #地址</span><br><span class="line">  branch:  #没有改动分支，填写master</span><br></pre></td></tr></table></figure>
+
+<h4 id="②package-json"><a href="#②package-json" class="headerlink" title="②package.json"></a>②package.json</h4><p>hexo框架的参数和所依赖插件，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hexo-site&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;0.0.0&quot;,</span><br><span class="line">  &quot;private&quot;: true,</span><br><span class="line">  &quot;hexo&quot;: &#123;</span><br><span class="line">    &quot;version&quot;: &quot;3.8.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;^3.7.0&quot;,</span><br><span class="line">    &quot;hexo-deployer-git&quot;: &quot;^1.0.0&quot;,</span><br><span class="line">    &quot;hexo-generator-archive&quot;: &quot;^0.1.5&quot;,</span><br><span class="line">    &quot;hexo-generator-category&quot;: &quot;^0.1.3&quot;,</span><br><span class="line">    &quot;hexo-generator-index&quot;: &quot;^0.2.1&quot;,</span><br><span class="line">    &quot;hexo-generator-tag&quot;: &quot;^0.2.0&quot;,</span><br><span class="line">    &quot;hexo-renderer-ejs&quot;: &quot;^0.3.1&quot;,</span><br><span class="line">    &quot;hexo-renderer-marked&quot;: &quot;^0.3.2&quot;,</span><br><span class="line">    &quot;hexo-renderer-stylus&quot;: &quot;^0.3.3&quot;,</span><br><span class="line">    &quot;hexo-server&quot;: &quot;^0.3.1&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="③scaffolds"><a href="#③scaffolds" class="headerlink" title="③scaffolds"></a>③scaffolds</h4><p>scaffolds是“脚手架、骨架”的意思，当你新建一篇文章（hexo new ‘title’）的时候，hexo是根据这个目录下的文件进行构建的。例如下图：<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/2/4.png"></p>
+<h4 id="④source"><a href="#④source" class="headerlink" title="④source"></a>④source</h4><p>这个目录很重要，新建的文章都是在保存在这个目录下的。</p>
+<p>_posts 。需要新建的博文都放在 _posts 目录下。_posts 目录下是一个个 markdown 文件。</p>
+<p>_posts 目录下的md文件，会被编译成html文件，放到public文件夹下。</p>
+<h4 id="⑤themes"><a href="#⑤themes" class="headerlink" title="⑤themes"></a>⑤themes</h4><p>网站主题目录，hexo有非常好的主题拓展，支持的主题也很丰富。该目录下，每一个子目录就是一个主题，我的子目录如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">|-- landscape  &#x2F;&#x2F;默认主题</span><br><span class="line">|-- hexo-theme-next  &#x2F;&#x2F;第三方主题</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">hexo主题传送门</a></p>
+<h3 id="3、hexo常用指令"><a href="#3、hexo常用指令" class="headerlink" title="3、hexo常用指令"></a>3、hexo常用指令</h3><h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [folder]</span><br></pre></td></tr></table></figure>
+
+<p>新建一个网站。如果没有设置 folder ，Hexo 默认在目前的文件夹建立网站。</p>
+<h4 id="new"><a href="#new" class="headerlink" title="new"></a>new</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+<p>新建一篇文章。如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。</p>
+<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>生成静态文件。</p>
+<p>| 参数 | 描述 |<br>-|-|-|<br>| -d，–deploy | 文件生成后立即部署网站 |<br>| -w, –watch | 监视文件变动 |</p>
+<p>该命令可以简写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<h4 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发表草稿。</p>
+<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>启动服务器。默认情况下，访问网址为：<code>http://localhost:4000/</code>。</p>
+<p>| 参数 | 描述 |<br>-|-|-|<br>| -p, –port | 重设端口 |<br>| -s, –static | 只使用静态文件 |<br>| -l, –log | 启动日记记录，使用覆盖记录格式 |</p>
+<h4 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>部署网站。</p>
+<p>| 参数 | 描述 |<br>-|-|-|<br>| -g, –generate | 部署之前预先生成静态文件 |</p>
+<p>该命令可以简写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<h4 id="render"><a href="#render" class="headerlink" title="render"></a>render</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
+
+<p>渲染文件。</p>
+<p>| 参数 | 描述 |<br>-|-|-|<br>| -o, –output | 设置输出路径 |</p>
+<h4 id="migrate"><a href="#migrate" class="headerlink" title="migrate"></a>migrate</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo migrate &lt;type&gt;</span><br></pre></td></tr></table></figure>
+
+<p>从其他博客系统<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/migration">迁移内容</a>。</p>
+<h4 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+
+<p>清除缓存文件 (db.json) 和已生成的静态文件 (public)。</p>
+<p>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。</p>
+<h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo list &lt;type&gt;</span><br></pre></td></tr></table></figure>
+
+<p>列出网站资料。</p>
+<h4 id="version"><a href="#version" class="headerlink" title="version"></a>version</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<p>显示 Hexo 版本。</p>
+<h4 id="安全模式"><a href="#安全模式" class="headerlink" title="安全模式"></a>安全模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo --safe</span><br></pre></td></tr></table></figure>
+
+<p>在安全模式下，不会载入插件和脚本。当您在安装新插件遭遇问题时，可以尝试以安全模式重新执行。</p>
+<h4 id="调试模式"><a href="#调试模式" class="headerlink" title="调试模式"></a>调试模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo --debug</span><br></pre></td></tr></table></figure>
+
+<p>在终端中显示调试信息并记录到<code>debug.log</code>。当您碰到问题时，可以尝试用调试模式重新执行一次，并提交调试信息到GitHub。</p>
+<h4 id="简洁模式"><a href="#简洁模式" class="headerlink" title="简洁模式"></a>简洁模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo --silent</span><br></pre></td></tr></table></figure>
+
+<p>隐藏终端信息。</p>
+<h4 id="自定义配置文件的路径"><a href="#自定义配置文件的路径" class="headerlink" title="自定义配置文件的路径"></a>自定义配置文件的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo --config custom.yml</span><br></pre></td></tr></table></figure>
+
+<p>自定义配置文件的路径，执行后将不再使用<code>_config.yml</code>。</p>
+<h4 id="显示草稿"><a href="#显示草稿" class="headerlink" title="显示草稿"></a>显示草稿</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo --draft</span><br></pre></td></tr></table></figure>
+
+<p>显示 <code>source/_drafts 文件夹中的草稿文章</code>。</p>
+<h4 id="自定义-CWD"><a href="#自定义-CWD" class="headerlink" title="自定义 CWD"></a>自定义 CWD</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo --cwd &#x2F;path&#x2F;to&#x2F;cwd</span><br></pre></td></tr></table></figure>
+
+<p>自定义当前工作目录（Current working directory）的路径。</p>
+<h2 id="三、主题个性化优化"><a href="#三、主题个性化优化" class="headerlink" title="三、主题个性化优化"></a>三、主题个性化优化</h2><h3 id="设置字体"><a href="#设置字体" class="headerlink" title="设置字体"></a>设置字体</h3><p>在主题配置文件中设置，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">font:</span><br><span class="line">  enable: true</span><br><span class="line"></span><br><span class="line">  # 外链字体库地址，例如 &#x2F;&#x2F;fonts.googleapis.com (默认值)</span><br><span class="line">  host:</span><br><span class="line"></span><br><span class="line">  # 全局字体，应用在 body 元素上</span><br><span class="line">  global:</span><br><span class="line">    external: true</span><br><span class="line">    family: Monda</span><br><span class="line"></span><br><span class="line">  # 标题字体 (h1, h2, h3, h4, h5, h6)</span><br><span class="line">  headings:</span><br><span class="line">    external: true</span><br><span class="line">    family: Roboto Slab</span><br><span class="line"></span><br><span class="line">  # 文章字体</span><br><span class="line">  posts:</span><br><span class="line">    external: true</span><br><span class="line">    family:</span><br><span class="line"></span><br><span class="line">  # Logo 字体</span><br><span class="line">  logo:</span><br><span class="line">    external: true</span><br><span class="line">    family: Lobster Two</span><br><span class="line">    size: 24</span><br><span class="line"></span><br><span class="line">  # 代码字体，应用于 code 以及代码块</span><br><span class="line">  codes:</span><br><span class="line">    external: true</span><br><span class="line">    family: PT Mono</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置代码高亮主题"><a href="#设置代码高亮主题" class="headerlink" title="设置代码高亮主题"></a>设置代码高亮主题</h3><p>NexT 默认使用的是<code>normal主题</code>，可选的值有<code>normal，night，night blue，night bright，night eighties</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Code Highlight theme</span><br><span class="line"># Available value:</span><br><span class="line">#    normal | night | night eighties | night blue | night bright</span><br><span class="line"># https:&#x2F;&#x2F;github.com&#x2F;chriskempson&#x2F;tomorrow-theme</span><br><span class="line">highlight_theme: normal</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置小型代码块颜色"><a href="#设置小型代码块颜色" class="headerlink" title="设置小型代码块颜色"></a>设置小型代码块颜色</h3><p>修改<code>\themes\next\source\css\_variables\base.styl</code>文件，修改<code>$code-background</code>和<code>$code-foreground</code>的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Code &amp; Code Blocks</span><br><span class="line">&#x2F;&#x2F; --------------------------------------------------</span><br><span class="line">$code-font-family               &#x3D; $font-family-monospace</span><br><span class="line">$code-font-size                 &#x3D; 13px</span><br><span class="line">$code-font-size                 &#x3D; unit(hexo-config(&#39;font.codes.size&#39;), px) if hexo-config(&#39;font.codes.size&#39;) is a &#39;unit&#39;</span><br><span class="line">$code-border-radius             &#x3D; 3px</span><br><span class="line">$code-foreground                &#x3D; $black-light</span><br><span class="line">$code-background                &#x3D; $gainsboro</span><br></pre></td></tr></table></figure>
+
+<h3 id="左上角或右上角的Github样式"><a href="#左上角或右上角的Github样式" class="headerlink" title="左上角或右上角的Github样式"></a>左上角或右上角的Github样式</h3><p>具体实现方式有两种：<br>便是到<a target="_blank" rel="noopener" href="http://tholman.com/github-corners/">样式1</a>或者<a target="_blank" rel="noopener" href="https://github.blog/2008-12-19-github-ribbons/">样式2</a>的网站中选择你喜欢的样式，复制其中的代码到<code>themes/next/layout/_layout.swig</code>文件中(放在<code>&lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;</code>的下面)，<code>并把href改为你的github地址</code>。</p>
+<h3 id="添加背景动画"><a href="#添加背景动画" class="headerlink" title="添加背景动画"></a>添加背景动画</h3><p>NexT已经自带了多种背景动画效果，你只需要根据需求在主题配置文件修改其中一个为true即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Canvas-nest</span><br><span class="line">canvas_nest: false</span><br><span class="line"></span><br><span class="line"># three_waves</span><br><span class="line">three_waves: false</span><br><span class="line"></span><br><span class="line"># canvas_lines</span><br><span class="line">canvas_lines: false</span><br><span class="line"></span><br><span class="line"># canvas_sphere</span><br><span class="line">canvas_sphere: false</span><br><span class="line"></span><br><span class="line"># Only fit scheme Pisces</span><br><span class="line"># Canvas-ribbon</span><br><span class="line">canvas_ribbon: false</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加顶部加载条"><a href="#添加顶部加载条" class="headerlink" title="添加顶部加载条"></a>添加顶部加载条</h3><p>在主题配置文件中搜索pace：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># Progress bar in the top during page loading. 加载条</span><br><span class="line">pace: true</span><br><span class="line"># Themes list:</span><br><span class="line">#pace-theme-big-counter</span><br><span class="line">#pace-theme-bounce</span><br><span class="line">#pace-theme-barber-shop</span><br><span class="line">#pace-theme-center-atom</span><br><span class="line">#pace-theme-center-circle</span><br><span class="line">#pace-theme-center-radar</span><br><span class="line">#pace-theme-center-simple</span><br><span class="line">#pace-theme-corner-indicator</span><br><span class="line">#pace-theme-fill-left</span><br><span class="line">#pace-theme-flash</span><br><span class="line">#pace-theme-loading-bar</span><br><span class="line">#pace-theme-mac-osx</span><br><span class="line">#pace-theme-minimal</span><br><span class="line"># For example</span><br><span class="line"># pace_theme: pace-theme-center-simple</span><br><span class="line">pace_theme: pace-theme-minimal</span><br></pre></td></tr></table></figure>
+
+<p>这里有多种主题选择，根据自己喜好选择主题修改便可。</p>
+<h3 id="点击出现小爱心效果"><a href="#点击出现小爱心效果" class="headerlink" title="点击出现小爱心效果"></a>点击出现小爱心效果</h3><p>在<code>/themes/next/source/js/src</code>下新建文件<code>love.js</code>，接着把该链接下的代码拷贝粘贴到<code>love.js</code>文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!function(e,t,a)&#123;function n()&#123;c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &#39;&#39;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;),o(),r()&#125;function r()&#123;for(var e&#x3D;0;e&lt;d.length;e++)d[e].alpha&lt;&#x3D;0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+&#x3D;.004,d[e].alpha-&#x3D;.013,d[e].el.style.cssText&#x3D;&quot;left:&quot;+d[e].x+&quot;px;top:&quot;+d[e].y+&quot;px;opacity:&quot;+d[e].alpha+&quot;;transform:scale(&quot;+d[e].scale+&quot;,&quot;+d[e].scale+&quot;) rotate(45deg);background:&quot;+d[e].color+&quot;;z-index:99999&quot;);requestAnimationFrame(r)&#125;function o()&#123;var t&#x3D;&quot;function&quot;&#x3D;&#x3D;typeof e.onclick&amp;&amp;e.onclick;e.onclick&#x3D;function(e)&#123;t&amp;&amp;t(),i(e)&#125;&#125;function i(e)&#123;var a&#x3D;t.createElement(&quot;div&quot;);a.className&#x3D;&quot;heart&quot;,d.push(&#123;el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()&#125;),t.body.appendChild(a)&#125;function c(e)&#123;var a&#x3D;t.createElement(&quot;style&quot;);a.type&#x3D;&quot;text&#x2F;css&quot;;try&#123;a.appendChild(t.createTextNode(e))&#125;catch(t)&#123;a.styleSheet.cssText&#x3D;e&#125;t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a)&#125;function s()&#123;return&quot;rgb(&quot;+~~(255*Math.random())+&quot;,&quot;+~~(255*Math.random())+&quot;,&quot;+~~(255*Math.random())+&quot;)&quot;&#125;var d&#x3D;[];e.requestAnimationFrame&#x3D;function()&#123;return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e)&#123;setTimeout(e,1e3&#x2F;60)&#125;&#125;(),n()&#125;(window,document);</span><br></pre></td></tr></table></figure>
+
+<p>在<code>\themes\next\layout\index.*</code>文件末尾添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 页面点击小红心 --&gt;</span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot; src&#x3D;&quot;&#x2F;js&#x2F;src&#x2F;love.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改文章内链接文本样式"><a href="#修改文章内链接文本样式" class="headerlink" title="修改文章内链接文本样式"></a>修改文章内链接文本样式</h3><p>修改文件 <code>themes\next\source\css\_common\components\post\post.styl</code>，在末尾添加如下css样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 文章内链接文本样式</span><br><span class="line">.post-body p a&#123;</span><br><span class="line">  color: #0593d3;</span><br><span class="line">  border-bottom: none;</span><br><span class="line">  border-bottom: 1px solid #0593d3;</span><br><span class="line">  &amp;:hover &#123;</span><br><span class="line">    color: #fc6423;</span><br><span class="line">    border-bottom: none;</span><br><span class="line">    border-bottom: 1px solid #fc6423;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改作者头像并旋转"><a href="#修改作者头像并旋转" class="headerlink" title="修改作者头像并旋转"></a>修改作者头像并旋转</h3><p>打开<code>\themes\next\source\css\_common\components\sidebar\sidebar-author.styl</code>，在里面添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">.site-author-image &#123;</span><br><span class="line">  display: block;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">  padding: $site-author-image-padding;</span><br><span class="line">  max-width: $site-author-image-width;</span><br><span class="line">  height: $site-author-image-height;</span><br><span class="line">  border: $site-author-image-border-width solid $site-author-image-border-color;</span><br><span class="line">  &#x2F;* 头像圆形 *&#x2F;</span><br><span class="line">  border-radius: 80px;</span><br><span class="line">  -webkit-border-radius: 80px;</span><br><span class="line">  -moz-border-radius: 80px;</span><br><span class="line">  box-shadow: inset 0 -1px 0 #333sf;</span><br><span class="line">  &#x2F;* 设置循环动画 [animation: (play)动画名称 (2s)动画播放时长单位秒或微秒 (ase-out)动画播放的速度曲线为以低速结束</span><br><span class="line">    (1s)等待1秒然后开始动画 (1)动画播放次数(infinite为循环播放) ]*&#x2F;</span><br><span class="line"></span><br><span class="line">  &#x2F;* 鼠标经过头像旋转360度 *&#x2F;</span><br><span class="line">  -webkit-transition: -webkit-transform 1.0s ease-out;</span><br><span class="line">  -moz-transition: -moz-transform 1.0s ease-out;</span><br><span class="line">  transition: transform 1.0s ease-out;</span><br><span class="line">&#125;</span><br><span class="line">img:hover &#123;</span><br><span class="line">  &#x2F;* 鼠标经过停止头像旋转</span><br><span class="line">  -webkit-animation-play-state:paused;</span><br><span class="line">  animation-play-state:paused;*&#x2F;</span><br><span class="line">  &#x2F;* 鼠标经过头像旋转360度 *&#x2F;</span><br><span class="line">  -webkit-transform: rotateZ(360deg);</span><br><span class="line">  -moz-transform: rotateZ(360deg);</span><br><span class="line">  transform: rotateZ(360deg);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;* Z 轴旋转动画 *&#x2F;</span><br><span class="line">@-webkit-keyframes play &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    -webkit-transform: rotateZ(0deg);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    -webkit-transform: rotateZ(-360deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@-moz-keyframes play &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    -moz-transform: rotateZ(0deg);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    -moz-transform: rotateZ(-360deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes play &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    transform: rotateZ(0deg);</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    transform: rotateZ(-360deg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="文章添加阴影效果"><a href="#文章添加阴影效果" class="headerlink" title="文章添加阴影效果"></a>文章添加阴影效果</h3><p>打开<code>\themes\next\source\css\_custom\custom.styl</code>,向里面加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 主页文章添加阴影效果</span><br><span class="line"> .post &#123;</span><br><span class="line">   margin-top: 60px;</span><br><span class="line">   margin-bottom: 60px;</span><br><span class="line">   padding: 25px;</span><br><span class="line">   -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);</span><br><span class="line">   -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义鼠标样式"><a href="#自定义鼠标样式" class="headerlink" title="自定义鼠标样式"></a>自定义鼠标样式</h3><p>打开<code>themes/next/source/css/_custom/custom.styl</code>，添加代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 鼠标样式</span><br><span class="line">  * &#123;</span><br><span class="line">      cursor: url(&quot;http:&#x2F;&#x2F;om8u46rmb.bkt.clouddn.com&#x2F;sword2.ico&quot;),auto!important</span><br><span class="line">  &#125;</span><br><span class="line">  :active &#123;</span><br><span class="line">      cursor: url(&quot;http:&#x2F;&#x2F;om8u46rmb.bkt.clouddn.com&#x2F;sword1.ico&quot;),auto!important</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>url</code>里面必须是<code>ico图片</code>，ico图片可以上传到网上（推荐七牛云图床），然后获取外链，复制到url里就行了。</p>
+<h3 id="让Hexo支持流程图"><a href="#让Hexo支持流程图" class="headerlink" title="让Hexo支持流程图"></a>让Hexo支持流程图</h3><p>让Hexo支持Markdown的流程图是一个很酷的想法，所幸不是只有我想到这个问题，人家早已解决，所以我们只需要利用前人的轮子即可。</p>
+<h4 id="安装hexo插件"><a href="#安装hexo插件" class="headerlink" title="安装hexo插件"></a>安装hexo插件</h4><p>命令为npm install –save hexo-filter-flowchart，插件地址，</p>
+<p><strong>配置：</strong></p>
+<p>在hexo的_config.yml文件中配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flowchart:</span><br><span class="line">  # raphael:   # optional, the source url of raphael.js</span><br><span class="line">  # flowchart: # optional, the source url of flowchart.js</span><br><span class="line">  options: # options used for &#96;drawSVG&#96;</span><br></pre></td></tr></table></figure>
+
+
+<p>代码实例：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/2/5.png"></p>
+<p>效果如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/2/6.png"></p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88JAVA%E7%89%88%EF%BC%89/">算法竞赛知识点总结（JAVA版）</a></div><div class="post-title fs14"><a href="/2019/04/07/%E8%87%AA%E7%94%A8%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/">or prev: 自用插件汇总</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

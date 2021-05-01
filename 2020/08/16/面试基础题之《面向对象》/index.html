@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>面试基础题之《面向对象》 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。 前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。 抽象类和接口抽象方法在了解抽象类之前，先来了解一下抽象方法。抽象方法是一种特殊的方法：它只有声明，而没有具体的实现。抽象方法的声">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试基础题之《面向对象》">
+<meta property="og:url" content="http://example.com/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。 前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。 抽象类和接口抽象方法在了解抽象类之前，先来了解一下抽象方法。抽象方法是一种特殊的方法：它只有声明，而没有具体的实现。抽象方法的声">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-16T09:46:55.312Z">
+<meta property="article:modified_time" content="2020-08-16T09:42:38.990Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3"><span class="toc-text">抽象类和接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="toc-text">抽象方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">抽象类和接口的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7%EF%BC%9A%E6%8A%BD%E8%B1%A1%E3%80%81%E5%B0%81%E8%A3%85%E3%80%81%E7%BB%A7%E6%89%BF%E3%80%81%E5%A4%9A%E6%80%81"><span class="toc-text">面向对象的四大特性：抽象、封装、继承、多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1"><span class="toc-text">抽象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-text">封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-text">多态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%97%B6%E5%88%BB"><span class="toc-text">问题时刻</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2020-08-16T09:46:55.312Z'>2020-08-16</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>面试基础题之《面向对象》</span></h1>
+<h1 id="摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。"><a href="#摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。" class="headerlink" title="摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。"></a>摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。</h1><hr>
+<h1 id="前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。"><a href="#前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。" class="headerlink" title="前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。"></a>前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。</h1><hr>
+<h2 id="抽象类和接口"><a href="#抽象类和接口" class="headerlink" title="抽象类和接口"></a>抽象类和接口</h2><h3 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h3><p>在了解抽象类之前，先来了解一下抽象方法。抽象方法是一种特殊的方法：它只有声明，而没有具体的实现。抽象方法的声明格式为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>抽象方法必须使用abstract关键字进行修饰。</p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>如果一个类含有抽象方法，则称这个类为抽象类，抽象类必须在类前用abstract关键字修饰。因为抽象类中无具体实现的方法，所以不能用抽象类创建对象。</p>
+<p>在《JAVA编程思想》一书中，将抽象类定义为 <strong>“包含抽象方法的类”</strong> ，但是如果一个类不包含抽象方法，只是用abstract修饰的话也是抽象类。也就是说抽象类不一定必须含有抽象方法。例如下面的两个类，都是抽象类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String st)</span> </span>&#123;</span><br><span class="line">        System.out.println(st);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String st)</span> </span>&#123;</span><br><span class="line">        System.out.println(st);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<p>包含抽象方法的类称为抽象类(但是抽象类不一定要拥有抽象方法)，但并不意味着抽象类中只能有抽象方法，它和普通类一样，同样可以拥有成员变量和普通的成员方法。注意，抽象类和普通类的主要有三点区别：</p>
+<ol>
+<li>抽象方法必须为public或者protected（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public。</li>
+<li>抽象类不能用来创建对象；</li>
+<li>如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。</li>
+</ol>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>接口中可以含有变量和方法。</p>
+<ul>
+<li><p>接口中的变量会被隐式地指定为 public static final 变量（并且只能是 public static final变量，用 private 修饰会报编译错误）。</p>
+</li>
+<li><p>方法会被隐式地指定为 public abstract 方法且只能是 public abstract 方法（用其他关键字，比如 private、protected、static、 final 等修饰会报编译错误），并且接口中所有的方法不能有具体的实现（Java8以后，接口中可以提供方法的默认实现），也就是说，接口中的方法必须都是抽象方法。</p>
+</li>
+</ul>
+<p>从这里可以隐约看出接口和抽象类的区别，接口是一种极度抽象的类型，它比抽象类更加”抽象”，并且一般情况下不在接口中定义变量。在 Java 中，定一个接口如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InterfaceTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象类和接口的区别"><a href="#抽象类和接口的区别" class="headerlink" title="抽象类和接口的区别"></a>抽象类和接口的区别</h3><p>1、语法层面上的区别</p>
+<ul>
+<li>抽象类可以提供成员方法的实现细节，而接口中只能存在public abstract方法；</li>
+<li>抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是public static final类型的；</li>
+<li>接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；</li>
+<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
+</ul>
+<p>2、设计层面上的区别</p>
+<p>抽象类是对一种事物的抽象，即对类抽象，而接口是对行为的抽象。抽象类是对整个类整体进行抽象，包括属性、行为，但是接口却是对类局部（行为）进行抽象。也就是说接口中的方法，必须是这一类事物共有的特征，不能拥有属于自己的个性特征。但是抽象类拥有这一类事物共有的特征，并且还拥有自己特有的属性、方法。举个例子：动物共有的特征：交流、进食。但是每种动物又有用自己的特征，比如鸟会飞、鱼会游泳、壁虎会爬。所以如果以动物维度进行接口设计的话，则这里只能吧交流、进食等所有动物都 <strong>共有</strong> 的特征设计成接口中的方法，如果是某一类动物特有的特征，则只能设计成 <strong>更小的接口</strong> 或者 <strong>抽象方法</strong>;</p>
+<h2 id="面向对象的四大特性：抽象、封装、继承、多态"><a href="#面向对象的四大特性：抽象、封装、继承、多态" class="headerlink" title="面向对象的四大特性：抽象、封装、继承、多态"></a>面向对象的四大特性：抽象、封装、继承、多态</h2><h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>抽象是将一类对象的共同特征总结出来构造类的过程，包括数据抽象和行为抽象两方面。抽象只关注对象有哪些属性和行为，并不关注这些行为的细节是什么。</p>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>通常认为封装是把<strong>数据</strong>和<strong>操作数据的方法</strong>绑定起来，对数据的访问<strong>只能通过已定义的接口</strong>。面向对象的本质就是将现实世界描绘成一系列完全自治、封闭的对象。我们在类中编写的方法就是对实现细节的一种封装；我们编写一个类就是对数据和数据操作的封装。可以说，封装就是<strong>隐藏一切可隐藏的东西</strong>，只向外界<strong>提供最简单的编程接口</strong>。</p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承是<strong>从已有类得到继承信息创建新类的过程</strong>。提供继承信息的类被称为 <strong>父类（超类、基类）</strong>；得到继承信息的类被称为 <strong>子类（派生类）</strong>。继承让变化中的软件系统有了一定的延续性，同时继承也是封装程序中可变因素的重要手段（桥梁模式）。</p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>多态性是指允许<strong>不同类型的对象对同一消息作出不同的响应</strong>。简单的说就是用同样的对象引用调用同样的方法但是做了不同的事情。多态性分为<strong>编译时的多态性</strong>和<strong>运行时的多态性</strong>。如果将对象的方法视为对象向外界提供的服务，那么运行时的多态性可以解释为：当A系统访问B系统提供的服务时，B系统有多种提供服务的方式，但一切对A系统来说都是透明的（就像电动剃须刀是A系统，它的供电系统是B系统，B系统可以使用电池供电或者用交流电，甚至还有可能是太阳能，A系统只会通过B类对象调用供电的方法，但并不知道供电系统的底层实现是什么，究竟通过何种方式获得了动力）。 <strong>方法重载（overload）</strong> 实现的是 <strong>编译时的多态性</strong>（也称为前绑定），而 <strong>方法重写（override）</strong> 实现的是 <strong>运行时的多态性</strong>（也称为后绑定）。运行时的多态是面向对象最精髓的东西，要实现多态需要做两件事：</p>
+<ol>
+<li>方法重写（子类继承父类并重写父类中已有的或抽象的方法）。</li>
+<li>对象造型（用父类型引用子类型对象，这样同样的引用调用同样的方法就会根据子类对象的不同而表现出不同的行为）。</li>
+</ol>
+<p>总结：</p>
+<ol>
+<li><p>在同一个方法中，这种由于参数类型不同而导致执行效果各异的现象就是多态。</p>
+</li>
+<li><p>Java实现多态有三个必要条件：继承、重写、向上转型。</p>
+<ul>
+<li><strong>继承</strong>：在多态中必须存在有继承关系的子类和父类。</li>
+<li><strong>重写</strong>：子类对父类中某些方法进行重新定义，在调用这些方法时就会调用子类的方法。</li>
+<li><strong>向上转型</strong>：在多态中需要将子类的引用赋给父类对象，只有这样该引用才能够具备技能调用父类的方法和子类的方法。</li>
+</ul>
+</li>
+<li><p>指向子类的父类引用由于向上转型了，<strong>它只能访问父类中拥有的方法和属性</strong>，而对于<strong>子类中存在而父类中不存在的方法，该引用是不能使用的</strong>，尽管是重载该方法。<strong>若子类重写了父类中的某些方法</strong>，在调用该些方法的时候，<strong>必定是使用子类中定义的这些方法（动态连接、动态调用）</strong>。</p>
+</li>
+<li><p>instanceof可以判断一个对象是否为某个类（或接口）的实例或者子类实例。<br>语法格式：对象（或者对象引用变量） instanceof 类（或接口）</p>
+</li>
+<li><p>JAVA运行过程：编译，类的加载，类的执行。</p>
+</li>
+<li><p>多态机制遵循的原则概括为：当超类对象引用子类对象时，被引用对象的类型而不是引用变量的类型决定了调用谁的成员方法，但是这个被调用的方法必须是在超类中定义过的，也就是说被子类覆盖的方法，但是它仍然要根据继承链中方法调用的优先级来确认方法，该优先级为：<strong>this.show(O)、super.show(O)、this.show((super)O)、super.show((super)O)。</strong></p>
+</li>
+<li><p>只有方法具有多态性，变量不具有多态性。</p>
+</li>
+</ol>
+<p><strong>以上概念，可以参考下面的代码，进行理解</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s = <span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(D obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;A and D&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(A obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;A and A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s = <span class="number">110</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(B obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;B and B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(A obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;B and A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">extends</span> <span class="title">B</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword">extends</span> <span class="title">B</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Temp</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A a1 = <span class="keyword">new</span> A();</span><br><span class="line">        A a2 = <span class="keyword">new</span> B();</span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        C c = <span class="keyword">new</span> C();</span><br><span class="line">        D d = <span class="keyword">new</span> D();</span><br><span class="line">        System.out.println(<span class="string">&quot;1--&quot;</span> + a1.show(b));</span><br><span class="line">        System.out.println(<span class="string">&quot;2--&quot;</span> + a1.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;3--&quot;</span> + a1.show(d));</span><br><span class="line">        System.out.println(<span class="string">&quot;4--&quot;</span> + a2.show(b) + <span class="string">&quot; &quot;</span> + a2.s);</span><br><span class="line">        System.out.println(<span class="string">&quot;5--&quot;</span> + a2.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;6--&quot;</span> + a2.show(d));</span><br><span class="line">        System.out.println(<span class="string">&quot;7--&quot;</span> + b.show(b));</span><br><span class="line">        System.out.println(<span class="string">&quot;8--&quot;</span> + b.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;9--&quot;</span> + b.show(d));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line"><span class="number">1</span>--A and A</span><br><span class="line"><span class="number">2</span>--A and A</span><br><span class="line"><span class="number">3</span>--A and D</span><br><span class="line"><span class="number">4</span>--B and A <span class="number">10</span></span><br><span class="line"><span class="number">5</span>--B and A</span><br><span class="line"><span class="number">6</span>--A and D</span><br><span class="line"><span class="number">7</span>--B and B</span><br><span class="line"><span class="number">8</span>--B and B</span><br><span class="line"><span class="number">9</span>--A and D</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="问题时刻"><a href="#问题时刻" class="headerlink" title="问题时刻"></a>问题时刻</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashMap map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        Father father = <span class="keyword">new</span> Son();</span><br><span class="line">        father.show(map);</span><br><span class="line">        Son son = <span class="keyword">new</span> Son();</span><br><span class="line">        son.show(map);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 父类.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(Map map)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Father执行......&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 子类.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(HashMap map)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Son执行......&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请给出上面代码的运行结果，并思考上面代码存在的问题。</p>
+<p>答：<br>运行结果为：<br>Father执行……<br>Son执行……</p>
+<p>存在的问题：Son类实际上是重载了show方法，而不是重写。Son类没有遵循里氏替换原则。</p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/">面试题目总结</a></div><div class="post-title fs14"><a href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/">or prev: 乌班图安装Tools等教程</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>linux深入浅出 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：本文主要是对linux的一些知识点进行总结。 前言：主要是对linux的一些知识点进行总结。 linux基础篇虚拟机的网络连接三种形式的说明 Bridged（桥接模式）桥接模式是通过虚拟网桥将主机的网卡与虚拟机的Vmnet0连接在一起，虚拟机即可通过VMnet0连接到主机的网卡进而进行网络的访问，所以桥接模式的虚拟机的IP地址需要和主机的IP地址在同一个网段，并且子网掩码，网关，与DNS也需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux深入浅出">
+<meta property="og:url" content="http://example.com/2019/09/19/linux%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：本文主要是对linux的一些知识点进行总结。 前言：主要是对linux的一些知识点进行总结。 linux基础篇虚拟机的网络连接三种形式的说明 Bridged（桥接模式）桥接模式是通过虚拟网桥将主机的网卡与虚拟机的Vmnet0连接在一起，虚拟机即可通过VMnet0连接到主机的网卡进而进行网络的访问，所以桥接模式的虚拟机的IP地址需要和主机的IP地址在同一个网段，并且子网掩码，网关，与DNS也需">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/18/1.png">
+<meta property="og:image" content="http://example.com/blog/18/2.png">
+<meta property="og:image" content="http://example.com/blog/18/3.png">
+<meta property="og:image" content="http://example.com/blog/18/4.jpg">
+<meta property="article:published_time" content="2019-09-19T12:00:14.753Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.357Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/18/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux%E5%9F%BA%E7%A1%80%E7%AF%87"><span class="toc-text">linux基础篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E4%B8%89%E7%A7%8D%E5%BD%A2%E5%BC%8F%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="toc-text">虚拟机的网络连接三种形式的说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E4%BF%AE%E6%94%B9"><span class="toc-text">源修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">linux的目录结构</span></a></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/linux/">linux</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-09-19T12:00:14.753Z'>2019-09-19</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>linux深入浅出</span></h1>
+<h1 id="摘要：本文主要是对linux的一些知识点进行总结。"><a href="#摘要：本文主要是对linux的一些知识点进行总结。" class="headerlink" title="摘要：本文主要是对linux的一些知识点进行总结。"></a>摘要：本文主要是对linux的一些知识点进行总结。</h1><hr>
+<h1 id="前言：主要是对linux的一些知识点进行总结。"><a href="#前言：主要是对linux的一些知识点进行总结。" class="headerlink" title="前言：主要是对linux的一些知识点进行总结。"></a>前言：主要是对linux的一些知识点进行总结。</h1><hr>
+<h2 id="linux基础篇"><a href="#linux基础篇" class="headerlink" title="linux基础篇"></a>linux基础篇</h2><h3 id="虚拟机的网络连接三种形式的说明"><a href="#虚拟机的网络连接三种形式的说明" class="headerlink" title="虚拟机的网络连接三种形式的说明"></a>虚拟机的网络连接三种形式的说明</h3><ul>
+<li><p>Bridged（桥接模式）<br>桥接模式是通过虚拟网桥将主机的网卡与虚拟机的Vmnet0连接在一起，虚拟机即可通过VMnet0连接到主机的网卡进而进行网络的访问，所以桥接模式的虚拟机的IP地址需要和主机的IP地址在同一个网段，并且子网掩码，网关，与DNS也需要和主机的一致才可以。也就是说桥接的方式是虚拟机通过vmnet0这块虚拟网卡来和主机上面的网卡进行连接，进而进行通信的。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/18/1.png" alt="桥接模式"></p>
+</li>
+<li><p>NAT地址转换模式<br>在Nat模式上面主机网卡直接和虚拟NAT相连，NAT与DHCP一同连接到Vmnet8上面，这样就实现了虚拟联网。也就是说我们在用NAT进行联网的时候，采用的是Vmnet8这块网卡。NAT模式可以手动编辑虚拟机的静态IP，不要求和主机的IP地址在同一个网段。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/18/2.png" alt="NAT地址转换模式"></p>
+</li>
+<li><p>仅主机模式<br>HostOnly模式通过主机的VMware NetWork  Adapter Vmnet1来连接虚拟机的VMnet1，这样做使得虚拟机只能够和主机进行通信，而不能够上网。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/18/3.png" alt="仅主机模式"></p>
+</li>
+<li><p>总结：桥接方式可以进行连接互联网，使用的是VMnet0，IP地址需要和主机的IP地址在同一个网段当中。NAT模式也可以进行连接互联网，IP地址可以自己定义，不过要在许可的范围内。仅主机模式使用的是VMnet1，只能够和主机进行通信，不能够连接网络。</p>
+</li>
+</ul>
+<h3 id="源修改"><a href="#源修改" class="headerlink" title="源修改"></a>源修改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">查看现在有哪些源</span><br><span class="line">yum repolist</span><br><span class="line"></span><br><span class="line">下载阿里yum源到&#x2F;etc&#x2F;yum.repos.d</span><br><span class="line">cd &#x2F;etc&#x2F;yum.repos.d</span><br><span class="line">sudo wget -nc http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo</span><br><span class="line"></span><br><span class="line">清除yum机制的本地缓存</span><br><span class="line">sudo yum clean all</span><br><span class="line">sudo yum makecache</span><br><span class="line">sudo yum  list</span><br><span class="line">sudo yum -y update</span><br></pre></td></tr></table></figure>
+
+<h3 id="linux的目录结构"><a href="#linux的目录结构" class="headerlink" title="linux的目录结构"></a>linux的目录结构</h3><ul>
+<li>linux的目录中有且只有一个根目录。</li>
+<li>linux系统中，一切皆为文件。</li>
+</ul>
+<p>  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/18/4.jpg" alt="linux的目录结构"></p>
+<p>以下是对这些目录的解释：</p>
+<ul>
+<li><p>系统启动必须：</p>
+<ul>
+<li>/boot：这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</li>
+<li>/etc：这个目录用来存放所有的系统管理所需要的配置文件和子目录，更改目录下的文件可能会导致系统不能启动。</li>
+<li>/lib：这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库。</li>
+<li>/sys：这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。<ul>
+<li>sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。</li>
+<li>该文件系统是内核设备树的一个直观反映。</li>
+<li>当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>指令集合：</p>
+<ul>
+<li>/bin：bin是Binary的缩写, 这个目录存放着最经常使用的命令。</li>
+<li>/sbin：s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</li>
+</ul>
+</li>
+<li><p>外部文件管理：</p>
+<ul>
+<li>/dev ：dev是Device(设备)的缩写, 该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。</li>
+<li>/media：linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</li>
+<li>/mnt：系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。</li>
+</ul>
+</li>
+<li><p>临时文件：</p>
+<ul>
+<li>/run：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run。</li>
+<li>/lost+found：这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</li>
+<li>/tmp：这个目录是用来存放一些临时文件的。</li>
+</ul>
+</li>
+<li><p>账户：</p>
+<ul>
+<li>/root：该目录为系统管理员，也称作超级权限者的用户主目录。</li>
+<li>/home：用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</li>
+<li>/usr：这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</li>
+<li>/usr/bin：系统用户使用的应用程序与指令。</li>
+<li>/usr/sbin：超级用户使用的比较高级的管理程序和系统守护程序。</li>
+<li>/usr/src：内核源代码默认的放置目录。</li>
+</ul>
+</li>
+<li><p>运行过程中要用：</p>
+<ul>
+<li><p>/var：这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件（/var/log 目录下）。</p>
+</li>
+<li><p>/proc：这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;icmp_echo_ignore_all</span><br></pre></td></tr></table></figure></li>
+<li><p>/selinux：这个目录是Redhat/CentOS所特有的目录，Selinux是一个安全机制，类似于windows的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</p>
+</li>
+</ul>
+</li>
+<li><p>扩展用的：</p>
+<ul>
+<li>/opt：这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</li>
+<li>/srv：该目录存放一些服务启动之后需要提取的数据。</li>
+</ul>
+</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/09/16/%E5%BD%A9%E7%AC%94%E7%9A%84%E4%B8%80%E5%A4%A9%E4%B9%8B%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">彩笔的一天之面试总结</a></div><div class="post-title fs14"><a href="/2019/09/24/GRPC%E7%AC%94%E8%AE%B0/">or prev: GRPC学习笔记</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

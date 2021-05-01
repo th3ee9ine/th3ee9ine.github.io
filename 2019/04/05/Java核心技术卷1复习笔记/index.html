@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Java核心技术卷1复习笔记 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：本章文章是把自己之前看Java核心技术卷1时，遗忘或者漏掉的内容重新归纳总结 前言：这两天我把Java核心技术卷1这本书重新复习了一遍，查缺补漏，把内容重新归纳总结一遍。 一、对象与类 一定要认识到：一个对象变量并没有实际包含一个对象，而是仅仅引用一个对象。任何对象变量的值都是对存储在另一个地方的一个对象的引用。  所有的java对象都存储在堆中。  在java中，必须使用clone方法获得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术卷1复习笔记">
+<meta property="og:url" content="http://example.com/2019/04/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B71%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：本章文章是把自己之前看Java核心技术卷1时，遗忘或者漏掉的内容重新归纳总结 前言：这两天我把Java核心技术卷1这本书重新复习了一遍，查缺补漏，把内容重新归纳总结一遍。 一、对象与类 一定要认识到：一个对象变量并没有实际包含一个对象，而是仅仅引用一个对象。任何对象变量的值都是对存储在另一个地方的一个对象的引用。  所有的java对象都存储在堆中。  在java中，必须使用clone方法获得">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/7/1.png">
+<meta property="og:image" content="http://example.com/blog/7/2.png">
+<meta property="og:image" content="http://example.com/blog/7/3.png">
+<meta property="og:image" content="http://example.com/blog/7/4.png">
+<meta property="og:image" content="http://example.com/blog/7/5.png">
+<meta property="og:image" content="http://example.com/blog/7/6.png">
+<meta property="og:image" content="http://example.com/blog/7/7.png">
+<meta property="og:image" content="http://example.com/blog/7/8.png">
+<meta property="og:image" content="http://example.com/blog/7/9.png">
+<meta property="og:image" content="http://example.com/blog/7/10.png">
+<meta property="og:image" content="http://example.com/blog/7/11.png">
+<meta property="og:image" content="http://example.com/blog/7/12.png">
+<meta property="og:image" content="http://example.com/blog/7/13.png">
+<meta property="og:image" content="http://example.com/blog/7/14.png">
+<meta property="og:image" content="http://example.com/blog/7/2/15.png">
+<meta property="og:image" content="http://example.com/blog/7/2/16.png">
+<meta property="og:image" content="http://example.com/blog/7/2/17.png">
+<meta property="og:image" content="http://example.com/blog/7/2/18.png">
+<meta property="og:image" content="http://example.com/blog/7/2/19.png">
+<meta property="article:published_time" content="2019-04-05T03:07:50.642Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.363Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/7/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB"><span class="toc-text">一、对象与类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%BB%A7%E6%89%BF"><span class="toc-text">二、继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-text">三、接口、lambda表达式、内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">lambda表达式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97"><span class="toc-text">四、异常、断言和日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AD%E8%A8%80"><span class="toc-text">断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97"><span class="toc-text">日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-text">补充</span></a></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/Java/">Java</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.642Z'>2019-04-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>Java核心技术卷1复习笔记</span></h1>
+<h1 id="摘要：本章文章是把自己之前看Java核心技术卷1时，遗忘或者漏掉的内容重新归纳总结"><a href="#摘要：本章文章是把自己之前看Java核心技术卷1时，遗忘或者漏掉的内容重新归纳总结" class="headerlink" title="摘要：本章文章是把自己之前看Java核心技术卷1时，遗忘或者漏掉的内容重新归纳总结"></a>摘要：本章文章是把自己之前看Java核心技术卷1时，遗忘或者漏掉的内容重新归纳总结</h1><hr>
+<h1 id="前言：这两天我把Java核心技术卷1这本书重新复习了一遍，查缺补漏，把内容重新归纳总结一遍。"><a href="#前言：这两天我把Java核心技术卷1这本书重新复习了一遍，查缺补漏，把内容重新归纳总结一遍。" class="headerlink" title="前言：这两天我把Java核心技术卷1这本书重新复习了一遍，查缺补漏，把内容重新归纳总结一遍。"></a>前言：这两天我把Java核心技术卷1这本书重新复习了一遍，查缺补漏，把内容重新归纳总结一遍。</h1><hr>
+<h2 id="一、对象与类"><a href="#一、对象与类" class="headerlink" title="一、对象与类"></a><strong>一、对象与类</strong></h2><ul>
+<li><p>一定要认识到：一个对象<strong>变量</strong>并没有实际包含一个对象，而是仅仅引用一个对象。任何对象变量的值都是对存储在另一个地方的一个对象的引用。</p>
+</li>
+<li><p>所有的java对象都存储在堆中。</p>
+</li>
+<li><p>在java中，必须使用clone方法获得对象的完整拷贝。</p>
+</li>
+<li><p>当java编译器发现A.java使用了B.java类时，会查找名为B.class的文件，如果没有找到这个文件，就会自动的搜索B.java，然后对它进行编译。如果B.java版本较已有的B.class文件版本新，java编译器就会自动地重新编译B.java这个文件。</p>
+</li>
+<li><p>构造器：</p>
+<ul>
+<li>构造器与类同名</li>
+<li>每个类可以有一个以上的构造器</li>
+<li>构造器可以有0个、1个或多个参数</li>
+<li>构造器没有返回值</li>
+<li>构造器总是伴随着new操作一起调用</li>
+</ul>
+</li>
+<li><p>显示参数与隐私参数：</p>
+</li>
+</ul>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/1.png" alt="显示参数与隐私参数"></p>
+<ul>
+<li><p>方法参数的使用情况：</p>
+<ul>
+<li>一个方法不能修改一个基本数据类型的参数</li>
+<li>一个方法可以改变一个对象参数的状态</li>
+<li>一个方法不能让对象参数引用一个新对象</li>
+</ul>
+</li>
+<li><p>先运行初始化块，然后才运行构造器的主体部分</p>
+</li>
+<li><p>所有的静态初始化语句以及静态初始化块都将依照类定义的顺序执行</p>
+</li>
+<li><p>类设计技巧：</p>
+<ul>
+<li>一定要保证数据私有</li>
+<li>一定要对数据初始化</li>
+<li>不要在类中使用过多的基本类型</li>
+<li>不是所有的域都需要独立的域访问器或者域更改器</li>
+<li>将职责过多的类进行分解（单一职责）</li>
+<li>类名和方法名要能够体现它们的职责</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、继承"><a href="#二、继承" class="headerlink" title="二、继承"></a><strong>二、继承</strong></h2><ul>
+<li><p>super不是一个对象的引用，不能将super赋给另一个对象变量，它只是一个指示编译器调用超类方法的特殊关键字。</p>
+</li>
+<li><p>一个对象变量（例如，变量e) 可以指示多种实际类型的现象被称为多态（polymorphism)</p>
+</li>
+<li><p>在运行时能够自动地选择调用哪个方法的现象称为<strong>动态绑定（dynamic binding)</strong></p>
+</li>
+<li><p>对象变量是多态的：可以将一个子类的对象赋给超类变量</p>
+<p> <strong>注意：</strong></p>
+<p>  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/2.png"></p>
+</li>
+<li><p>调用过程的详细描述：</p>
+<ul>
+<li>编译器査看对象的声明类型和方法名：假设调用x.f（param）（x为A类型）编译器将会一一列举所有A类中名为f的方法和其超类中访问属性为public且名为f的方法（超类的私有方法不可访问）。</li>
+<li>接下来，编译器将査看调用方法时提供的参数类型：如果在所有名为f的方法中存在一个与提供的参数类型完全匹配，就选择这个方法。这个过程被称为重载解析。如果编译器没有找到与参数类型匹配的方法，或者发现经过类型转换后有多个方法与之匹配，就会报告一个错误。</li>
+<li>如果是private方法、static方法、final方法或者构造器，那么编译器将可以准确地知道应该调用哪个方法， 我们将这种调用方式称为<strong>静态绑定</strong>（static binding)。与此对应的是，调用的方法依赖于隐式参数的实际类型， 并且在运行时实现动态绑定。</li>
+<li>当程序运行，并且采用动态绑定调用方法时，虚拟机一定调用与x 所引用对象的实际类型最合适的那个类的方法。假设x的实际类型是D，它是C类的子类。如果D 类定义了方法f(String)，就直接调用它；否则，将在D类的超类中寻找f(String)，以此类推。</li>
+</ul>
+</li>
+<li><p><strong>方法表（method table)</strong>,其中列出了所有方法的签名和实际调用的方法。</p>
+</li>
+<li><p>强制类型转换：</p>
+<ul>
+<li>只能在继承层次内进行类型转换</li>
+<li>在将超类转换成之类之前，应该使用instanceof进行检查。</li>
+</ul>
+</li>
+<li><p>访问修饰符：</p>
+<ul>
+<li>对所有类可见 ———— public：</li>
+<li>对本包和所有子类可见 ———— protected。</li>
+<li>对本包可见 ———— 默认，不需要修饰符</li>
+<li>仅对本类可见 ———— private。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>当前类</th>
+<th>同 包</th>
+<th>子 类</th>
+<th>其他包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>default</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>private</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Object（超类）：</p>
+<ul>
+<li><p>在Java 中，只有基本类型（primitive types)不是对象：数值、字符和布尔类型的值都不是对象。</p>
+</li>
+<li><p>所有的数组类型，不管是对象数组还是基本类型的数组都扩展了Object类。</p>
+</li>
+<li><p>equals方法具有的特性：</p>
+<ul>
+<li> 自反性：对于任何非空引用x，x.equals(x)应该返回true。</li>
+<li> 对称性：对于任何引用x和y，当且仅当y.equals(x)返回true，x.equals(y)也应该返回true。</li>
+<li> 传递性：对于任何引用x、y和z，如果x.equals(y)返回true，y.equals(z)返回true，x.equals(z)也应该返回true。</li>
+<li>一致性：如果x和y引用的对象没有发生变化，反复调用x.equals(y)应该返回同样的结果。</li>
+<li>对于任意非空引用x，x.equals(null)应该返回false。</li>
+</ul>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/3.png"></p>
+</li>
+<li><p>类型化与原始数组列表的兼容性：</p>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/4.png"></p>
+</li>
+<li><p>对象包装器：</p>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/5.png"></p>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/6.png"></p>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/7.png"></p>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/8.png" alt="注意！"></p>
+</li>
+<li><p>参数数量可变的方法：</p>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/9.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="三、接口、lambda表达式、内部类"><a href="#三、接口、lambda表达式、内部类" class="headerlink" title="三、接口、lambda表达式、内部类"></a><strong>三、接口、lambda表达式、内部类</strong></h2><h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><ul>
+<li>Cloneable接口：</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/10.png"></p>
+<ul>
+<li><p>在Java SE 8中，允许在接口中增加静态方法。</p>
+</li>
+<li><p>可以为接口方法提供一个默认实现。必须用default修饰符标记这样一个方法。</p>
+</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/11.png"></p>
+<pre><code>默认方法冲突时：
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/12.png"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/13.png"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/14.png"></p>
+<ul>
+<li>浅拷贝与深拷贝</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/2/15.png"></p>
+<h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><p>Lambda表达式是Java SE 8中一个重要的新特性。lambda表达式允许你通过表达式来代替功能接口。 lambda表达式就和方法一样,它提供了一个正常的参数列表和一个使用这些参数的主体(body,可以是一个表达式或一个代码块)。</p>
+<p>Lambda表达式还增强了集合库。 Java SE 8添加了2个对集合数据进行批量操作的包: java.util.function 包以及java.util.stream 包。 流(stream)就如同迭代器(iterator),但附加了许多额外的功能。 总的来说,lambda表达式和stream是自Java语言添加泛型(Generics)和注解(annotation)以来最大的变化。 在本文中,我们将从简单到复杂的示例中见认识lambda表达式和stream的强悍。</p>
+<p><strong>Lambda表达式的语法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">基本语法:</span><br><span class="line"></span><br><span class="line">(parameters) -&gt; expression</span><br><span class="line"></span><br><span class="line">或</span><br><span class="line"></span><br><span class="line">(parameters) -&gt;&#123; statements; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是Java lambda表达式的简单例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1. 不需要参数,返回值为 5</span><br><span class="line"></span><br><span class="line">() -&gt; 5</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2. 接收一个参数(数字类型),返回其2倍的值</span><br><span class="line"></span><br><span class="line">x -&gt; 2 * x</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3. 接受2个参数(数字),并返回他们的差值</span><br><span class="line"></span><br><span class="line">(x, y) -&gt; x – y</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 4. 接收2个int型整数,返回他们的和</span><br><span class="line"></span><br><span class="line">(int x, int y) -&gt; x + y</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 5. 接受一个 string 对象,并在控制台打印,不返回任何值(看起来像是返回void)</span><br><span class="line"></span><br><span class="line">(String s) -&gt; System.out.print(s)</span><br></pre></td></tr></table></figure>
+
+<p>可以参考下面文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/franson-2016/p/5593080.html">https://www.cnblogs.com/franson-2016/p/5593080.html</a></p>
+<h2 id="四、异常、断言和日志"><a href="#四、异常、断言和日志" class="headerlink" title="四、异常、断言和日志"></a><strong>四、异常、断言和日志</strong></h2><h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>异常层次结构的一个简化示意图：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/2/16.png"></p>
+<ul>
+<li><p>抛出异常（throws）</p>
+<ul>
+<li>找到一个合适的异常类</li>
+<li>创建这个类的一个对象</li>
+<li>将对象抛出</li>
+</ul>
+</li>
+<li><p>捕获异常（try/catch）</p>
+<ul>
+<li>finally</li>
+</ul>
+</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/2/17.png"></p>
+<pre><code>- 带资源的try语句
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/2/18.png"></p>
+<h3 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h3><p>断言机制允许在测试期间向代码中插入一些检査语句。当代码发布时，这些插人的检测<br>语句将会被自动地移走。<br>关键字assert。这个关键字有两种形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assert 条件</span><br><span class="line"></span><br><span class="line">和</span><br><span class="line"></span><br><span class="line">assert 条件：表达式；</span><br></pre></td></tr></table></figure>
+
+<p>这两种形式都会对条件进行检测，如果结果为false，则抛出一个AssertionError异常。在第二种形式中，表达式将被传入AssertionError的构造器，并转换成一个消息字符串。</p>
+<p><strong>启用和禁用断言</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/7/2/19.png"></p>
+<p><strong>断言的使用场合</strong></p>
+<ul>
+<li>断言失败是致命的、不可恢复的错误。</li>
+<li>断言检查只用于开发和测试阶段。</li>
+</ul>
+<p> 因此，不应该使用断言向程序的其他部分通告发生了可恢复性的错误，或者，不应该作为程序向用户通告问题的手段。断言只应该用于在测试阶段确定程序内部的错误位置。</p>
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p><strong>日志的优点：</strong></p>
+<ul>
+<li>可以很容易地取消全部日志记录，或者仅仅取消某个级别的日志，而且打开和关闭这个操作也很容易。</li>
+<li>可以很简单地禁止日志记录的输出，因此，将这些日志代码留在程序中的开销很小。</li>
+<li>日志记录可以被定向到不同的处理器，用于在控制台中显示，用于存储在文件中等。</li>
+<li>日志记录器和处理器都可以对记录进行过滤。过滤器可以根据过滤实现器制定的标准丢弃那些无用的记录项。</li>
+<li>日志记录可以采用不同的方式格式化，例如，纯文本或XML。</li>
+<li>应用程序可以使用多个日志记录器， 它们使用类似包名的这种具有层次结构的名字，例如：com.mycompany.myapp。</li>
+<li>在默认情况下， 日志系统的配置由配置文件控制。如果需要的话，应用程序可以替换这个配置。</li>
+</ul>
+<p><strong>日志记录器级别：</strong></p>
+<ul>
+<li>SEVERE</li>
+<li>WARNING</li>
+<li>INFO</li>
+<li>CONFIG</li>
+<li>FINE</li>
+<li>FINER</li>
+<li>FINEST</li>
+</ul>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p><strong>String、StringBuffer、StringBuilder的区别</strong></p>
+<p>这三个类之间的区别主要是在两个方面，即<strong>运行速度</strong>和<strong>线程安全</strong>这两方面。</p>
+<ol>
+<li>首先说运行速度，或者说是执行速度，在这方面运行速度快慢为：StringBuilder &gt; StringBuffer &gt; String</li>
+</ol>
+<p>　　String最慢的原因：String为字符串常量，而StringBuilder和StringBuffer均为字符串变量，即String对象一旦创建之后该对象是不可更改的，但后两者的对象是变量，是可以更改的。以下面一段代码为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line">System.out.println(str);</span><br><span class="line">str=str+<span class="string">&quot;de&quot;</span>;</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure>
+
+<p>　　如果运行这段代码会发现先输出“abc”，然后又输出“abcde”，好像是str这个对象被更改了，其实，这只是一种假象罢了，JVM对于这几行代码是这样处理的，<strong>首先创建一个String对象str，并把“abc”赋值给str，然后在第三行中，其实JVM又创建了一个新的对象也名为str，然后再把原来的str的值和“de”加起来再赋值给新的str，而原来的str就会被JVM的垃圾回收机制（GC）给回收掉了，所以，str实际上并没有被更改，也就是前面说的String对象一旦创建之后就不可更改了</strong>。所以，Java中对String对象进行的操作实际上是一个不断创建新的对象并且将旧的对象回收的一个过程，所以<strong>执行速度很慢</strong>。</p>
+<p>　　而StringBuilder和StringBuffer的对象是变量，对变量进行操作就是直接对该对象进行更改，而不进行创建和回收的操作，所以速度要比String快很多。</p>
+<p>　　另外，有时候我们会这样对字符串进行赋值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str=<span class="string">&quot;abc&quot;</span>+<span class="string">&quot;de&quot;</span>;</span><br><span class="line">StringBuilder stringBuilder=<span class="keyword">new</span> StringBuilder().append(<span class="string">&quot;abc&quot;</span>).append(<span class="string">&quot;de&quot;</span>);</span><br><span class="line">System.out.println(str);</span><br><span class="line">System.out.println(stringBuilder.toString());</span><br></pre></td></tr></table></figure>
+
+<p>　　这样输出结果也是“abcde”和“abcde”，但是String的速度却比StringBuilder的反应速度要快很多，这是因为第1行中的操作和String str=”abcde”;是完全一样的，所以会很快，而如果写成下面这种形式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str1=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line">String str2=<span class="string">&quot;de&quot;</span>;</span><br><span class="line">String str=str1+str2;</span><br></pre></td></tr></table></figure>
+
+<p>　　那么JVM就会像上面说的那样，不断的创建、回收对象来进行这个操作了。速度就会很慢。</p>
+<ol start="2">
+<li>再来说线程安全,在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的</li>
+</ol>
+<p>　　如果一个StringBuffer对象在字符串缓冲区被多个线程使用时，StringBuffer中很多方法可以带有synchronized关键字，所以可以保证线程是安全的，但StringBuilder的方法则没有该关键字，所以不能保证线程安全，有可能会出现一些错误的操作。所以如果要进行的操作是多线程的，那么就要使用StringBuffer，但是在单线程的情况下，还是建议使用速度比较快的StringBuilder。</p>
+<ol start="3">
+<li>总结一下</li>
+</ol>
+<ul>
+<li>String：适用于少量的字符串操作的情况</li>
+<li>StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况</li>
+<li>StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/">Java基础复习</a></div><div class="post-title fs14"><a href="/2019/04/05/Java%E9%9D%A2%E8%AF%95%E4%B9%8BHashmap/">or prev: Java面试之Hashmap</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

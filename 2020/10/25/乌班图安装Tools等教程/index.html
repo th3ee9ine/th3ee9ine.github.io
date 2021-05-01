@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>乌班图安装Tools等教程 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：主要总结了一下乌班图安装一些Tool的步骤。 前言：乌班图安装一些开发Tool的步骤。 一、乌班图安装 mysql-5.71、安装执行以下命令即可完成安装： 123456$ sudo apt-get update  #更新软件源$ sudo apt-get install mysql-server  #安装mysqlsudo apt-get install mysql-clientsudo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="乌班图安装Tools等教程">
+<meta property="og:url" content="http://example.com/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：主要总结了一下乌班图安装一些Tool的步骤。 前言：乌班图安装一些开发Tool的步骤。 一、乌班图安装 mysql-5.71、安装执行以下命令即可完成安装： 123456$ sudo apt-get update  #更新软件源$ sudo apt-get install mysql-server  #安装mysqlsudo apt-get install mysql-clientsudo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-25T15:21:38.757Z">
+<meta property="article:modified_time" content="2020-10-25T15:21:34.154Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="杂项">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85-mysql-5-7"><span class="toc-text">一、乌班图安装 mysql-5.7</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-text">1、安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%9B%B4%E6%94%B9%E5%AF%86%E7%A0%81"><span class="toc-text">2、更改密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-text">登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95-%E7%94%A8SET-PASSWORD%E5%91%BD%E4%BB%A4"><span class="toc-text">第一种方法, 用SET PASSWORD命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95-%E7%94%A8mysqladmin"><span class="toc-text">第一种方法, 用mysqladmin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%8C%E7%94%A8UPDATE%E7%9B%B4%E6%8E%A5%E7%BC%96%E8%BE%91user%E8%A1%A8"><span class="toc-text">第三种方法，用UPDATE直接编辑user表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%8C%E5%BF%98%E8%AE%B0root%E5%AF%86%E7%A0%81"><span class="toc-text">第四种方法，忘记root密码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%9B%B4%E6%94%B9%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="toc-text">3、更改编码方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">4、关闭防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%AE%BE%E7%BD%AE"><span class="toc-text">5、远程连接设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85-redis"><span class="toc-text">二、乌班图安装 redis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85redis"><span class="toc-text">安装redis</span></a></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/Tool/">Tool</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2020-10-25T15:21:38.757Z'>2020-10-25</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>乌班图安装Tools等教程</span></h1>
+<h1 id="摘要：主要总结了一下乌班图安装一些Tool的步骤。"><a href="#摘要：主要总结了一下乌班图安装一些Tool的步骤。" class="headerlink" title="摘要：主要总结了一下乌班图安装一些Tool的步骤。"></a>摘要：主要总结了一下乌班图安装一些Tool的步骤。</h1><hr>
+<h1 id="前言：乌班图安装一些开发Tool的步骤。"><a href="#前言：乌班图安装一些开发Tool的步骤。" class="headerlink" title="前言：乌班图安装一些开发Tool的步骤。"></a>前言：乌班图安装一些开发Tool的步骤。</h1><hr>
+<h2 id="一、乌班图安装-mysql-5-7"><a href="#一、乌班图安装-mysql-5-7" class="headerlink" title="一、乌班图安装 mysql-5.7"></a>一、乌班图安装 mysql-5.7</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><p>执行以下命令即可完成安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get update  <span class="comment">#更新软件源</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install mysql-server  <span class="comment">#安装mysql</span></span></span><br><span class="line">sudo apt-get install mysql-client</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、更改密码"><a href="#2、更改密码" class="headerlink" title="2、更改密码"></a>2、更改密码</h3><h4 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入完命令直接回车即可，确认密码也直接回车</span></span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第一种方法-用SET-PASSWORD命令"><a href="#第一种方法-用SET-PASSWORD命令" class="headerlink" title="第一种方法, 用SET PASSWORD命令"></a>第一种方法, 用SET PASSWORD命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">格式：mysql&gt; set password for 用户名@localhost = password(&#x27;新密码&#x27;);</span><br><span class="line"></span><br><span class="line">例子：mysql&gt; set password for root@localhost = password(&#x27;123&#x27;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第一种方法-用mysqladmin"><a href="#第一种方法-用mysqladmin" class="headerlink" title="第一种方法, 用mysqladmin"></a>第一种方法, 用mysqladmin</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">格式：mysqladmin -u用户名 -p旧密码 password 新密码</span><br><span class="line"></span><br><span class="line">例子：mysqladmin -uroot -p123456 password 123</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第三种方法，用UPDATE直接编辑user表"><a href="#第三种方法，用UPDATE直接编辑user表" class="headerlink" title="第三种方法，用UPDATE直接编辑user表"></a>第三种方法，用UPDATE直接编辑user表</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 首先登录MySQL。</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> use mysql;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改密码</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> update user <span class="built_in">set</span> password=password(<span class="string">&#x27;123&#x27;</span>) <span class="built_in">where</span> user=<span class="string">&#x27;root&#x27;</span> and host=<span class="string">&#x27;localhost&#x27;</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 刷新MySQL的系统权限相关表，否则会出现拒绝访问。</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> flush privileges;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> quit­</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第四种方法，忘记root密码"><a href="#第四种方法，忘记root密码" class="headerlink" title="第四种方法，忘记root密码"></a>第四种方法，忘记root密码</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1、编辑mysqld.cnf文件</span></span><br><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、在文件中的skip-external-locking一行的下面添加一行：</span></span><br><span class="line"></span><br><span class="line">skip-grant-tables</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3、重启MySQL服务</span></span><br><span class="line"></span><br><span class="line">sudo service mysql restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 4、终端输入mysql进入MySQL，输入USE mysql切换至mysql数据库</span></span><br><span class="line"></span><br><span class="line">mysql</span><br><span class="line"></span><br><span class="line">USE mysql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 5、把root用户的密码修改为000000</span></span><br><span class="line"></span><br><span class="line">UPDATE mysql.user SET authentication_string=password(&#x27;000000&#x27;) WHERE User=&#x27;root&#x27; AND Host =&#x27;localhost&#x27;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 6、修改字段plugin</span></span><br><span class="line"></span><br><span class="line">UPDATE user SET plugin=&quot;mysql_native_password&quot;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 7、刷新MySQL的系统权限相关表，否则会出现拒绝访问。</span></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 8、退出</span></span><br><span class="line"></span><br><span class="line">quit;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 9、注释掉/etc/mysql/mysql.conf.d/mysqld.cnf文件中添加的一行</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、更改编码方式"><a href="#3、更改编码方式" class="headerlink" title="3、更改编码方式"></a>3、更改编码方式</h3><p>(1)编辑配置文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(2)在[mysqld]下添加一行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">character_set_server = utf8</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(3)重启服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">service mysql restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、关闭防火墙"><a href="#4、关闭防火墙" class="headerlink" title="4、关闭防火墙"></a>4、关闭防火墙</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">systemctl start firewalld # 开启防火墙</span><br><span class="line">systemctl stop firewalld  # 关闭防火墙</span><br><span class="line">systemctl status firewalld  #检查防火墙状态</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、远程连接设置"><a href="#5、远程连接设置" class="headerlink" title="5、远程连接设置"></a>5、远程连接设置</h3><p>(1)注释掉bind-address = 127.0.0.1</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(2)执行授权命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 登录mysql</span></span><br><span class="line">mysql -uroot -p123456</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 授权</span></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(3)重启服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo service mysql restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="二、乌班图安装-redis"><a href="#二、乌班图安装-redis" class="headerlink" title="二、乌班图安装 redis"></a>二、乌班图安装 redis</h2><h3 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h3><p>在 Ubuntu 系统安装 Redi 可以使用以下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash">sudo apt-get update</span></span><br><span class="line"><span class="meta">$</span><span class="bash">sudo apt-get install redis-server</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动 Redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo /etc/init.d/redis-server start</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看 redis 是否启动</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改redis的配置文件</span></span><br><span class="line">cd /etc/redis  (首先查询redis文件夹下所有的文件，去这个文件夹去找一个叫redis.conf的配置文件)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 用vi打开这个redis.conf的配置文件，将redis.conf配置文件中的<span class="built_in">bind</span> 127.0.0.1注释掉（改成<span class="comment">#bind 127.0.0.1）保存</span></span></span><br><span class="line">vi /etc/redis/redis.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启redis服务</span></span><br><span class="line">sudo /etc/init.d/redis-server restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置Redis密码</span></span><br><span class="line">sudo vi /etc/redis/redis.conf   （找到# requirepass foobared 这一行，将前面的#号删除，然后将foobared改成你要设置的密码）</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启Redis服务</span></span><br><span class="line">sudo /etc/init.d/redis-server restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询密码</span></span><br><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 密码验证：</span></span><br><span class="line">redis 127.0.0.1:6379&gt; auth test123</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 登陆有密码的Redis</span></span><br><span class="line">redis-cli -p 6379 -a test123</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果是用apt-get或者yum install安装的redis，可以直接通过下面的命令停止/启动/重启redis</span></span><br><span class="line">/etc/init.d/redis-server stop</span><br><span class="line">/etc/init.d/redis-server start</span><br><span class="line">/etc/init.d/redis-server restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/">面试基础题之《面向对象》</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

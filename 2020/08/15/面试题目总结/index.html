@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>面试题目总结 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。 前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题目总结">
+<meta property="og:url" content="http://example.com/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。 前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-15T06:54:53.062Z">
+<meta property="article:modified_time" content="2020-08-16T09:50:49.824Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98"><span class="toc-text">一、基础问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%BF%9B%E9%98%B6%E9%97%AE%E9%A2%98"><span class="toc-text">二、进阶问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E9%97%AE%E9%A2%98"><span class="toc-text">扩展问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="toc-text">编程题</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2020-08-15T06:54:53.062Z'>2020-08-15</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>面试题目总结</span></h1>
+<h1 id="摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。"><a href="#摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。" class="headerlink" title="摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。"></a>摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。</h1><hr>
+<h1 id="前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。"><a href="#前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。" class="headerlink" title="前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。"></a>前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。</h1><hr>
+<h2 id="一、基础问题"><a href="#一、基础问题" class="headerlink" title="一、基础问题"></a>一、基础问题</h2><ol>
+<li><p>volatile相关:<br><a target="_blank" rel="noopener" href="https://www.blog.ajie.xin/2020/08/15/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8Avolatile%E3%80%8B/">面试基础题之《Volatile》</a></p>
+</li>
+<li><p>接口和抽象类的区别<br><a target="_blank" rel="noopener" href="https://www.blog.ajie.xin/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B">面试基础题之《面向对象》</a></p>
+</li>
+<li><p>面向对象四大特性：继承、封装、多态、抽象<br><a target="_blank" rel="noopener" href="https://www.blog.ajie.xin/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B">面试基础题之《面向对象》</a></p>
+</li>
+<li><p>HashMap的数据结构、查询时间复杂度、是否线程安全</p>
+</li>
+<li><p>数组和链表的差异，优缺点，使用场景</p>
+</li>
+<li><p>请给出你记忆的基本的数据结构有哪些？他们分别有什么特征？对应Java里面的哪些类？</p>
+</li>
+<li><p>线程池 ThreadPoolExecutor 类构造函数的参数有哪些，分别代表什么意思</p>
+</li>
+<li><p>针对候选人说Mysql熟悉的，询问候选人Mysql 聚簇索引的概念</p>
+</li>
+<li><p>针对候选人说Mysql熟悉的，询问候选人建表时，建索引有哪些原则或优化技巧</p>
+</li>
+<li><p>如何解决慢查询</p>
+</li>
+<li><p>说出几种设计模式，并针对其中一种做详细解释，包括使用场景，实现方法，好处</p>
+</li>
+<li><p>针对候选人说Redis熟悉的，询问候选人redis有哪些数据结构，每种数据结构有哪些使用场景</p>
+</li>
+<li><p>针对用Redis做过分布式锁的，询问候选人Redis可以做分布式锁的原因，怎样做分布式锁，有哪些步骤，需要注意什么</p>
+</li>
+</ol>
+<h2 id="二、进阶问题"><a href="#二、进阶问题" class="headerlink" title="二、进阶问题"></a>二、进阶问题</h2><ol>
+<li>ConcurrentHashMap 线程安全的实现原理</li>
+<li>如何判断一个类的内部实现是线程安全的，有哪些原则？怎样将一个类改造后变成线程安全的类？</li>
+<li>数组和链表在存储海量数据时，各有什么问题？</li>
+<li>CAS的原理，作用，什么是乐观锁，悲观锁？Java中哪些类使用到了CAS</li>
+<li>volatile的底层原理(能答出内存栅栏即可)，产生内存可见性问题的原因(cpu cache和主存)</li>
+<li>jdk1.8新增哪些新功能？函数式编程的优缺点？</li>
+<li>为什么jdk8在接口里增加defalut实现，目的是为了什么？</li>
+<li>HashMap在jdk8中用到了红黑树，作用是什么？为什么不是别的树而是红黑树？红黑树还在哪个类中被用到了？</li>
+<li>线程池ThreadPoolExecutor在超过核心线程数时，是先放进队列里还是先扩充线程到最大线程数？有哪些拒绝策略可以使用？如果要自定义线程池创建的线程名要怎么做?</li>
+<li>Jvm中有哪些垃圾回收器？或有哪些垃圾回收算法？如何识别一个对象是可被回收的？</li>
+<li>如何排查频繁GC的问题？如何排查OOM？</li>
+<li>针对候选人说Redis熟悉的，询问候选人redis的io模型或单线程为何也可以保持较快并发。并进一步询问操作系统支持的5种io模型(阻塞，非阻塞，多路复用，信号驱动，异步io)。询问java中，nio使用的是哪一种</li>
+<li>针对候选人说Redis熟悉的，询问候选人redis如何做持久化，如果答上rdb和aof两种模式，询问两种模式的优缺点，使用场景</li>
+<li>如何理解微服务？微服务架构解决什么问题？如何划分微服务？</li>
+<li>如果要设计一个RPC框架，需要考虑哪些问题？</li>
+<li>熔断和限流的概念？他们之间有什么区别？如何做限流？什么是令牌桶？如何做熔断？什么是线程隔离？</li>
+<li>Redis做缓存，缓存的更新策略有哪些？什么是缓存雪崩？什么是缓存穿透？如何解决？</li>
+<li>Redis如何做分布式集群？什么是一致性哈希算法？redis cluster使用的是什么算法？</li>
+<li>注册中心zk等，和redis有什么区别？为什么它们可以用来做注册中心？原理是什么？</li>
+<li>zk是否可以做分布式锁？原理是什么？它和redis做分布式锁有什么优缺点？</li>
+<li>zk还可以做什么？</li>
+<li>Java中的类加载模型是什么？为什么要有双亲委派模型？有哪些类加载器？</li>
+<li>如何保证分布式的数据一致性？什么是分布式事务？两段式提交有什么缺点？什么是最终一致性？BASE原则？CAP理论？</li>
+<li>如果候选人有秒杀场景基础，或高并发经验，询问候选人如何设计一个健壮的秒杀系统？</li>
+<li>询问候选人Https的原理，为什么Https相比Http是安全的，过程是怎样的？</li>
+<li>Java中Collections.sort或List.sort，即默认提供的排序，底层的排序算法是什么？(timsort，一种归并排序)</li>
+<li>请列举所有你知道的排序算法，以及他们的时间复杂度？快速排序的缺点是什么？</li>
+</ol>
+<h2 id="扩展问题"><a href="#扩展问题" class="headerlink" title="扩展问题"></a>扩展问题</h2><ol>
+<li>Java是编译型语言还是解释型语言？还是两者都有？谈谈你的看法</li>
+<li>如果候选人还写过别的语言，询问候选人你觉得Java和其他语言有什么区别？有什么优缺点？主要观察候选人对编程语言的思考</li>
+<li>如果候选人提起zk的一致性算法，进一步询问分布式一致性领域的两军问题，拜占庭将军问题，prxos算法和raft算法，观察候选人是否理解透彻</li>
+<li>针对一个代码老旧但是又非常核心的系统，如何做重构？谈谈你的想法？</li>
+<li>你是如何学习新的知识的？比如如果现在让你学习Guice，你会怎么做？</li>
+</ol>
+<h2 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h2><ol>
+<li>作为JDK的作者，实现Java中Integer.valueOf(String s)这个函数<br>（本题考查编程功底，主干代码需要对char转int也就是ascii码有所认知和了解，经过提示还不能写出主干代码的，基本上都是野路子非科班出身，编程功底会非常差，可能会连二进制转十进制都不会算(此时可以考察候选人是否会算2进制转10进制)。<br>本题边界条件非常多，一上来就对String做null处理的加分，知道处理负数的加分，知道处理int最大值的加分，能一上来就写对完全版的给高分，不知道int最大值是多少的扣印象分）</li>
+<li>实现一个线程死锁的代码，两个线程相互等待对方<br>（本题考察候选人多线程编程功底，有些人连怎么new一个线程出来都不知道，这道题就会写不出，如果对线程死锁理解不透彻，也会写出有问题的代码而不能真的产生死锁）</li>
+<li>如果观察到候选人数据结构和算法能力较差，为了进一步确认这一点，会让候选人写出冒泡排序的实现，并给出一个数列来演算冒泡排序。并会询问，冒泡排序内层循环一轮之后，效果是什么(实际就是冒一个泡)？</li>
+<li>偶尔会出到的考题：用两个栈实现一个队列、判断一个链表是否为循环链表、二叉树的中序遍历（递归写法和非递归写法）</li>
+</ol>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/08/15/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8Avolatile%E3%80%8B/">面试基础题之《volatile》</a></div><div class="post-title fs14"><a href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/">or prev: 面试基础题之《面向对象》</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

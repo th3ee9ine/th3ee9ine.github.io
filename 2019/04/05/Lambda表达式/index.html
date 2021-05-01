@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Lambda表达式 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：Lambda表达式总结 前言：今天总结一下Lambda表达式。 Lambda表达式基本介绍可以把Lambda表达式理解为简洁地表示可传递的匿名函数的一种方式：它没有名称，但它有参数列表、函数主体、返回类型，还可能有可以抛出的异常列表。  匿名————它不像普通的方法那样有一个明确的名称：写得少而想得多！ 函数————Lambda表达式不像方法那样属于某个特定的类，但和方法一样，Lambda有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lambda表达式">
+<meta property="og:url" content="http://example.com/2019/04/05/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：Lambda表达式总结 前言：今天总结一下Lambda表达式。 Lambda表达式基本介绍可以把Lambda表达式理解为简洁地表示可传递的匿名函数的一种方式：它没有名称，但它有参数列表、函数主体、返回类型，还可能有可以抛出的异常列表。  匿名————它不像普通的方法那样有一个明确的名称：写得少而想得多！ 函数————Lambda表达式不像方法那样属于某个特定的类，但和方法一样，Lambda有">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-04-05T03:07:50.652Z">
+<meta property="article:modified_time" content="2019-10-26T09:23:53.765Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">Lambda表达式基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="toc-text">函数式接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-text">方法引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%BC%95%E7%94%A8"><span class="toc-text">构造函数引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%90%88Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">复合Lambda表达式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%A4%BA%E4%BE%8B"><span class="toc-text">lambda表达式示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AE%9E%E7%8E%B0Runnable"><span class="toc-text">1.用lambda表达式实现Runnable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8Java-8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%9B%E8%A1%8C%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">2.使用Java 8 lambda表达式进行事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AF%B9%E5%88%97%E8%A1%A8%E8%BF%9B%E8%A1%8C%E8%BF%AD%E4%BB%A3"><span class="toc-text">3.使用lambda表达式对列表进行迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3Predicate"><span class="toc-text">4.使用lambda表达式和函数式接口Predicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%A6%82%E4%BD%95%E5%9C%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8A%A0%E5%85%A5Predicate"><span class="toc-text">5.如何在lambda表达式中加入Predicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Java-8%E4%B8%AD%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84Map%E5%92%8CReduce%E7%A4%BA%E4%BE%8B"><span class="toc-text">6.Java 8中使用lambda表达式的Map和Reduce示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%80%9A%E8%BF%87%E8%BF%87%E6%BB%A4%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAString%E5%88%97%E8%A1%A8"><span class="toc-text">7.通过过滤创建一个String列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%AF%B9%E5%88%97%E8%A1%A8%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%BA%94%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">8.对列表的每个元素应用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%A4%8D%E5%88%B6%E4%B8%8D%E5%90%8C%E7%9A%84%E5%80%BC%EF%BC%8C%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AD%90%E5%88%97%E8%A1%A8"><span class="toc-text">9.复制不同的值，创建一个子列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E8%AE%A1%E7%AE%97%E9%9B%86%E5%90%88%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC%E3%80%81%E6%9C%80%E5%B0%8F%E5%80%BC%E3%80%81%E6%80%BB%E5%92%8C%E4%BB%A5%E5%8F%8A%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="toc-text">10.计算集合元素的最大值、最小值、总和以及平均值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A6%81%E7%82%B9"><span class="toc-text">Lambda表达式要点</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/Java/">Java</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/Java/%E5%9F%BA%E7%A1%80/">基础</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.652Z'>2019-04-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>Lambda表达式</span></h1>
+<h1 id="摘要：Lambda表达式总结"><a href="#摘要：Lambda表达式总结" class="headerlink" title="摘要：Lambda表达式总结"></a>摘要：Lambda表达式总结</h1><hr>
+<h1 id="前言：今天总结一下Lambda表达式。"><a href="#前言：今天总结一下Lambda表达式。" class="headerlink" title="前言：今天总结一下Lambda表达式。"></a>前言：今天总结一下Lambda表达式。</h1><hr>
+<h2 id="Lambda表达式基本介绍"><a href="#Lambda表达式基本介绍" class="headerlink" title="Lambda表达式基本介绍"></a>Lambda表达式基本介绍</h2><p>可以把Lambda表达式理解为<strong>简洁地</strong>表示<strong>可传递的匿名函数的一种方式</strong>：它<strong>没有名称</strong>，但它<strong>有参数列表</strong>、<strong>函数主体</strong>、<strong>返回类型</strong>，还可能有可以抛出的<strong>异常列表</strong>。</p>
+<ul>
+<li>匿名————它不像普通的方法那样有一个明确的名称：写得少而想得多！</li>
+<li>函数————Lambda表达式不像方法那样属于某个特定的类，但和方法一样，Lambda有参数列表、函数主体、返回类型，还可能有可以抛出的异常列表。</li>
+<li>传递————Lambda表达式可以作为参数传递给方法或存储在变量中。</li>
+<li>简洁————无需像匿名类那样写很多模板代码。</li>
+</ul>
+<p>Lambda表达式鼓励我们采用<strong>行为参数化风格</strong>，例如下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">没有使用Lambda表达式：</span><br><span class="line">Comparator&lt;Apple&gt; byWeight &#x3D; (Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight());：</span><br><span class="line"></span><br><span class="line">Comparator&lt;Apple&gt; byWeight &#x3D; new Comparator&lt;Apple&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(Apple a1, Apple a2) &#123;</span><br><span class="line">                return a1.getWeight().compareTo(a2.getWeight());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">使用Lambda表达式：</span><br><span class="line"></span><br><span class="line">Comparator&lt;Apple&gt; byWeight &#x3D; (Apple a1, Apple a2) -&gt;</span><br><span class="line">          a1.getWeight().compareTo(a2.getWeight());</span><br><span class="line"></span><br><span class="line">上面展示的Lambda表达式由3部分组成：</span><br><span class="line">参数列表</span><br><span class="line">箭头：箭头-&gt;把参数列表与Lambda主体分隔开</span><br><span class="line">Lambda主体</span><br></pre></td></tr></table></figure>
+
+<p>有效的Lambda表达式：</p>
+<ul>
+<li><p>(String s) -&gt; s.length();</p>
+</li>
+<li><p>(Apple a) -&gt; g.getWeight() &gt; 150;</p>
+</li>
+<li><p>(int x, int y) -&gt; {</p>
+<p>  System.out.println(“Result:”);</p>
+<p>  System.out.println(x+y);</p>
+<p>  };</p>
+</li>
+<li><p>() -&gt; 42;</p>
+</li>
+<li><p>(Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight());</p>
+</li>
+</ul>
+<p>Lambda表达式基本语法是：</p>
+<p>(parameters) -&gt; expression</p>
+<p>或</p>
+<p>(parameters) -&gt;  {statements;}</p>
+<p>错误语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(Integer i) -&gt; <span class="keyword">return</span> <span class="string">&quot;Alan&quot;</span> + <span class="number">1</span>;</span><br><span class="line"><span class="comment">//return是一个控制流语句。要使此Lambda有效，需要使用花括号，如下所示：</span></span><br><span class="line">(Integer i) -&gt; &#123;<span class="keyword">return</span> <span class="string">&quot;Alan&quot;</span> + <span class="number">1</span>;&#125;</span><br><span class="line"></span><br><span class="line">(String s) -&gt; &#123;<span class="string">&quot;IronMan&quot;</span>;&#125;</span><br><span class="line"><span class="comment">//&quot;IronMan&quot;是一个表达式，不是一个语句。要使此Lambda有效，需要去掉花括号或者添加return，如下所示：</span></span><br><span class="line">(String s) -&gt; <span class="string">&quot;IronMan&quot;</span>;</span><br><span class="line">或</span><br><span class="line">(String s) -&gt; &#123;<span class="keyword">return</span> <span class="string">&quot;IronMan&quot;</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>函数式接口：只定义一个抽象方法的接口。</p>
+<p>利用函数式接口来传递Lambda：</p>
+<ul>
+<li>行为参数化</li>
+<li>使用函数式接口来传递行为</li>
+<li>执行一个行为</li>
+<li>传递lambda</li>
+</ul>
+<p>Function常用函数接口：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Consumer</td>
+<td>Consumer&lt; T &gt;</td>
+<td>接收T对象，不返回值</td>
+</tr>
+<tr>
+<td>Predicate</td>
+<td>Predicate&lt; T &gt;</td>
+<td>接收T对象并返回boolean</td>
+</tr>
+<tr>
+<td>Function</td>
+<td>Function&lt; T, R &gt;</td>
+<td>接收T对象，返回R对象</td>
+</tr>
+<tr>
+<td>Supplier</td>
+<td>Supplier&lt; T &gt;</td>
+<td>提供T对象（例如工厂），不接收值</td>
+</tr>
+<tr>
+<td>UnaryOperator</td>
+<td>UnaryOperator</td>
+<td>接收T对象，返回T对象</td>
+</tr>
+<tr>
+<td>BinaryOperator</td>
+<td>BinaryOperator</td>
+<td>接收两个T对象，返回T对象</td>
+</tr>
+</tbody></table>
+<p>基本示例：</p>
+<table>
+<thead>
+<tr>
+<th>使用案例</th>
+<th>lambda示例</th>
+<th>对应的函数式接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>布尔表达式</td>
+<td>(List<String> list) -&gt; list.isEmpty()</td>
+<td>Predicate&lt;List<String>&gt;</td>
+</tr>
+<tr>
+<td>创建对象</td>
+<td>() -&gt; new Apple(10)</td>
+<td>Supplier<Apple></td>
+</tr>
+<tr>
+<td>消费一个对象</td>
+<td>(Apple a) -&gt; { System.out.println(a.getWeight);}</td>
+<td>Consumer<Apple></td>
+</tr>
+<tr>
+<td>从一个对象中选取/抽取</td>
+<td>(String s) -&gt; s.length()</td>
+<td>Function&lt;String, Integer&gt; 或 &lt;ToIntFunction<String>&gt;</td>
+</tr>
+<tr>
+<td>组合两个值</td>
+<td>(int a, int b) -&gt; a * b</td>
+<td>IntBinaryOperator</td>
+</tr>
+<tr>
+<td>比较两个对象</td>
+<td>(Apple a1, Apple a2) -&gt; a1.getWeight.compareTo(a2.getWeight())</td>
+<td>BiFunction&lt;Apple, Apple, Integer&gt; 或 ToIntBiFunction&lt;Apple, Apple&gt;</td>
+</tr>
+</tbody></table>
+<h2 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h2><p>第一个方法引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//先前</span></span><br><span class="line">inventory.sort((Apple a1, Apple a2) -&gt; a1.getWeight().compareTo(a2.getWeight()));</span><br><span class="line"></span><br><span class="line"><span class="comment">//之后(使用方法引用和java.util.Comparator.comparing)</span></span><br><span class="line">inventory.sort(comparing(Apple::getWeight));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>方法引用可以被看作仅仅调用特定方法的Lambda的一种快捷写法</strong>。它的基本思想是，如果一个Lambda代表的只是“直接调用这个方法”，那最好还是用名称来调用它，而不是去描述如何调用它。<strong>方法引用就是让你根据已有的方法实现来创建Lambda表达式</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">当你需要使用方法引用时：目标引用放在分隔符::前，方法的名称放在后面</span><br><span class="line"></span><br><span class="line">目标引用::方法名称</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line"></span><br><span class="line">(Apple a) -&gt; a.getWeight() 等价于 Apple::getWeight</span><br><span class="line"></span><br><span class="line">() -&gt; Thread.currentThread().dumpStack() 等价于 Thread.currentThread()::dumpStack</span><br><span class="line"></span><br><span class="line">(str, i) -&gt; str.substring(i) 等价于 String::substring</span><br><span class="line"></span><br><span class="line">(String s) -&gt; System.out.println(s) 等价于 System.out.println</span><br></pre></td></tr></table></figure>
+
+<p>方法引用主要有三类：</p>
+<ol>
+<li>指向静态方法的方法引用</li>
+<li>指向任意类型实例方法的方法引用</li>
+<li>指向现有对象的实例方法的引用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">具体实例如下所示：</span><br><span class="line"></span><br><span class="line">第一种：</span><br><span class="line">Integer::parseInt</span><br><span class="line">第二种:</span><br><span class="line">String::length</span><br><span class="line">第三种:</span><br><span class="line">假设你有一个局部变量expensiveTransaction用于存放Transaction类型的对象，它支持实例方法getValue，那么就可以写成：</span><br><span class="line">expensiveTransaction::getValue</span><br><span class="line"></span><br><span class="line">第二种和第三种的区别：</span><br><span class="line"></span><br><span class="line">第二种方法引用类似于String::length的第二种方法引用的思想就是在你引用一个对象的方法，而这个对象本身是Lambda的一个参数。</span><br><span class="line">例如：Lambda表达式(String s) -&gt; s.toUpperCase()可以写作String::toUpperCase。</span><br><span class="line"></span><br><span class="line">第三种方法引用指的是，你在Lambda中调用一个已经存在的外部对象中的方法。</span><br><span class="line">例如：Lambda表达式()-&gt;expensiveTransaction.getValue()可以写作expensiveTransaction::getValue。</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造函数引用"><a href="#构造函数引用" class="headerlink" title="构造函数引用"></a>构造函数引用</h3><p>无参构造函数引用：</p>
+<p>Supplier<Apple> c1 = Apple::new;<br>Apple a1 = c1.get();</p>
+<p>等价于：</p>
+<p>Supplier<Apple> c1 = () -&gt; new Apple();<br>Apple a1 = c1.get();</p>
+<p>一个构造函数引用：</p>
+<p>Function&lt;Integer, Apple&gt; c2 = Apple::new;<br>Apple a2 = c2.apply(110);</p>
+<p>等价于:</p>
+<p>Function&lt;Integer, Apple&gt; c2 = (weight) -&gt; new Apple(weight);<br>Apple a2 = c2.apply(110);</p>
+<p>两个构造函数引用:</p>
+<p>BiFunction&lt;String, Integer, Apple&gt; c3 = Apple::new;<br>Apple c3 = c3.apply(“green”, 110)</p>
+<p>等价于:</p>
+<p>BiFunction&lt;String, Integer, Apple&gt; c3 = (color, weight) -&gt; new Apple(color, weight);<br>Apple c3 = c3.apply(“green”, 110)</p>
+<p>三个构造函数引用:<br>我们需要有一个与构造函数引用的签名匹配的函数式接口，但是语言本身没有给我们提供一个这样的函数式的接口，所以我们需要自己创建一个：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TriFunction</span>&lt;<span class="title">T</span>, <span class="title">U</span>, <span class="title">V</span>, <span class="title">R</span>&gt;</span>&#123;</span><br><span class="line">  <span class="function">R <span class="title">apply</span><span class="params">(T t, U u, V v)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//现在我们就可以像下面这样使用构造函数引用了：</span></span><br><span class="line">TriFunction&lt;Integer, Integer, Integer, Color&gt; colorFactory = Color::<span class="keyword">new</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//其他情况类比就行，就不一一举例。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="复合Lambda表达式"><a href="#复合Lambda表达式" class="headerlink" title="复合Lambda表达式"></a>复合Lambda表达式</h3><ol>
+<li>排序:Comparator<Apple> c = Comparator.comparing(Apple::getWeight);</li>
+<li>逆序:inventory.sort(comparing(Apple::getWeight).reversed());</li>
+<li>比较链:inventory.sort(comparing(Apple::getWeight).reversed().thenComparing(Apple::getWeight));</li>
+<li>谓词复合:negate、and、or<ul>
+<li>negate:Predicate<Apple> notRedApple = redApple.negate();//产生现有Predicate对象redApple的非</li>
+<li>and、or:Predicate<Apple> redAndHeavyAppleGreen = redApple.and(a -&gt; a.getWeight() &gt; 150).or(a -&gt; “green”.equals(a.getColor()));//要么是重150以上的红苹果，要么是绿苹果。</li>
+</ul>
+</li>
+<li>函数复合:Function接口为此配了andThen和compose两个默认方法，它们都会返回Function的一个实例。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;Integer, Integer&gt; f = x -&gt; x + <span class="number">1</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; g = x -&gt; x * <span class="number">2</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; h = f.andThen(g);</span><br><span class="line"><span class="keyword">int</span> result = h.apply(<span class="number">1</span>);<span class="comment">//result为4</span></span><br><span class="line"></span><br><span class="line">Function&lt;Integer, Integer&gt; f = x -&gt; x + <span class="number">1</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; g = x -&gt; x * <span class="number">2</span>;</span><br><span class="line">Function&lt;Integer, Integer&gt; h = f.compare(g);</span><br><span class="line"><span class="keyword">int</span> result = h.apply(<span class="number">1</span>);<span class="comment">//result为3</span></span><br><span class="line"></span><br><span class="line">compare:f(g(x))</span><br><span class="line">andThen:g(f(x))</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="lambda表达式示例"><a href="#lambda表达式示例" class="headerlink" title="lambda表达式示例"></a>lambda表达式示例</h2><h3 id="1-用lambda表达式实现Runnable"><a href="#1-用lambda表达式实现Runnable" class="headerlink" title="1.用lambda表达式实现Runnable"></a>1.用lambda表达式实现Runnable</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java 8之前：</span></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Before Java8, too much code for too little to do&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Java 8之后：</span></span><br><span class="line"><span class="keyword">new</span> Thread( () -&gt; System.out.println(<span class="string">&quot;In Java8, Lambda expression rocks !!&quot;</span>) ).start();</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-使用Java-8-lambda表达式进行事件处理"><a href="#2-使用Java-8-lambda表达式进行事件处理" class="headerlink" title="2.使用Java 8 lambda表达式进行事件处理"></a>2.使用Java 8 lambda表达式进行事件处理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java 8之前：</span></span><br><span class="line">JButton show =  <span class="keyword">new</span> JButton(<span class="string">&quot;Show&quot;</span>);</span><br><span class="line">show.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Event handling without lambda expression is boring&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Java 8之后：</span></span><br><span class="line">show.addActionListener((e) -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Light, Camera, Action !! Lambda expressions Rocks&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用lambda表达式对列表进行迭代"><a href="#3-使用lambda表达式对列表进行迭代" class="headerlink" title="3.使用lambda表达式对列表进行迭代"></a>3.使用lambda表达式对列表进行迭代</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java 8之前：</span></span><br><span class="line">List features = Arrays.asList(<span class="string">&quot;Lambdas&quot;</span>, <span class="string">&quot;Default Method&quot;</span>, <span class="string">&quot;Stream API&quot;</span>, <span class="string">&quot;Date and Time API&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (String feature : features) &#123;</span><br><span class="line">    System.out.println(feature);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Java 8之后：</span></span><br><span class="line">List features = Arrays.asList(<span class="string">&quot;Lambdas&quot;</span>, <span class="string">&quot;Default Method&quot;</span>, <span class="string">&quot;Stream API&quot;</span>, <span class="string">&quot;Date and Time API&quot;</span>);</span><br><span class="line">features.forEach(n -&gt; System.out.println(n));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用Java 8的方法引用更方便，方法引用由::双冒号操作符标示，</span></span><br><span class="line"><span class="comment">// 看起来像C++的作用域解析运算符</span></span><br><span class="line">features.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-使用lambda表达式和函数式接口Predicate"><a href="#4-使用lambda表达式和函数式接口Predicate" class="headerlink" title="4.使用lambda表达式和函数式接口Predicate"></a>4.使用lambda表达式和函数式接口Predicate</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(args[])</span></span>&#123;</span><br><span class="line">    List languages = Arrays.asList(<span class="string">&quot;Java&quot;</span>, <span class="string">&quot;Scala&quot;</span>, <span class="string">&quot;C++&quot;</span>, <span class="string">&quot;Haskell&quot;</span>, <span class="string">&quot;Lisp&quot;</span>);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;Languages which starts with J :&quot;</span>);</span><br><span class="line">    filter(languages, (str)-&gt;str.startsWith(<span class="string">&quot;J&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;Languages which ends with a &quot;</span>);</span><br><span class="line">    filter(languages, (str)-&gt;str.endsWith(<span class="string">&quot;a&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;Print all languages :&quot;</span>);</span><br><span class="line">    filter(languages, (str)-&gt;<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;Print no language : &quot;</span>);</span><br><span class="line">    filter(languages, (str)-&gt;<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;Print language whose length greater than 4:&quot;</span>);</span><br><span class="line">    filter(languages, (str)-&gt;str.length() &gt; <span class="number">4</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">filter</span><span class="params">(List names, Predicate condition)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(String name: names)  &#123;</span><br><span class="line">        <span class="keyword">if</span>(condition.test(name)) &#123;</span><br><span class="line">            System.out.println(name + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更好的办法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">filter</span><span class="params">(List names, Predicate condition)</span> </span>&#123;</span><br><span class="line">    names.stream().filter((name) -&gt; (condition.test(name))).forEach((name) -&gt; &#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-如何在lambda表达式中加入Predicate"><a href="#5-如何在lambda表达式中加入Predicate" class="headerlink" title="5.如何在lambda表达式中加入Predicate"></a>5.如何在lambda表达式中加入Predicate</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 甚至可以用and()、or()和xor()逻辑函数来合并Predicate，</span></span><br><span class="line"><span class="comment">// 例如要找到所有以J开始，长度为四个字母的名字，你可以合并两个Predicate并传入</span></span><br><span class="line">Predicate&lt;String&gt; startsWithJ = (n) -&gt; n.startsWith(<span class="string">&quot;J&quot;</span>);</span><br><span class="line">Predicate&lt;String&gt; fourLetterLong = (n) -&gt; n.length() == <span class="number">4</span>;</span><br><span class="line">names.stream()</span><br><span class="line">    .filter(startsWithJ.and(fourLetterLong))</span><br><span class="line">    .forEach((n) -&gt; System.out.print(<span class="string">&quot;nName, which starts with &#x27;J&#x27; and four letter long is : &quot;</span> + n));</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-Java-8中使用lambda表达式的Map和Reduce示例"><a href="#6-Java-8中使用lambda表达式的Map和Reduce示例" class="headerlink" title="6.Java 8中使用lambda表达式的Map和Reduce示例"></a>6.Java 8中使用lambda表达式的Map和Reduce示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不使用lambda表达式为每个订单加上12%的税</span></span><br><span class="line">List costBeforeTax = Arrays.asList(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>);</span><br><span class="line"><span class="keyword">for</span> (Integer cost : costBeforeTax) &#123;</span><br><span class="line">    <span class="keyword">double</span> price = cost + <span class="number">.12</span>*cost;</span><br><span class="line">    System.out.println(price);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用lambda表达式</span></span><br><span class="line">List costBeforeTax = Arrays.asList(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>);</span><br><span class="line">costBeforeTax.stream().map((cost) -&gt; cost + <span class="number">.12</span>*cost).forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为每个订单加上12%的税</span></span><br><span class="line"><span class="comment">// 老方法：</span></span><br><span class="line">List costBeforeTax = Arrays.asList(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>);</span><br><span class="line"><span class="keyword">double</span> total = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (Integer cost : costBeforeTax) &#123;</span><br><span class="line">    <span class="keyword">double</span> price = cost + <span class="number">.12</span>*cost;</span><br><span class="line">    total = total + price;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(<span class="string">&quot;Total : &quot;</span> + total);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新方法：</span></span><br><span class="line">List costBeforeTax = Arrays.asList(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>);</span><br><span class="line"><span class="keyword">double</span> bill = costBeforeTax.stream().map((cost) -&gt; cost + <span class="number">.12</span>*cost).reduce((sum, cost) -&gt; sum + cost).get();</span><br><span class="line">System.out.println(<span class="string">&quot;Total : &quot;</span> + bill);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-通过过滤创建一个String列表"><a href="#7-通过过滤创建一个String列表" class="headerlink" title="7.通过过滤创建一个String列表"></a>7.通过过滤创建一个String列表</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个字符串列表，每个字符串长度大于2</span></span><br><span class="line">List&lt;String&gt; filtered = strList.stream().filter(x -&gt; x.length()&gt; <span class="number">2</span>).collect(Collectors.toList());</span><br><span class="line">System.out.printf(<span class="string">&quot;Original List : %s, filtered list : %s %n&quot;</span>, strList, filtered);</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-对列表的每个元素应用函数"><a href="#8-对列表的每个元素应用函数" class="headerlink" title="8.对列表的每个元素应用函数"></a>8.对列表的每个元素应用函数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将字符串换成大写并用逗号链接起来</span></span><br><span class="line">List&lt;String&gt; G7 = Arrays.asList(<span class="string">&quot;USA&quot;</span>, <span class="string">&quot;Japan&quot;</span>, <span class="string">&quot;France&quot;</span>, <span class="string">&quot;Germany&quot;</span>, <span class="string">&quot;Italy&quot;</span>, <span class="string">&quot;U.K.&quot;</span>,<span class="string">&quot;Canada&quot;</span>);</span><br><span class="line">String G7Countries = G7.stream().map(x -&gt; x.toUpperCase()).collect(Collectors.joining(<span class="string">&quot;, &quot;</span>));</span><br><span class="line">System.out.println(G7Countries);</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-复制不同的值，创建一个子列表"><a href="#9-复制不同的值，创建一个子列表" class="headerlink" title="9.复制不同的值，创建一个子列表"></a>9.复制不同的值，创建一个子列表</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用所有不同的数字创建一个正方形列表</span></span><br><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">9</span>, <span class="number">10</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">List&lt;Integer&gt; distinct = numbers.stream().map( i -&gt; i*i).distinct().collect(Collectors.toList());</span><br><span class="line">System.out.printf(<span class="string">&quot;Original List : %s,  Square Without duplicates : %s %n&quot;</span>, numbers, distinct);</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-计算集合元素的最大值、最小值、总和以及平均值"><a href="#10-计算集合元素的最大值、最小值、总和以及平均值" class="headerlink" title="10.计算集合元素的最大值、最小值、总和以及平均值"></a>10.计算集合元素的最大值、最小值、总和以及平均值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取数字的个数、最小值、最大值、总和以及平均值</span></span><br><span class="line">List&lt;Integer&gt; primes = Arrays.asList(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">29</span>);</span><br><span class="line">IntSummaryStatistics stats = primes.stream().mapToInt((x) -&gt; x).summaryStatistics();</span><br><span class="line">System.out.println(<span class="string">&quot;Highest prime number in List : &quot;</span> + stats.getMax());</span><br><span class="line">System.out.println(<span class="string">&quot;Lowest prime number in List : &quot;</span> + stats.getMin());</span><br><span class="line">System.out.println(<span class="string">&quot;Sum of all prime numbers : &quot;</span> + stats.getSum());</span><br><span class="line">System.out.println(<span class="string">&quot;Average of all prime numbers : &quot;</span> + stats.getAverage());</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lambda表达式要点"><a href="#Lambda表达式要点" class="headerlink" title="Lambda表达式要点"></a>Lambda表达式要点</h2><ol>
+<li>lambda表达式仅能放入如下代码：</li>
+</ol>
+<ul>
+<li>预定义使用了 @Functional 注释的函数式接口，自带一个抽象函数的方法，或者SAM（Single Abstract Method 单个抽象方法）类型。这些称为lambda表达式的目标类型，可以用作返回类型，或lambda目标代码的参数。例如，若一个方法接收Runnable、Comparable或者 Callable 接口，都有单个抽象方法，可以传入lambda表达式。类似的，如果一个方法接受声明于 java.util.function 包内的接口，例如 Predicate、Function、Consumer 或 Supplier，那么可以向其传lambda表达式。</li>
+</ul>
+<ol start="2">
+<li>lambda表达式内可以使用方法引用，仅当该方法不修改lambda表达式提供的参数。本例中的lambda表达式可以换为方法引用，因为这仅是一个参数相同的简单方法调用。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">list.forEach(n -&gt; System.out.println(n));</span><br><span class="line"></span><br><span class="line">list.forEach(System.out::println);  &#x2F;&#x2F; 使用方法引用</span><br><span class="line"></span><br><span class="line">然而，若对参数有任何修改，则不能使用方法引用，而需键入完整地lambda表达式，如下所示：</span><br><span class="line"></span><br><span class="line">list.forEach((String s) -&gt; System.out.println(&quot;*&quot; + s + &quot;*&quot;));</span><br><span class="line"></span><br><span class="line">事实上，可以省略这里的lambda参数的类型声明，编译器可以从列表的类属性推测出来。</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>lambda内部可以使用静态、非静态和局部变量，这称为lambda内的变量捕获。</li>
+<li>Lambda表达式在Java中又称为闭包或匿名函数。</li>
+<li>Lambda方法在编译器内部被翻译成私有方法，并派发 invokedynamic 字节码指令来进行调用。可以使用JDK中的 javap 工具来反编译class文件。使用 javap -p 或 javap -c -v 命令来看一看lambda表达式生成的字节码。大致应该长这样：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static java.lang.Object lambda$0(java.lang.String);</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>lambda表达式有个限制，那就是只能引用 final 或 final 局部变量，这就是说不能在lambda内部修改定义在域外的变量。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; primes &#x3D; Arrays.asList(new Integer[]&#123;2, 3,5,7&#125;);</span><br><span class="line"></span><br><span class="line">int factor &#x3D; 2;</span><br><span class="line"></span><br><span class="line">primes.forEach(element -&gt; &#123; factor++; &#125;);</span><br><span class="line"></span><br><span class="line">Compile time error : &quot;local variables referenced from a lambda expression must be final or effectively final&quot;</span><br><span class="line"></span><br><span class="line">另外，只是访问它而不作修改是可以的，如下所示：</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt; primes &#x3D; Arrays.asList(new Integer[]&#123;2, 3,5,7&#125;);</span><br><span class="line"></span><br><span class="line">int factor &#x3D; 2;</span><br><span class="line"></span><br><span class="line">primes.forEach(element -&gt; &#123; System.out.println(factor*element); &#125;);</span><br></pre></td></tr></table></figure>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/Java%E9%9D%A2%E8%AF%95%E4%B9%8B%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81%E3%80%81%E5%85%AD%E5%A4%A7%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99/">java面试之三大特征、六大基本原则</a></div><div class="post-title fs14"><a href="/2019/04/05/Markdown%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">or prev: Markdown的常用语法</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

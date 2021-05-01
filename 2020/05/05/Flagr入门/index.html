@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>flagr入门 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。 flagr是什么？在介绍flagr之前，我们先要明白什么是A&#x2F;B测试，什么是灰度测试，这样可以让我们更好的理解flagr。 A&#x2F;B测试A&#x2F;B测试指的是系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flagr入门">
+<meta property="og:url" content="http://example.com/2020/05/05/Flagr%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。 flagr是什么？在介绍flagr之前，我们先要明白什么是A&#x2F;B测试，什么是灰度测试，这样可以让我们更好的理解flagr。 A&#x2F;B测试A&#x2F;B测试指的是系统">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/23/1.png">
+<meta property="og:image" content="http://example.com/blog/23/2.png">
+<meta property="og:image" content="http://example.com/blog/23/3.png">
+<meta property="og:image" content="http://example.com/blog/23/4.png">
+<meta property="og:image" content="http://example.com/blog/23/5.png">
+<meta property="og:image" content="http://example.com/blog/23/6.png">
+<meta property="og:image" content="http://example.com/blog/23/7.png">
+<meta property="og:image" content="http://example.com/blog/23/8.png">
+<meta property="article:published_time" content="2020-05-05T08:38:55.675Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.358Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="中间件">
+<meta property="article:tag" content="A&#x2F;B测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/23/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">flagr是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-B%E6%B5%8B%E8%AF%95"><span class="toc-text">A&#x2F;B测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="toc-text">灰度测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E6%B5%8B%E8%AF%95%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-text">灰度测试的意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4"><span class="toc-text">灰度发布步骤</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flagr%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">flagr是什么？可以用来做什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flagr%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A"><span class="toc-text">flagr中的一些专业术语解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E6%8F%90%E4%BE%9B%E7%9A%84http%E6%8E%A5%E5%8F%A3"><span class="toc-text">flagr提供的http接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E5%AE%9E%E4%BE%8B"><span class="toc-text">flagr实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">flagr的结构</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2020-05-05T08:38:55.675Z'>2020-05-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>flagr入门</span></h1>
+<h1 id="摘要：这篇文章主要介绍一个A-B测试的中间件–flagr"><a href="#摘要：这篇文章主要介绍一个A-B测试的中间件–flagr" class="headerlink" title="摘要：这篇文章主要介绍一个A/B测试的中间件–flagr"></a>摘要：这篇文章主要介绍一个A/B测试的中间件–flagr</h1><hr>
+<h1 id="前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。-它提供功能标记，实验（A-B测试）和动态配置。-它具有用于标志管理和标志评估的清晰的REST-API。"><a href="#前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。-它提供功能标记，实验（A-B测试）和动态配置。-它具有用于标志管理和标志评估的清晰的REST-API。" class="headerlink" title="前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A / B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。"></a>前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A / B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。</h1><hr>
+<h2 id="flagr是什么？"><a href="#flagr是什么？" class="headerlink" title="flagr是什么？"></a>flagr是什么？</h2><p>在介绍flagr之前，我们先要明白什么是A/B测试，什么是灰度测试，这样可以让我们更好的理解flagr。</p>
+<h3 id="A-B测试"><a href="#A-B测试" class="headerlink" title="A/B测试"></a>A/B测试</h3><p>A/B测试指的是系统测试通过并发布后，同一个软件功能不同的用户会看到不同的实现方式，收集每个用户的反馈。本质上是上线后的测试，收集用户的反馈。即让一部分用户继续用产品特性A，一部分用户开始用产品特性B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。</p>
+<h3 id="灰度测试"><a href="#灰度测试" class="headerlink" title="灰度测试"></a>灰度测试</h3><p>灰度发布，又名金丝雀发布，或者灰度测试，是指在黑与白之间能够平滑过渡的一种发布方式。在其上可以进行A/B测试。</p>
+<p>灰度发布是对某一产品的发布逐步扩大使用群体范围，也叫灰度放量。系统集成测试通过后，将测试版本发布到线上环境，替换部分的线上服务器代码进行预测试。当灰度测试结束后，线上版本实现会统一。本质上是上线前的测试，收集用户的反馈。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度。</p>
+<p>灰度期：灰度发布开始到结束期间的这一段时间，称为灰度期。</p>
+<h4 id="灰度测试的意义"><a href="#灰度测试的意义" class="headerlink" title="灰度测试的意义"></a>灰度测试的意义</h4><p>灰度测试能及早获得用户的意见反馈，完善产品功能，提升产品质量，让用户参与产品测试，加强与用户互动，降低产品升级所影响的用户范围。</p>
+<h4 id="灰度发布步骤"><a href="#灰度发布步骤" class="headerlink" title="灰度发布步骤"></a>灰度发布步骤</h4><ol>
+<li>定义目标。</li>
+<li>选定策略：包括用户规模、发布频率、功能覆盖度、回滚策略、运营策略、新旧系统部署策略等。</li>
+<li>筛选用户：包括用户特征、用户数量、用户常用功能、用户范围等。</li>
+<li>部署系统：部署新系统、部署用户行为分析系统（web analytics）、设定分流规则、运营数据分析、分流规则微调。</li>
+<li>发布总结：用户行为分析报告、用户问卷调查、社会化媒体意见收集、形成产品功能改进列表。</li>
+<li>产品完善。</li>
+<li>新一轮灰度发布或完整发布。</li>
+</ol>
+<h3 id="flagr是什么？可以用来做什么？"><a href="#flagr是什么？可以用来做什么？" class="headerlink" title="flagr是什么？可以用来做什么？"></a>flagr是什么？可以用来做什么？</h3><p>Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。它提供功能标记，A/B测试和动态配置。它具有用于标志管理和标志评估的清晰的REST API。</p>
+<p>我们可以利用flagr进行A/B测试和灰度发布，通过它完善产品。</p>
+<h3 id="flagr中的一些专业术语解释"><a href="#flagr中的一些专业术语解释" class="headerlink" title="flagr中的一些专业术语解释"></a>flagr中的一些专业术语解释</h3><ul>
+<li>Flag. It can be a feature flag, an experiment, or a configuration.（它可以是功能标记，实验或配置。）</li>
+<li>Variant represents the possible variation of a flag. For example, control/treatment, green/yellow/red, etc.（变体表示标志的可能变体。 例如，控制/处理，绿色/黄色/红色等。）</li>
+<li>Variant Attachment represents the dynamic configuration of a variant. For example, if you have a variant for the green button, you can dynamically control what’s the hex color of green you want to use (e.g. {“hex_color”: “#42b983”}).（变体附件表示变体的动态配置。 例如，如果您有绿色按钮的变体，则可以动态控制要使用的绿色的十六进制颜色（例如{“ hex_color”：“＃42b983”}）。）</li>
+<li>Segment represents the segmentation, i.e. the set of audience we want to target. Segment is the smallest unit of a component we can analyze in Flagr Metrics.（细分表示分区，即我们要定位的受众群体。 细分是我们可以在Flagr指标中分析的组件的最小单位。）</li>
+<li>Constraint represents rules that we can use to define the audience of the segment. In other words, the audience in the segment is defined by a set of constraints. Specifically, in Flagr, the constraints are connected with AND in a segment.（约束表示可以用来定义细分受众群的规则。 换句话说，细分受众群是由一组约束定义的。 具体而言，在Flagr中，约束与细分中的AND连接。）</li>
+<li>Distribution represents the distribution of variants in a segment.（分布表示细分中变体的分布。）</li>
+<li>Entity represents the context of what we are going to assign the variant on. Usually, Flagr expects the context coming with the entity, so that one can define constraints based on the context of the entity.（实体表示我们要为其分配变量的上下文。 通常，Flagr期望上下文随实体一起提供，以便人们可以基于实体的上下文定义约束。）</li>
+<li>Rollout and deterministic random logic. The goal here is to ensure deterministic and persistent evaluation result for entities. Steps to evaluating a flag given an entity context:（推出和确定性随机逻辑。 此处的目的是确保对实体的确定性和持久性评估结果。 在给定实体上下文的情况下评估标志的步骤：）<ul>
+<li>Take the unique ID from the entity, hash it using a hash function that has a uniform distribution (e.g. CRC32, MD5).（从实体中获取唯一ID，然后使用具有均匀分布的哈希函数（例如CRC32，MD5）对其进行哈希处理。）</li>
+<li>Take the hash value (base 10) and mod 1000. 1000 is the total number of buckets used in Flagr.（取哈希值（以10为底）和mod1000。1000是Flagr中使用的存储桶总数。）</li>
+<li>Consider the distribution. For example, 50/50 split for control and treatment means 0-499 for control and 500-999 for treatment.（考虑分布。 例如，控制和治疗的50/50分割意味着控制的0-499和治疗的500-999。）</li>
+<li>Consider the rollout percentage. For example, 10% rollout means only the first 10% of the control buckets (again, use the previous step example, 0-49 out of 0-499 will be rolled out to control experience).（考虑部署百分比。 例如，推出10％表示仅控制桶的前10％（同样，使用上一个步骤示例，将推出0-499中的0-49以控制体验）。）</li>
+</ul>
+</li>
+</ul>
+<h2 id="flagr提供的http接口"><a href="#flagr提供的http接口" class="headerlink" title="flagr提供的http接口"></a>flagr提供的http接口</h2><p>几个专业术语的解释：<br>Flag：标志<br>Segment：<br>官方英文解释：Segment defines the audience of the flag, it’s the user segmentation.<br>中文翻译：分割区定义了标志的受众群体，即对用户细分。<br>Constraint：<br>官方英文解释：Constraint is the unit of defining a small subset of users.<br>中文翻译：约束是定义一小部分用户的单位。<br>Distribution：<br>官方英文解释：Distribution is the percent distribution of variants within that segment.<br>中文翻译：分布是该细分中变体的百分比分布。<br>Variant：<br>官方英文解释：Variants are the possible outcomes of flag evaluation.<br>中文翻译：变体是标志评估的可能结果。<br>Evaluation：<br>官方英文解释：Evaluation is the process of evaluating a flag given the entity context.<br>中文翻译：评估是在给定实体上下文的情况下评估标志的过程<br>Health：<br>官方英文解释：Check if Flagr is healthy.<br>中文翻译：检查Flagr是否健康。</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Method</th>
+<th>HTTP</th>
+<th>request</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Jsflagr.ConstraintApi</td>
+<td>createConstraint</td>
+<td>POST</td>
+<td>/flags/{flagID}/segments/{segmentID}/constraints</td>
+<td>创建约束</td>
+</tr>
+<tr>
+<td>Jsflagr.ConstraintApi</td>
+<td>deleteConstraint</td>
+<td>DELETE</td>
+<td>/flags/{flagID}/segments/{segmentID}/constraints/{constraintID}</td>
+<td>删除约束</td>
+</tr>
+<tr>
+<td>Jsflagr.ConstraintApi</td>
+<td>findConstraints</td>
+<td>GET</td>
+<td>/flags/{flagID}/segments/{segmentID}/constraints</td>
+<td>查找约束</td>
+</tr>
+<tr>
+<td>Jsflagr.ConstraintApi</td>
+<td>putConstraint</td>
+<td>PUT</td>
+<td>/flags/{flagID}/segments/{segmentID}/constraints/{constraintID}</td>
+<td>更新约束</td>
+</tr>
+<tr>
+<td>Jsflagr.DistributionApi</td>
+<td>findDistributions</td>
+<td>GET</td>
+<td>/flags/{flagID}/segments/{segmentID}/distributions</td>
+<td>查找分布</td>
+</tr>
+<tr>
+<td>Jsflagr.DistributionApi</td>
+<td>putDistributions</td>
+<td>PUT</td>
+<td>/flags/{flagID}/segments/{segmentID}/distributions</td>
+<td>更新分布</td>
+</tr>
+<tr>
+<td>Jsflagr.EvaluationApi</td>
+<td>postEvaluation</td>
+<td>POST</td>
+<td>/evaluation</td>
+<td>更新某个评估</td>
+</tr>
+<tr>
+<td>Jsflagr.EvaluationApi</td>
+<td>postEvaluationBatch</td>
+<td>POST</td>
+<td>/evaluation/batch</td>
+<td>批量更新评估</td>
+</tr>
+<tr>
+<td>Jsflagr.ExportApi</td>
+<td>getExportSQLite</td>
+<td>GET</td>
+<td>/export/sqlite</td>
+<td>导出数据库转储的sqlite3格式，该格式是从主数据库转换而来的。</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>createFlag</td>
+<td>POST</td>
+<td>/flags</td>
+<td>创建标志</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>deleteFlag</td>
+<td>DELETE</td>
+<td>/flags/{flagID}</td>
+<td>删除标志</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>findFlags</td>
+<td>GET</td>
+<td>/flags</td>
+<td>查找所有的标志</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>getFlag</td>
+<td>GET</td>
+<td>/flags/{flagID}</td>
+<td>查找某个标志</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>getFlagEntityTypes</td>
+<td>GET</td>
+<td>/flags/entity_types</td>
+<td>获取标志实体的类型</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>getFlagSnapshots</td>
+<td>GET</td>
+<td>/flags/{flagID}/snapshots</td>
+<td>获取标志快照</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>putFlag</td>
+<td>PUT</td>
+<td>/flags/{flagID}</td>
+<td>更新标志</td>
+</tr>
+<tr>
+<td>Jsflagr.FlagApi</td>
+<td>setFlagEnabled</td>
+<td>PUT</td>
+<td>/flags/{flagID}/enabled</td>
+<td>启用标志</td>
+</tr>
+<tr>
+<td>Jsflagr.HealthApi</td>
+<td>getHealth</td>
+<td>GET</td>
+<td>/health</td>
+<td>获取健康指标</td>
+</tr>
+<tr>
+<td>Jsflagr.SegmentApi</td>
+<td>createSegment</td>
+<td>POST</td>
+<td>/flags/{flagID}/segments</td>
+<td>创建分割区</td>
+</tr>
+<tr>
+<td>Jsflagr.SegmentApi</td>
+<td>deleteSegment</td>
+<td>DELETE</td>
+<td>/flags/{flagID}/segments/{segmentID}</td>
+<td>删除分割区</td>
+</tr>
+<tr>
+<td>Jsflagr.SegmentApi</td>
+<td>findSegments</td>
+<td>GET</td>
+<td>/flags/{flagID}/segments</td>
+<td>查找标志下的所有分割区</td>
+</tr>
+<tr>
+<td>Jsflagr.SegmentApi</td>
+<td>putSegment</td>
+<td>PUT</td>
+<td>/flags/{flagID}/segments/{segmentID}</td>
+<td>更新某个分割区</td>
+</tr>
+<tr>
+<td>Jsflagr.SegmentApi</td>
+<td>putSegmentsReorder</td>
+<td>PUT</td>
+<td>/flags/{flagID}/segments/reorder</td>
+<td>重新分配分割区</td>
+</tr>
+<tr>
+<td>Jsflagr.VariantApi</td>
+<td>createVariant</td>
+<td>POST</td>
+<td>/flags/{flagID}/variants</td>
+<td>创建变体</td>
+</tr>
+<tr>
+<td>Jsflagr.VariantApi</td>
+<td>deleteVariant</td>
+<td>DELETE</td>
+<td>/flags/{flagID}/variants/{variantID}</td>
+<td>删除变体</td>
+</tr>
+<tr>
+<td>Jsflagr.VariantApi</td>
+<td>findVariants</td>
+<td>GET</td>
+<td>/flags/{flagID}/variants</td>
+<td>查找标志下的变体</td>
+</tr>
+<tr>
+<td>Jsflagr.VariantApi</td>
+<td>putVariant</td>
+<td>PUT</td>
+<td>/flags/{flagID}/variants/{variantID}</td>
+<td>更新变体</td>
+</tr>
+</tbody></table>
+<p>具体的api文档可以参考以下地址：<br><a target="_blank" rel="noopener" href="https://checkr.github.io/flagr/api_docs/">https://checkr.github.io/flagr/api_docs/</a></p>
+<h2 id="flagr实例"><a href="#flagr实例" class="headerlink" title="flagr实例"></a>flagr实例</h2><p>假设我们想向美国用户推出一个新按钮，而我们不知道哪种颜色效果最好。 绿色/蓝色/粉红色是标志的三种变体。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/1.png" alt="按钮1"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/2.png" alt="按钮2"></p>
+<p>我们可能希望将标志公开给一小部分用户，例如加利福尼亚的用户。 因此，加利福尼亚的用户属于细分区。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/3.png" alt="细分区图1"></p>
+<p>后来，我们了解到CA的用户喜欢绿色的按钮，NY的人们喜欢粉红色的按钮，DC的人们喜欢蓝色的按钮。因此，我们将分为三个部分，每个部分均由约束定义：州 ==？。该细分区也可以由多个约束定义。 例如，州== NY AND 年龄 &gt;= 21</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/4.png" alt="细分区图2"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/5.png" alt="细分区图3"></p>
+<p>要对此标志进行A / B测试，我们可以尝试使用50％ / 50％（分布）的绿色 / 蓝色，并仅对CA细分区域中20％（点击率）的用户进行测试。 稍后，我们可以将推广百分比设置为100％，以便CA中的每个用户都能以50％的机会获得绿色或蓝色。 当然，如果要向100％的用户推广到100％绿色，只需将分发设置为100％ / 0％的绿色 / 蓝色和100％的推广百分比。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/6.png" alt="A/B测试图1"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/7.png" alt="A/B测试图1"></p>
+<h2 id="flagr的结构"><a href="#flagr的结构" class="headerlink" title="flagr的结构"></a>flagr的结构</h2><p>flagr中包含三个组件，标志评估器，标志管理器和flagr指标。</p>
+<ul>
+<li>flagr评估器：评估传入的请求。</li>
+<li>flagr管理器：flagr管理器是 CRUD 的出入口。flagr的所有变化都在这里发生。</li>
+<li>flagr指标. Flagr指标是收集评估结果的数据管道。 目前Flagr仅支持Kafka作为管道。</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/8.png" alt="flagr架构图"></p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/03/28/%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%E6%B1%87%E6%80%BB/">专业术语汇总</a></div><div class="post-title fs14"><a href="/2020/06/13/Java%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/">or prev: Java依赖注入详解</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

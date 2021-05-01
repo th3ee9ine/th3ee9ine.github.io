@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>java面试之三大特征、六大基本原则 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：Java面试之三大特征、六大基本原则总结 前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。四大特征：抽象、封装、继承、多态六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP） 四大特征：抽象、封装、继承、多态抽象抽象是将一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java面试之三大特征、六大基本原则">
+<meta property="og:url" content="http://example.com/2019/04/05/Java%E9%9D%A2%E8%AF%95%E4%B9%8B%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81%E3%80%81%E5%85%AD%E5%A4%A7%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：Java面试之三大特征、六大基本原则总结 前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。四大特征：抽象、封装、继承、多态六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP） 四大特征：抽象、封装、继承、多态抽象抽象是将一">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-04-05T03:07:50.651Z">
+<meta property="article:modified_time" content="2019-04-07T03:07:56.235Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E5%A4%A7%E7%89%B9%E5%BE%81%EF%BC%9A%E6%8A%BD%E8%B1%A1%E3%80%81%E5%B0%81%E8%A3%85%E3%80%81%E7%BB%A7%E6%89%BF%E3%80%81%E5%A4%9A%E6%80%81-1"><span class="toc-text">四大特征：抽象、封装、继承、多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1"><span class="toc-text">抽象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-text">封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-text">多态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E5%A4%A7%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99%EF%BC%9A%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99%EF%BC%88SRP%EF%BC%89%E3%80%81%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99%EF%BC%88LSP%EF%BC%89%E3%80%81%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99%EF%BC%88DIP%EF%BC%89%E3%80%81%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99%EF%BC%88ISP%EF%BC%89%E3%80%81%E8%BF%AA%E7%B1%B3%E7%89%B9%E5%8E%9F%E5%88%99%EF%BC%88LOD%EF%BC%89%E3%80%81%E5%BC%80%E6%94%BE%E5%B0%81%E9%97%AD%E5%8E%9F%E5%88%99%EF%BC%88OCP%EF%BC%89-1"><span class="toc-text">六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99%EF%BC%88SRP%EF%BC%89"><span class="toc-text">单一职责原则（SRP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99%EF%BC%88LSP%EF%BC%89"><span class="toc-text">里氏替换原则（LSP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99%EF%BC%88DIP%EF%BC%89"><span class="toc-text">依赖倒置原则（DIP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99%EF%BC%88ISP%EF%BC%89"><span class="toc-text">接口隔离原则（ISP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E5%8E%9F%E5%88%99%EF%BC%88LOD%EF%BC%89"><span class="toc-text">迪米特原则（LOD）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E5%B0%81%E9%97%AD%E5%8E%9F%E5%88%99%EF%BC%88OCP%EF%BC%89"><span class="toc-text">开放封闭原则（OCP）</span></a></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/Java/">Java</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/Java/%E5%9F%BA%E7%A1%80/">基础</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.651Z'>2019-04-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>java面试之三大特征、六大基本原则</span></h1>
+<h1 id="摘要：Java面试之三大特征、六大基本原则总结"><a href="#摘要：Java面试之三大特征、六大基本原则总结" class="headerlink" title="摘要：Java面试之三大特征、六大基本原则总结"></a>摘要：Java面试之三大特征、六大基本原则总结</h1><hr>
+<h1 id="前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。"><a href="#前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。" class="headerlink" title="前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。"></a>前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。</h1><h1 id="四大特征：抽象、封装、继承、多态"><a href="#四大特征：抽象、封装、继承、多态" class="headerlink" title="四大特征：抽象、封装、继承、多态"></a>四大特征：抽象、封装、继承、多态</h1><h1 id="六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）"><a href="#六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）" class="headerlink" title="六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）"></a>六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）</h1><hr>
+<h2 id="四大特征：抽象、封装、继承、多态-1"><a href="#四大特征：抽象、封装、继承、多态-1" class="headerlink" title="四大特征：抽象、封装、继承、多态"></a>四大特征：抽象、封装、继承、多态</h2><h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>抽象是将一类对象的共同特征总结出来构造类的过程，包括数据抽象和行为抽象两方面。抽象只关注对象有哪些属性和行为，并不关注这些行为的细节是什么。</p>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>通常认为封装是把<strong>数据</strong>和<strong>操作数据的方法</strong>绑定起来，对数据的访问<strong>只能通过已定义的接口</strong>。面向对象的本质就是将现实世界描绘成一系列完全自治、封闭的对象。我们在类中编写的方法就是对实现细节的一种封装；我们编写一个类就是对数据和数据操作的封装。可以说，封装就是<strong>隐藏一切可隐藏的东西</strong>，只向外界<strong>提供最简单的编程接口</strong>。</p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承是<strong>从已有类得到继承信息创建新类的过程</strong>。提供继承信息的类被称为 <strong>父类（超类、基类）</strong>；得到继承信息的类被称为 <strong>子类（派生类）</strong>。继承让变化中的软件系统有了一定的延续性，同时继承也是封装程序中可变因素的重要手段（桥梁模式）。</p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>多态性是指允许<strong>不同类型的对象对同一消息作出不同的响应</strong>。简单的说就是用同样的对象引用调用同样的方法但是做了不同的事情。多态性分为<strong>编译时的多态性</strong>和<strong>运行时的多态性</strong>。如果将对象的方法视为对象向外界提供的服务，那么运行时的多态性可以解释为：当A系统访问B系统提供的服务时，B系统有多种提供服务的方式，但一切对A系统来说都是透明的（就像电动剃须刀是A系统，它的供电系统是B系统，B系统可以使用电池供电或者用交流电，甚至还有可能是太阳能，A系统只会通过B类对象调用供电的方法，但并不知道供电系统的底层实现是什么，究竟通过何种方式获得了动力）。 <strong>方法重载（overload）</strong> 实现的是 <strong>编译时的多态性</strong>（也称为前绑定），而 <strong>方法重写（override）</strong> 实现的是 <strong>运行时的多态性</strong>（也称为后绑定）。运行时的多态是面向对象最精髓的东西，要实现多态需要做两件事：1). 方法重写（子类继承父类并重写父类中已有的或抽象的方法）；2). 对象造型（用父类型引用子类型对象，这样同样的引用调用同样的方法就会根据子类对象的不同而表现出不同的行为）。</p>
+<p>总结：</p>
+<ol>
+<li><p>在同一个方法中，这种由于参数类型不同而导致执行效果各异的现象就是多态。</p>
+</li>
+<li><p>Java实现多态有三个必要条件：继承、重写、向上转型。</p>
+<ul>
+<li><strong>继承</strong>：在多态中必须存在有继承关系的子类和父类。</li>
+<li><strong>重写</strong>：子类对父类中某些方法进行重新定义，在调用这些方法时就会调用子类的方法。</li>
+<li><strong>向上转型</strong>：在多态中需要将子类的引用赋给父类对象，只有这样该引用才能够具备技能调用父类的方法和子类的方法。</li>
+</ul>
+</li>
+<li><p>指向子类的父类引用由于向上转型了，<strong>它只能访问父类中拥有的方法和属性</strong>，而对于<strong>子类中存在而父类中不存在的方法，该引用是不能使用的</strong>，尽管是重载该方法。<strong>若子类重写了父类中的某些方法</strong>，在调用该些方法的时候，<strong>必定是使用子类中定义的这些方法（动态连接、动态调用）</strong>。</p>
+</li>
+<li><p>instanceof可以判断一个对象是否为某个类（或接口）的实例或者子类实例。<br>语法格式：对象（或者对象引用变量） instanceof 类（或接口）</p>
+</li>
+<li><p>JAVA运行过程：编译，类的加载，类的执行。</p>
+</li>
+<li><p>多态机制遵循的原则概括为：当超类对象引用子类对象时，被引用对象的类型而不是引用变量的类型决定了调用谁的成员方法，但是这个被调用的方法必须是在超类中定义过的，也就是说被子类覆盖的方法，但是它仍然要根据继承链中方法调用的优先级来确认方法，该优先级为：<strong>this.show(O)、super.show(O)、this.show((super)O)、super.show((super)O)。</strong></p>
+</li>
+<li><p>只有方法具有多态性，变量不具有多态性。</p>
+</li>
+</ol>
+<p><strong>例如下面的代码所示</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s = <span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(D obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;A and D&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(A obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;A and A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s = <span class="number">110</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(B obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;B and B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(A obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="string">&quot;B and A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">extends</span> <span class="title">B</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword">extends</span> <span class="title">B</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Temp</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A a1 = <span class="keyword">new</span> A();</span><br><span class="line">        A a2 = <span class="keyword">new</span> B();</span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        C c = <span class="keyword">new</span> C();</span><br><span class="line">        D d = <span class="keyword">new</span> D();</span><br><span class="line">        System.out.println(<span class="string">&quot;1--&quot;</span> + a1.show(b));</span><br><span class="line">        System.out.println(<span class="string">&quot;2--&quot;</span> + a1.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;3--&quot;</span> + a1.show(d));</span><br><span class="line">        System.out.println(<span class="string">&quot;4--&quot;</span> + a2.show(b) + <span class="string">&quot; &quot;</span> + a2.s);</span><br><span class="line">        System.out.println(<span class="string">&quot;5--&quot;</span> + a2.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;6--&quot;</span> + a2.show(d));</span><br><span class="line">        System.out.println(<span class="string">&quot;7--&quot;</span> + b.show(b));</span><br><span class="line">        System.out.println(<span class="string">&quot;8--&quot;</span> + b.show(c));</span><br><span class="line">        System.out.println(<span class="string">&quot;9--&quot;</span> + b.show(d));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line"><span class="number">1</span>--A and A</span><br><span class="line"><span class="number">2</span>--A and A</span><br><span class="line"><span class="number">3</span>--A and D</span><br><span class="line"><span class="number">4</span>--B and A <span class="number">10</span></span><br><span class="line"><span class="number">5</span>--B and A</span><br><span class="line"><span class="number">6</span>--A and D</span><br><span class="line"><span class="number">7</span>--B and B</span><br><span class="line"><span class="number">8</span>--B and B</span><br><span class="line"><span class="number">9</span>--A and D</span><br></pre></td></tr></table></figure>
+
+<h2 id="六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）-1"><a href="#六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）-1" class="headerlink" title="六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）"></a>六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）</h2><h3 id="单一职责原则（SRP）"><a href="#单一职责原则（SRP）" class="headerlink" title="单一职责原则（SRP）"></a>单一职责原则（SRP）</h3><p>单一职责原则的定义：应该有且仅有一个原因引起类的变更。</p>
+<p>单一职责原则的好处：</p>
+<ul>
+<li><p><strong>类的复杂性降低</strong></p>
+</li>
+<li><p><strong>可读性提高</strong></p>
+</li>
+<li><p><strong>可维护性提高</strong></p>
+</li>
+<li><p><strong>变更引起的风险降低</strong>：变更时必不可少的，如果接口的单一职责做得好，一个接口修改只对相应的实现类有影响，对其他的接口无影响，这对系统的扩展性、维护性都有非常大的帮助。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SRP的原话解释是：There should never be more than one reason for a class to change.</span><br><span class="line">单一职责原则要求：一个接口或类只有一个原因引起变化，也就是一个接口或类只有一个职责，它就负责一件事情。</span><br><span class="line">单一职责原则提出了一个编写程序的标准，用“职责”或“变化原因”来衡量接口或类设计得是否优良，</span><br></pre></td></tr></table></figure>
+
+<p>因为在日常实践中“职责”和“变化原因”都是不可度量的，<strong>所以建议接口一定要做到单一职责，类的设计尽量做到只有一个原因引起变化。</strong></p>
+<h3 id="里氏替换原则（LSP）"><a href="#里氏替换原则（LSP）" class="headerlink" title="里氏替换原则（LSP）"></a>里氏替换原则（LSP）</h3><p>里氏替换原则的定义是：</p>
+<ul>
+<li>第一种定义：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">If for each object o1 of type S there is an object o2 of type T such that for all programs P defined in terms of T,the behavior of P is unchanged when o1 is substitued for o2 then S is a subtype of T.</span><br><span class="line"></span><br><span class="line">如果对每一个类型为S的对象o1，都有类型为T的对象o2，使得以T定义的所有程序P在所有的对象O1都替换成O2时，程序P的行为没有发生变化，那么类型S是类型T的子类型。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二种定义：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.</span><br><span class="line"></span><br><span class="line">所有引用基类的地方必须能透明地使用其子类的对象。</span><br></pre></td></tr></table></figure>
+
+<p>通俗的说：<strong>只要父类能出现的地方子类就可以出现</strong>，而且替换为子类也<strong>不会产生任何错误或异常</strong>，使用者可能根本就不需要知道是父类还是子类。但是，反过来就不行了，<strong>有子类出现的地方，父类未必就能适应</strong>。</p>
+<p>四层含义：</p>
+<ol>
+<li><p>子类<strong>必须完全实现父类的方法</strong>（注意：如果<strong>子类不能完整地实现父类的方法</strong>，或者父类的某些方法在子类中已经发生“畸变”，则<strong>建议断开父子继承关系</strong>，采用依赖、聚集、组合等关系替代。），但<strong>不能覆盖父类的非抽象方法</strong>。</p>
+</li>
+<li><p>子类中可以<strong>增加自己特有的方法</strong>。</p>
+</li>
+<li><p>当子类的方法重载父类的方法时，方法的前置条件(即方法的形参)要比父类方法的输入参数要更宽松。</p>
+</li>
+<li><p>当子类的方法实现父类的<strong>抽象方法</strong>时，方法的后置条件(即方法的返回值)要比父类更严格。</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">解释：父类的一个方法的返回值是一个类型T，子类的相同方法（重载或覆写）的返回值为S，那么里氏替换原则就要求S必须小于等于T，也就是说S和T是同一个类型，要么S是T的子类。</span><br><span class="line"></span><br><span class="line">分为两种情况：</span><br><span class="line"></span><br><span class="line">第一种：如果是覆写（只能覆写抽象方法，参照第一条），父类和子类的同名方法的输入参数是相同的，两个方法的范围值S小于等于T，这是覆写的要求。</span><br><span class="line"></span><br><span class="line">第二种：如果是重载，则要求方法的输入参数类型或数量不相同，在里氏替换原则要求下，就是子类的输入参数宽于父类的输入参数，也就是说你写的这个方法是不会被调用的。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">友情插入：</span><br><span class="line">重载：要求方法名称相同，参数列表一定不能相同。其他的不管。</span><br><span class="line">重写：要求返回类型、方法名称、参数列表均与父类中的方法相同，访问修饰符不能比父类中的修饰符更严格，重写方法一定不能抛出新的检查异常或者比被重写方法申明更加宽泛的检查型异常。</span><br></pre></td></tr></table></figure>
+
+<h3 id="依赖倒置原则（DIP）"><a href="#依赖倒置原则（DIP）" class="headerlink" title="依赖倒置原则（DIP）"></a>依赖倒置原则（DIP）</h3><p>依赖倒置原则的定义是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">High level modules should not depend upon low level modules. Both should depend upon abstractions.Abstractions should not depend upon details. Details should depend upon abstractions.</span><br><span class="line"></span><br><span class="line">翻译过来，包含三层含义：</span><br><span class="line">1.高层模块不应该依赖底层模块，两者都应该依赖其抽象。</span><br><span class="line">2.抽象不应该依赖细节</span><br><span class="line">3.细节应该依赖抽象</span><br></pre></td></tr></table></figure>
+
+<p>依赖倒置原则在Java语言中的表现就是：</p>
+<ul>
+<li>模块间的依赖通过抽象发生，实现类之间不发生直接的依赖关系，其依赖关系是通过接口或抽象类产生的。</li>
+<li>接口或抽象类不依赖于实现类。</li>
+<li>实现类依赖接口或抽象类。</li>
+</ul>
+<p>更精简的定义：“面向接口编程”。</p>
+<p>最佳实践：</p>
+<ul>
+<li>每个类尽量都有接口或抽象类，或者抽象类和接口两者都具备。</li>
+<li>变量的表面类型尽量是接口或者是抽象类。</li>
+<li>任何类都不应该从具体类派生。</li>
+<li>尽量不要覆写基类的方法。</li>
+<li>结合里氏替换原则使用。</li>
+</ul>
+<h3 id="接口隔离原则（ISP）"><a href="#接口隔离原则（ISP）" class="headerlink" title="接口隔离原则（ISP）"></a>接口隔离原则（ISP）</h3><p>依赖倒置原则的定义是：</p>
+<ul>
+<li>第一种定义：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Clients should not be forced to depend upon interfaces that they don&#39;t use.</span><br><span class="line">翻译：客户端不应该依赖它不需要的接口。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二种定义：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The dependency of one class to another one should depend on the smallest possible interface.</span><br><span class="line">翻译：类间的依赖关系应该建立在最小的接口上。</span><br></pre></td></tr></table></figure>
+
+<p>概括：建立单一接口，不要建立臃肿庞大的接口，即接口尽量细化，同时接口中的方法尽量少（少而精）；</p>
+<p>与单一职责的不同：单一职责要求类和接口职责单一，注重的是职责，这时业务逻辑上的划分。接口隔离原则要求接口的方法尽量简练。</p>
+<p>四层含义：</p>
+<ul>
+<li>接口要尽量小</li>
+<li>接口要高内聚</li>
+<li>定制服务</li>
+<li>接口设计是有限度</li>
+</ul>
+<p>最佳实践：</p>
+<ul>
+<li>一个接口只服务于一个子模块或业务逻辑。</li>
+<li>通过业务逻辑压缩接口中的public方法，接口时常去回顾，尽量让接口达到“满身筋骨肉”，而不是“肥嘟嘟”的一大堆方法。</li>
+<li>已经被污染了的接口，尽量去修改，若变更的风险较大，则采用适配器模式进行转化处理。</li>
+<li>了解环境，拒绝盲从。每个项目或产品都有特定的环境因素，别看到大师是这样做的，你就照抄。环境不同，接口的拆分条件就不同。</li>
+</ul>
+<h3 id="迪米特原则（LOD）"><a href="#迪米特原则（LOD）" class="headerlink" title="迪米特原则（LOD）"></a>迪米特原则（LOD）</h3><p>迪米特原则定义：</p>
+<p>迪米特原则也称为<strong>最少知识原则</strong>，即一个对象对其他对象有最少的了解。通俗的讲，一个类应该对自己需要耦合或调用的类知道最少。</p>
+<p>使用原则：<strong>如果一个方法放在本类中，即不增加类间关系，也对本类不产生负面影响，那就放置在本类中。</strong></p>
+<p>最佳实践：</p>
+<ul>
+<li>类间解耦，弱耦合。</li>
+<li>类间跳转次数尽量不要高于2次。</li>
+</ul>
+<h3 id="开放封闭原则（OCP）"><a href="#开放封闭原则（OCP）" class="headerlink" title="开放封闭原则（OCP）"></a>开放封闭原则（OCP）</h3><p>开放封闭原则定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Software entities like classes, modules and functions should be open for extension but closed for modifications.</span><br><span class="line">翻译：一个软件实体，如:类、模块和函数，应该对扩展开放，对修改关闭。</span><br></pre></td></tr></table></figure>
+
+<p>变化的三种类型：</p>
+<ul>
+<li><p>逻辑变化：只变化一个逻辑，而不涉及到其他模块，比如原有的一个算法是 a * b + c ，现在需要修改为 a * b * c， 可以通过修改原有的类中的方法的方式来完成，前提条件是所有依赖或关联类都按照相同的逻辑处理。</p>
+</li>
+<li><p>子模块变化：一个模块变化，会对其他的模块产生影响，特别是一个低层次的模块变化必然引起高层模块的变化，因此在通过扩展完成变化时，高层次的模块修改是必然的，刚刚的书籍打折处理就是类似的处理模块，该部分的变化甚至会引起界面的变化。</p>
+</li>
+<li><p>可见视图变化：可见视图是提供给客户使用的界面，如 jsp 程序，swing 界面等，该部分的变化一般会引起连锁反应。如果仅仅是界面上按钮、文字的重新排布倒是简单，最司空见惯的是业务耦合变化，什么意思呢？一个展示数据的列表，按照原有的需求是六列，突然有一天要增加一列，而且这一列要跨度 N 张表，处理 M 个逻辑才能展现出来，这样的变化是比较恐怖的，但是我们还是可以通过扩展来完成变化，这就依赖我们原有的设计是否灵活。</p>
+</li>
+</ul>
+<p>最佳实践：</p>
+<ul>
+<li><p>抽象约束</p>
+<ul>
+<li>一是通过接口或抽象类约束扩展，对扩展进行边界限定，不允许出现在接口或抽象类中不存在的public 方法。</li>
+<li>二是在参数类型定义、输入输出参数尽量使用接口或者抽象类，而不是实现类。</li>
+<li>三是抽象层尽量保持稳定。</li>
+</ul>
+</li>
+<li><p>元数据（配置参数）控制模块行为</p>
+</li>
+<li><p>制定项目章程</p>
+</li>
+<li><p>封装变化</p>
+<ul>
+<li>将相同的变化封装到一个接口或抽象类中。</li>
+<li>将不同的变化封装到不同的接口或抽象类中，不应该有两个不同的变化出现在同一个接口或抽象类中。</li>
+</ul>
+</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/Java%E9%9D%A2%E8%AF%95%E4%B9%8BJVM%E8%87%AA%E5%8A%A8%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">Java面试之JVM自动内存管理机制</a></div><div class="post-title fs14"><a href="/2019/04/05/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">or prev: Lambda表达式</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

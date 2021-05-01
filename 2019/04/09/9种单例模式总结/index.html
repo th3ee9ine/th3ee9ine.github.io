@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>9种单例模式总结 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这篇文章主要是总结了一下9种常见的单例模式。 前言：单例模式我相信大家都不陌生，但是可能仅仅停留在“会用”的阶段。为什么会有这个模式？为什么要用这个模式？在哪里用单例模式最合适？乱用了会有什么负面影响？这些可能大多数人都一知半解。接下来就让我们大家一起来扒光单例模式的外衣，深入了解一下单例模式。 单例模式的定义单例模式(Singleton Pattern)：确保某一个类只有一个实例，而且自行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9种单例模式总结">
+<meta property="og:url" content="http://example.com/2019/04/09/9%E7%A7%8D%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这篇文章主要是总结了一下9种常见的单例模式。 前言：单例模式我相信大家都不陌生，但是可能仅仅停留在“会用”的阶段。为什么会有这个模式？为什么要用这个模式？在哪里用单例模式最合适？乱用了会有什么负面影响？这些可能大多数人都一知半解。接下来就让我们大家一起来扒光单例模式的外衣，深入了解一下单例模式。 单例模式的定义单例模式(Singleton Pattern)：确保某一个类只有一个实例，而且自行">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/14/1.png">
+<meta property="article:published_time" content="2019-04-09T10:45:00.556Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.357Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/14/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">单例模式的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B9%9D%E7%A7%8D%E5%86%99%E6%B3%95"><span class="toc-text">单例模式的九种写法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%A5%BF%E6%B1%89%E5%BC%8F%EF%BC%88%E9%9D%99%E6%80%81%E5%B8%B8%E9%87%8F%EF%BC%89"><span class="toc-text">一、饿汉式（静态常量）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%A5%BF%E6%B1%89%E5%BC%8F%EF%BC%88%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%EF%BC%89"><span class="toc-text">二、饿汉式（静态代码块）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%88%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%89"><span class="toc-text">三、懒汉式（线程不安全）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%88%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%EF%BC%89"><span class="toc-text">四、懒汉式（线程安全）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%87%92%E6%B1%89%E5%BC%8F%EF%BC%88%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81%E5%9D%97%EF%BC%89"><span class="toc-text">五、懒汉式（线程安全，同步代码块）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%EF%BC%88DCL%EF%BC%89"><span class="toc-text">六、双重检查（DCL）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-text">七、静态内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%9E%9A%E4%B8%BE"><span class="toc-text">八、枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%AE%B9%E5%99%A8%E7%B1%BB%E7%AE%A1%E7%90%86"><span class="toc-text">九、容器类管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E7%A7%8D%E5%86%99%E6%B3%95%E7%9A%84%E4%BC%98%E5%8A%A3%E5%AF%B9%E6%AF%94"><span class="toc-text">九种写法的优劣对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%9C%A8%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">单例模式在日常开发中的应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">单例模式的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">单例模式的缺点</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-09T10:45:00.556Z'>2019-04-09</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>9种单例模式总结</span></h1>
+<h1 id="摘要：这篇文章主要是总结了一下9种常见的单例模式。"><a href="#摘要：这篇文章主要是总结了一下9种常见的单例模式。" class="headerlink" title="摘要：这篇文章主要是总结了一下9种常见的单例模式。"></a>摘要：这篇文章主要是总结了一下9种常见的单例模式。</h1><hr>
+<h1 id="前言：单例模式我相信大家都不陌生，但是可能仅仅停留在“会用”的阶段。为什么会有这个模式？为什么要用这个模式？在哪里用单例模式最合适？乱用了会有什么负面影响？这些可能大多数人都一知半解。接下来就让我们大家一起来扒光单例模式的外衣，深入了解一下单例模式。"><a href="#前言：单例模式我相信大家都不陌生，但是可能仅仅停留在“会用”的阶段。为什么会有这个模式？为什么要用这个模式？在哪里用单例模式最合适？乱用了会有什么负面影响？这些可能大多数人都一知半解。接下来就让我们大家一起来扒光单例模式的外衣，深入了解一下单例模式。" class="headerlink" title="前言：单例模式我相信大家都不陌生，但是可能仅仅停留在“会用”的阶段。为什么会有这个模式？为什么要用这个模式？在哪里用单例模式最合适？乱用了会有什么负面影响？这些可能大多数人都一知半解。接下来就让我们大家一起来扒光单例模式的外衣，深入了解一下单例模式。"></a>前言：单例模式我相信大家都不陌生，但是可能仅仅停留在“会用”的阶段。为什么会有这个模式？为什么要用这个模式？在哪里用单例模式最合适？乱用了会有什么负面影响？这些可能大多数人都一知半解。接下来就让我们大家一起来扒光单例模式的外衣，深入了解一下单例模式。</h1><hr>
+<h2 id="单例模式的定义"><a href="#单例模式的定义" class="headerlink" title="单例模式的定义"></a>单例模式的定义</h2><p>单例模式(Singleton Pattern)：确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例，这个类称为单例类，它提供全局访问的方法。 单例模式是一种对象创建型模式。</p>
+<p>从其定义我们可以看出来单例模式存在三个要点：</p>
+<ol>
+<li>实例唯一性</li>
+<li>自行创建</li>
+<li>全局访问</li>
+</ol>
+<h2 id="单例模式的九种写法"><a href="#单例模式的九种写法" class="headerlink" title="单例模式的九种写法"></a>单例模式的九种写法</h2><h3 id="一、饿汉式（静态常量）"><a href="#一、饿汉式（静态常量）" class="headerlink" title="一、饿汉式（静态常量）"></a>一、饿汉式（静态常量）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 饿汉式（静态常量）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">King</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> King kingInstance = <span class="keyword">new</span> King();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> King <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> kingInstance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">King</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：这种写法比较简单，就是在类装载的时候就完成实例化。避免了线程同步问题。</li>
+<li>缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始至终从未使用过这个实例，则会造成内存的浪费。</li>
+</ul>
+<h3 id="二、饿汉式（静态代码块）"><a href="#二、饿汉式（静态代码块）" class="headerlink" title="二、饿汉式（静态代码块）"></a>二、饿汉式（静态代码块）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 饿汉式（静态代码块）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">King</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> King kingInstance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">kingInstance = <span class="keyword">new</span> King();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">King</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> King <span class="title">getKingInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> kingInstance;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：这种写法比较简单，就是在类装载的时候就完成实例化。避免了线程同步问题。</li>
+<li>缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始至终从未使用过这个实例，则会造成内存的浪费。</li>
+</ul>
+<h3 id="三、懒汉式（线程不安全）"><a href="#三、懒汉式（线程不安全）" class="headerlink" title="三、懒汉式（线程不安全）"></a>三、懒汉式（线程不安全）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 懒汉式（线程不安全）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">King</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> King kingInstance;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">King</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> King <span class="title">getKingInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (kingInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">kingInstance = <span class="keyword">new</span> King();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> kingInstance;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：懒加载，只有使用的时候才会加载。</li>
+<li>缺点：但是只能在单线程下使用。如果在多线程下，一个线程进入了if (singleton == null)判断语句块，还未来得及往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。所以在多线程环境下不可使用这种方式。</li>
+</ul>
+<h3 id="四、懒汉式（线程安全）"><a href="#四、懒汉式（线程安全）" class="headerlink" title="四、懒汉式（线程安全）"></a>四、懒汉式（线程安全）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 懒汉式（线程安全，同步方法）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">King</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> King kingInstance;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">King</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> King <span class="title">getKingInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (kingInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">kingInstance = <span class="keyword">new</span> King();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> kingInstance;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：懒加载，只有使用的时候才会加载，获取单例方法加了同步锁，保障线程安全。</li>
+<li>缺点：效率太低了，每个线程在想获得类的实例时候，执行getInstance()方法都要进行同步。</li>
+</ul>
+<h3 id="五、懒汉式（线程安全，同步代码块）"><a href="#五、懒汉式（线程安全，同步代码块）" class="headerlink" title="五、懒汉式（线程安全，同步代码块）"></a>五、懒汉式（线程安全，同步代码块）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 懒汉式（线程安全，同步代码块）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">King</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> King kingInstance;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">King</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> King <span class="title">getKingInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (kingInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="keyword">synchronized</span> (King.class) &#123;</span><br><span class="line">kingInstance = <span class="keyword">new</span> King();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> kingInstance;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：改进了第四种效率低的问题。</li>
+<li>缺点：不能完全保证单例，假如一个线程进入了if (singleton == null)判断语句块，还未来得及往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。</li>
+</ul>
+<h3 id="六、双重检查（DCL）"><a href="#六、双重检查（DCL）" class="headerlink" title="六、双重检查（DCL）"></a>六、双重检查（DCL）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 双重检查（DCL）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">King</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> King kingInstance;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">King</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> King <span class="title">getKingInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (kingInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="keyword">synchronized</span> (King.class) &#123;</span><br><span class="line"><span class="keyword">if</span> (kingInstance == <span class="keyword">null</span>)&#123;</span><br><span class="line">kingInstance = <span class="keyword">new</span> King();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> kingInstance;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：线程安全；延迟加载；效率较高。</li>
+<li>缺点：JDK &lt; 1.5 的时候不可用。不可用原因：由于volatile关键字会屏蔽Java虚拟机所做的一些代码优化，可能会导致系统运行效率降低，而JDK 1.5 以及之后的版本都修复了这个问题。（面试装逼用，谨记！！！）</li>
+</ul>
+<h3 id="七、静态内部类"><a href="#七、静态内部类" class="headerlink" title="七、静态内部类"></a>七、静态内部类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 静态内部类</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">King</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">King</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">KingInstance</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> King KINGINSTANCE = <span class="keyword">new</span> King();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> King <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> KingInstance.KINGINSTANCE;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：避免了线程不安全，延迟加载，效率高。</li>
+<li>缺点：暂无，最推荐使用。</li>
+<li>特点：这种方式跟饿汉式方式采用的机制类似，但又有不同。</li>
+<li>两者都是采用了类装载的机制来保证初始化实例时只有一个线程。不同的地方在饿汉式方式是只要Singleton类被装载就会实例化，没有Lazy-Loading的作用，而静态内部类方式在Singleton类被装载时并不会立即实例化，而是在需要实例化时，调用getInstance方法，才会装载SingletonInstance类，从而完成Singleton的实例化。 类的静态属性只会在第一次加载类的时候初始化，所以在这里，JVM帮助我们保证了线程的安全性，在类进行初始化时，别的线程是无法进入的。</li>
+</ul>
+<h3 id="八、枚举"><a href="#八、枚举" class="headerlink" title="八、枚举"></a>八、枚举</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 枚举</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">King</span> </span>&#123;</span><br><span class="line">KINGINSTANCE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优点：不仅能避免多线程同步问题，而且还能防止反序列化重新创建新的对象。<br>缺点：JDK 1.5之后才能使用。</p>
+<h3 id="九、容器类管理"><a href="#九、容器类管理" class="headerlink" title="九、容器类管理"></a>九、容器类管理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 使用容器实现单例模式（可以用于管理单例，有兴趣的可以尝试一下）</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InstanceManager</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, Object&gt; objectMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">InstanceManager</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">registerService</span><span class="params">(String key,Object instance)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span> (!objectMap.containsKey(key))&#123;</span><br><span class="line">objectMap.put(key,instance);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getService</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> objectMap.get(key);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 使用方式</span></span><br><span class="line"><span class="comment">* Dog类就不贴出来了</span></span><br><span class="line"><span class="comment">* 自己随便写个就行</span></span><br><span class="line"><span class="comment">* 可以运行一下看看 打印的地址是否一致</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">InstanceManager .registerService(<span class="string">&quot;dog&quot;</span>, <span class="keyword">new</span> Dog());</span><br><span class="line"></span><br><span class="line">Dog dog = (Dog) InstanceManager .getService(<span class="string">&quot;dog&quot;</span>);</span><br><span class="line">Dog dog2 = (Dog) InstanceManager .getService(<span class="string">&quot;dog&quot;</span>);</span><br><span class="line">Dog dog3 = (Dog) InstanceManager .getService(<span class="string">&quot;dog&quot;</span>);</span><br><span class="line">Dog dog4 = (Dog) InstanceManager .getService(<span class="string">&quot;dog&quot;</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(dog);</span><br><span class="line">System.out.println(dog2);</span><br><span class="line">System.out.println(dog3);</span><br><span class="line">System.out.println(dog4);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：在程序的初始，将多种单例类型注入到一个统一的管理类中，在使用时根据key获取对象对应类型的对象。这种方式使得我们可以管理多种类型的单例，并且在使用时可以通过统一的接口进行获取操作， 降低了用户的使用成本，也对用户隐藏了具体实现，降低了耦合度。</li>
+<li>缺点：不常用，有些麻烦</li>
+</ul>
+<h2 id="九种写法的优劣对比"><a href="#九种写法的优劣对比" class="headerlink" title="九种写法的优劣对比"></a>九种写法的优劣对比</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/14/1.png" alt="单例模式优劣对比"></p>
+<p>一：不可用原因：由于volatile关键字会屏蔽Java虚拟机所做的一些代码优化，可能会导致系统运行效率降低，而JDK 1.5 以及之后的版本都修复了这个问题。</p>
+<p>二：这种方式跟饿汉式方式采用的机制类似，但又有不同。两者都是采用了类装载的机制来保证初始化实例时只有一个线程。不同的地方在饿汉式方式是只要Singleton类被装载就会实例化，没有Lazy-Loading的作用， 而静态内部类方式在Singleton类被装载时并不会立即实例化，而是在需要实例化时，调用getInstance方法，才会装载SingletonInstance类，从而完成Singleton的实例化。 类的静态属性只会在第一次加载类的时候初始化，所以在这里，JVM帮助我们保证了线程的安全性，在类进行初始化时，别的线程是无法进入的。</p>
+<h2 id="单例模式在日常开发中的应用场景"><a href="#单例模式在日常开发中的应用场景" class="headerlink" title="单例模式在日常开发中的应用场景"></a>单例模式在日常开发中的应用场景</h2><ol>
+<li>图片加载</li>
+<li>网络请求</li>
+<li>工具类封装</li>
+</ol>
+<p>合理的辨析一个设计是否应该为单例模式前，我们应该先问问自己几个问题，也是检验标准：</p>
+<ul>
+<li>每一个应用（组件/模块）是否以完全一致的方式来使用这个类？</li>
+<li>每一个应用（组件/模块）是否真的只需要这个类的一个实例呢？</li>
+<li>对于这个类的客户端类来说，对他们自己是应用中的一部分这件事是否应该保持毫无察觉的状态呢？</li>
+</ul>
+<p>如果我们对于以上这3条均给出了“是的”的答案，那么这个类就是可以被设计为单例模式了。反之还是不要用的好。</p>
+<h2 id="单例模式的优点"><a href="#单例模式的优点" class="headerlink" title="单例模式的优点"></a>单例模式的优点</h2><ul>
+<li>可以减少系统内存开支。</li>
+<li>减少系统性能开销。</li>
+<li>避免对资源的多重占用、同时操作。</li>
+</ul>
+<h2 id="单例模式的缺点"><a href="#单例模式的缺点" class="headerlink" title="单例模式的缺点"></a>单例模式的缺点</h2><ol>
+<li><p>违反了单一责任链原则，测试困难</p>
+<p> 单例类的职责过重，在一定程度上违背了“单一职责原则”。因为单例类既充当了工厂角色，提供了工厂方法，同时又充当了产品角色，包含一些业务方法，将产品的创建和产品的本身的功能融合到一起。</p>
+</li>
+<li><p>扩展困难</p>
+<p> 由于单例模式中没有抽象层，因此单例类的扩展有很大的困难。修改功能必须修改源码。</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>共享资源有可能不一致。</p>
+<p> 现在很多面向对象语言(如Java、C#)的运行环境都提供了自动垃圾回收的技术，因此，如果实例化的共享对象长时间不被利用，系统会认为它是垃圾，会自动销毁并回收资源，下次利用时又将重新实例化，这将导致共享的单例对象状态的丢失。</p>
+</li>
+</ol>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/07/%E8%87%AA%E7%94%A8%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/">自用插件汇总</a></div><div class="post-title fs14"><a href="/2019/04/13/MyBatis%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">or prev: MyBatis常见面试题总结</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

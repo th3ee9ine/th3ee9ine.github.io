@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python数据可视化 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：python数据可视化 前言：昨天已经把python过完了，今天开始准备学习数据可视化的内容了，冲！！冲！！ 数据可视化安装matplotlib 1pip install --user matplotlib  1、绘制简单的折线图1234567import matplotlib.pyplot as pltsquares &#x3D; [1, 4, 9, 16, 25, 36, 49, 64, 81]p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python数据可视化">
+<meta property="og:url" content="http://example.com/2019/05/10/python%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：python数据可视化 前言：昨天已经把python过完了，今天开始准备学习数据可视化的内容了，冲！！冲！！ 数据可视化安装matplotlib 1pip install --user matplotlib  1、绘制简单的折线图1234567import matplotlib.pyplot as pltsquares &#x3D; [1, 4, 9, 16, 25, 36, 49, 64, 81]p">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-05-10T01:03:23.019Z">
+<meta property="article:modified_time" content="2019-05-21T08:28:46.125Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="数据可视化">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-text">数据可视化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E7%BB%98%E5%88%B6%E7%AE%80%E5%8D%95%E7%9A%84%E6%8A%98%E7%BA%BF%E5%9B%BE"><span class="toc-text">1、绘制简单的折线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9%E6%A0%87%E7%AD%BE%E6%96%87%E5%AD%97%E5%92%8C%E7%BA%BF%E6%9D%A1%E7%B2%97%E7%BB%86"><span class="toc-text">2、修改标签文字和线条粗细</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%A0%A1%E6%AD%A3%E5%9B%BE%E5%BD%A2"><span class="toc-text">3、校正图形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E4%BD%BF%E7%94%A8scatter-%E7%BB%98%E5%88%B6%E6%95%A3%E7%82%B9%E5%9B%BE%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%85%B6%E6%A0%B7%E5%BC%8F"><span class="toc-text">4、使用scatter()绘制散点图并设置其样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E4%BD%BF%E7%94%A8scatter-%E7%BB%98%E5%88%B6%E4%B8%80%E7%B3%BB%E5%88%97%E7%82%B9"><span class="toc-text">5、使用scatter()绘制一系列点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E8%87%AA%E5%8A%A8%E8%AE%A1%E7%AE%97%E6%95%B0%E6%8D%AE"><span class="toc-text">6、自动计算数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E7%82%B9%E7%9A%84%E8%BD%AE%E5%BB%93"><span class="toc-text">7、删除数据点的轮廓</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A2%9C%E8%89%B2"><span class="toc-text">8、自定义颜色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E4%BD%BF%E7%94%A8%E9%A2%9C%E8%89%B2%E6%98%A0%E5%B0%84"><span class="toc-text">9、使用颜色映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%E3%80%81%E8%87%AA%E5%8A%A8%E4%BF%9D%E5%AD%98%E5%9B%BE%E8%A1%A8"><span class="toc-text">10、自动保存图表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11%E3%80%81%E9%9A%8F%E6%9C%BA%E6%BC%AB%E6%AD%A5"><span class="toc-text">11、随机漫步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E5%B0%BA%E5%AF%B8%E4%BB%A5%E9%80%82%E5%90%88%E5%B1%8F%E5%B9%95"><span class="toc-text">调整尺寸以适合屏幕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Pygal-%E6%A8%A1%E6%8B%9F%E6%8E%B7%E9%AA%B0%E5%AD%90"><span class="toc-text">使用Pygal 模拟掷骰子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#csv"><span class="toc-text">csv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96json%E6%96%87%E4%BB%B6"><span class="toc-text">读取json文件</span></a></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/python/">python</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-05-10T01:03:23.019Z'>2019-05-10</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>python数据可视化</span></h1>
+<h1 id="摘要：python数据可视化"><a href="#摘要：python数据可视化" class="headerlink" title="摘要：python数据可视化"></a>摘要：python数据可视化</h1><hr>
+<h1 id="前言：昨天已经把python过完了，今天开始准备学习数据可视化的内容了，冲！！冲！！"><a href="#前言：昨天已经把python过完了，今天开始准备学习数据可视化的内容了，冲！！冲！！" class="headerlink" title="前言：昨天已经把python过完了，今天开始准备学习数据可视化的内容了，冲！！冲！！"></a>前言：昨天已经把python过完了，今天开始准备学习数据可视化的内容了，冲！！冲！！</h1><hr>
+<h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><p>安装matplotlib</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --user matplotlib</span><br></pre></td></tr></table></figure>
+
+<h3 id="1、绘制简单的折线图"><a href="#1、绘制简单的折线图" class="headerlink" title="1、绘制简单的折线图"></a>1、绘制简单的折线图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">squares = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line">plt.plot(squares)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2、修改标签文字和线条粗细"><a href="#2、修改标签文字和线条粗细" class="headerlink" title="2、修改标签文字和线条粗细"></a>2、修改标签文字和线条粗细</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">squares = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line">plt.plot(squares, linewidth=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置图表标题，并给坐标轴加上标签</span></span><br><span class="line">plt.title(<span class="string">&quot;Square Numbers&quot;</span>, fontsize=<span class="number">24</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Square of Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置刻度标记的大小</span></span><br><span class="line">plt.tick_params(axis=<span class="string">&#x27;both&#x27;</span>, labelsize=<span class="number">14</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、校正图形"><a href="#3、校正图形" class="headerlink" title="3、校正图形"></a>3、校正图形</h3><p>当你向plot()提供一系列数字时，它假设第一个数据点对应的x坐标值为0，但我们的第一个点对应的x值为1。为改变这种默认行为，我们可以给plot()同时提供输入值和输出值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">input_values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">squares = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br><span class="line">plt.plot(input_values, squares, linewidth=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置图表标题，并给坐标轴加上标签</span></span><br><span class="line">plt.title(<span class="string">&quot;Square Numbers&quot;</span>, fontsize=<span class="number">24</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Square of Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置刻度标记的大小</span></span><br><span class="line">plt.tick_params(axis=<span class="string">&#x27;both&#x27;</span>, labelsize=<span class="number">14</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、使用scatter-绘制散点图并设置其样式"><a href="#4、使用scatter-绘制散点图并设置其样式" class="headerlink" title="4、使用scatter()绘制散点图并设置其样式"></a>4、使用scatter()绘制散点图并设置其样式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.scatter(<span class="number">2</span>, <span class="number">4</span>, s=<span class="number">200</span>)</span><br><span class="line"><span class="comment"># 设置图表标题并给坐标轴加上标签</span></span><br><span class="line">plt.title(<span class="string">&quot;Square Numbers&quot;</span>, fontsize=<span class="number">24</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Square of Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"><span class="comment"># 设置刻度标记的大小</span></span><br><span class="line">plt.tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">14</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、使用scatter-绘制一系列点"><a href="#5、使用scatter-绘制一系列点" class="headerlink" title="5、使用scatter()绘制一系列点"></a>5、使用scatter()绘制一系列点</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x_values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">y_values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br><span class="line">plt.scatter(x_values, y_values, s=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置图表标题并给坐标轴加上标签</span></span><br><span class="line">plt.title(<span class="string">&quot;Square Numbers&quot;</span>, fontsize=<span class="number">24</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Square of Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"><span class="comment"># 设置刻度标记的大小</span></span><br><span class="line">plt.tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">14</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="6、自动计算数据"><a href="#6、自动计算数据" class="headerlink" title="6、自动计算数据"></a>6、自动计算数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x_values = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">1001</span>))</span><br><span class="line">y_values = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> x_values]</span><br><span class="line">plt.scatter(x_values, y_values, s=<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置图表标题并给坐标轴加上标签</span></span><br><span class="line">plt.title(<span class="string">&quot;Square Numbers&quot;</span>, fontsize=<span class="number">24</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Square of Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"><span class="comment"># 设置刻度标记的大小</span></span><br><span class="line">plt.tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置每个坐标轴的取值范围</span></span><br><span class="line">plt.axis([<span class="number">0</span>, <span class="number">1100</span>, <span class="number">0</span>, <span class="number">1100000</span>])</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7、删除数据点的轮廓"><a href="#7、删除数据点的轮廓" class="headerlink" title="7、删除数据点的轮廓"></a>7、删除数据点的轮廓</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">plt.scatter(x_values, y_values, edgecolor=<span class="string">&#x27;none&#x27;</span>, s=<span class="number">40</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="8、自定义颜色"><a href="#8、自定义颜色" class="headerlink" title="8、自定义颜色"></a>8、自定义颜色</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">要修改数据点的颜色，可向scatter()传递参数c，</span><br><span class="line">并将其设置为要使用的颜色的名称，如下所示：</span><br><span class="line">plt.scatter(x_values, y_values, c=<span class="string">&#x27;red&#x27;</span>, edgecolor=<span class="string">&#x27;none&#x27;</span>, s=<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line">你还可以使用RGB颜色模式自定义颜色。要指定自定义颜色，可传递参数c，</span><br><span class="line">并将其设置为一个元组，其中包含三个<span class="number">0</span>~<span class="number">1</span>之间的小数值，</span><br><span class="line">它们分别表示红色、绿色和蓝色分量。例如，下面的代码行创建一个由淡蓝色点组成的散点图：</span><br><span class="line">plt.scatter(x_values, y_values, c=(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0.8</span>), edgecolor=<span class="string">&#x27;none&#x27;</span>, s=<span class="number">40</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="9、使用颜色映射"><a href="#9、使用颜色映射" class="headerlink" title="9、使用颜色映射"></a>9、使用颜色映射</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">x_values = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1001</span>))</span><br><span class="line">y_values = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> x_values]</span><br><span class="line"></span><br><span class="line"><span class="comment">#我们将参数c设置成了一个y值列表，并使用参数cmap告诉pyplot使用哪个颜色映射。</span></span><br><span class="line"><span class="comment">#这些代码将y值较小的点显示为浅蓝色，并将y值较大的点显示为深蓝色.</span></span><br><span class="line">plt.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues,</span><br><span class="line">            edgecolor=<span class="string">&#x27;none&#x27;</span>, s=<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置图表标题并给坐标轴加上标签</span></span><br><span class="line">plt.title(<span class="string">&quot;Square Numbers&quot;</span>, fontsize=<span class="number">24</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Square of Value&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line"><span class="comment"># 设置刻度标记的大小</span></span><br><span class="line">plt.tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">14</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="10、自动保存图表"><a href="#10、自动保存图表" class="headerlink" title="10、自动保存图表"></a>10、自动保存图表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#可将对可将对plt.show()的调用替换为对plt.savefig()的调用</span></span><br><span class="line">plt.savefig(<span class="string">&#x27;squares_plot.png&#x27;</span>, bbox_inches=<span class="string">&#x27;tight&#x27;</span>)</span><br><span class="line"></span><br><span class="line">第一个实参指定要以什么样的文件名保存图表，</span><br><span class="line">这个文件将存储到scatter_squares.py所在的目录中；</span><br><span class="line">第二个实参指定将图表多余的空白区域裁剪掉。</span><br><span class="line">如果要保留图表周围多余的空白区域，可省略这个实参。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="11、随机漫步"><a href="#11、随机漫步" class="headerlink" title="11、随机漫步"></a>11、随机漫步</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> choice</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWalk</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;一个生成随机漫步数据的类&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_points=<span class="number">5000</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;初始化随机漫步的属性&quot;&quot;&quot;</span></span><br><span class="line">        self.num_points = num_points</span><br><span class="line">        <span class="comment"># 所有随机漫步都始于(0, 0)</span></span><br><span class="line">        self.x_values = [<span class="number">0</span>]</span><br><span class="line">        self.y_values = [<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fill_walk</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;计算随机漫步包含的所有点&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 不断漫步，直到列表达到指定的长度</span></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(self.x_values) &lt; self.num_points:</span><br><span class="line">            <span class="comment"># 决定前进方向以及沿这个方向前进的距离</span></span><br><span class="line"></span><br><span class="line">            x_direction = choice([<span class="number">1</span>, -<span class="number">1</span>])</span><br><span class="line">            x_distance = choice([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">            x_step = x_direction * x_distance</span><br><span class="line"></span><br><span class="line">            y_direction = choice([<span class="number">1</span>, -<span class="number">1</span>])</span><br><span class="line">            y_distance = choice([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">            y_step = y_direction * y_distance</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 拒绝原地踏步</span></span><br><span class="line">            <span class="keyword">if</span> x_step == <span class="number">0</span> <span class="keyword">and</span> y_step == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 计算下一个点的x和y值</span></span><br><span class="line">            next_x = self.x_values[-<span class="number">1</span>] + x_step</span><br><span class="line">            next_y = self.y_values[-<span class="number">1</span>] + y_step</span><br><span class="line"></span><br><span class="line">            self.x_values.append(next_x)</span><br><span class="line">            self.y_values.append(next_y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># # 创建一个RandomWalk实例，并将其包含的点都绘制出来</span></span><br><span class="line"><span class="comment"># rw = RandomWalk()</span></span><br><span class="line"><span class="comment"># rw.fill_walk()</span></span><br><span class="line"><span class="comment"># plt.scatter(rw.x_values, rw.y_values, s=15)</span></span><br><span class="line"><span class="comment"># plt.show()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只要程序处于活动状态，就不断地模拟随机漫步</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># 创建一个RandomWalk实例，并将其包含的点都绘制出来</span></span><br><span class="line">    rw = RandomWalk(<span class="number">50000</span>)</span><br><span class="line">    rw.fill_walk()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置绘图窗口的尺寸</span></span><br><span class="line">    plt.figure(figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line"></span><br><span class="line">    point_numbers = <span class="built_in">list</span>(<span class="built_in">range</span>(rw.num_points))</span><br><span class="line">    plt.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,</span><br><span class="line">                edgecolor=<span class="string">&#x27;none&#x27;</span>, s=<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 突出起点和终点</span></span><br><span class="line">    plt.scatter(<span class="number">0</span>, <span class="number">0</span>, c=<span class="string">&#x27;green&#x27;</span>, edgecolors=<span class="string">&#x27;none&#x27;</span>, s=<span class="number">100</span>)</span><br><span class="line">    plt.scatter(rw.x_values[-<span class="number">1</span>], rw.y_values[-<span class="number">1</span>], c=<span class="string">&#x27;red&#x27;</span>, edgecolors=<span class="string">&#x27;none&#x27;</span>,</span><br><span class="line">                s=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 隐藏坐标轴</span></span><br><span class="line">    plt.axes().get_xaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">    plt.axes().get_yaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    plt.show()</span><br><span class="line">    keep_running = <span class="built_in">input</span>(<span class="string">&quot;Make another walk? (y/n): &quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> keep_running == <span class="string">&#x27;n&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="调整尺寸以适合屏幕"><a href="#调整尺寸以适合屏幕" class="headerlink" title="调整尺寸以适合屏幕"></a>调整尺寸以适合屏幕</h3><p>函数figure()用于指定图表的宽度、高度、分辨率和背景色。你需要给形参figsize指定一个元组，向matplotlib指出绘图窗口的尺寸，单位为英寸。</p>
+<p>plt.figure(dpi=128, figsize=(10, 6))</p>
+<h3 id="使用Pygal-模拟掷骰子"><a href="#使用Pygal-模拟掷骰子" class="headerlink" title="使用Pygal 模拟掷骰子"></a>使用Pygal 模拟掷骰子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">import</span> pygal</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Die</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;表示一个骰子的类&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_sides=<span class="number">6</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;骰子默认为6面&quot;&quot;&quot;</span></span><br><span class="line">        self.num_sides = num_sides</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">roll</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;&quot;返回一个位于1和骰子面数之间的随机值&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> randint(<span class="number">1</span>, self.num_sides)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个D6</span></span><br><span class="line">die = Die()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 掷几次骰子，并将结果存储在一个列表中</span></span><br><span class="line">results = []</span><br><span class="line"><span class="keyword">for</span> roll_num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">    result = die.roll()</span><br><span class="line">    results.append(result)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分析结果</span></span><br><span class="line">frequencies = []</span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, die.num_sides+<span class="number">1</span>):</span><br><span class="line">    frequency = results.count(value)</span><br><span class="line">    frequencies.append(frequency)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对结果进行可视化</span></span><br><span class="line">hist = pygal.Bar()</span><br><span class="line"></span><br><span class="line">hist.title = <span class="string">&quot;Results of rolling one D6 1000 times.&quot;</span></span><br><span class="line">hist.x_labels = [<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>, <span class="string">&#x27;6&#x27;</span>]</span><br><span class="line">hist.x_title = <span class="string">&quot;Result&quot;</span></span><br><span class="line">hist.y_title = <span class="string">&quot;Frequency of Result&quot;</span></span><br><span class="line"></span><br><span class="line">hist.add(<span class="string">&#x27;D6&#x27;</span>, frequencies)</span><br><span class="line">hist.render_to_file(<span class="string">&#x27;die_visual.png&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="csv"><a href="#csv" class="headerlink" title="csv"></a>csv</h3><p>读取csv文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从文件中获取日期、最高气温和最低气温</span></span><br><span class="line">filename = <span class="string">&#x27;sitka_weather_2014.csv&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(f)</span><br><span class="line">    header_row = <span class="built_in">next</span>(reader)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(f)</span><br><span class="line">    header_row = <span class="built_in">next</span>(reader)</span><br><span class="line"></span><br><span class="line">    highs = []</span><br><span class="line">    dates = []</span><br><span class="line">    lows = []</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> reader:</span><br><span class="line">        current_date = datetime.strptime(row[<span class="number">0</span>], <span class="string">&quot;%Y-%m-%d&quot;</span>)</span><br><span class="line">        dates.append(current_date)</span><br><span class="line">        high = <span class="built_in">int</span>(row[<span class="number">1</span>])</span><br><span class="line">        highs.append(high)</span><br><span class="line">        low = <span class="built_in">int</span>(row[<span class="number">3</span>])</span><br><span class="line">        lows.append(low)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(highs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据数据绘制图形</span></span><br><span class="line">fig = plt.figure(dpi=<span class="number">128</span>, figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line">plt.plot(dates, highs, c=<span class="string">&#x27;red&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.plot(dates, lows, c=<span class="string">&#x27;blue&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.fill_between(dates, highs, lows, facecolor=<span class="string">&#x27;blue&#x27;</span>, alpha=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置图形的格式</span></span><br><span class="line">plt.title(<span class="string">&quot;Daily high and low temperatures - 2014&quot;</span>, fontsize=<span class="number">24</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;&#x27;</span>, fontsize=<span class="number">16</span>)</span><br><span class="line">fig.autofmt_xdate()</span><br><span class="line">plt.ylabel(<span class="string">&quot;Temperature (F)&quot;</span>, fontsize=<span class="number">16</span>)</span><br><span class="line">plt.tick_params(axis=<span class="string">&#x27;both&#x27;</span>, which=<span class="string">&#x27;major&#x27;</span>, labelsize=<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">plt.show()s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="读取json文件"><a href="#读取json文件" class="headerlink" title="读取json文件"></a>读取json文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> pygal_maps_world.maps</span><br><span class="line"><span class="keyword">from</span> pygal_maps_world.maps <span class="keyword">import</span> COUNTRIES</span><br><span class="line"><span class="keyword">from</span> pygal.style <span class="keyword">import</span> RotateStyle</span><br><span class="line"><span class="keyword">from</span> pygal.style <span class="keyword">import</span> LightColorizedStyle</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将数据加载到一个列表中</span></span><br><span class="line">filename = <span class="string">&#x27;population_data.json&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f:</span><br><span class="line">    pop_data = json.load(f)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_country_code</span>(<span class="params">country_name</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;根据指定的国家，返回Pygal使用的两个字母的国别码&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> code, name <span class="keyword">in</span> COUNTRIES.items():</span><br><span class="line">        <span class="keyword">if</span> name == country_name:</span><br><span class="line">            <span class="keyword">return</span> code</span><br><span class="line"><span class="comment"># 如果没有找到指定的国家，就返回None</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个包含人口数量的字典</span></span><br><span class="line">cc_populations = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> pop_dict <span class="keyword">in</span> pop_data:</span><br><span class="line">    <span class="keyword">if</span> pop_dict[<span class="string">&#x27;Year&#x27;</span>] == <span class="string">&#x27;2010&#x27;</span>:</span><br><span class="line">        country = pop_dict[<span class="string">&#x27;Country Name&#x27;</span>]</span><br><span class="line">        population = <span class="built_in">int</span>(<span class="built_in">float</span>(pop_dict[<span class="string">&#x27;Value&#x27;</span>]))</span><br><span class="line">        code = get_country_code(country)</span><br><span class="line">        <span class="keyword">if</span> code:</span><br><span class="line">            cc_populations[code] = population</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据人口数量将所有的国家分成三组</span></span><br><span class="line">cc_pops_1, cc_pops_2, cc_pops_3 = &#123;&#125;, &#123;&#125;, &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> cc, pop <span class="keyword">in</span> cc_populations.items():</span><br><span class="line">    <span class="keyword">if</span> pop &lt; <span class="number">10000000</span>:</span><br><span class="line">        cc_pops_1[cc] = pop</span><br><span class="line">    <span class="keyword">elif</span> pop &lt; <span class="number">1000000000</span>:</span><br><span class="line">        cc_pops_2[cc] = pop</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cc_pops_3[cc] = pop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 看看每组分别包含多少个国家</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(cc_pops_1), <span class="built_in">len</span>(cc_pops_2), <span class="built_in">len</span>(cc_pops_3))</span><br><span class="line"></span><br><span class="line">wm_style = RotateStyle(<span class="string">&#x27;#336699&#x27;</span>)</span><br><span class="line">wm_style = LightColorizedStyle</span><br><span class="line">wm = pygal_maps_world.maps.World(style=wm_style)</span><br><span class="line">wm.title = <span class="string">&#x27;World Population in 2010, by Country&#x27;</span></span><br><span class="line">wm.add(<span class="string">&#x27;0-10m&#x27;</span>, cc_pops_1)</span><br><span class="line">wm.add(<span class="string">&#x27;10m-1bn&#x27;</span>, cc_pops_2)</span><br><span class="line">wm.add(<span class="string">&#x27;&gt;1bn&#x27;</span>, cc_pops_3)</span><br><span class="line"></span><br><span class="line">wm.render_to_file(<span class="string">&#x27;world_population.svg&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/05/06/python%E5%9F%BA%E7%A1%80/">python基础</a></div><div class="post-title fs14"><a href="/2019/05/20/Mybatis%E7%AC%94%E8%AE%B0/">or prev: Mybatis笔记</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

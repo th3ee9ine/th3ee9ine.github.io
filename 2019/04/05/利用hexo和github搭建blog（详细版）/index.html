@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>利用Hexo和Github搭建Blog（详细版） - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。 前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Hexo和Github搭建Blog（详细版）">
+<meta property="og:url" content="http://example.com/2019/04/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。 前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/1/1.png">
+<meta property="og:image" content="http://example.com/blog/1/2.png">
+<meta property="og:image" content="http://example.com/blog/1/3.png">
+<meta property="og:image" content="http://example.com/blog/1/4.png">
+<meta property="og:image" content="http://example.com/blog/1/5.png">
+<meta property="og:image" content="http://example.com/blog/1/6.png">
+<meta property="og:image" content="http://example.com/blog/1/7.png">
+<meta property="og:image" content="http://example.com/blog/1/8.png">
+<meta property="og:image" content="http://example.com/blog/1/9.png">
+<meta property="og:image" content="http://example.com/blog/1/10.png">
+<meta property="og:image" content="http://example.com/blog/1/11.png">
+<meta property="og:image" content="http://example.com/blog/1/12.png">
+<meta property="og:image" content="http://example.com/blog/1/13.png">
+<meta property="og:image" content="http://example.com/blog/1/14.png">
+<meta property="og:image" content="http://example.com/blog/1/15.png">
+<meta property="og:image" content="http://example.com/blog/1/16.png">
+<meta property="og:image" content="http://example.com/blog/1/17.png">
+<meta property="og:image" content="http://example.com/blog/1/18.png">
+<meta property="article:published_time" content="2019-04-05T03:07:50.657Z">
+<meta property="article:modified_time" content="2021-05-01T13:07:43.896Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="github">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/1/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EGithub%EF%BC%9A"><span class="toc-text">关于Github：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Github%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A"><span class="toc-text">一、Github的优点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Github%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9A"><span class="toc-text">二、Github的缺点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Github-Pages"><span class="toc-text">三、为什么要使用Github Pages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAblog"><span class="toc-text">开始搭建blog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85Node-js"><span class="toc-text">一、安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85Git"><span class="toc-text">二、安装Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85Hexo"><span class="toc-text">三、安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%B0%86Blog%E9%83%A8%E7%BD%B2%E5%88%B0Github-Pages%E4%B8%8A"><span class="toc-text">四、将Blog部署到Github Pages上</span></a></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/Blog/">Blog</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.657Z'>2019-04-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>利用Hexo和Github搭建Blog（详细版）</span></h1>
+<h1 id="摘要：这是一篇有关如何使用Github-Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。"><a href="#摘要：这是一篇有关如何使用Github-Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。" class="headerlink" title="摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。"></a>摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。</h1><hr>
+<h1 id="前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。"><a href="#前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。" class="headerlink" title="前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。"></a>前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。</h1><hr>
+<h2 id="关于Github："><a href="#关于Github：" class="headerlink" title="关于Github："></a>关于Github：</h2><h3 id="一、Github的优点："><a href="#一、Github的优点：" class="headerlink" title="一、Github的优点："></a>一、Github的优点：</h3><ul>
+<li>GitHub是基于git实现的代码托管。git可能是目前最好用的版本控制系统了，非常受欢迎。</li>
+<li>GitHub可以免费使用，并且快速稳定。</li>
+<li>Github上面的世界很精彩，用久了你的眼界会开阔很多。</li>
+<li>是一个巨大的开源平台</li>
+</ul>
+<h3 id="二、Github的缺点："><a href="#二、Github的缺点：" class="headerlink" title="二、Github的缺点："></a>二、Github的缺点：</h3><ul>
+<li>信息泄露严重</li>
+</ul>
+<h3 id="三、为什么要使用Github-Pages"><a href="#三、为什么要使用Github-Pages" class="headerlink" title="三、为什么要使用Github Pages"></a>三、为什么要使用Github Pages</h3><ul>
+<li>简单快捷，使用Github Pages可以为你提供一个免费的服务器，免去了自己搭建服务器和写数据库的麻烦。</li>
+</ul>
+<hr>
+<h2 id="开始搭建blog"><a href="#开始搭建blog" class="headerlink" title="开始搭建blog"></a>开始搭建blog</h2><h3 id="一、安装Node-js"><a href="#一、安装Node-js" class="headerlink" title="一、安装Node.js"></a>一、安装Node.js</h3><p>在 Windows 环境下安装 Node.js 非常简单，仅须到<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网下载</a>安装文件并执行即可完成安装。<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/1.png"><br>像我的是Windows 64位，直接下载安装，无脑下一步就行了，不需要配置环境变量。</p>
+<h3 id="二、安装Git"><a href="#二、安装Git" class="headerlink" title="二、安装Git"></a>二、安装Git</h3><p>去<a target="_blank" rel="noopener" href="https://git-scm.com/download">Git官网</a>根据你的电脑参数，下载对应版本。</p>
+<p>下载完成，通过在cmd命令行输入 <code>git version</code> 查看是否安装成功，有输出版本号说明安装成功。<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/2.png"><br>鼠标右击菜单里就多了Git GUI Here和Git Bash Here两个按钮，一个是图形界面的Git操作，一个是命令行，我们选择Git Bash Here。<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/3.png"><br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/4.png"></p>
+<ul>
+<li><p><strong>安装教程：</strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaoliu66/p/9404963.html">Git安装教程（图文版）</a></p>
+</li>
+<li><p><strong>Git入门教程：</strong><a target="_blank" rel="noopener" href="https://gitee.com/progit/">Pro Git（中文版）</a></p>
+</li>
+<li><p><strong>Git基本操作：</strong><br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/5.png"></p>
+<h3 id="三、安装Hexo"><a href="#三、安装Hexo" class="headerlink" title="三、安装Hexo"></a>三、安装Hexo</h3></li>
+<li><p><strong>一、下载安装：</strong></p>
+<p>桌面右键鼠标，点击 <strong>Git Bash Here</strong> ，输入<code>npm</code>命令即可安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g   #安装hexo</span><br><span class="line"></span><br><span class="line">npm install hexo-deployer-git --save    #安装hexo部署到git page的deployer</span><br></pre></td></tr></table></figure>
+
+<p>显示如下信息，表示安装完成：<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/6.png"></p>
+</li>
+<li><p><strong>二、Hexo初始化配置：</strong></p>
+<p><strong>创建Hexo文件夹：</strong></p>
+<p>安装完成后，根据自己喜好建立目录（如D:\Blog\Hexo），直接进入d:\Blog\Hexo文件夹下右键鼠标，点击Git Bash Here，进入Git命令框，执行以下操作:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>创建好Hexo后，Hexo将会在指定文件夹中新建所需要的文件。Hexo文件夹下的目录如下：<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/7.png"></p>
+<p><strong>本地查看效果：</strong></p>
+<p>执行下面语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line"></span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>登录localhost:4000，即可看到本地的效果如下：<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/8.png"></p>
+<h3 id="四、将Blog部署到Github-Pages上"><a href="#四、将Blog部署到Github-Pages上" class="headerlink" title="四、将Blog部署到Github Pages上"></a>四、将Blog部署到Github Pages上</h3></li>
+<li><p><strong>一、注册Github账户：</strong></p>
+<ul>
+<li>访问<a target="_blank" rel="noopener" href="https://github.com/">Github首页</a></li>
+<li>点击右上角的<a target="_blank" rel="noopener" href="https://github.com/join?source=header-home">Sign Up</a>，注册自己的账户</li>
+</ul>
+</li>
+<li><p><strong>二、创建项目代码库：</strong></p>
+<ul>
+<li>点击<a target="_blank" rel="noopener" href="https://github.com/new">New repository</a>，创建一个Github Pages项目。<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/9.png"></li>
+<li>点击Settings，进入设置页面，设置初始主题<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/10.png"><br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/11.png"></li>
+<li>选择任意一款主题，然后点击Select theme按钮，安装主题<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/12.png"></li>
+<li>安装完成后，过2分钟，在网页上输入<code>username.github.io</code>(username为你自己的用户名),如果可以访问到页面，就成功了，如果出现404页面，则说明安装主题失败，重新尝试，或者过几分钟后在访问（安装主题这一步必须成功，不然后面会无法访问到自己的Blog）。</li>
+</ul>
+</li>
+<li><p><strong>三、配置SSH密钥：</strong></p>
+<p>配置Github的SSH密钥可以让本地git项目与远程的github建立联系，让我们在本地写了代码之后直接通过git操作就可以实现本地代码库与Github代码库同步。操作如下：</p>
+<ul>
+<li><p><strong>第一步：</strong> 我们需要看看是否看看本机是否存在SSH keys,打开Git Bash,并运行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;. ssh</span><br></pre></td></tr></table></figure>
+<p>检查你本机用户home目录下是否存在.ssh目录</p>
+<p>如果，不存在此目录，则进行第二步操作，否则，你本机已经存在ssh公钥和私钥，可以略过第二步，直接进入第三步操作。</p>
+</li>
+<li><p><strong>第二步：</strong> 创建一对新的SSH密钥(keys)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@example.com&quot; #改为你自己的邮箱地址</span><br></pre></td></tr></table></figure>
+<p>后面会出现提示内容让你选择目录和密码，直接回车确认，默认即可，出现下面界面则表示创建成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Your identification has been saved in &#x2F;c&#x2F;Users&#x2F;you&#x2F;.ssh&#x2F;id_rsa.</span><br><span class="line">Your public key has been saved in &#x2F;c&#x2F;Users&#x2F;you&#x2F;.ssh&#x2F;id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">01:01:ff:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>第三步：</strong> 在GitHub账户中添加你的公钥<br>运行如下命令，将公钥的内容复制到系统粘贴板(clipboard)中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip &lt; ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p><strong>接着：</strong></p>
+<p>1.登陆GitHub,进入你的Account Settings.<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/13.png"></p>
+<p>2.选择SSH Keys<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/14.png"></p>
+<p>3.粘贴密钥，添加即可<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/15.png"></p>
+<p>4.测试:可以输入下面的命令，看看设置是否成功，<a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;</a>的部分不要修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>如果是下面的反馈：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#39;github.com (207.97.227.239)&#39; can&#39;t be established.</span><br><span class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)?</span><br></pre></td></tr></table></figure>
+<p>输入yes就好，然后会看到：<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/16.png"></p>
+<p>如果和上图不符，这执行下面语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-agent bash</span><br><span class="line"></span><br><span class="line">ssh-add ~&#x2F;.ssh&#x2F;id_rsa</span><br></pre></td></tr></table></figure>
+<p>5.设置用户信息:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;ryanlijianchang&quot;  &#x2F;&#x2F;用户名(任意填写，不需要和github相同)</span><br><span class="line">$ git config --global user.email  &quot;liji.anchang@163.com&quot;  &#x2F;&#x2F;填写自己的邮箱</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>四、将本地的Hexo文件更新到Github的库中：</strong></p>
+<ul>
+<li><p>第一步：登录Github打开自己的项目 username.github.io</p>
+</li>
+<li><p>第二步：打开之后，点击SSH，选择SSH类型地址<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/17.png"></p>
+</li>
+<li><p>第三步：打开你一开始创建的Hexo文件夹（如D:\Blog\Hexo），用记事本打开刚文件夹下的_config.yml文件，在配置文件里作如下修改并保存：<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/1/18.png"></p>
+</li>
+<li><p>第四步：在Hexo文件夹下，打开Git Bash，并运行如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<p>执行完之后会让你输入github的账号和密码，输入完后就可以登录我们自己的部署在Github Pages服务器上的博客了。对应的地址是<code>username.github.io</code></p>
+<p>假如这时候，报错 <code>ERROR Deployer not found: git</code> ，那么就是你的deployer没有安装成功，你需要执行如下命令再安装一次：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>这样，你再执行 <code>hexo g -d</code> ，你的博客就部署到Github上了。</p>
+</li>
+<li><p>第五步：在浏览器上输入自己的主页地址 <code>https://username.github.io/</code> 即可看见自己的博客了（username为你自己的用户名）</p>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/YAML%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">YAML的常用语法</a></div><div class="post-title fs14"><a href="/2019/04/05/%E5%AE%89%E8%A3%85Oracle12C%E5%9D%91%E7%82%B9%E6%80%BB%E7%BB%93/">or prev: 安装Oracle12C坑点总结</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

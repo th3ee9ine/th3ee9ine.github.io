@@ -4,7 +4,7 @@
 <head>
   <meta name="generator" content="Hexo 5.4.0">
   <meta charset="utf-8">
-  
+  <meta name="robots" content="noindex,follow">
 
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
@@ -17,12 +17,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Hexo</title>
+  <title>Tag: Java基础 - Hexo</title>
 
   
     <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/tags/Java%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
@@ -112,11 +112,13 @@
 
       
 
+  
+
 
   <div class='nav-wrap'>
   <nav class='sub post cap'>
     
-      <a class='active' href='/'>Recent</a>
+      <a href='/'>Recent</a>
     
     
       
@@ -125,7 +127,7 @@
     
     
       
-        <a href='/tags'>Tags</a>
+        <a class='active' href='/tags'>Tag: Java基础</a>
       
     
     
@@ -136,32 +138,7 @@
   </nav>
 </div>
 
-  <div class="post-list post"><a class="post-card post article" href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/"><article class="excerpt md">
-
-<h2 class="post-title">
-  乌班图安装Tools等教程
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：主要总结了一下乌班图安装一些Tool的步骤。
-前言：乌班图安装一些开发Tool的步骤。
-一、乌班图安装 mysql-5.71、安装执行以下命令即可完成安装：
-123456$ sudo apt-get update  #更新软件源$ sudo apt-get install mysql-server  #安装mysqlsudo apt-get install mysql-clientsu...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-10-25T15:21:38.757Z'>2020-10-25</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">杂项</span>
-    
-  
-  
-</div>
-</article></a><a class="post-card post article" href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/"><article class="excerpt md">
+  <div class="post-list post"><h1 class="list-title h4">Hexo's Java基础 has 3 articles</h1><a class="post-card post article" href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/"><article class="excerpt md">
 
 <h2 class="post-title">
   面试基础题之《面向对象》
@@ -232,184 +209,9 @@ volatile关键字基本介绍volatile可以看成是synchronized的一种轻量�
   
   
 </div>
-</article></a><a class="post-card post article" href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"><article class="excerpt md">
-
-<h2 class="post-title">
-  如何保证类线程安全
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：主要总结了一下如何保证类线程安全。
-前言：总结了一下如何保证类线程安全。
-保证类线程安全的措施
-不共享线程间的变量；
-设置属性变量为不可变变量；
-每个共享的可变变量都使用一个确定的锁保护。
-
-保证线程安全的思路1. 通过架构设计通过上层的架构设计和业务分析来避免并发场景。比如需要用多线程或分布式集群统计一堆用户的相关统计值，由于用户的统计值是共享数据，因此需要保证线程安全。
-从业务上分...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-06-20T17:02:22.886Z'>2020-06-21</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">面试</span>
-    
-  
-  
-</div>
-</article></a><a class="post-card post article" href="/2020/06/13/Java%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/"><article class="excerpt md">
-
-<h2 class="post-title">
-  Java依赖注入详解
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：这篇文章主要是总结了一下Java依赖注入的相关知识点。
-前言：依赖注入是用来做对象管理的，为啥要管理呢？面向对象本质上是要多个不同职责相互对立的Object互相通过发消息来进行交互的。但是这个思想落地时，因为性能的原因，Object之间并不像网络那样真的发消息，而是互相调用对方的方法（C++，Java，C#等都是这么做的）。如果想调用某个Object的方法，就得拿到那个Object的引...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-06-13T07:05:22.573Z'>2020-06-13</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">面试</span>
-    
-  
-  
-</div>
-</article></a><a class="post-card post article" href="/2020/05/05/Flagr%E5%85%A5%E9%97%A8/"><article class="excerpt md">
-
-<h2 class="post-title">
-  flagr入门
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：这篇文章主要介绍一个A/B测试的中间件–flagr
-前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A / B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。
-flagr是什么？在介绍flagr之前，我们先要明白什么是A/B测试，什么是灰度测试，这样可以让我们更好的理解flagr。
-A/B测试A/B测试指的...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-05-05T08:38:55.675Z'>2020-05-05</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">中间件</span>
-    
-  
-  
-</div>
-</article></a><a class="post-card post article" href="/2020/03/28/%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%E6%B1%87%E6%80%BB/"><article class="excerpt md">
-
-<h2 class="post-title">
-  专业术语汇总
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：这篇文章主要是对开发过程中遇到的一些专业术语进行整理
-前言：这个篇文章主要是对开发过程中遇到的一些专业术语进行整理，其中包含各个领域的术语和一些开发术语。
-Git 团队协作中常用术语
-
-
-术语
-英文全拼
-解释
-
-
-
-WIP
-Work in progress, do not merge yet.
-开发中
-
-
-LGTM
-Looks good to me.
-Riview 完别人的 PR ，没...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-03-28T07:33:31.728Z'>2020-03-28</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">杂项</span>
-    
-  
-  
-</div>
-</article></a><a class="post-card post article" href="/2020/03/28/ORM%E4%B9%8B%E4%BB%96%E6%9A%82%E6%97%B6%E5%8F%AF%E8%83%BD%E5%8F%AA%E6%98%AF%E4%B8%AA%E5%BC%9F%E5%BC%9F%E2%80%94%E2%80%94Jooq/"><article class="excerpt md">
-
-<h2 class="post-title">
-  ORM之他暂时可能只是个弟弟——Jooq
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：这篇文章主要是对之前一段时间学习Jooq的总结。
-前言：相比较Hibernate、Mybatis等大家早已熟知的ORM框架来说，JOOQ只能算是一个弟弟。但它之所以能够脱颖而出，是因为它找到了正确的设计思想。
-Jooq简介JOOQ 是基于Java访问关系型数据库的工具包，轻量，简单，并且足够灵活，可以轻松的使用Java面向对象语法来实现各种复杂的sql。不管是Hibernate或者My...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-03-28T07:32:00.031Z'>2020-03-28</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">ORM</span>
-    
-  
-  
-</div>
-</article></a><a class="post-card post article" href="/2020/02/14/Google%20Java%20%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97%EF%BC%88%E4%B8%AD%E6%96%87%EF%BC%89/"><article class="excerpt md">
-
-<h2 class="post-title">
-  Google Java编程风格规范（中文）
-</h2>
-<div class='excerpt'>
-  
-    <p>摘要：这份文档是Google Java编程风格规范的完整定义。
-前言：这份文档是Google Java编程风格规范的完整定义。当且仅当一个Java源文件符合此文档中的规则，我们才认为它符合Google的Java编程风格。与其它的编程风格指南一样，这里所讨论的不仅仅是编码格式美不美观的问题，同时也讨论一些约定及编码标准。然而，这份文档主要侧重于我们所普遍遵循的规则，对于那些不是明确强制要求的，...</p>
-  
-</div>
-<div class='meta cap'>
-  <span class='cap' id='post-meta'>
-    Posted on&nbsp;<time datetime='2020-02-14T00:09:15.341Z'>2020-02-14</time>
-  </span>
-  
-    
-      
-      <span class="cap breadcrumb">Java</span>
-    
-  
-  
-</div>
 </article></a></div>
   
-  <div class='paginator-wrap dis-select'>
-    <a class='paginator prev disable' href='/'>
-      <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/f049bbd4e88ec.svg'/>
-    </a>
-    <div class='paginator current'>
-      1<span class='sep'></span>4
-    </div>
-    <a class='paginator next' href='/page/2/'>
-      <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/064b95430caf4.svg'/>
-    </a>
-  </div>
+
 
 
 

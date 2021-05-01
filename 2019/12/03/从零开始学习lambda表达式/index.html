@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>从零开始学习lambda表达式 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。 前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。 什么是Lambda表达式Lambda表达式是Java SE 8中一个重要的新特性。lambda表达式允许你通过表达式来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始学习lambda表达式">
+<meta property="og:url" content="http://example.com/2019/12/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。 前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。 什么是Lambda表达式Lambda表达式是Java SE 8中一个重要的新特性。lambda表达式允许你通过表达式来">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/21/1.png">
+<meta property="og:image" content="http://example.com/blog/21/2.png">
+<meta property="article:published_time" content="2019-12-03T11:18:52.686Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.385Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/21/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">什么是Lambda表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95"><span class="toc-text">Lambda表达式语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%A6%81%E6%B1%82"><span class="toc-text">使用Lambda表达式的要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E6%8E%A5%E5%8F%A3"><span class="toc-text">自定义函数接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E5%86%85%E7%BD%AE%E5%9B%9B%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="toc-text">Java 内置四大核心函数式接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Consumer-lt-T-gt-%E6%B6%88%E8%B4%B9%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="toc-text">Consumer&lt;T&gt;  消费型接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Supplier-lt-T-gt-%E4%BE%9B%E7%BB%99%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="toc-text">Supplier&lt;T&gt; 供给型接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Function-lt-T-R-gt-%E5%87%BD%E6%95%B0%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="toc-text">Function&lt;T, R&gt; 函数型接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Predicate-lt-T-gt-%E6%96%AD%E5%AE%9A%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="toc-text">Predicate&lt;T&gt; 断定型接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8E%A5%E5%8F%A3"><span class="toc-text">其他接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8%E5%92%8C%E6%9E%84%E9%80%A0%E5%99%A8%E5%BC%95%E7%94%A8"><span class="toc-text">方法引用和构造器引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-text">方法引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%AF%B9%E8%B1%A1-%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="toc-text">1、对象::实例方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E7%B1%BB-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">2、类::静态方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E7%B1%BB-%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="toc-text">3、类::实例方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%BC%95%E7%94%A8"><span class="toc-text">构造器引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%BC%95%E7%94%A8"><span class="toc-text">数组引用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Collections%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%8E%A5%E5%8F%A3"><span class="toc-text">Collections中的常用函数接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Collection%E4%B8%AD%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95"><span class="toc-text">Collection中的新方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#forEach"><span class="toc-text">forEach()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#removeIf"><span class="toc-text">removeIf()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#replaceAll"><span class="toc-text">replaceAll()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sort"><span class="toc-text">sort()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spliterator"><span class="toc-text">spliterator()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stream-%E5%92%8CparallelStream"><span class="toc-text">stream()和parallelStream()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Map%E4%B8%AD%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95"><span class="toc-text">Map中的新方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#forEach-1"><span class="toc-text">forEach()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getOrDefault"><span class="toc-text">getOrDefault()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#putIfAbsent"><span class="toc-text">putIfAbsent()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#remove"><span class="toc-text">remove()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#replace"><span class="toc-text">replace()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#replaceAll-1"><span class="toc-text">replaceAll()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#merge"><span class="toc-text">merge()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#compute"><span class="toc-text">compute()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#computeIfAbsent"><span class="toc-text">computeIfAbsent()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#computeIfPresent"><span class="toc-text">computeIfPresent()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stream"><span class="toc-text">Stream</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#stream%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="toc-text">stream方法使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#forEach-2"><span class="toc-text">forEach()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#filter"><span class="toc-text">filter()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#distinct"><span class="toc-text">distinct()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sorted"><span class="toc-text">sorted()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#map"><span class="toc-text">map()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flatMap"><span class="toc-text">flatMap()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%9A%84%E8%A7%84%E7%BA%A6%E6%93%8D%E4%BD%9C"><span class="toc-text">流的规约操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#reduce"><span class="toc-text">reduce()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#collect"><span class="toc-text">collect()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95"><span class="toc-text">接口的静态方法和默认方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8-1"><span class="toc-text">方法引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-text">收集器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8collect-%E7%94%9F%E6%88%90Collection"><span class="toc-text">使用collect()生成Collection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8collect-%E7%94%9F%E6%88%90Map"><span class="toc-text">使用collect()生成Map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8collect-%E5%81%9A%E5%AD%97%E7%AC%A6%E4%B8%B2join"><span class="toc-text">使用collect()做字符串join</span></a></li></ol></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/Java/">Java</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/Java/%E5%9F%BA%E7%A1%80/">基础</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-12-03T11:18:52.686Z'>2019-12-03</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>从零开始学习lambda表达式</span></h1>
+<h1 id="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。"><a href="#摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。" class="headerlink" title="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。"></a>摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。</h1><hr>
+<h1 id="前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。"><a href="#前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。" class="headerlink" title="前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。"></a>前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。</h1><hr>
+<h2 id="什么是Lambda表达式"><a href="#什么是Lambda表达式" class="headerlink" title="什么是Lambda表达式"></a>什么是Lambda表达式</h2><p>Lambda表达式是Java SE 8中一个重要的新特性。lambda表达式允许你通过表达式来代替功能接口。lambda表达式就和方法一样,它提供了一个正常的参数列表和一个使用这些参数的主体(body,可以是一个表达式或一个代码块)。Lambda表达式还增强了集合库。</p>
+<p>Java Lambda表达式的一个重要用法是简化某些匿名内部类（Anonymous Classes）的写法。实际上Lambda表达式并不仅仅是匿名内部类的语法糖，JVM内部是通过invokedynamic指令来实现Lambda表达式的。</p>
+<h2 id="Lambda表达式语法"><a href="#Lambda表达式语法" class="headerlink" title="Lambda表达式语法"></a>Lambda表达式语法</h2><p>Lambda 表达式在 Java 语言中引入了一个新的语法元素和操作符。这个操作符为 “-&gt;”，该操作符被称 为 Lambda 操作符或箭头操作符。它将 Lambda 分为两个部分：</p>
+<ul>
+<li>左侧： 指定了 Lambda 表达式需要的所有参数</li>
+<li>右侧： 指定了 Lambda 体，即 Lambda 表达式要执行的功能。</li>
+</ul>
+<ol>
+<li><p>语法格式一：无参，无返回值，Lambda 体只需一条语句。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">      示例：</span><br><span class="line">Runnable r1 &#x3D; () -&gt; System.out.println(&quot;Hello Lambda!&quot;);</span><br></pre></td></tr></table></figure></li>
+<li><p>语法格式二：Lambda 需要一个参数。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">  Consumer&lt;String&gt; con &#x3D; （x） -&gt; System.out.println(x);</span><br></pre></td></tr></table></figure></li>
+<li><p>语法格式三：Lambda 只需要一个参数时，参数的小括号可以省略。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">      示例：</span><br><span class="line">Consumer&lt;String&gt; con &#x3D; x -&gt; System.out.println(x);</span><br></pre></td></tr></table></figure></li>
+<li><p>语法格式四：Lambda 需要两个参数，并且有返回值。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">   Comparator&lt;Integer&gt; com &#x3D; (x, y) -&gt; &#123;</span><br><span class="line">      System.out.println(&quot;函数式接口&quot;);</span><br><span class="line">      return Integer.compare(x, y);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>语法格式五：当 Lambda 体只有一条语句时，return 与大括号可以省略。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">  Comparator&lt;Integer&gt; com &#x3D; (x, y) -&gt; Integer.compare(x, y);</span><br></pre></td></tr></table></figure></li>
+<li><p>Lambda 表达式的参数列表的数据类型可以省略不写，因为JVM编译器通过上下文推断出，数据类型，即“类型推断”。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">  Comparator&lt;Integer&gt; com &#x3D; (Integer x,Integer y) -&gt; &#123;  &#x2F;&#x2F;Integer 类型可以省略</span><br><span class="line">     System.out.println(&quot;函数式接口&quot;);</span><br><span class="line">     return Integer.compare(x, y);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  BinaryOperator&lt;Long&gt; add &#x3D; (Long x, Long y) -&gt; x + y;&#x2F;&#x2F; 4</span><br><span class="line"></span><br><span class="line">  BinaryOperator&lt;Long&gt; addImplicit &#x3D; (x, y) -&gt; x + y;&#x2F;&#x2F; 5 类型推断</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>类型推断：Lambda 表达式中的参数类型都是由编译器推断 得出的。 Lambda 表达式中无需指定类型，程序依然可 以编译，这是因为 javac 根据程序的上下文，在后台 推断出了参数的类型。 Lambda 表达式的类型依赖于上 下文环境，是由编译器推断出来的。这就是所谓的 “类型推断”</p>
+<h2 id="使用Lambda表达式的要求"><a href="#使用Lambda表达式的要求" class="headerlink" title="使用Lambda表达式的要求"></a>使用Lambda表达式的要求</h2><p>也许你已经想到了，能够使用Lambda的依据是必须有相应的 <strong>函数接口</strong>。</p>
+<p>函数接口，是指内部只有一个抽象方法的接口。这一点跟Java是强类型语言吻合，也就是说你并不能在代码的任何地方任性的写Lambda表达式。实际上Lambda的类型就是对应函数接口的类型。Lambda表达式另一个依据是类型推断机制，在上下文信息足够的情况下，编译器可以推断出参数表的类型，而不需要显式指名。</p>
+<h2 id="自定义函数接口"><a href="#自定义函数接口" class="headerlink" title="自定义函数接口"></a>自定义函数接口</h2><p>自定义函数接口很容易，只需要编写一个只有一个抽象方法的接口即可。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 自定义函数接口</span><br><span class="line">@FunctionalInterface</span><br><span class="line">public interface ConsumerInterface&lt;T&gt;&#123;</span><br><span class="line">void accept(T t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中的@FunctionalInterface是可选的，但加上该标注编译器会帮你检查接口是否符合函数接口规范。就像加入@Override标注会检查是否重载了函数一样。有了上述接口定义，就可以写出类似如下的代码：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConsumerInterface&lt;String&gt; consumer &#x3D; str -&gt; System.out.println(str);</span><br><span class="line">consumer.accept(&quot;我是自定义函数式接口&quot;);</span><br></pre></td></tr></table></figure>
+
+
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">详细例子参考：</span><br><span class="line">  import java.util.Arrays;</span><br><span class="line">  import java.util.List;</span><br><span class="line"></span><br><span class="line">  public class Test &#123;</span><br><span class="line">      public static void main(String[] args) &#123;</span><br><span class="line">          TestStream&lt;String&gt; stream &#x3D; new TestStream&lt;String&gt;();</span><br><span class="line">          List list &#x3D; Arrays.asList(&quot;11&quot;, &quot;22&quot;, &quot;33&quot;);</span><br><span class="line">          stream.setList(list);</span><br><span class="line">          stream.myForEach(str -&gt; System.out.println(str));&#x2F;&#x2F; 使用自定义函数接口书写Lambda表达式</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @FunctionalInterface</span><br><span class="line">  interface ConsumerInterface&lt;T&gt;&#123;</span><br><span class="line">      void accept(T t);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  class TestStream&lt;T&gt;&#123;</span><br><span class="line">      private List&lt;T&gt; list;</span><br><span class="line">      public void myForEach(ConsumerInterface&lt;T&gt; consumer)&#123;&#x2F;&#x2F; 1</span><br><span class="line">          for(T t : list)&#123;</span><br><span class="line">              consumer.accept(t);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      public void setList(List&lt;T&gt; list) &#123;</span><br><span class="line">          this.list &#x3D; list;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java-内置四大核心函数式接口"><a href="#Java-内置四大核心函数式接口" class="headerlink" title="Java 内置四大核心函数式接口"></a>Java 内置四大核心函数式接口</h2><table>
+<thead>
+<tr>
+<th>函数式接口</th>
+<th>参数类型</th>
+<th>返回类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Consumer&lt;T&gt;  消费型接口</td>
+<td>T</td>
+<td>void</td>
+<td>对类型为T的对象应用操作，包含方法：void accept(T t);</td>
+</tr>
+<tr>
+<td>Supplier&lt;T&gt;  供给型接口</td>
+<td>无</td>
+<td>T</td>
+<td>返回类型为T的对象，包含方法：T get();</td>
+</tr>
+<tr>
+<td>Function&lt;T, R&gt;  函数型接口</td>
+<td>T</td>
+<td>R</td>
+<td>对类型为T的对象应用操作，并返回结果。结果是R类型的对象。包含方法：R apply(T t);</td>
+</tr>
+<tr>
+<td>Predicate&lt;T&gt;  断定型接口</td>
+<td>T</td>
+<td>boolean</td>
+<td>确定类型为T的对象是否满足某约束，并返回boolean值。包含方法boolean test(T t);</td>
+</tr>
+</tbody></table>
+<h3 id="Consumer-lt-T-gt-消费型接口"><a href="#Consumer-lt-T-gt-消费型接口" class="headerlink" title="Consumer&lt;T&gt;  消费型接口"></a>Consumer&lt;T&gt;  消费型接口</h3><p>  void accept(T t);</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1()&#123;</span><br><span class="line">    hello(&quot;张三&quot;, (m) -&gt; System.out.println(&quot;你好：&quot; + m));</span><br><span class="line">&#125;</span><br><span class="line">public void hello(String st, Consumer&lt;String&gt; con)&#123;</span><br><span class="line">    con.accept(st);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Supplier-lt-T-gt-供给型接口"><a href="#Supplier-lt-T-gt-供给型接口" class="headerlink" title="Supplier&lt;T&gt; 供给型接口"></a>Supplier&lt;T&gt; 供给型接口</h3><p>  T get();</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Supplier&lt;T&gt; 供给型接口 :</span><br><span class="line">@Test</span><br><span class="line">public void test2()&#123;</span><br><span class="line">    List list &#x3D; Arrays.asList(121, 1231, 455, 56, 67,78);</span><br><span class="line">    List&lt;Integer&gt; numList &#x3D; getNumList(1, () -&gt; (int)(Math.random() * 100));</span><br><span class="line">    for (Integer num : numList) &#123;</span><br><span class="line">        System.out.println(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;需求：产生指定个数的整数，并放入集合中</span><br><span class="line">public List&lt;Integer&gt; getNumList(int num, Supplier&lt;Integer&gt; sup)&#123;</span><br><span class="line">    List&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    for (int i &#x3D; 0; i &lt; num; i++) &#123;</span><br><span class="line">        Integer n &#x3D; sup.get();</span><br><span class="line">        list.add(n);</span><br><span class="line">    &#125;</span><br><span class="line">    return list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Function-lt-T-R-gt-函数型接口"><a href="#Function-lt-T-R-gt-函数型接口" class="headerlink" title="Function&lt;T, R&gt; 函数型接口"></a>Function&lt;T, R&gt; 函数型接口</h3><p>  R apply(T t);</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Function&lt;T, R&gt; 函数型接口：</span><br><span class="line">@Test</span><br><span class="line">public void test3()&#123;</span><br><span class="line">    String newStr &#x3D; strHandler(&quot;\t\t\t 这是一个函数型接口 &quot;, (str) -&gt; str.trim());</span><br><span class="line">    System.out.println(newStr);</span><br><span class="line">    String subStr &#x3D; strHandler(&quot;这是一个函数型接口&quot;, (str) -&gt; str.substring(4, 7));</span><br><span class="line">    System.out.println(subStr);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;需求：用于处理字符串</span><br><span class="line">public String strHandler(String str, Function&lt;String, String&gt; fun)&#123;</span><br><span class="line">    return fun.apply(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Predicate-lt-T-gt-断定型接口"><a href="#Predicate-lt-T-gt-断定型接口" class="headerlink" title="Predicate&lt;T&gt; 断定型接口"></a>Predicate&lt;T&gt; 断定型接口</h3><p>  boolean test(T t);</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Predicate&lt;T&gt; 断言型接口：</span><br><span class="line">@Test</span><br><span class="line">public void test4()&#123;</span><br><span class="line">    List&lt;String&gt; list &#x3D; Arrays.asList(&quot;Hello&quot;, &quot;Java8&quot;, &quot;Lambda&quot;, &quot;www&quot;, &quot;ok&quot;);</span><br><span class="line">    List&lt;String&gt; strList &#x3D; filterStr(list, (s) -&gt; s.length() &gt; 3);</span><br><span class="line">    for (String str : strList) &#123;</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;需求：将满足条件的字符串，放入集合中</span><br><span class="line">public List&lt;String&gt; filterStr(List&lt;String&gt; list, Predicate&lt;String&gt; pre)&#123;</span><br><span class="line">    List&lt;String&gt; strList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    for (String str : list) &#123;</span><br><span class="line">        if(pre.test(str))&#123;</span><br><span class="line">            strList.add(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return strList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他接口"><a href="#其他接口" class="headerlink" title="其他接口"></a>其他接口</h3><table>
+<thead>
+<tr>
+<th>函数式接口</th>
+<th>参数类型</th>
+<th>返回类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BiFunction&lt;T, U, R&gt;</td>
+<td>T,U</td>
+<td>R</td>
+<td>对类型为 T，U 参数应用操作，返回 R 类型的结果。包含方法为R apply(T t, U u);</td>
+</tr>
+<tr>
+<td>UnaryOperator&lt;T&gt; (Function子接口)</td>
+<td>T</td>
+<td>T</td>
+<td>对类型为 T 的对象进行一元运算，并返回 T 类型的结果。包含方法为 T apply(T t);</td>
+</tr>
+<tr>
+<td>BinaryOperator&lt;T&gt;  (BiFunction子接口)</td>
+<td>T,T</td>
+<td>T</td>
+<td>对类型为T的对象进行二元运算，并返回 T 类型的结果。包含方法为 T apply(T t1, T t2);</td>
+</tr>
+<tr>
+<td>BiConsumer&lt;T, U&gt;</td>
+<td>T,U</td>
+<td>void</td>
+<td>对类型为T，U参数应用操作。包含方法为 void accept(T t, U u)</td>
+</tr>
+<tr>
+<td>ToIntFunction&lt;T&gt; <br> ToLongFunction&lt;T&gt; <br> ToDoubleFunction&lt;T&gt; <br></td>
+<td>T</td>
+<td>int <br> long <br> double</td>
+<td>分别计算int、long、double值的函数</td>
+</tr>
+<tr>
+<td>IntFunction&lt;R&gt; <br> LongFunction&lt;R&gt; <br> DoubleFunction&lt;R&gt; <br></td>
+<td>int <br> long <br> double</td>
+<td>R</td>
+<td>参数分别为int、long、double类型的函数</td>
+</tr>
+</tbody></table>
+<h2 id="方法引用和构造器引用"><a href="#方法引用和构造器引用" class="headerlink" title="方法引用和构造器引用"></a>方法引用和构造器引用</h2><h3 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h3><p>当要传递给Lambda体内的操作，已经有实现的方法了，就可以使用方法引用了！</p>
+<p>方法引用使用的前提条件是什么呢？</p>
+<ul>
+<li>方法引用所引用的方法的参数列表必须要和函数式接口中抽象方法的参数列表相同（完全一致）。</li>
+<li>方法引用所引用的方法的的返回值必须要和函数式接口中抽象方法的返回值相同（完全一致）。</li>
+</ul>
+<p>方法引用一般有三种格式：</p>
+<ul>
+<li>实例对象名::实例方法名</li>
+<li>类名::静态方法名</li>
+<li>类名::实例方法名</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>2和3的区别：若Lambda 的参数列表的第一个参数，是实例方法的调用者，第二个参数(或无参)是实例方法的参数时，格式： 类名::实例方法名。</li>
+</ul>
+<p>方法引用：使用操作符 “::” 将方法名和对象或类的名字分隔开来。</p>
+<h4 id="1、对象-实例方法"><a href="#1、对象-实例方法" class="headerlink" title="1、对象::实例方法"></a>1、对象::实例方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1()&#123;</span><br><span class="line">    PrintStream ps &#x3D; System.out;</span><br><span class="line">    Consumer&lt;String&gt; con &#x3D; (str) -&gt; ps.println(str);</span><br><span class="line">    con.accept(&quot;Hello World！&quot;);</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;--------------------------------&quot;);</span><br><span class="line"></span><br><span class="line">    Consumer&lt;String&gt; con2 &#x3D; ps::println;</span><br><span class="line">    con2.accept(&quot;Hello Java8！&quot;);</span><br><span class="line"></span><br><span class="line">    Consumer&lt;String&gt; con3 &#x3D; System.out::println;</span><br><span class="line">&#125;</span><br><span class="line">@Test</span><br><span class="line">public void test2()&#123;</span><br><span class="line">    Employee emp &#x3D; new Employee(1, &quot;张三&quot;, 18, 5112.99);</span><br><span class="line"></span><br><span class="line">    Supplier&lt;String&gt; sup &#x3D; () -&gt; emp.getName();</span><br><span class="line">    System.out.println(sup.get());</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;----------------------------------&quot;);</span><br><span class="line"></span><br><span class="line">    Employee emp1 &#x3D; new Employee(2, &quot;李四&quot;, 18, 5112.99);</span><br><span class="line">    Supplier&lt;String&gt; sup2 &#x3D; emp1::getName;</span><br><span class="line">    System.out.println(sup2.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、类-静态方法"><a href="#2、类-静态方法" class="headerlink" title="2、类::静态方法"></a>2、类::静态方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test3()&#123;</span><br><span class="line">    BiFunction&lt;Double, Double, Double&gt; fun &#x3D; (x, y) -&gt; Math.max(x, y);</span><br><span class="line">    System.out.println(fun.apply(1.5, 22.2));</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;--------------------------------------------------&quot;);</span><br><span class="line">    BiFunction&lt;Double, Double, Double&gt; fun2 &#x3D; Math::max;</span><br><span class="line">    System.out.println(fun2.apply(1.2, 1.5));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void test4()&#123;</span><br><span class="line">    Comparator&lt;Integer&gt; com &#x3D; (x, y) -&gt; Integer.compare(x, y);</span><br><span class="line">    System.out.println(com.compare(3,9));</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;-------------------------------------&quot;);</span><br><span class="line">    Comparator&lt;Integer&gt; com2 &#x3D; Integer::compare;</span><br><span class="line">    System.out.println(com2.compare(3,9));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、类-实例方法"><a href="#3、类-实例方法" class="headerlink" title="3、类::实例方法"></a>3、类::实例方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test5()&#123;</span><br><span class="line">    BiPredicate&lt;String, String&gt; bp &#x3D; (x, y) -&gt; x.equals(y);</span><br><span class="line">    System.out.println(bp.test(&quot;abcde&quot;, &quot;abcde&quot;));</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;-----------------------------------------&quot;);</span><br><span class="line">    BiPredicate&lt;String, String&gt; bp2 &#x3D; String::equals;</span><br><span class="line">    System.out.println(bp2.test(&quot;abc&quot;, &quot;abc&quot;));</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;-----------------------------------------&quot;);</span><br><span class="line">    Function&lt;Employee, String&gt; fun &#x3D; (e) -&gt; e.show();</span><br><span class="line">    System.out.println(fun.apply(new Employee()));</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;-----------------------------------------&quot;);</span><br><span class="line">    Function&lt;Employee, String&gt; fun2 &#x3D; Employee::show;</span><br><span class="line">    System.out.println(fun2.apply(new Employee()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造器引用"><a href="#构造器引用" class="headerlink" title="构造器引用"></a>构造器引用</h3><p>构造器使用的前提是什么？</p>
+<ul>
+<li>构造器参数列表要与接口中抽象方法的参数列表一致！</li>
+</ul>
+<p>语法格式：</p>
+<ul>
+<li>类名 :: new</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Employee类中必须有一个 Employee(String name, int age) 的构造器</span><br><span class="line">BiConsumer&lt;String, Integer&gt; biConsumer &#x3D; Employee :: new;</span><br><span class="line">biConsumer.accept(&quot;王五&quot;, 19);</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组引用"><a href="#数组引用" class="headerlink" title="数组引用"></a>数组引用</h4><p>数组引用和构造引用基本相同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test10()&#123;</span><br><span class="line">    &#x2F;&#x2F;传统Lambda实现</span><br><span class="line">    Function&lt;Integer,int[]&gt; function &#x3D; (i) -&gt; new int[i];</span><br><span class="line">    int[] apply &#x3D; function.apply(10);</span><br><span class="line">    System.out.println(apply.length); &#x2F;&#x2F; 10</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;数组类型引用实现</span><br><span class="line">    function &#x3D; int[] ::new;</span><br><span class="line">    apply &#x3D; function.apply(100);</span><br><span class="line">    System.out.println(apply.length); &#x2F;&#x2F; 100</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Collections中的常用函数接口"><a href="#Collections中的常用函数接口" class="headerlink" title="Collections中的常用函数接口"></a>Collections中的常用函数接口</h2><p>Java8新增了java.util.funcion包，里面包含常用的函数接口，这是Lambda表达式的基础，Java集合框架也新增部分接口，以便与Lambda表达式对接。</p>
+<p>Java集合框架的接口继承结构:</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/21/1.png" alt="Java集合框架的接口继承结构"></p>
+<p>上图中绿色标注的接口类，表示在Java8中加入了新的接口方法，当然由于继承关系，他们相应的子类也都会继承这些新方法。下表详细列举了这些方法。</p>
+<table>
+<thead>
+<tr>
+<th>接口名</th>
+<th>Java8新加入的方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Collection</td>
+<td>removeIf() spliterator() stream() parallelStream() forEach()</td>
+</tr>
+<tr>
+<td>List</td>
+<td>replaceAll() sort()</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>getOrDefault() forEach() replaceAll() putIfAbsent() remove() replace() computeIfAbsent() computeIfPresent() compute() merge()</td>
+</tr>
+</tbody></table>
+<p>这些新加入的方法大部分要用到java.util.function包下的接口，这意味着这些方法大部分都跟Lambda表达式相关。</p>
+<h3 id="Collection中的新方法"><a href="#Collection中的新方法" class="headerlink" title="Collection中的新方法"></a>Collection中的新方法</h3><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h4><p>该方法的签名为void forEach(Consumer&lt;? super E&gt; action)，作用是对容器中的每个元素执行action指定的动作，其中Consumer是个函数接口，里面只有一个待实现方法void accept(T t)。</p>
+<p>匿名内部类实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(3, 6, 9, 10));</span><br><span class="line">list.forEach(new Consumer&lt;Integer&gt;()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void accept(Integer integer)&#123;</span><br><span class="line">        if(integer % 3 &#x3D;&#x3D; 0)&#123;</span><br><span class="line">            System.out.println(integer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>lambda表达式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(3, 6, 9, 10));</span><br><span class="line">list.forEach((s) -&gt; &#123;</span><br><span class="line">    if (s % 3 &#x3D;&#x3D; 0)&#123;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="removeIf"><a href="#removeIf" class="headerlink" title="removeIf()"></a>removeIf()</h4><p>该方法签名为boolean removeIf(Predicate&lt;? super E&gt; filter)，作用是删除容器中所有满足filter指定条件的元素，其中Predicate是一个函数接口，里面只有一个待实现方法boolean test(T t)。</p>
+<p>匿名内部类实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(3, 6, 9, 10));</span><br><span class="line">list.removeIf(new Predicate&lt;Integer&gt;()&#123; &#x2F;&#x2F; 删除长度大于3的元素</span><br><span class="line">    @Override</span><br><span class="line">    public boolean test(Integer sum)&#123;</span><br><span class="line">        return sum % 3 &#x3D;&#x3D; 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<p>lambda表达式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(3, 6, 9, 10));</span><br><span class="line">list.removeIf(s -&gt; s % 3 &#x3D;&#x3D; 0);</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<h4 id="replaceAll"><a href="#replaceAll" class="headerlink" title="replaceAll()"></a>replaceAll()</h4><p>该方法签名为void replaceAll(UnaryOperator&lt;E&gt; operator)，作用是对每个元素执行operator指定的操作，并用操作结果来替换原来的元素。其中UnaryOperator是一个函数接口，里面只有一个待实现函数T apply(T t)。</p>
+<p>匿名内部类实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(3, 6, 9, 10));</span><br><span class="line">list.replaceAll(new UnaryOperator&lt;Integer&gt;()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public Integer apply(Integer sum)&#123;</span><br><span class="line">        if(sum % 3 &#x3D;&#x3D; 0)&#123;</span><br><span class="line">            return ++sum;</span><br><span class="line">        &#125;</span><br><span class="line">        return --sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<p>lambda表达式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(3, 6, 9, 10));</span><br><span class="line">list.replaceAll(sum -&gt; &#123;</span><br><span class="line">    if (sum % 3 &#x3D;&#x3D; 0)&#123;</span><br><span class="line">        return ++sum;</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        return --sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort()"></a>sort()</h4><p>该方法定义在List接口中，方法签名为void sort(Comparator&lt;? super E&gt; c)，该方法根据c指定的比较规则对容器元素进行排序。Comparator接口我们并不陌生，其中有一个方法int compare(T o1, T o2)需要实现，显然该接口是个函数接口。</p>
+<p>匿名内部类实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(6, 10, 9, 3));</span><br><span class="line">Collections.sort(list, new Comparator&lt;Integer&gt;()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int compare(Integer sum1, Integer sum2)&#123;</span><br><span class="line">        return sum1 - sum2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<p>lambda表达式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;(Arrays.asList(6, 10, 9, 3));</span><br><span class="line">System.out.println(list);</span><br><span class="line">list.sort((sum1, sum2) -&gt; sum1 - sum2);</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<h4 id="spliterator"><a href="#spliterator" class="headerlink" title="spliterator()"></a>spliterator()</h4><p>方法签名为Spliterator&lt;E&gt; spliterator()，该方法返回容器的可拆分迭代器。从名字来看该方法跟iterator()方法有点像，我们知道Iterator是用来迭代容器的，Spliterator也有类似作用，但二者有如下不同：</p>
+<p>Spliterator既可以像Iterator那样逐个迭代，也可以批量迭代。批量迭代可以降低迭代的开销。<br>Spliterator是可拆分的，一个Spliterator可以通过调用Spliterator<T> trySplit()方法来尝试分成两个。一个是this，另一个是新返回的那个，这两个迭代器代表的元素没有重叠。<br>可通过（多次）调用Spliterator.trySplit()方法来分解负载，以便多线程处理。</p>
+<h4 id="stream-和parallelStream"><a href="#stream-和parallelStream" class="headerlink" title="stream()和parallelStream()"></a>stream()和parallelStream()</h4><p>stream()和parallelStream()分别返回该容器的Stream视图表示，不同之处在于parallelStream()返回并行的Stream。Stream是Java函数式编程的核心类，具体内容后面单独介绍。</p>
+<h3 id="Map中的新方法"><a href="#Map中的新方法" class="headerlink" title="Map中的新方法"></a>Map中的新方法</h3><h4 id="forEach-1"><a href="#forEach-1" class="headerlink" title="forEach()"></a>forEach()</h4><p>该方法签名为void forEach(BiConsumer&lt;? super K,? super V&gt; action)，作用是对Map中的每个映射执行action指定的操作，其中BiConsumer是一个函数接口，里面有一个待实现方法void accept(T t, U u)。</p>
+<p>匿名内部类实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">map.put(1, &quot;我&quot;);</span><br><span class="line">map.put(2, &quot;拒绝&quot;);</span><br><span class="line">map.put(3, &quot;996&quot;);</span><br><span class="line">map.forEach(new BiConsumer&lt;Integer, String&gt;()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void accept(Integer key, String value)&#123;</span><br><span class="line">        System.out.println(key + &quot;&#x3D;&quot; + value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>lambda表达式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">map.put(1, &quot;我&quot;);</span><br><span class="line">map.put(2, &quot;拒绝&quot;);</span><br><span class="line">map.put(3, &quot;996&quot;);</span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + &quot;&#x3D;&quot; + value));</span><br></pre></td></tr></table></figure>
+
+<h4 id="getOrDefault"><a href="#getOrDefault" class="headerlink" title="getOrDefault()"></a>getOrDefault()</h4><p>该方法跟Lambda表达式没关系，但是很有用。方法签名为V getOrDefault(Object key, V defaultValue)，作用是按照给定的key查询Map中对应的value，如果没有找到则返回defaultValue。使用该方法可以省去查询指定键值是否存在的麻烦。</p>
+<p>实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">map.put(1, &quot;我&quot;);</span><br><span class="line">map.put(2, &quot;拒绝&quot;);</span><br><span class="line">map.put(3, &quot;996&quot;);</span><br><span class="line">&#x2F;&#x2F; Java7以及之前做法</span><br><span class="line">if(map.containsKey(4))&#123;</span><br><span class="line">    System.out.println(map.get(4));</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    System.out.println(&quot;NoValue&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Java8使用Map.getOrDefault()</span><br><span class="line">System.out.println(map.getOrDefault(4, &quot;NoValue&quot;));</span><br></pre></td></tr></table></figure>
+
+<h4 id="putIfAbsent"><a href="#putIfAbsent" class="headerlink" title="putIfAbsent()"></a>putIfAbsent()</h4><p>该方法跟Lambda表达式没关系，但是很有用。方法签名为V putIfAbsent(K key, V value)，作用是只有在不存在key值的映射或映射值为null时，才将value指定的值放入到Map中，否则不对Map做更改．该方法将条件判断和赋值合二为一，使用起来更加方便。</p>
+<h4 id="remove"><a href="#remove" class="headerlink" title="remove()"></a>remove()</h4><p>我们都知道Map中有一个remove(Object key)方法，来根据指定key值删除Map中的映射关系；Java8新增了remove(Object key, Object value)方法，只有在当前Map中key正好映射到value时才删除该映射，否则什么也不做。</p>
+<h4 id="replace"><a href="#replace" class="headerlink" title="replace()"></a>replace()</h4><p>在Java7及以前，要想替换Map中的映射关系可通过put(K key, V value)方法实现，该方法总是会用新值替换原来的值．为了更精确的控制替换行为，Java8在Map中加入了两个replace()方法，分别如下：</p>
+<ul>
+<li>replace(K key, V value)，只有在当前Map中key的映射存在时才用value去替换原来的值，否则什么也不做。</li>
+<li>replace(K key, V oldValue, V newValue)，只有在当前Map中key的映射存在且等于oldValue时才用newValue去替换原来的值，否则什么也不做。</li>
+</ul>
+<h4 id="replaceAll-1"><a href="#replaceAll-1" class="headerlink" title="replaceAll()"></a>replaceAll()</h4><p>该方法签名为replaceAll(BiFunction&lt;? super K,? super V,? extends V&gt; function)，作用是对Map中的每个映射执行function指定的操作，并用function的执行结果替换原来的value，其中BiFunction是一个函数接口，里面有一个待实现方法R apply(T t, U u)。</p>
+<p>匿名内部类实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">map.put(1, &quot;我&quot;);</span><br><span class="line">map.put(2, &quot;拒绝&quot;);</span><br><span class="line">map.put(3, &quot;996&quot;);</span><br><span class="line">map.replaceAll(new BiFunction&lt;Integer, String, String&gt;()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public String apply(Integer k, String v)&#123;</span><br><span class="line">        if (v.equals(&quot;我&quot;))&#123;</span><br><span class="line">            v &#x3D; &quot;你&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        return v.toUpperCase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + &quot;&#x3D;&quot; + value));</span><br></pre></td></tr></table></figure>
+
+<p>lambda表达式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">map.put(1, &quot;我&quot;);</span><br><span class="line">map.put(2, &quot;拒绝&quot;);</span><br><span class="line">map.put(3, &quot;996&quot;);</span><br><span class="line">map.replaceAll((k, v) -&gt; &#123;</span><br><span class="line">    if (v.equals(&quot;我&quot;))&#123;</span><br><span class="line">        v &#x3D; &quot;你&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return v.toUpperCase();</span><br><span class="line">&#125;);</span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + &quot;&#x3D;&quot; + value));</span><br></pre></td></tr></table></figure>
+
+<h4 id="merge"><a href="#merge" class="headerlink" title="merge()"></a>merge()</h4><p>该方法签名为merge(K key, V value, BiFunction&lt;? super V,? super V,? extends V&gt; remappingFunction)。</p>
+<p>作用是：</p>
+<ul>
+<li>如果Map中key对应的映射不存在或者为null，则将value（不能是null）关联到key上；</li>
+<li>否则执行remappingFunction，如果执行结果非null则用该结果跟key关联，否则在Map中删除key的映射。</li>
+</ul>
+<p>  参数中BiFunction函数接口前面已经介绍过，里面有一个待实现方法R apply(T t, U u)。</p>
+<p>merge()方法虽然语义有些复杂，但该方法的用方式很明确，一个比较常见的场景是将新的错误信息拼接到原来的信息上，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">map.put(1, &quot;我&quot;);</span><br><span class="line">map.put(2, &quot;拒绝&quot;);</span><br><span class="line">map.put(3, &quot;996&quot;);</span><br><span class="line"></span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + &quot;&#x3D;&quot; + value));</span><br><span class="line">map.merge(1, &quot;和你&quot;, (v1, v2) -&gt; v1+v2);</span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + &quot;&#x3D;&quot; + value));</span><br></pre></td></tr></table></figure>
+
+<h4 id="compute"><a href="#compute" class="headerlink" title="compute()"></a>compute()</h4><p>该方法签名为compute(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)，作用是把remappingFunction的计算结果关联到key上，如果计算结果为null，则在Map中删除key的映射。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">map.put(1, &quot;我&quot;);</span><br><span class="line">map.put(2, &quot;拒绝&quot;);</span><br><span class="line">map.put(3, &quot;996&quot;);</span><br><span class="line"></span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + &quot;&#x3D;&quot; + value));</span><br><span class="line">map.compute(1, (k,v) -&gt; v &#x3D;&#x3D; null ? &quot;值为空&quot; : v.concat(&quot;和你&quot;));</span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + &quot;&#x3D;&quot; + value));</span><br></pre></td></tr></table></figure>
+
+<h4 id="computeIfAbsent"><a href="#computeIfAbsent" class="headerlink" title="computeIfAbsent()"></a>computeIfAbsent()</h4><p>该方法签名为V computeIfAbsent(K key, Function&lt;? super K,? extends V&gt; mappingFunction)，作用是：只有在当前Map中不存在key值的映射或映射值为null时，才调用mappingFunction，并在mappingFunction执行结果非null时，将结果跟key关联。</p>
+<p>Function是一个函数接口，里面有一个待实现方法R apply(T t)。</p>
+<p>computeIfAbsent()常用来对Map的某个key值建立初始化映射．比如我们要实现一个多值映射，Map的定义可能是Map&lt;K,Set&lt;V&gt;&gt;，要向Map中放入新值，可通过如下代码实现：</p>
+<p>实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, Set&lt;String&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="comment">// Java7及以前的实现方式</span></span><br><span class="line"><span class="keyword">if</span>(map.containsKey(<span class="number">1</span>))&#123;</span><br><span class="line">    map.get(<span class="number">1</span>).add(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    Set&lt;String&gt; valueSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    valueSet.add(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">    map.put(<span class="number">1</span>, valueSet);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Java8的实现方式</span></span><br><span class="line">map.computeIfAbsent(<span class="number">1</span>, v -&gt; <span class="keyword">new</span> HashSet&lt;String&gt;()).add(<span class="string">&quot;345&quot;</span>);</span><br><span class="line">map.forEach((key, value) -&gt; System.out.println(key + <span class="string">&quot;=&quot;</span> + value));</span><br></pre></td></tr></table></figure>
+
+<p>使用computeIfAbsent()将条件判断和添加操作合二为一，使代码更加简洁。</p>
+<h4 id="computeIfPresent"><a href="#computeIfPresent" class="headerlink" title="computeIfPresent()"></a>computeIfPresent()</h4><p>该方法签名为V computeIfPresent(K key, BiFunction&lt;? super K,? super V,? extends V&gt; remappingFunction)，作用跟computeIfAbsent()相反。即只有在当前Map中存在key值的映射且非null时，才调用remappingFunction，如果remappingFunction执行结果为null，则删除key的映射，否则使用该结果替换key原来的映射。</p>
+<h2 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h2><p>对于Java 7来说stream完全是个陌生东西，stream并不是某种数据结构，它只是数据源的一种视图。这里的数据源可以是一个数组，Java容器或I/O channel等。</p>
+<p>常见的stream接口继承关系如图：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/21/2.png" alt="Java集合框架的接口继承结构"></p>
+<p>图中4种stream接口继承自BaseStream，其中IntStream, LongStream, DoubleStream对应三种基本类型（int, long, double，注意不是包装类型），Stream对应所有剩余类型的stream视图。</p>
+<p>为不同数据类型设置不同stream接口，可以:</p>
+<ol>
+<li>提高性能</li>
+<li>增加特定接口函数。</li>
+</ol>
+<p>为什么不把IntStream等设计成Stream的子接口？</p>
+<p>答案是这些方法的名字虽然相同，但是返回类型不同，如果设计成父子接口关系，这些方法将不能共存，因为Java不允许只有返回类型不同的方法重载。</p>
+<p>虽然大部分情况下stream是容器调用Collection.stream()方法得到的，但stream和collections有以下不同：</p>
+<ul>
+<li>无存储。stream不是一种数据结构，它只是某种数据源的一个视图，数据源可以是一个数组，Java容器或I/O channel等。</li>
+<li>为函数式编程而生。对stream的任何修改都不会修改背后的数据源，比如对stream执行过滤操作并不会删除被过滤的元素，而是会产生一个不包含被过滤元素的新stream。</li>
+<li>惰式执行。stream上的操作并不会立即执行，只有等到用户真正需要结果的时候才会执行。</li>
+<li>可消费性。stream只能被“消费”一次，一旦遍历过就会失效，就像容器的迭代器那样，想要再次遍历必须重新生成。</li>
+</ul>
+<p>对stream的操作分为为两类，中间操作(intermediate operations)和结束操作(terminal operations)，二者特点是：</p>
+<ul>
+<li>中间操作总是会惰式执行，调用中间操作只会生成一个标记了该操作的新stream，仅此而已。</li>
+<li>结束操作会触发实际计算，计算发生时会把所有中间操作积攒的操作以pipeline的方式执行，这样可以减少迭代次数。计算完成之后stream就会失效。</li>
+</ul>
+<p>下表汇总了Stream接口的部分常见方法：</p>
+<table>
+<thead>
+<tr>
+<th>操作类型</th>
+<th>接口方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中间操作</td>
+<td>concat() distinct() filter() flatMap() limit() map() peek() skip() sorted() parallel() sequential() unordered()</td>
+</tr>
+<tr>
+<td>结束操作</td>
+<td>allMatch() anyMatch() collect() count() findAny() findFirst() forEach() forEachOrdered() max() min() noneMatch() reduce() toArray()</td>
+</tr>
+</tbody></table>
+<p>区分中间操作和结束操作最简单的方法，就是看方法的返回值，返回值为stream的大都是中间操作，否则是结束操作。</p>
+<h3 id="stream方法使用"><a href="#stream方法使用" class="headerlink" title="stream方法使用"></a>stream方法使用</h3><p>stream跟函数接口关系非常紧密，没有函数接口stream就无法工作。</p>
+<p>函数接口是指内部只有一个抽象方法的接口。通常函数接口出现的地方都可以使用Lambda表达式，所以不必记忆函数接口的名字。</p>
+<h4 id="forEach-2"><a href="#forEach-2" class="headerlink" title="forEach()"></a>forEach()</h4><p>方法签名为void forEach(Consumer&lt;? super E&gt; action)，作用是对容器中的每个元素执行action指定的动作，也就是对元素进行遍历。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Stream.forEach()迭代</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;I&quot;</span>, <span class="string">&quot;love&quot;</span>, <span class="string">&quot;Java&quot;</span>);</span><br><span class="line">stream.forEach(str -&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
+
+<p>由于forEach()是结束方法，上述代码会立即执行，输出所有字符串。</p>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><p>函数原型为Stream&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate)，作用是返回一个只包含满足predicate条件元素的Stream。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保留长度大于等于3的字符串</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;I&quot;</span>, <span class="string">&quot;love&quot;</span>, <span class="string">&quot;Java&quot;</span>);</span><br><span class="line">stream.filter(str -&gt; str.length() &gt;= <span class="number">3</span>).forEach(str -&gt; System.out.println(str));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上述代码将输出为长度大于等于3的字符串love和Java。注意，由于filter()是个中间操作，如果只调用filter()不会有实际计算，因此也不会输出任何信息。</p>
+<h4 id="distinct"><a href="#distinct" class="headerlink" title="distinct()"></a>distinct()</h4><p>函数原型为Stream&lt;T&gt; distinct()，作用是返回一个去除重复元素之后的Stream。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 元素去重</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;I&quot;</span>, <span class="string">&quot;love&quot;</span>, <span class="string">&quot;you&quot;</span>, <span class="string">&quot;Java&quot;</span>, <span class="string">&quot;you&quot;</span>);</span><br><span class="line">stream.distinct().forEach(str -&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
+
+<p>上述代码会输出去掉一个you之后的其余字符串。</p>
+<h4 id="sorted"><a href="#sorted" class="headerlink" title="sorted()"></a>sorted()</h4><p>排序函数有两个，一个是用自然顺序排序，一个是使用自定义比较器排序，函数原型分别为Stream&lt;T&gt;　sorted()和Stream&lt;T&gt;　sorted(Comparator&lt;? super T&gt; comparator)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 排序</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;I&quot;</span>, <span class="string">&quot;love&quot;</span>, <span class="string">&quot;you&quot;</span>, <span class="string">&quot;too&quot;</span>, <span class="string">&quot;Java&quot;</span>);</span><br><span class="line">stream.sorted((str1, str2) -&gt; str1.length() - str2.length()).forEach(str -&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
+
+<h4 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h4><p>函数原型为&lt;R&gt; Stream&lt;R&gt; map(Function&lt;? super T,? extends R&gt; mapper)，作用是返回一个对当前所有元素执行执行mapper之后的结果组成的Stream。直观的说，就是对每个元素按照某种操作进行转换，转换前后Stream中元素的个数不会改变，但元素的类型取决于转换之后的类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将字符串转换成大写</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;i&quot;</span>, <span class="string">&quot;love&quot;</span>, <span class="string">&quot;java&quot;</span>, <span class="string">&quot;too&quot;</span>);</span><br><span class="line">stream.map(str -&gt; str.toUpperCase()).forEach(str -&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
+
+<h4 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap()"></a>flatMap()</h4><p>函数原型为&lt;R&gt; Stream&lt;R&gt; flatMap(Function&lt;? super T,? extends Stream&lt;? extends R&gt;&gt; mapper)，作用是对每个元素执行mapper指定的操作，并用所有mapper返回的Stream中的元素组成一个新的Stream作为最终返回结果。说起来太拗口，通俗的讲flatMap()的作用就相当于把原stream中的所有元素都”摊平”之后组成的Stream，转换前后元素的个数和类型都可能会改变。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 将两个集合中大于等于2的数重新组成Stream，然后输出</span><br><span class="line">Stream&lt;List&lt;Integer&gt;&gt; stream &#x3D; Stream.of(Arrays.asList(1,2), Arrays.asList(3, 4, 5));</span><br><span class="line">stream.flatMap(list -&gt; list.stream().filter(integer -&gt; integer &gt;&#x3D; 2)).forEach(i -&gt; System.out.println(i));</span><br></pre></td></tr></table></figure>
+
+<h3 id="流的规约操作"><a href="#流的规约操作" class="headerlink" title="流的规约操作"></a>流的规约操作</h3><p>规约操作（reduction operation）又被称作折叠操作（fold），是通过某个连接动作将所有元素汇总成一个汇总结果的过程。元素求和、求最大值或最小值、求出元素总个数、将所有元素转换成一个列表或集合，都属于规约操作。Stream类库有两个通用的规约操作reduce()和collect()，也有一些为简化书写而设计的专用规约操作，比如sum()、max()、min()、count()等。</p>
+<p>最大或最小值这类规约操作很好理解（至少方法语义上是这样），我们着重介绍reduce()和collect()，这是比较有魔法的地方。</p>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h4><p>reduce操作可以实现从一组元素中生成一个值，sum()、max()、min()、count()等都是reduce操作，将他们单独设为函数只是因为常用。reduce()的方法定义有三种重写形式：</p>
+<ul>
+<li>Optional&lt;T&gt; reduce(BinaryOperator&lt;T&gt; accumulator)</li>
+<li>T reduce(T identity, BinaryOperator&lt;T&gt; accumulator)</li>
+<li>&lt;U&gt; U reduce(U identity, BiFunction&lt;U,? super T,U&gt; accumulator, BinaryOperator&lt;U&gt; combiner)</li>
+</ul>
+<p>虽然函数定义越来越长，但语义不曾改变，多的参数只是为了指明初始值（参数identity），或者是指定并行执行时多个部分结果的合并方式（参数combiner）。reduce()最常用的场景就是从一堆值中生成一个值。</p>
+<p>具体实践：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 找出最长的单词</span><br><span class="line">Stream&lt;String&gt; stream1 &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;you&quot;, &quot;too&quot;);</span><br><span class="line">Optional&lt;String&gt; longest &#x3D; stream1.reduce((s1, s2) -&gt; s1.length() &gt;&#x3D; s2.length() ? s1 : s2);</span><br><span class="line">&#x2F;&#x2F; Optional&lt;String&gt; longest &#x3D; stream.max((s1, s2) -&gt; s1.length() - s2.length());</span><br><span class="line">System.out.println(longest.get());</span><br><span class="line"></span><br><span class="line">上述代码会选出最长的单词love，其中Optional是（一个）值的容器，使用它可以避免null值的麻烦。当然可以使用Stream.max(Comparator&lt;? super T&gt; comparator)方法来达到同等效果，但reduce()自有其存在的理由。</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 求单词长度之和</span><br><span class="line">&#x2F;&#x2F; (参数1)初始值</span><br><span class="line">&#x2F;&#x2F; (参数2)累加器</span><br><span class="line">&#x2F;&#x2F; (参数3)部分和拼接器，并行执行时才会用到</span><br><span class="line">Stream&lt;String&gt; stream2 &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;you&quot;, &quot;too&quot;);</span><br><span class="line">Integer lengthSum &#x3D; stream2.reduce(0, (sum, str) -&gt; sum + str.length(), (a, b) -&gt; a + b);</span><br><span class="line">&#x2F;&#x2F; int lengthSum &#x3D; stream.mapToInt(str -&gt; str.length()).sum();</span><br><span class="line">System.out.println(lengthSum);</span><br><span class="line"></span><br><span class="line">参数2处：</span><br><span class="line">  1. 字符串映射成长度。</span><br><span class="line">  2. 并和当前累加和相加。</span><br><span class="line"></span><br><span class="line">  这显然是两步操作，使用reduce()函数将这两步合二为一，更有助于提升性能。如果想要使用map()和sum()组合来达到上述目的，也是可以的。</span><br><span class="line"></span><br><span class="line">  reduce()擅长的是生成一个值，如果想要从Stream生成一个集合或者Map等复杂的对象该怎么办呢？</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="collect"><a href="#collect" class="headerlink" title="collect()"></a>collect()</h4><p>如果你发现某个功能在Stream接口中没找到，十有八九可以通过collect()方法实现。collect()是Stream接口方法中最灵活的一个，学会它才算真正入门Java函数式编程。</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;you&quot;, &quot;too&quot;);</span><br><span class="line">&#x2F;&#x2F; 转换成list集合</span><br><span class="line">List&lt;String&gt; list &#x3D; stream.collect(Collectors.toList());</span><br><span class="line">&#x2F;&#x2F; 转换成set集合</span><br><span class="line">&#x2F;&#x2F; Set&lt;String&gt; set &#x3D; stream.collect(Collectors.toSet());</span><br><span class="line">&#x2F;&#x2F; 转换成map集合</span><br><span class="line">&#x2F;&#x2F; Map&lt;String, Integer&gt; map &#x3D; stream.collect(Collectors.toMap(Function.identity(), String::length));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上述代码分别列举了如何将Stream转换成List、Set和Map。虽然代码语义很明确，可是我们仍然会有几个疑问：</p>
+<ul>
+<li>Function.identity()是干什么的？</li>
+<li>String::length是什么意思？</li>
+<li>Collectors是个什么东西？</li>
+</ul>
+<h4 id="接口的静态方法和默认方法"><a href="#接口的静态方法和默认方法" class="headerlink" title="接口的静态方法和默认方法"></a>接口的静态方法和默认方法</h4><p>Function是一个接口，那么Function.identity()是什么意思呢？这要从两方面解释：</p>
+<ul>
+<li>Java 8允许在接口中加入具体方法。接口中的具体方法有两种，default方法和static方法，identity()就是Function接口的一个静态方法。</li>
+<li>Function.identity()返回一个输出跟输入一样的Lambda表达式对象，等价于形如t -&gt; t形式的Lambda表达式。</li>
+</ul>
+<p>上面的解释是不是让你疑问更多？不要问我为什么接口中可以有具体方法，也不要告诉我你觉得t -&gt; t比identity()方法更直观。我会告诉你接口中的default方法是一个无奈之举，在Java 7及之前要想在定义好的接口中加入新的抽象方法是很困难甚至不可能的，因为所有实现了该接口的类都要重新实现。试想在Collection接口中加入一个stream()抽象方法会怎样？default方法就是用来解决这个尴尬问题的，直接在接口中实现新加入的方法。既然已经引入了default方法，为何不再加入static方法来避免专门的工具类呢！</p>
+<h4 id="方法引用-1"><a href="#方法引用-1" class="headerlink" title="方法引用"></a>方法引用</h4><p>诸如String::length的语法形式叫做方法引用（method references），这种语法用来替代某些特定形式Lambda表达式。如果Lambda表达式的全部内容就是调用一个已有的方法，那么可以用方法引用来替代Lambda表达式。方法引用可以细分为四类：</p>
+<table>
+<thead>
+<tr>
+<th>方法引用类别</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>引用静态方法</td>
+<td>Integer::sum</td>
+</tr>
+<tr>
+<td>引用某个对象的方法</td>
+<td>list::add</td>
+</tr>
+<tr>
+<td>引用某个类的方法</td>
+<td>String::length</td>
+</tr>
+<tr>
+<td>引用构造方法</td>
+<td>HashMap::new</td>
+</tr>
+</tbody></table>
+<h4 id="收集器"><a href="#收集器" class="headerlink" title="收集器"></a>收集器</h4><p>收集器（Collector）是为Stream.collect()方法量身打造的工具接口（类）。考虑一下将一个Stream转换成一个容器（或者Map）需要做哪些工作？我们至少需要两样东西：</p>
+<ul>
+<li>目标容器是什么？是ArrayList还是HashSet，或者是个TreeMap。</li>
+<li>新元素如何添加到容器中？是List.add()还是Map.put()。</li>
+<li>如果并行的进行规约，还需要告诉collect()，多个部分结果如何合并成一个。</li>
+</ul>
+<p>结合以上分析，collect()方法定义为 &lt;R&gt; R collect(Supplier&lt;R&gt; supplier, BiConsumer&lt;R,? super T&gt; accumulator, BiConsumer&lt;R,R&gt; combiner)，三个参数依次对应上述三条分析。</p>
+<p>不过每次调用collect()都要传入这三个参数太麻烦，收集器Collector就是对这三个参数的简单封装,所以collect()的另一定义为 &lt;R,A&gt; R collect(Collector&lt;? super T,A,R&gt; collector)。</p>
+<p>Collectors工具类可通过静态方法生成各种常用的Collector。举例来说，如果要将Stream规约成List可以通过如下两种方式实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//　将Stream规约成List</span></span><br><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;I&quot;</span>, <span class="string">&quot;love&quot;</span>, <span class="string">&quot;Collector&quot;</span>);</span><br><span class="line">List&lt;String&gt; list = stream.collect(ArrayList::<span class="keyword">new</span>, ArrayList::add, ArrayList::addAll);<span class="comment">// 方式1</span></span><br><span class="line"><span class="comment">// List&lt;String&gt; list = stream.collect(Collectors.toList());// 方式2</span></span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<p>通常情况下我们不需要手动指定collect()的三个参数，而是调用collect(Collector&lt;? super T,A,R&gt; collector)方法，并且参数中的Collector对象大都是直接通过Collectors工具类获得。实际上传入的收集器的行为决定了collect()的行为。</p>
+<h4 id="使用collect-生成Collection"><a href="#使用collect-生成Collection" class="headerlink" title="使用collect()生成Collection"></a>使用collect()生成Collection</h4><p>有时候我们可能会想要人为指定容器的实际类型，这个需求可通过Collectors.toCollection(Supplier&lt;C&gt; collectionFactory)方法完成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 使用toCollection()指定规约容器的类型</span><br><span class="line">Stream&lt;String&gt; stream &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;Collector&quot;);</span><br><span class="line">ArrayList&lt;String&gt; arrayList &#x3D; stream.collect(Collectors.toCollection(ArrayList::new));</span><br><span class="line">System.out.println(arrayList);</span><br><span class="line">&#x2F;&#x2F; HashSet&lt;String&gt; hashSet &#x3D; stream.collect(Collectors.toCollection(HashSet::new));</span><br><span class="line">&#x2F;&#x2F; System.out.println(hashSet);</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用collect-生成Map"><a href="#使用collect-生成Map" class="headerlink" title="使用collect()生成Map"></a>使用collect()生成Map</h4><p>通常在三种情况下collect()的结果会是Map：</p>
+<ul>
+<li>使用Collectors.toMap()生成的收集器，用户需要指定如何生成Map的key和value。</li>
+<li>使用Collectors.partitioningBy()生成的收集器，对元素进行二分区操作时用到。</li>
+<li>使用Collectors.groupingBy()生成的收集器，对元素做group操作时用到。</li>
+</ul>
+<p>情况1：使用toMap()生成的收集器，这种情况是最直接的，前面例子中已提到，这是和Collectors.toCollection()并列的方法。如下代码将字符列表转换成由&lt;String，字符串长度&gt;组成的Map。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 使用toMap()统计字符长度</span><br><span class="line">Stream&lt;String&gt; stream &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;Collector&quot;);</span><br><span class="line">List&lt;String&gt; list &#x3D; stream.collect(Collectors.toList());&#x2F;&#x2F; 方式2</span><br><span class="line">Map&lt;String, Integer&gt; strLength &#x3D; list.stream().collect(Collectors.toMap(Function.identity(), str -&gt; str.length()));</span><br><span class="line">System.out.println(strLength);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>情况2：使用partitioningBy()生成的收集器，这种情况适用于将Stream中的元素依据某个二值逻辑（满足条件，或不满足）分成互补相交的两部分，比如男女性别、成绩及格与否等。下列代码展示将字符列表分成长度大于2或不大于2的两部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 对字符串列表进行分组</span><br><span class="line">Stream&lt;String&gt; stream &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;Collector&quot;);</span><br><span class="line">List&lt;String&gt; list &#x3D; stream.collect(Collectors.toList());&#x2F;&#x2F; 方式2</span><br><span class="line">Map&lt;Boolean, List&lt;String&gt;&gt; listMap &#x3D; list.stream().collect(Collectors.partitioningBy(str -&gt; str.length() &gt; 2));</span><br><span class="line">System.out.println(listMap);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>情况3：使用groupingBy()生成的收集器，这是比较灵活的一种情况。跟SQL中的group by语句类似，这里的groupingBy()也是按照某个属性对数据进行分组，属性相同的元素会被对应到Map的同一个key上。下列代码展示将字符列表按照字符长度进行分组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 按照长度对字符串列表进行分组</span><br><span class="line">Stream&lt;String&gt; stream &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;Collector&quot;, &quot;you&quot;, &quot;Java&quot;);</span><br><span class="line">List&lt;String&gt; list &#x3D; stream.collect(Collectors.toList());&#x2F;&#x2F; 方式2</span><br><span class="line">Map&lt;Integer, List&lt;String&gt;&gt; listMap &#x3D; list.stream().collect(Collectors.groupingBy(String::length));</span><br><span class="line">System.out.println(listMap);</span><br></pre></td></tr></table></figure>
+
+<p>以上只是分组的最基本用法，有些时候仅仅分组是不够的。在SQL中使用group by是为了协助其他查询，比如：</p>
+<ol>
+<li>先将员工按照部门分组。</li>
+<li>然后统计每个部门员工的人数。</li>
+</ol>
+<p>Java类库设计者也考虑到了这种情况，增强版的groupingBy()能够满足这种需求。增强版的groupingBy()允许我们对元素分组之后再执行某种运算，比如求和、计数、平均值、类型转换等。<br>这种先将元素分组的收集器叫做上游收集器，之后执行其他运算的收集器叫做下游收集器(downstream Collector)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 对字符串列表进行分组，并统计每组元素的个数</span><br><span class="line">Stream&lt;String&gt; stream &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;Collector&quot;, &quot;you&quot;, &quot;Java&quot;);</span><br><span class="line">List&lt;String&gt; list &#x3D; stream.collect(toList());&#x2F;&#x2F; 方式2</span><br><span class="line">Map&lt;Integer, Long&gt; listMap &#x3D; list.stream().collect(groupingBy(String::length, Collectors.counting()));</span><br><span class="line">System.out.println(listMap);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码的逻辑是不是越看越像SQL？高度非结构化。还有更狠的，下游收集器还可以包含更下游的收集器，这绝不是为了炫技而增加的把戏，而是实际场景需要。考虑将员工按照部门分组的场景，如果我们想得到每个员工的名字（字符串），而不是一个个Employee对象，可通过如下方式做到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 按照部门对员工分布组，并只保留员工的名字</span><br><span class="line">Map&lt;Department, List&lt;String&gt;&gt; byDept &#x3D; employees.stream()</span><br><span class="line">                .collect(Collectors.groupingBy(Employee::getDepartment,</span><br><span class="line">                        Collectors.mapping(Employee::getName,&#x2F;&#x2F; 下游收集器</span><br><span class="line">                                Collectors.toList())));&#x2F;&#x2F; 更下游的收集器</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用collect-做字符串join"><a href="#使用collect-做字符串join" class="headerlink" title="使用collect()做字符串join"></a>使用collect()做字符串join</h4><p>字符串拼接时使用Collectors.joining()生成的收集器，从此告别for循环。Collectors.joining()方法有三种重写形式，分别对应三种不同的拼接方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 使用Collectors.joining()拼接字符串</span><br><span class="line">Stream&lt;String&gt; stream &#x3D; Stream.of(&quot;I&quot;, &quot;love&quot;, &quot;Collector&quot;);</span><br><span class="line">&#x2F;&#x2F; String joined &#x3D; stream.collect(Collectors.joining());&#x2F;&#x2F; &quot;IloveCollector&quot;</span><br><span class="line">&#x2F;&#x2F; String joined &#x3D; stream.collect(Collectors.joining(&quot;,&quot;));&#x2F;&#x2F; &quot;I,love,Collector&quot;</span><br><span class="line">String joined &#x3D; stream.collect(Collectors.joining(&quot;,&quot;, &quot;&#123;&quot;, &quot;&#125;&quot;));&#x2F;&#x2F; &quot;&#123;I,love,Collector&#125;</span><br><span class="line">System.out.println(joined);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<table>
+<thead>
+<tr>
+<th>Stream操作分类</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作</td>
+<td>状态</td>
+<td></td>
+</tr>
+<tr>
+<td>中间操作(Intermediate operations)</td>
+<td>无状态(Stateless)</td>
+<td>unordered() filter() map() mapToInt() mapToLong() mapToDouble() flatMap() flatMapToInt() flatMapToLong() flatMapToDouble() peek()</td>
+</tr>
+<tr>
+<td></td>
+<td>有状态(Stateful)</td>
+<td>distinct() sorted() sorted() limit() skip()</td>
+</tr>
+<tr>
+<td>结束操作(Terminal operations)</td>
+<td>非短路操作</td>
+<td>forEach() forEachOrdered() toArray() reduce() collect() max() min() count()</td>
+</tr>
+<tr>
+<td></td>
+<td>短路操作(short-circuiting)</td>
+<td>anyMatch() allMatch() noneMatch() findFirst() findAny()</td>
+</tr>
+</tbody></table>
+<p>参考文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://objcoding.com/2019/03/04/lambda/#lambda-and-anonymous-classesi">https://objcoding.com/2019/03/04/lambda/#lambda-and-anonymous-classesi</a>  关于Java Lambda表达式看这一篇就够了</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/12/02/HBase%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">HBase学习笔记</a></div><div class="post-title fs14"><a href="/2020/01/05/%E6%9E%B6%E6%9E%84%E5%9B%BE/">or prev: 架构图</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

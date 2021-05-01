@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>python之操作Excel模块 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。 常见库简介1.xlrdxlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。http:&#x2F;&#x2F;xlrd.readthedocs.io&#x2F;en&#x2F;latest&#x2F;    1、xlrd支持.xls，.xlsx文件的读    2、通过设置on_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python之操作Excel模块">
+<meta property="og:url" content="http://example.com/2019/09/01/python%E4%B9%8B%E6%93%8D%E4%BD%9CExcel%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。 常见库简介1.xlrdxlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。http:&#x2F;&#x2F;xlrd.readthedocs.io&#x2F;en&#x2F;latest&#x2F;    1、xlrd支持.xls，.xlsx文件的读    2、通过设置on_">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-09-01T07:02:14.249Z">
+<meta property="article:modified_time" content="2019-09-01T11:03:32.691Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%93%E7%AE%80%E4%BB%8B"><span class="toc-text">常见库简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-xlrd"><span class="toc-text">1.xlrd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-xlwt"><span class="toc-text">2.xlwt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-xlutils"><span class="toc-text">3.xlutils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-xlwings"><span class="toc-text">4.xlwings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-openpyxl"><span class="toc-text">5.openpyxl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-xlsxwriter"><span class="toc-text">6.xlsxwriter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-win32com"><span class="toc-text">7.win32com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-DataNitro"><span class="toc-text">8.DataNitro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-pandas"><span class="toc-text">9.pandas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%86%92%E5%8F%8A%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-text">提醒及注意：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-text">基本功能：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-xlwings"><span class="toc-text">1.xlwings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-openpyxl"><span class="toc-text">2.openpyxl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-pandas"><span class="toc-text">3.pandas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-win32com"><span class="toc-text">4.win32com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-xlsxwriter"><span class="toc-text">5.xlsxwriter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-DataNitro"><span class="toc-text">6.DataNitro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-xlutils"><span class="toc-text">7.xlutils</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95"><span class="toc-text">读写测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="toc-text">测试用例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-text">测试结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%EF%BC%9A"><span class="toc-text">注：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83"><span class="toc-text">性能比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%BF%E6%8D%B7%E6%80%A7%E6%AF%94%E8%BE%83"><span class="toc-text">便捷性比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-xlwings%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.1 xlwings基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-xlsxwriter%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.2 xlsxwriter基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-xlutils%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81import-xlrd-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">6.3 xlutils基本代码import xlrd #读取数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-win32com%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.4 win32com基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-openpyxl%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.5 openpyxl基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-DataNitro%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.6 DataNitro基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openpyxl%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8"><span class="toc-text">openpyxl具体使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAexcel-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E5%86%99%E5%85%A5%E4%B8%8D%E5%90%8C%E7%B1%BB%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">1、 创建一个excel 文件，并写入不同类的内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%88%9B%E5%BB%BAsheet"><span class="toc-text">2、创建sheet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%93%8D%E4%BD%9C%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">3、操作单元格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%93%8D%E4%BD%9C%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-text">4、操作已存在的文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E6%93%8D%E4%BD%9C%E6%89%B9%E9%87%8F%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">5、操作批量的单元格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84%E8%A1%8C-%E5%88%97-%E5%AF%B9%E8%B1%A1%EF%BC%9A"><span class="toc-text">6、获取所有的行(列)对象：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7%E3%80%81%E4%BD%BF%E7%94%A8%E5%85%AC%E5%BC%8F"><span class="toc-text">7、使用公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8%E3%80%81%E5%90%88%E5%B9%B6%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">8、合并单元格</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/python/">python</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-09-01T07:02:14.249Z'>2019-09-01</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>python之操作Excel模块</span></h1>
+<h1 id="摘要：python操作Excel文件，第三方模块汇总。"><a href="#摘要：python操作Excel文件，第三方模块汇总。" class="headerlink" title="摘要：python操作Excel文件，第三方模块汇总。"></a>摘要：python操作Excel文件，第三方模块汇总。</h1><hr>
+<h1 id="前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。"><a href="#前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。" class="headerlink" title="前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。"></a>前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。</h1><hr>
+<h2 id="常见库简介"><a href="#常见库简介" class="headerlink" title="常见库简介"></a>常见库简介</h2><h3 id="1-xlrd"><a href="#1-xlrd" class="headerlink" title="1.xlrd"></a>1.xlrd</h3><p>xlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。<br><a target="_blank" rel="noopener" href="http://xlrd.readthedocs.io/en/latest/">http://xlrd.readthedocs.io/en/latest/</a><br>    1、xlrd支持.xls，.xlsx文件的读<br>    2、通过设置on_demand变量使open_workbook()函数只加载那些需要的sheet，从而节省时间和内存（该方法对.xlsx文件无效）。<br>    3、xlrd.Book对象有一个unload_sheet方法，它将从内存中卸载工作表，由工作表索引或工作表名称指定（该方法对.xlsx文件无效）</p>
+<h3 id="2-xlwt"><a href="#2-xlwt" class="headerlink" title="2.xlwt"></a>2.xlwt</h3><p>xlwt是一个用于将数据和格式化信息写入旧Excel文件的库（如.xls）。<br><a target="_blank" rel="noopener" href="https://xlwt.readthedocs.io/en/latest/">https://xlwt.readthedocs.io/en/latest/</a><br>    1、xlwt支持.xls文件写。</p>
+<h3 id="3-xlutils"><a href="#3-xlutils" class="headerlink" title="3.xlutils"></a>3.xlutils</h3><p>xlutils是一个处理Excel文件的库，依赖于xlrd和xlwt。<br><a target="_blank" rel="noopener" href="http://xlutils.readthedocs.io/en/latest/">http://xlutils.readthedocs.io/en/latest/</a><br>    1、xlutils支持.xls文件。<br>    2、支持Excel操作。</p>
+<h3 id="4-xlwings"><a href="#4-xlwings" class="headerlink" title="4.xlwings"></a>4.xlwings</h3><p>xlwings是一个可以实现从Excel调用Python，也可在python中调用Excel的库。<br><a target="_blank" rel="noopener" href="http://docs.xlwings.org/en/stable/index.html">http://docs.xlwings.org/en/stable/index.html</a><br>    1、xlwings支持.xls读，支持.xlsx文件读写。<br>    2、支持Excel操作。<br>    3、支持VBA。<br>    4、强大的转换器可以处理大部分数据类型，包括在两个方向上的numpy array和pandas DataFrame。</p>
+<h3 id="5-openpyxl"><a href="#5-openpyxl" class="headerlink" title="5.openpyxl"></a>5.openpyxl</h3><p>openpyxl是一个用于读取和编写Excel 2010 xlsx/xlsm/xltx/xltm文件的库。<br><a target="_blank" rel="noopener" href="https://openpyxl.readthedocs.io/en/stable/">https://openpyxl.readthedocs.io/en/stable/</a><br>    1、openpyxl支持.xlsx文件的读写。<br>    2、支持Excel操作。<br>    3、加载大.xlsx文件可以使用read_only模式。<br>    4、写入大.xlsx文件可以使用write_only模式。</p>
+<h3 id="6-xlsxwriter"><a href="#6-xlsxwriter" class="headerlink" title="6.xlsxwriter"></a>6.xlsxwriter</h3><p>xlsxwriter是一个用于创建Excel .xlsx文件的库。<br><a target="_blank" rel="noopener" href="https://xlsxwriter.readthedocs.io/">https://xlsxwriter.readthedocs.io/</a><br>    1、xlswriter支持.xlsx文件的写。<br>    2、支持VBA。<br>    3、写入大.xlsx文件时使用内存优化模式。</p>
+<h3 id="7-win32com"><a href="#7-win32com" class="headerlink" title="7.win32com"></a>7.win32com</h3><p>win32com库存在于pywin32中，是一个读写和处理Excel文件的库。<br><a target="_blank" rel="noopener" href="http://pythonexcels.com/python-excel-mini-cookbook/">http://pythonexcels.com/python-excel-mini-cookbook/</a><br>    1、win32com支持.xls，.xlsx文件的读写，支持.xlsx文件的写。<br>    2、支持Excel操作。</p>
+<h3 id="8-DataNitro"><a href="#8-DataNitro" class="headerlink" title="8.DataNitro"></a>8.DataNitro</h3><p>DataNitro是一个内嵌在Excel中的插件。<br><a target="_blank" rel="noopener" href="https://datanitro.com/docs/">https://datanitro.com/docs/</a> <br>    1、DataNitro支持.xls，.xlsx文件的读写。<br>    2、支持Excel操作。<br>    3、支持VBA。<br>    4、收费</p>
+<h3 id="9-pandas"><a href="#9-pandas" class="headerlink" title="9.pandas"></a>9.pandas</h3><p>pandas通过对Excel文件的读写实现数据输入输出<br><a target="_blank" rel="noopener" href="http://pandas.pydata.org/">http://pandas.pydata.org/</a><br>    1、pandas支持.xls，.xlsx文件的读写。<br>    2、支持只加载每个表的单一工作页。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>win</th>
+<th>MAC</th>
+<th>Py2</th>
+<th>Py3</th>
+<th>.xls</th>
+<th>.xlsx</th>
+<th>读</th>
+<th>写</th>
+<th>修改</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>xlrd</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&chi;</td>
+</tr>
+<tr>
+<td>xlwt</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&chi;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+</tr>
+<tr>
+<td>xlutils</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&chi;</td>
+<td>&chi;</td>
+<td>&radic;</td>
+</tr>
+<tr>
+<td>xlwings</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+</tr>
+<tr>
+<td>openpyxl</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+</tr>
+<tr>
+<td>xlswriter</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+</tr>
+<tr>
+<td>win32com</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+</tr>
+<tr>
+<td>DataNitro</td>
+<td>&radic;</td>
+<td>&chi;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>pandas</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&radic;</td>
+<td>&chi;</td>
+</tr>
+</tbody></table>
+<h3 id="提醒及注意："><a href="#提醒及注意：" class="headerlink" title="提醒及注意："></a>提醒及注意：</h3><p>xlutils 仅支持 xls 文件，即2003以下版本；<br>win32com 与 DataNitro 仅支持 windows 系统；<br>xlwings 安装成功后，如果运行提示报错“ImportError: no module named win32api”，请再安装 pypiwin32 或者 pywin32 包；<br>win32com 不是独立的扩展库，而是集成在其他库中，安装 pypiwin32 或者 pywin32 包即可使用；<br>DataNitro 是 Excel 的插件，安装需到官网下载。</p>
+<h2 id="基本功能："><a href="#基本功能：" class="headerlink" title="基本功能："></a>基本功能：</h2><p>由于设计目的不同，每个模块通常着重于某一方面功能，各有所长。</p>
+<h3 id="1-xlwings"><a href="#1-xlwings" class="headerlink" title="1.xlwings"></a>1.xlwings</h3><p>可结合 VBA 实现对 Excel 编程，强大的数据输入分析能力，同时拥有丰富的接口，结合 pandas/numpy/matplotlib 轻松应对 Excel 数据处理工作。</p>
+<h3 id="2-openpyxl"><a href="#2-openpyxl" class="headerlink" title="2.openpyxl"></a>2.openpyxl</h3><p>简单易用，功能广泛，单元格格式/图片/表格/公式/筛选/批注/文件保护等等功能应有尽有，图表功能是其一大亮点，缺点是对 VBA 支持的不够好。</p>
+<h3 id="3-pandas"><a href="#3-pandas" class="headerlink" title="3.pandas"></a>3.pandas</h3><p>数据处理是 pandas 的立身之本，Excel 作为 pandas 输入/输出数据的容器。</p>
+<h3 id="4-win32com"><a href="#4-win32com" class="headerlink" title="4.win32com"></a>4.win32com</h3><p>从命名上就可以看出，这是一个处理 windows 应用的扩展，Excel 只是该库能实现的一小部分功能。该库还支持 office 的众多操作。需要注意的是，该库不单独存在，可通过安装 pypiwin32 或者 pywin32 获取。</p>
+<h3 id="5-xlsxwriter"><a href="#5-xlsxwriter" class="headerlink" title="5.xlsxwriter"></a>5.xlsxwriter</h3><p>拥有丰富的特性，支持图片/表格/图表/筛选/格式/公式等，功能与openpyxl相似，优点是相比 openpyxl 还支持 VBA 文件导入，迷你图等功能，缺点是不能打开/修改已有文件，意味着使用 xlsxwriter 需要从零开始。</p>
+<h3 id="6-DataNitro"><a href="#6-DataNitro" class="headerlink" title="6.DataNitro"></a>6.DataNitro</h3><p>作为插件内嵌到 Excel 中，可完全替代 VBA，在 Excel 中使用 python 脚本。既然被称为 Excel 中的 python，协同其他 python 库亦是小事一桩。然而，这是付费插件…</p>
+<h3 id="7-xlutils"><a href="#7-xlutils" class="headerlink" title="7.xlutils"></a>7.xlutils</h3><p>基于 xlrd/xlwt，老牌 python 包，算是该领域的先驱，功能特点中规中矩，比较大的缺点是仅支持 xls 文件。</p>
+<h2 id="读写测试"><a href="#读写测试" class="headerlink" title="读写测试"></a>读写测试</h2><h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>用例1. 读.xls文件的整个表（表有5个分页，每个分页有2000行1200列的整数）。<br>用例2. 读.xlsx文件的整个表（表有5个分页，每个分页有2000行1200列的整数）。<br>用例3. 读.xls文件的整个表（表有1个分页，页有2000行1200列的整数）。<br>用例4. 读.xlsx文件的整个表（表有1个分页，页有2000行1200列的整数）。<br>用例5. 写.xls文件的整个表（表有5个分页，每个分页有2000行1200列的整数）。<br>用例6. 写.xlsx文件的整个表（表有5个分页，每个分页有2000行1200列的整数）。<br>用例7. 写.xls文件的整个表（表有1个分页，页有2000行1200列的整数）。<br>用例8. 写.xlsx文件的整个表（表有1个分页，页有2000行1200列的整数）。</p>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><table>
+<thead>
+<tr>
+<th>测试模块</th>
+<th>用例1</th>
+<th>用例2</th>
+<th>用例3</th>
+<th>用例4</th>
+<th>用例5</th>
+<th>用例6</th>
+<th>用例7</th>
+<th>用例8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>xlrd</td>
+<td>5.77</td>
+<td>98.06</td>
+<td>1.28</td>
+<td>19.72</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td></td>
+</tr>
+<tr>
+<td>xlwt</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>20.33</td>
+<td>&mdash;</td>
+<td>4.06</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>xlwings</td>
+<td>1.57</td>
+<td>11.91</td>
+<td>2.01</td>
+<td>3.09</td>
+<td>&mdash;</td>
+<td>44.00</td>
+<td>&mdash;</td>
+<td>9.30</td>
+</tr>
+<tr>
+<td>openpyxl</td>
+<td>&mdash;</td>
+<td>321.70/0.01</td>
+<td>&mdash;</td>
+<td>42.42/0.01</td>
+<td>&mdash;</td>
+<td>2109.93/135.5</td>
+<td>&mdash;</td>
+<td>31.84/25.0</td>
+</tr>
+<tr>
+<td>xlsxwriter</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>152.28</td>
+<td>&mdash;</td>
+<td>24.09</td>
+</tr>
+<tr>
+<td>win32com</td>
+<td>0.37</td>
+<td>10.16</td>
+<td>0.36</td>
+<td>2.26</td>
+<td>&mdash;</td>
+<td>32.48</td>
+<td>&mdash;</td>
+<td>26.78</td>
+</tr>
+<tr>
+<td>pandas</td>
+<td>32.34</td>
+<td>553.15</td>
+<td>1.82</td>
+<td>22.42</td>
+<td>34.66</td>
+<td>40.43</td>
+<td>6.92</td>
+<td>8.02</td>
+</tr>
+</tbody></table>
+<h4 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h4><p>1.xlwt和pandas每个工作页最多写入256列，因此测试用例修改为每页有2000行256列的整数.<br>2.xlutils读写依赖于xlrd和xlwt，不单独测试。<br>3.openpyxl测试两种模式，一是普通加载写入，二是read_only/write_only模式下的加载写入。<br>4.DataNitro要收费，且需依托Excel使用，本次不测试。</p>
+<h3 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h3><p>  单从读写的性能上考虑，win32com的性能是最好的，xlwings其次。</p>
+<p>  openpyxl虽然操作Excel的功能强大，但读写性能过于糟糕，尤其是写大表时，会占用大量内存（把我的4G内存用完了），开启read_only和write_only模式后对其性能有大幅提升，尤其是对读的性能提升很大，使其几乎不耗时（0.01秒有点夸张，不过确实是加载上了）。pandas把Excel当作数据读写的容器，为其强大的数据分析服务，因此读写性能表现中规中矩，但其对Excel文件兼容性是最好的，支持读写.xls，.xlsx文件，且支持只读表中单一工作页。同样支持此功能的库还有xlrd，但xlrd只支持读，并不支持写，且性能不突出，需要配合xlutils进行Excel操作，并使用xlwt保存数据，而xlwt只能写入.xls文件（另一个可以写入.xls文件的库是pandas，且这两个写入的Excel文件最多只能有256列，其余库就我目前的了解均只能写入.xlsx文件），性能一般。xlsxwriter功能单一，一般用来创建.xlsx文件，写入性能中庸。win32com拥有最棒的读写性能，但该库存在于pywin32的库中，自身没有完善的文档，使用略吃力。xlwings拥有和win32com不相伯仲的读写性能，强大的转换器可以处理大部分数据类型，包括二维的numpy array和pandas DataFrame，可以轻松搞定数据分析的工作。</p>
+<p>  综合考虑，xlwings的表现最佳，正如其名，xlwings——Make Excel Fly！</p>
+<h3 id="便捷性比较"><a href="#便捷性比较" class="headerlink" title="便捷性比较"></a>便捷性比较</h3><p>    本测试目前只是针对Excel文件的读写，并未涉及Excel操作，单从读写的便捷性来讲，各库的表现难分上下，但是win32com和xlwings这两个库可以在程序运行时实时在打开的Excel文件中进行操作，实现过程的可视化，其次xlwings的数据结构转换器使其可以快速的为Excel文件添加二维数据结构而不需要在Excel文件中重定位数据的行和列，因此从读写的便捷性来比较，仍是xlwings胜出。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>最后，附上一些演示代码，大家可自行体会下不同模块的使用。</p>
+<h3 id="6-1-xlwings基本代码"><a href="#6-1-xlwings基本代码" class="headerlink" title="6.1 xlwings基本代码"></a>6.1 xlwings基本代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlwings <span class="keyword">as</span> xw</span><br><span class="line"><span class="comment">#连接到excel</span></span><br><span class="line">workbook = xw.Book(<span class="string">r&#x27;path/myexcel.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment">#连接到指定单元格</span></span><br><span class="line">data_range = workbook.sheets(<span class="string">&#x27;Sheet1&#x27;</span>).<span class="built_in">range</span>(<span class="string">&#x27;A1&#x27;</span>)</span><br><span class="line"><span class="comment">#写入数据</span></span><br><span class="line">data_range.value = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="comment">#保存</span></span><br><span class="line">workbook.save()</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-xlsxwriter基本代码"><a href="#6-2-xlsxwriter基本代码" class="headerlink" title="6.2 xlsxwriter基本代码"></a>6.2 xlsxwriter基本代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlsxwriter <span class="keyword">as</span> xw</span><br><span class="line"><span class="comment">#新建excel</span></span><br><span class="line">workbook  = xw.Workbook(<span class="string">&#x27;myexcel.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment">#新建工作薄</span></span><br><span class="line">worksheet = workbook.add_worksheet()</span><br><span class="line"><span class="comment">#写入数据</span></span><br><span class="line">worksheet.write(<span class="string">&#x27;A1&#x27;</span>,<span class="number">1</span>)</span><br><span class="line"><span class="comment">#关闭保存</span></span><br><span class="line">workbook.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-3-xlutils基本代码import-xlrd-读取数据"><a href="#6-3-xlutils基本代码import-xlrd-读取数据" class="headerlink" title="6.3 xlutils基本代码import xlrd #读取数据"></a>6.3 xlutils基本代码import xlrd #读取数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlwt <span class="comment">#写入数据</span></span><br><span class="line"><span class="keyword">import</span> xlutils <span class="comment">#操作excel</span></span><br><span class="line"><span class="comment">#----xlrd库</span></span><br><span class="line"><span class="comment">#打开excel文件</span></span><br><span class="line">workbook = xlrd.open_workbook(<span class="string">&#x27;myexcel.xls&#x27;</span>)</span><br><span class="line"><span class="comment">#获取表单</span></span><br><span class="line">worksheet = workbook.sheet_by_index(<span class="number">0</span>)</span><br><span class="line"><span class="comment">#读取数据</span></span><br><span class="line">data = worksheet.cell_value(<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment">#----xlwt库</span></span><br><span class="line"><span class="comment">#新建excel</span></span><br><span class="line">wb = xlwt.Workbook()</span><br><span class="line"><span class="comment">#添加工作薄</span></span><br><span class="line">sh = wb.add_sheet(<span class="string">&#x27;Sheet1&#x27;</span>)</span><br><span class="line"><span class="comment">#写入数据</span></span><br><span class="line">sh.write(<span class="number">0</span>,<span class="number">0</span>,<span class="string">&#x27;data&#x27;</span>)</span><br><span class="line"><span class="comment">#保存文件</span></span><br><span class="line">wb.save(<span class="string">&#x27;myexcel.xls&#x27;</span>)</span><br><span class="line"><span class="comment">#----xlutils库</span></span><br><span class="line"><span class="comment">#打开excel文件</span></span><br><span class="line">book = xlrd.open_workbook(<span class="string">&#x27;myexcel.xls&#x27;</span>)</span><br><span class="line"><span class="comment">#复制一份</span></span><br><span class="line">new_book = xlutils.copy(book)</span><br><span class="line"><span class="comment">#拿到工作薄</span></span><br><span class="line">worksheet = new_book.getsheet(<span class="number">0</span>)</span><br><span class="line"><span class="comment">#写入数据</span></span><br><span class="line">worksheet.write(<span class="number">0</span>,<span class="number">0</span>,<span class="string">&#x27;new data&#x27;</span>)</span><br><span class="line"><span class="comment">#保存</span></span><br><span class="line">new_book.save()</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-4-win32com基本代码"><a href="#6-4-win32com基本代码" class="headerlink" title="6.4 win32com基本代码"></a>6.4 win32com基本代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win32com.client <span class="keyword">as</span> wc</span><br><span class="line"><span class="comment">#启动Excel应用</span></span><br><span class="line">excel_app = wc.Dispatch(<span class="string">&#x27;Excel.Application&#x27;</span>)</span><br><span class="line"><span class="comment">#连接excel</span></span><br><span class="line">workbook = excel_app.Workbooks.Open(<span class="string">r&#x27;e:/myexcel.xlsx&#x27;</span> )</span><br><span class="line"><span class="comment">#写入数据</span></span><br><span class="line">workbook.Worksheets(<span class="string">&#x27;Sheet1&#x27;</span>).Cells(<span class="number">1</span>,<span class="number">1</span>).Value = <span class="string">&#x27;data&#x27;</span></span><br><span class="line"><span class="comment">#关闭并保存</span></span><br><span class="line">workbook.SaveAs(<span class="string">&#x27;newexcel.xlsx&#x27;</span>)</span><br><span class="line">excel_app.Application.Quit()</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-5-openpyxl基本代码"><a href="#6-5-openpyxl基本代码" class="headerlink" title="6.5 openpyxl基本代码"></a>6.5 openpyxl基本代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> openpyxl</span><br><span class="line"><span class="comment"># 新建文件</span></span><br><span class="line">workbook = openpyxl.Workbook()</span><br><span class="line"><span class="comment"># 写入文件</span></span><br><span class="line">sheet = workbook.activesheet[<span class="string">&#x27;A1&#x27;</span>]=<span class="string">&#x27;data&#x27;</span></span><br><span class="line"><span class="comment"># 保存文件</span></span><br><span class="line">workbook.save(<span class="string">&#x27;test.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-6-DataNitro基本代码"><a href="#6-6-DataNitro基本代码" class="headerlink" title="6.6 DataNitro基本代码"></a>6.6 DataNitro基本代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#单一单元格赋值</span></span><br><span class="line">Cell(<span class="string">&#x27;A1&#x27;</span>).value = <span class="string">&#x27;data&#x27;</span></span><br><span class="line"><span class="comment">#单元区域赋值</span></span><br><span class="line">CellRange(<span class="string">&#x27;A1:B2&#x27;</span>).value = <span class="string">&#x27;data&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="openpyxl具体使用"><a href="#openpyxl具体使用" class="headerlink" title="openpyxl具体使用"></a>openpyxl具体使用</h3><h4 id="1、-创建一个excel-文件，并写入不同类的内容"><a href="#1、-创建一个excel-文件，并写入不同类的内容" class="headerlink" title="1、 创建一个excel 文件，并写入不同类的内容"></a>1、 创建一个excel 文件，并写入不同类的内容</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建文件对象</span></span><br><span class="line">wb = Workbook()</span><br><span class="line"><span class="comment"># 获取第一个sheet</span></span><br><span class="line">ws = wb.active</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在第1行第A列，写入数字23333</span></span><br><span class="line">ws[<span class="string">&#x27;A1&#x27;</span>] = <span class="number">23333</span></span><br><span class="line"><span class="comment"># 写入中文（unicode中文也可以）</span></span><br><span class="line">ws[<span class="string">&#x27;B1&#x27;</span>] = <span class="string">&quot;你好！&quot;</span>+<span class="string">&quot;欢迎使用openpyxl&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在下一行，写入多个单元格</span></span><br><span class="line">ws.append([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入一个当前时间</span></span><br><span class="line">ws[<span class="string">&#x27;A2&#x27;</span>] = datetime.datetime.now()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入一个自定义的时间格式</span></span><br><span class="line">ws[<span class="string">&#x27;A3&#x27;</span>] = time.strftime(<span class="string">&#x27;%Y&#123;y&#125;%m&#123;m&#125;%d&#123;d&#125;%H&#123;h&#125;%M&#123;f&#125;%S&#123;s&#125;&#x27;</span>, time.localtime()).<span class="built_in">format</span>(y=<span class="string">&#x27;年&#x27;</span>, m=<span class="string">&#x27;月&#x27;</span>, d=<span class="string">&#x27;日&#x27;</span>, h=<span class="string">&#x27;时&#x27;</span>, f=<span class="string">&#x27;分&#x27;</span>, s=<span class="string">&#x27;秒&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存文件，注意文件覆盖</span></span><br><span class="line">wb.save(<span class="string">&quot;test.xlsx&quot;</span>)</span><br><span class="line"><span class="comment"># 关闭流</span></span><br><span class="line">wb.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、创建sheet"><a href="#2、创建sheet" class="headerlink" title="2、创建sheet"></a>2、创建sheet</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"></span><br><span class="line">wb = Workbook()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个sheet</span></span><br><span class="line">ws1 = wb.create_sheet(<span class="string">&quot;sheet1&quot;</span>)</span><br><span class="line"><span class="comment"># 设定一个sheet的名字</span></span><br><span class="line">ws1.title = <span class="string">&quot;sheet1 Title&quot;</span></span><br><span class="line"><span class="comment"># 设定sheet的插入位置 默认插在后面</span></span><br><span class="line">ws2 = wb.create_sheet(<span class="string">&quot;Mysheet&quot;</span>, <span class="number">0</span>)</span><br><span class="line">ws2.title = <span class="string">&quot;Mysheet&quot;</span></span><br><span class="line"><span class="comment"># 设定sheet的标签的背景颜色</span></span><br><span class="line">ws1.sheet_properties.tabColor = <span class="string">&quot;1072BA&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取某个sheet对象</span></span><br><span class="line"><span class="built_in">print</span>(wb[<span class="string">&quot;sheet1 Title&quot;</span>])</span><br><span class="line"><span class="built_in">print</span>(wb[<span class="string">&quot;Mysheet&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取全部sheet的名字，遍历sheet名字</span></span><br><span class="line"><span class="built_in">print</span>(wb.sheetnames)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> wb.sheetnames:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>*<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> sheet <span class="keyword">in</span> wb:</span><br><span class="line">    <span class="built_in">print</span>(sheet.title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将sheet1中的A1单元格赋值为zeke</span></span><br><span class="line">wb[<span class="string">&quot;sheet1 Title&quot;</span> ][<span class="string">&quot;A1&quot;</span>] = <span class="string">&quot;zeke&quot;</span></span><br><span class="line"><span class="comment"># 复制一个sheet</span></span><br><span class="line">source = wb[<span class="string">&quot;sheet1 Title&quot;</span>]</span><br><span class="line">target = wb.copy_worksheet(source)</span><br><span class="line"></span><br><span class="line">wb.save(<span class="string">&quot;test2.xlsx&quot;</span>)</span><br><span class="line">wb.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、操作单元格"><a href="#3、操作单元格" class="headerlink" title="3、操作单元格"></a>3、操作单元格</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"></span><br><span class="line">wb = Workbook()</span><br><span class="line"><span class="comment"># 创建一个sheet</span></span><br><span class="line">ws1 = wb.create_sheet(<span class="string">&quot;Sheet1&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将A1单元格赋值为123.11</span></span><br><span class="line">ws1[<span class="string">&quot;A1&quot;</span>] = <span class="number">123.11</span></span><br><span class="line"><span class="comment"># 将B2单元格赋值为你好</span></span><br><span class="line">ws1[<span class="string">&quot;B2&quot;</span>] = <span class="string">&quot;你好&quot;</span></span><br><span class="line"><span class="comment"># 将第4行第2列的单元赋值为10</span></span><br><span class="line">temp = ws1.cell(row=<span class="number">4</span>, column=<span class="number">2</span>, value=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(ws1[<span class="string">&quot;A1&quot;</span>].value)</span><br><span class="line"><span class="built_in">print</span>(ws1[<span class="string">&quot;B2&quot;</span>].value)</span><br><span class="line"><span class="built_in">print</span>(temp.value)</span><br><span class="line"></span><br><span class="line">wb.save(<span class="string">&quot;test3.xlsx&quot;</span>)</span><br><span class="line">wb.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、操作已存在的文件"><a href="#4、操作已存在的文件" class="headerlink" title="4、操作已存在的文件"></a>4、操作已存在的文件</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开test5.xlsx文件</span></span><br><span class="line">wb = load_workbook(<span class="string">&#x27;test5.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment"># 猜测格式类型</span></span><br><span class="line">wb.guess_types = <span class="literal">True</span></span><br><span class="line">ws = wb.active</span><br><span class="line">ws[<span class="string">&quot;A1&quot;</span>] = <span class="string">&quot;12%&quot;</span></span><br><span class="line"><span class="built_in">print</span>(ws[<span class="string">&quot;A1&quot;</span>].value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意如果原文件有一些图片或者图标，则保存的时候可能会导致图片丢失</span></span><br><span class="line">wb.save(<span class="string">&quot;test5.xlsx&quot;</span>)</span><br><span class="line">wb.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、操作批量的单元格"><a href="#5、操作批量的单元格" class="headerlink" title="5、操作批量的单元格"></a>5、操作批量的单元格</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"></span><br><span class="line">wb = Workbook()</span><br><span class="line"><span class="comment"># 创建一个sheet</span></span><br><span class="line">ws1 = wb.create_sheet(<span class="string">&quot;Sheet&quot;</span>)</span><br><span class="line"></span><br><span class="line">ws1[<span class="string">&quot;A1&quot;</span>] = <span class="number">1</span></span><br><span class="line">ws1[<span class="string">&quot;A2&quot;</span>] = <span class="number">2</span></span><br><span class="line">ws1[<span class="string">&quot;A3&quot;</span>] = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">ws1[<span class="string">&quot;B1&quot;</span>] = <span class="number">4</span></span><br><span class="line">ws1[<span class="string">&quot;B2&quot;</span>] = <span class="number">5</span></span><br><span class="line">ws1[<span class="string">&quot;B3&quot;</span>] = <span class="number">6</span></span><br><span class="line"></span><br><span class="line">ws1[<span class="string">&quot;C1&quot;</span>] = <span class="number">7</span></span><br><span class="line">ws1[<span class="string">&quot;C2&quot;</span>] = <span class="number">8</span></span><br><span class="line">ws1[<span class="string">&quot;C3&quot;</span>] = <span class="number">9</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 操作单列</span></span><br><span class="line"><span class="built_in">print</span>(ws1[<span class="string">&quot;A&quot;</span>])</span><br><span class="line"><span class="keyword">for</span> cell <span class="keyword">in</span> ws1[<span class="string">&quot;A&quot;</span>]:</span><br><span class="line">    <span class="built_in">print</span>(cell.value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从A列到C列,获取每一个值</span></span><br><span class="line"><span class="built_in">print</span>(ws1[<span class="string">&quot;A:C&quot;</span>])</span><br><span class="line"><span class="keyword">for</span> column <span class="keyword">in</span> ws1[<span class="string">&quot;A:C&quot;</span>]:</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> column:</span><br><span class="line">        <span class="built_in">print</span>(cell.value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从第1行到第3行，获取每一个值</span></span><br><span class="line">row_range = ws1[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line"><span class="built_in">print</span>(row_range)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> row_range:</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> row:</span><br><span class="line">        <span class="built_in">print</span>(cell.value)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>*<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从第1行到第3行，从第1列到第3列</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> ws1.iter_rows(min_row=<span class="number">1</span>, min_col=<span class="number">1</span>, max_col=<span class="number">3</span>, max_row=<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> row:</span><br><span class="line">        <span class="built_in">print</span>(cell.value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有行</span></span><br><span class="line"><span class="built_in">print</span>(ws1.rows)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> ws1.rows:</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;*&quot;</span>*<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有列</span></span><br><span class="line"><span class="built_in">print</span>(ws1.columns)</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> ws1.columns:</span><br><span class="line">    <span class="built_in">print</span>(col)</span><br><span class="line"></span><br><span class="line">wb.save(<span class="string">&quot;test4.xlsx&quot;</span>)</span><br><span class="line">wb.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、获取所有的行-列-对象："><a href="#6、获取所有的行-列-对象：" class="headerlink" title="6、获取所有的行(列)对象："></a>6、获取所有的行(列)对象：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开test5.xlsx文件</span></span><br><span class="line">wb = load_workbook(<span class="string">&#x27;test5.xlsx&#x27;</span>)</span><br><span class="line">ws = wb.active</span><br><span class="line">rows = []</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> ws.iter_rows():</span><br><span class="line">    rows.append(row)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有行</span></span><br><span class="line"><span class="built_in">print</span>(rows)</span><br><span class="line"><span class="comment"># 获取第一行</span></span><br><span class="line"><span class="built_in">print</span>(rows[<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 获取第一行第一列的单元格对象</span></span><br><span class="line"><span class="built_in">print</span>(rows[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 获取第一行第一列的单元格对象的值</span></span><br><span class="line"><span class="built_in">print</span>(rows[<span class="number">0</span>][<span class="number">0</span>].value)</span><br><span class="line"><span class="comment"># 获取最后行 print rows[-1]</span></span><br><span class="line"><span class="built_in">print</span>(rows[<span class="built_in">len</span>(rows) - <span class="number">1</span>])</span><br><span class="line"><span class="comment"># 获取第后一行和最后一列的单元格对象</span></span><br><span class="line"><span class="built_in">print</span>(rows[<span class="built_in">len</span>(rows) - <span class="number">1</span>][<span class="built_in">len</span>(rows[<span class="number">0</span>]) - <span class="number">1</span>])</span><br><span class="line"><span class="comment"># 获取第后一行和最后一列的单元格对象的值</span></span><br><span class="line"><span class="built_in">print</span>(rows[<span class="built_in">len</span>(rows) - <span class="number">1</span>][<span class="built_in">len</span>(rows[<span class="number">0</span>]) - <span class="number">1</span>].value)</span><br><span class="line"></span><br><span class="line">cols = []</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> ws.iter_cols():</span><br><span class="line">    cols.append(col)</span><br><span class="line"><span class="comment"># 所有列</span></span><br><span class="line"><span class="built_in">print</span>(cols)</span><br><span class="line"><span class="comment"># 获取第一列</span></span><br><span class="line"><span class="built_in">print</span>(cols[<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 获取第一列的第一行的单元格对象</span></span><br><span class="line"><span class="built_in">print</span>(cols[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 获取第一列的第一行的值</span></span><br><span class="line"><span class="built_in">print</span>(cols[<span class="number">0</span>][<span class="number">0</span>].value)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;*&quot;</span> * <span class="number">30</span>)</span><br><span class="line"><span class="comment"># 获取最后一列</span></span><br><span class="line"><span class="built_in">print</span>(cols[<span class="built_in">len</span>(cols) - <span class="number">1</span>] )</span><br><span class="line"><span class="comment"># 获取最后一列的最后一行的单元格对象</span></span><br><span class="line"><span class="built_in">print</span>(cols[<span class="built_in">len</span>(cols) - <span class="number">1</span>][<span class="built_in">len</span>(cols[<span class="number">0</span>]) - <span class="number">1</span>])</span><br><span class="line"><span class="comment"># 获取最后一列的最后一行的单元格对象的值</span></span><br><span class="line"><span class="built_in">print</span>(cols[<span class="built_in">len</span>(cols) - <span class="number">1</span>][<span class="built_in">len</span>(cols[<span class="number">0</span>]) - <span class="number">1</span>].value)</span><br><span class="line"></span><br><span class="line">wb.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、使用公式"><a href="#7、使用公式" class="headerlink" title="7、使用公式"></a>7、使用公式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line">wb = load_workbook(<span class="string">&#x27;test.xlsx&#x27;</span>)</span><br><span class="line">ws1 = wb.active</span><br><span class="line"></span><br><span class="line">ws1[<span class="string">&quot;A1&quot;</span>] = <span class="number">1</span></span><br><span class="line">ws1[<span class="string">&quot;A2&quot;</span>] = <span class="number">2</span></span><br><span class="line">ws1[<span class="string">&quot;A3&quot;</span>] = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">ws1[<span class="string">&quot;A4&quot;</span>] = <span class="string">&quot;=SUM(1, 1)&quot;</span></span><br><span class="line">ws1[<span class="string">&quot;A5&quot;</span>] = <span class="string">&quot;=SUM(A1:A3)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印的是公式内容，不是公式计算后的值,程序无法取到计算后的值</span></span><br><span class="line"><span class="built_in">print</span>(ws1[<span class="string">&quot;A4&quot;</span>].value)</span><br><span class="line"><span class="comment"># 打印的是公式内容，不是公式计算后的值,程序无法取到计算后的值</span></span><br><span class="line"><span class="built_in">print</span>(ws1[<span class="string">&quot;A5&quot;</span>].value)</span><br><span class="line"></span><br><span class="line">wb.save(<span class="string">&quot;test.xlsx&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="8、合并单元格"><a href="#8、合并单元格" class="headerlink" title="8、合并单元格"></a>8、合并单元格</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line">wb = load_workbook(<span class="string">&#x27;test.xlsx&#x27;</span>)</span><br><span class="line">ws = wb.active</span><br><span class="line"></span><br><span class="line">ws.merge_cells(<span class="string">&#x27;A2:D2&#x27;</span>)</span><br><span class="line"><span class="comment"># 合并后的单元格，脚本单独执行拆分操作会报错，需要重新执行合并操作再拆分</span></span><br><span class="line">ws.unmerge_cells(<span class="string">&#x27;A2:D2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ws.merge_cells(start_row=<span class="number">2</span>, start_column=<span class="number">1</span>, end_row=<span class="number">2</span>, end_column=<span class="number">4</span>)</span><br><span class="line">ws.unmerge_cells(start_row=<span class="number">2</span>, start_column=<span class="number">1</span>, end_row=<span class="number">2</span>, end_column=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">wb.save(<span class="string">&quot;test.xlsx&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zeke-python-road/p/8986318.html">https://www.cnblogs.com/zeke-python-road/p/8986318.html</a></p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/06/17/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E6%80%BB%E7%BB%93/">SSM框架整合总结</a></div><div class="post-title fs14"><a href="/2019/09/16/%E5%BD%A9%E7%AC%94%E7%9A%84%E4%B8%80%E5%A4%A9%E4%B9%8B%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">or prev: 彩笔的一天之面试总结</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

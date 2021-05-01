@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>如何保证类线程安全 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：主要总结了一下如何保证类线程安全。 前言：总结了一下如何保证类线程安全。 保证类线程安全的措施 不共享线程间的变量； 设置属性变量为不可变变量； 每个共享的可变变量都使用一个确定的锁保护。  保证线程安全的思路1. 通过架构设计通过上层的架构设计和业务分析来避免并发场景。比如需要用多线程或分布式集群统计一堆用户的相关统计值，由于用户的统计值是共享数据，因此需要保证线程安全。 从业务上分析出用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何保证类线程安全">
+<meta property="og:url" content="http://example.com/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：主要总结了一下如何保证类线程安全。 前言：总结了一下如何保证类线程安全。 保证类线程安全的措施 不共享线程间的变量； 设置属性变量为不可变变量； 每个共享的可变变量都使用一个确定的锁保护。  保证线程安全的思路1. 通过架构设计通过上层的架构设计和业务分析来避免并发场景。比如需要用多线程或分布式集群统计一堆用户的相关统计值，由于用户的统计值是共享数据，因此需要保证线程安全。 从业务上分析出用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-20T17:02:22.886Z">
+<meta property="article:modified_time" content="2020-06-20T17:02:11.372Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E6%8E%AA%E6%96%BD"><span class="toc-text">保证类线程安全的措施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-text">保证线程安全的思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%80%9A%E8%BF%87%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-text">1. 通过架构设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%9D%E8%AF%81%E7%B1%BB%E6%97%A0%E7%8A%B6%E6%80%81"><span class="toc-text">2. 保证类无状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8C%BA%E5%88%AB%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E5%92%8C%E5%A4%8D%E5%90%88%E6%93%8D%E4%BD%9C"><span class="toc-text">3. 区别原子操作和复合操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%94%81"><span class="toc-text">4. 锁</span></a></li></ol></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2020-06-20T17:02:22.886Z'>2020-06-21</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>如何保证类线程安全</span></h1>
+<h1 id="摘要：主要总结了一下如何保证类线程安全。"><a href="#摘要：主要总结了一下如何保证类线程安全。" class="headerlink" title="摘要：主要总结了一下如何保证类线程安全。"></a>摘要：主要总结了一下如何保证类线程安全。</h1><hr>
+<h1 id="前言：总结了一下如何保证类线程安全。"><a href="#前言：总结了一下如何保证类线程安全。" class="headerlink" title="前言：总结了一下如何保证类线程安全。"></a>前言：总结了一下如何保证类线程安全。</h1><hr>
+<h2 id="保证类线程安全的措施"><a href="#保证类线程安全的措施" class="headerlink" title="保证类线程安全的措施"></a>保证类线程安全的措施</h2><ul>
+<li>不共享线程间的变量；</li>
+<li>设置属性变量为不可变变量；</li>
+<li>每个共享的可变变量都使用一个确定的锁保护。</li>
+</ul>
+<h2 id="保证线程安全的思路"><a href="#保证线程安全的思路" class="headerlink" title="保证线程安全的思路"></a>保证线程安全的思路</h2><h3 id="1-通过架构设计"><a href="#1-通过架构设计" class="headerlink" title="1. 通过架构设计"></a>1. 通过架构设计</h3><p>通过上层的架构设计和业务分析来避免并发场景。比如需要用多线程或分布式集群统计一堆用户的相关统计值，由于用户的统计值是共享数据，因此需要保证线程安全。</p>
+<p>从业务上分析出用户之间的数据并不共享，因此可以设计一个规则来保证一个用户的计算工作和数据访问只被一个线程或一台机器完成，这样从设计上避免了接下来可能的并发问题。</p>
+<h3 id="2-保证类无状态"><a href="#2-保证类无状态" class="headerlink" title="2. 保证类无状态"></a>2. 保证类无状态</h3><p>有状态会限制横向扩展能力，也可能产生并发问题。如果类是无状态的，那它永远是线程安全的。因此在设计阶段尽可能用无状态的类来满足业务需求。</p>
+<h3 id="3-区别原子操作和复合操作"><a href="#3-区别原子操作和复合操作" class="headerlink" title="3. 区别原子操作和复合操作"></a>3. 区别原子操作和复合操作</h3><p>常见的复合操作包括check-then-act, i++等。虽然check-then-act从表面上看很简单，但却普遍存在与我们日常的开发中，特别是在数据库存取这一块。比如我们需要在数据库里存一个客户的统计值，当统计值不存在时初始化，当存在时就去更新。如果不把这组逻辑设计为原子性的就很有可能产生出两条这个客户的统计值。</p>
+<p>在单机环境下处理这个问题还算容易，通过锁或者同步来把这组复合操作变为原子操作，但在分布式环境下就不适用了。一般情况下是通过在数据库端做文章，比如通过唯一性索引或者悲观锁来保障其数据一致性。当然任何方案都是有代价的，这就需要具体情况下来权衡。</p>
+<h3 id="4-锁"><a href="#4-锁" class="headerlink" title="4. 锁"></a>4. 锁</h3><p>使用锁应注意：</p>
+<ul>
+<li>每个共享变量必须由一个确定的锁保护。</li>
+<li>使用锁会有性能损失。</li>
+<li>锁不能解决在分布式环境共享变量的并发问题。</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/06/13/Java%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/">Java依赖注入详解</a></div><div class="post-title fs14"><a href="/2020/08/15/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8Avolatile%E3%80%8B/">or prev: 面试基础题之《volatile》</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Java面试之Hashmap - Hexo</title>
+
+  
+    <meta name="description" content="摘要：Hashmap面试内容总结 前言：Hashmap面试内容总结，为面试做准备。 1、为什么用HashMap？ HashMap 是一个散列桶（数组和链表），它存储的内容是键值对 key-value 映射 HashMap 采用了数组和链表的数据结构，查询和修改方便，继承了数组的线性查找和链表的寻址修改 HashMap 是非 synchronized，所以 HashMap 很快 HashMap 可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试之Hashmap">
+<meta property="og:url" content="http://example.com/2019/04/05/Java%E9%9D%A2%E8%AF%95%E4%B9%8BHashmap/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：Hashmap面试内容总结 前言：Hashmap面试内容总结，为面试做准备。 1、为什么用HashMap？ HashMap 是一个散列桶（数组和链表），它存储的内容是键值对 key-value 映射 HashMap 采用了数组和链表的数据结构，查询和修改方便，继承了数组的线性查找和链表的寻址修改 HashMap 是非 synchronized，所以 HashMap 很快 HashMap 可以">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/12/1.png">
+<meta property="og:image" content="http://example.com/blog/12/2.png">
+<meta property="og:image" content="http://example.com/blog/12/3.png">
+<meta property="og:image" content="http://example.com/blog/12/4.png">
+<meta property="og:image" content="http://example.com/blog/12/5.png">
+<meta property="og:image" content="http://example.com/blog/12/6.png">
+<meta property="og:image" content="http://example.com/blog/12/7.png">
+<meta property="og:image" content="http://example.com/blog/12/8.png">
+<meta property="og:image" content="http://example.com/blog/12/9.png">
+<meta property="article:published_time" content="2019-04-05T03:07:50.647Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.363Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/12/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8HashMap%EF%BC%9F"><span class="toc-text">1、为什么用HashMap？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81HashMap-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">2、HashMap 的工作原理是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%9C%89%E4%BB%80%E4%B9%88%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E5%87%8F%E5%B0%91%E7%A2%B0%E6%92%9E%EF%BC%9F"><span class="toc-text">3、有什么方法可以减少碰撞？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88-String%E3%80%81Integer-%E8%BF%99%E6%A0%B7%E7%9A%84-wrapper-%E7%B1%BB%E9%80%82%E5%90%88%E4%BD%9C%E4%B8%BA%E9%94%AE%EF%BC%9F"><span class="toc-text">4、为什么 String、Integer 这样的 wrapper 类适合作为键？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81HashMap-%E4%B8%AD-hash-%E5%87%BD%E6%95%B0%E6%80%8E%E4%B9%88%E6%98%AF%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="toc-text">5、HashMap 中 hash 函数怎么是实现的?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E6%8B%89%E9%93%BE%E6%B3%95%E5%AF%BC%E8%87%B4%E7%9A%84%E9%93%BE%E8%A1%A8%E8%BF%87%E6%B7%B1%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%E4%BB%A3%E6%9B%BF%E8%80%8C%E9%80%89%E6%8B%A9%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%B8%80%E7%9B%B4%E4%BD%BF%E7%94%A8%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%9F"><span class="toc-text">6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%AF%B9%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%A7%81%E8%A7%A3%EF%BC%9F"><span class="toc-text">7、说说你对红黑树的见解？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81%E8%A7%A3%E5%86%B3-hash-%E7%A2%B0%E6%92%9E%E8%BF%98%E6%9C%89%E9%82%A3%E4%BA%9B%E5%8A%9E%E6%B3%95%EF%BC%9F"><span class="toc-text">8、解决 hash 碰撞还有那些办法？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81%E5%A6%82%E6%9E%9C-HashMap-%E7%9A%84%E5%A4%A7%E5%B0%8F%E8%B6%85%E8%BF%87%E4%BA%86%E8%B4%9F%E8%BD%BD%E5%9B%A0%E5%AD%90%EF%BC%88load-factor%EF%BC%89%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%B9%E9%87%8F%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="toc-text">9、如果 HashMap 的大小超过了负载因子（load factor）定义的容量怎么办？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81%E9%87%8D%E6%96%B0%E8%B0%83%E6%95%B4-HashMap-%E5%A4%A7%E5%B0%8F%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E5%90%97%EF%BC%9F"><span class="toc-text">10、重新调整 HashMap 大小存在什么问题吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E3%80%81HashTable"><span class="toc-text">11、HashTable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12%E3%80%81HashMap-%E4%B8%8E-HashTable-%E5%8C%BA%E5%88%AB"><span class="toc-text">12、HashMap 与 HashTable 区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13%E3%80%81%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-CocurrentHashMap-%E6%9D%A5%E4%BB%A3%E6%9B%BF-Hashtable-%E5%90%97%EF%BC%9F"><span class="toc-text">13、可以使用 CocurrentHashMap 来代替 Hashtable 吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14%E3%80%81CocurrentHashMap%EF%BC%88JDK-1-7%EF%BC%89"><span class="toc-text">14、CocurrentHashMap（JDK 1.7）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15%E3%80%81CocurrentHashMap%EF%BC%88JDK-1-8%EF%BC%89"><span class="toc-text">15、CocurrentHashMap（JDK 1.8）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16%E3%80%81ConcurrentHashMap-%E5%9C%A8-Java-8-%E4%B8%AD%E5%AD%98%E5%9C%A8%E4%B8%80%E4%B8%AA-bug-%E4%BC%9A%E8%BF%9B%E5%85%A5%E6%AD%BB%E5%BE%AA%E7%8E%AF"><span class="toc-text">16、ConcurrentHashMap 在 Java 8 中存在一个 bug 会进入死循环</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法与数据结构</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.647Z'>2019-04-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>Java面试之Hashmap</span></h1>
+<h1 id="摘要：Hashmap面试内容总结"><a href="#摘要：Hashmap面试内容总结" class="headerlink" title="摘要：Hashmap面试内容总结"></a>摘要：Hashmap面试内容总结</h1><hr>
+<h1 id="前言：Hashmap面试内容总结，为面试做准备。"><a href="#前言：Hashmap面试内容总结，为面试做准备。" class="headerlink" title="前言：Hashmap面试内容总结，为面试做准备。"></a>前言：Hashmap面试内容总结，为面试做准备。</h1><hr>
+<h2 id="1、为什么用HashMap？"><a href="#1、为什么用HashMap？" class="headerlink" title="1、为什么用HashMap？"></a>1、为什么用HashMap？</h2><ul>
+<li>HashMap 是一个散列桶（数组和链表），它存储的内容是键值对 key-value 映射</li>
+<li>HashMap 采用了数组和链表的数据结构，查询和修改方便，继承了数组的线性查找和链表的寻址修改</li>
+<li>HashMap 是非 synchronized，所以 HashMap 很快</li>
+<li>HashMap 可以接受 null 键和值，而 Hashtable 则不能（原因就是 equlas() 方法需要对象，因为 HashMap 是后出的 API 经过处理才可以）</li>
+<li>HashMap 存储着Entry(hash, key, value, next)对象</li>
+</ul>
+<h2 id="2、HashMap-的工作原理是什么？"><a href="#2、HashMap-的工作原理是什么？" class="headerlink" title="2、HashMap 的工作原理是什么？"></a>2、HashMap 的工作原理是什么？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过hash的方法，通过put和get存储和获取对象。存储对象时，我们将K&#x2F;V传给put方法时，它调用hashCode计算hash从而得到bucket位置，进一步存储，HashMap会根据当前bucket的占用情况自动调整容量(超过Load Facotr则resize为原来的2倍)。获取对象时，我们将K传给get，它调用hashCode计算hash从而得到bucket位置，并进一步调用equals()方法确定键值对。如果发生碰撞的时候，Hashmap通过链表将产生碰撞冲突的元素组织起来，在Java 8中，如果一个bucket中碰撞冲突的元素超过某个限制(默认是8)，则使用红黑树来替换链表，从而提高速度。</span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/1.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">以下是 HashMap 初始化</span><br><span class="line">简化的模拟数据结构：</span><br><span class="line"></span><br><span class="line">Node[] table = <span class="keyword">new</span> Node[<span class="number">16</span>]; <span class="comment">// 散列桶初始化，table</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    hash; <span class="comment">//hash值</span></span><br><span class="line">    key; <span class="comment">//键</span></span><br><span class="line">    value; <span class="comment">//值</span></span><br><span class="line">    node next; <span class="comment">//用于指向链表的下一层（产生冲突，用拉链法）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">以下是具体的 put 过程（JDK1.8）</span><br><span class="line">1、对 Key 求 Hash 值，然后再计算下标</span><br><span class="line">2、如果没有碰撞，直接放入桶中（碰撞的意思是计算得到的 Hash 值相同，需要放到同一个 bucket 中）</span><br><span class="line">3、如果碰撞了，以链表的方式链接到后面</span><br><span class="line">4、如果链表长度超过阀值（TREEIFY THRESHOLD&#x3D;&#x3D;8），就把链表转成红黑树，链表长度低于6，就把红黑树转回链表</span><br><span class="line">5、如果节点已经存在就替换旧值</span><br><span class="line">6、如果桶满了（容量16*加载因子0.75），就需要 resize（扩容2倍后重排）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">以下是具体 get 过程</span><br><span class="line">考虑特殊情况：如果两个键的 hashcode 相同，你如何获取值对象？</span><br><span class="line"></span><br><span class="line">当我们调用 get() 方法，HashMap 会使用键对象的 hashcode 找到 bucket 位置，找到 bucket 位置之后，会调用 keys.equals() 方法去找到链表中正确的节点，最终找到要找的值对象。</span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/2.png"></p>
+<h2 id="3、有什么方法可以减少碰撞？"><a href="#3、有什么方法可以减少碰撞？" class="headerlink" title="3、有什么方法可以减少碰撞？"></a>3、有什么方法可以减少碰撞？</h2><p><strong>碰撞：所谓“碰撞”就上面所述是多个元素计算得出相同的hashCode，在put时出现冲突。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">处理方法:</span><br><span class="line">　　Java中HashMap是利用“拉链法”处理HashCode的碰撞问题。在调用HashMap的put方法或get方法时，都会首先调用hashcode方法，去查找相关的key，当有冲突时，再调用equals方法。hashMap基于hasing原理，我们通过put和get方法存取对象。当我们将键值对传递给put方法时，他调用键对象的hashCode()方法来计算hashCode，然后找到bucket（哈希桶）位置来存储对象。当获取对象时，通过键对象的equals()方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当碰撞发生了，对象将会存储在链表的下一个节点中。hashMap在每个链表节点存储键值对对象。当两个不同的键却有相同的hashCode时，他们会存储在同一个bucket位置的链表中。键对象的equals()来找到键值对。</span><br></pre></td></tr></table></figure>
+
+<p><strong>HashMap基本结构概念图：</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/3.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">到目前为止，我们了解了两件事：</span><br><span class="line"></span><br><span class="line">　　1、HashMap通过键的hashCode来快速的存取元素。</span><br><span class="line"></span><br><span class="line">　　2、当不同的对象发生碰撞时，HashMap通过单链表来解决，将新元素加入链表表头，通过next指向原有的元素。单链表在Java中的实现就是对象的引用(复合)。</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、为什么-String、Integer-这样的-wrapper-类适合作为键？"><a href="#4、为什么-String、Integer-这样的-wrapper-类适合作为键？" class="headerlink" title="4、为什么 String、Integer 这样的 wrapper 类适合作为键？"></a>4、为什么 String、Integer 这样的 wrapper 类适合作为键？</h2><p>因为 String 是 final，而且已经重写了 equals() 和 hashCode() 方法了。不可变性是必要的，因为为了要计算 hashCode()，就要防止键值改变，如果键值在放入时和获取时返回不同的 hashcode 的话，那么就不能从 HashMap 中找到你想要的对象。</p>
+<h2 id="5、HashMap-中-hash-函数怎么是实现的"><a href="#5、HashMap-中-hash-函数怎么是实现的" class="headerlink" title="5、HashMap 中 hash 函数怎么是实现的?"></a>5、HashMap 中 hash 函数怎么是实现的?</h2><p>我们可以看到，在 hashmap 中要找到某个元素，需要根据 key 的 hash 值来求得对应数组中的位置。如何计算这个位置就是 hash 算法。</p>
+<p>前面说过，hashmap 的数据结构是数组和链表的结合，所以我们当然希望这个 hashmap 里面的元素位置尽量的分布均匀些，尽量使得每个位置上的元素数量只有一个。那么当我们用 hash 算法求得这个位置的时候，马上就可以知道对应位置的元素就是我们要的，而不用再去遍历链表。 所以，我们首先想到的就是把 hashcode 对数组长度取模运算。这样一来，元素的分布相对来说是比较均匀的。</p>
+<p>但是“模”运算的消耗还是比较大的，能不能找一种更快速、消耗更小的方式？我们来看看 JDK1.8 源码是怎么做的.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    h = key.hashCode()；返回散列值也就是hashcode</span><br><span class="line">    <span class="comment">// ^ ：按位异或</span></span><br><span class="line">    <span class="comment">// &gt;&gt;&gt;:无符号右移，忽略符号位，空位都以0补齐</span></span><br><span class="line">    <span class="comment">//其中n是数组的长度，即Map的数组部分初始化长度</span></span><br><span class="line">    <span class="keyword">return</span> (n-<span class="number">1</span>)&amp;(h ^ (h &gt;&gt;&gt; <span class="number">16</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/4.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">简单来说就是：</span><br><span class="line"></span><br><span class="line">1、高16 bit 不变，低16 bit 和高16 bit 做了一个异或（得到的 hashcode 转化为32位二进制，前16位和后16位低16 bit和6 bit做了一个异或）</span><br><span class="line"></span><br><span class="line">2、(n·1) &amp; hash &#x3D; -&gt; 得到下标</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？"><a href="#6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？" class="headerlink" title="6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？"></a>6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？</h2><p>之所以选择红黑树是为了解决二叉查找树的缺陷：二叉查找树在特殊情况下会变成一条线性结构（这就跟原来使用链表结构一样了，造成层次很深的问题），遍历查找会非常慢。而红黑树在插入新数据后可能需要通过左旋、右旋、变色这些操作来保持平衡。引入红黑树就是为了查找数据快，解决链表查询深度的问题。我们知道红黑树属于平衡二叉树，为了保持“平衡”是需要付出代价的，但是该代价所损耗的资源要比遍历线性链表要少。所以当长度大于8的时候，会使用红黑树；如果链表长度很短的话，根本不需要引入红黑树，引入反而会慢。</p>
+<h2 id="7、说说你对红黑树的见解？"><a href="#7、说说你对红黑树的见解？" class="headerlink" title="7、说说你对红黑树的见解？"></a>7、说说你对红黑树的见解？</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/5.png"></p>
+<ol>
+<li>每个节点非红即黑</li>
+<li>根节点总是黑色的</li>
+<li>如果节点是红色的，则它的子节点必须是黑色的（反之不一定）</li>
+<li>每个叶子节点都是黑色的空节点（NIL节点）</li>
+<li>从根节点到叶节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）</li>
+</ol>
+<h2 id="8、解决-hash-碰撞还有那些办法？"><a href="#8、解决-hash-碰撞还有那些办法？" class="headerlink" title="8、解决 hash 碰撞还有那些办法？"></a>8、解决 hash 碰撞还有那些办法？</h2><p><strong>1.开放地址法</strong></p>
+<p>开放地执法有一个公式:Hi=(H(key)+di) MOD m i=1,2,…,k(k&lt;=m-1)其中，m为哈希表的表长。di 是产生冲突的时候的增量序列。如果di值可能为1,2,3,…m-1，称线性探测再散列。</p>
+<p>如果di取1，则每次冲突之后，向后移动1个位置.如果di取值可能为1,-1,2,-2,4,-4,9,-9,16,-16,…k<em>k,-k</em>k(k&lt;=m/2)，称二次探测再散列。</p>
+<p>如果di取值可能为伪随机数列。称伪随机探测再散列。</p>
+<p><strong>2.再哈希法</strong></p>
+<p>当发生冲突时，使用第二个、第三个、哈希函数计算地址，直到无冲突时。缺点：计算时间增加。比如上面第一次按照姓首字母进行哈希，如果产生冲突可以按照姓字母首字母第二位进行哈希，再冲突，第三位，直到不冲突为止。</p>
+<p><strong>3.链地址法（拉链法）</strong></p>
+<p>将所有关键字为同义词的记录存储在同一线性链表中。如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/6.png"></p>
+<p>因此这种方法，可以近似的认为是筒子里面套筒子。</p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>拉链法处理冲突简单，且无堆积现象，即非同义词决不会发生冲突，因此平均查找长度较短；</li>
+<li>由于拉链法中各链表上的结点空间是动态申请的，故它更适合于造表前无法确定表长的情况；</li>
+<li>开放定址法为减少冲突，要求装填因子α较小，故当结点规模较大时会浪费很多空间。而拉链法中可取α≥1，且结点较大时，拉链法中增加的指针域可忽略不计，因此节省空间；</li>
+<li>在用拉链法构造的散列表中，删除结点的操作易于实现。只要简单地删去链表上相应的结点即可。而对开放地址法构造的散列表，删除结点不能简单地将被删结 点的空间置为空，否则将截断在它之后填人散列表的同义词结点的查找路径。这是因为各种开放地址法中，空地址单元(即开放地址)都是查找失败的条件。因此在 用开放地址法处理冲突的散列表上执行删除操作，只能在被删结点上做删除标记，而不能真正删除结点。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>指针需要额外的空间，故当结点规模较小时，开放定址法较为节省空间，而若将节省的指针空间用来扩大散列表的规模，可使装填因子变小，这又减少了开放定址法中的冲突，从而提高平均查找速度。</li>
+</ul>
+<h2 id="9、如果-HashMap-的大小超过了负载因子（load-factor）定义的容量怎么办？"><a href="#9、如果-HashMap-的大小超过了负载因子（load-factor）定义的容量怎么办？" class="headerlink" title="9、如果 HashMap 的大小超过了负载因子（load factor）定义的容量怎么办？"></a>9、如果 HashMap 的大小超过了负载因子（load factor）定义的容量怎么办？</h2><p>当put时，如果发现目前的bucket占用程度已经超过了Load Factor所希望的比例，那么就会发生resize。在resize的过程，简单的说就是把bucket扩充为2倍，之后重新计算index，把节点再放到新的bucket中。resize的注释是这样描述的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Initializes or doubles table size. If null, allocates in accord with initial capacity target held in field threshold. Otherwise, because we are using power-of-two expansion, the elements from each bin must either stay at same index, or move with a power of two offset in the new table.</span><br><span class="line"></span><br><span class="line">大致意思就是说，当超过限制的时候会resize，然而又因为我们使用的是2次幂的扩展(指长度扩为原来2倍)，所以，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。</span><br></pre></td></tr></table></figure>
+
+<p>怎么理解呢？例如我们从16扩展为32时，具体的变化如下所示：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/7.png"></p>
+<p>因此元素在重新计算hash之后，因为n变为2倍，那么n-1的mask范围在高位多1bit(红色)，因此新的index就会发生这样的变化：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/8.png"></p>
+<p>因此，我们在扩充HashMap的时候，不需要重新计算hash，只需要看看原来的hash值新增的那个bit是1还是0就好了，是0的话索引没变，是1的话索引变成“原索引+oldCap”。可以看看下图为16扩充为32的resize示意图：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/12/9.png"></p>
+<p>这个设计确实非常的巧妙，既省去了重新计算hash值的时间，而且同时，由于新增的1bit是0还是1可以认为是随机的，因此resize的过程，均匀的把之前的冲突的节点分散到新的bucket了。</p>
+<h2 id="10、重新调整-HashMap-大小存在什么问题吗？"><a href="#10、重新调整-HashMap-大小存在什么问题吗？" class="headerlink" title="10、重新调整 HashMap 大小存在什么问题吗？"></a>10、重新调整 HashMap 大小存在什么问题吗？</h2><p>重新调整 HashMap 大小的时候，确实存在条件竞争。</p>
+<p>因为如果两个线程都发现 HashMap 需要重新调整大小了，它们会同时试着调整大小。在调整大小的过程中，存储在链表中的元素的次序会反过来。因为移动到新的 bucket 位置的时候，HashMap 并不会将元素放在链表的尾部，而是放在头部。这是为了避免尾部遍历（tail traversing）。如果条件竞争发生了，那么就死循环了。<strong>多线程的环境下不使用 HashMap。</strong></p>
+<p>为什么多线程会导致死循环，它是怎么发生的？<br>HashMap 的容量是有限的。当经过多次元素插入，使得 HashMap 达到一定饱和度时，Key 映射位置发生冲突的几率会逐渐提高。这时候， HashMap 需要扩展它的长度，也就是进行Resize。</p>
+<ol>
+<li>扩容：创建一个新的 Entry 空数组，长度是原数组的2倍</li>
+<li>rehash：遍历原 Entry 数组，把所有的 Entry 重新 Hash 到新数组</li>
+</ol>
+<p>详细文章参考: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhuoqingsen/p/8577646.html">HashMap扩容全过程</a></p>
+<h2 id="11、HashTable"><a href="#11、HashTable" class="headerlink" title="11、HashTable"></a>11、HashTable</h2><ol>
+<li>数组 + 链表方式存储</li>
+<li>默认容量：11（质数为宜）</li>
+<li>put操作：首先进行索引计算 （key.hashCode() &amp; 0x7FFFFFFF）% table.length；若在链表中找到了，则替换旧值，若未找到则继续；当总元素个数超过 容量 * 加载因子 时，扩容为原来 2 倍并重新散列；将新元素加到链表头部</li>
+<li>对修改 Hashtable 内部共享数据的方法添加了 synchronized，保证线程安全</li>
+</ol>
+<h2 id="12、HashMap-与-HashTable-区别"><a href="#12、HashMap-与-HashTable-区别" class="headerlink" title="12、HashMap 与 HashTable 区别"></a>12、HashMap 与 HashTable 区别</h2><ol>
+<li>默认容量不同，扩容不同</li>
+<li>线程安全性：HashTable 安全</li>
+<li>效率不同：HashTable 要慢，因为加锁</li>
+</ol>
+<h2 id="13、可以使用-CocurrentHashMap-来代替-Hashtable-吗？"><a href="#13、可以使用-CocurrentHashMap-来代替-Hashtable-吗？" class="headerlink" title="13、可以使用 CocurrentHashMap 来代替 Hashtable 吗？"></a>13、可以使用 CocurrentHashMap 来代替 Hashtable 吗？</h2><ol>
+<li>我们知道 Hashtable 是 synchronized 的，但是 ConcurrentHashMap 同步性能更好，因为它仅仅根据同步级别对 map 的一部分进行上锁</li>
+<li>ConcurrentHashMap 当然可以代替 HashTable，但是 HashTable 提供更强的线程安全性</li>
+<li>它们都可以用于多线程的环境，但是当 Hashtable 的大小增加到一定的时候，性能会急剧下降，因为迭代时需要被锁定很长的时间。由于 ConcurrentHashMap 引入了分割（segmentation），不论它变得多么大，仅仅需要锁定 Map 的某个部分，其它的线程不需要等到迭代完成才能访问 Map。简而言之，在迭代的过程中，ConcurrentHashMap 仅仅锁定 Map 的某个部分，而 Hashtable 则会锁定整个 Map</li>
+</ol>
+<h2 id="14、CocurrentHashMap（JDK-1-7）"><a href="#14、CocurrentHashMap（JDK-1-7）" class="headerlink" title="14、CocurrentHashMap（JDK 1.7）"></a>14、CocurrentHashMap（JDK 1.7）</h2><ol>
+<li>CocurrentHashMap 是由 Segment 数组和 HashEntry 数组和链表组成</li>
+<li>Segment 是基于重入锁（ReentrantLock）：一个数据段竞争锁。每个 HashEntry 一个链表结构的元素，利用 Hash 算法得到索引确定归属的数据段，也就是对应到在修改时需要竞争获取的锁。ConcurrentHashMap 支持 CurrencyLevel（Segment 数组数量）的线程并发。每当一个线程占用锁访问一个 Segment 时，不会影响到其他的 Segment</li>
+<li>核心数据如 value，以及链表都是 volatile 修饰的，保证了获取时的可见性</li>
+<li>首先是通过 key 定位到 Segment，之后在对应的 Segment 中进行具体的 put 操作如下：<ul>
+<li>将当前 Segment 中的 table 通过 key 的 hashcode 定位到 HashEntry。</li>
+<li>遍历该 HashEntry，如果不为空则判断传入的  key 和当前遍历的 key 是否相等，相等则覆盖旧的 value</li>
+<li>不为空则需要新建一个 HashEntry 并加入到 Segment 中，同时会先判断是否需要扩容</li>
+<li>最后会解除在 1 中所获取当前 Segment 的锁。</li>
+</ul>
+</li>
+<li>虽然 HashEntry 中的 value 是用 volatile 关键词修饰的，但是并不能保证并发的原子性，所以 put 操作时仍然需要加锁处理<ul>
+<li>首先第一步的时候会尝试获取锁，如果获取失败肯定就有其他线程存在竞争，则利用 scanAndLockForPut() 自旋获取锁。</li>
+<li>尝试自旋获取锁，如果重试的次数达到了 MAX_SCAN_RETRIES 则改为阻塞锁获取，保证能获取成功。最后解除当前 Segment 的锁</li>
+</ul>
+</li>
+</ol>
+<h2 id="15、CocurrentHashMap（JDK-1-8）"><a href="#15、CocurrentHashMap（JDK-1-8）" class="headerlink" title="15、CocurrentHashMap（JDK 1.8）"></a>15、CocurrentHashMap（JDK 1.8）</h2><p>CocurrentHashMap 抛弃了原有的 Segment 分段锁，采用了 CAS + synchronized 来保证并发安全性。其中的 val next 都用了 volatile 修饰，保证了可见性。</p>
+<p><strong>最大特点是引入了 CAS</strong></p>
+<p>  借助 Unsafe 来实现 native code。CAS有3个操作数，内存值 V、旧的预期值 A、要修改的新值 B。当且仅当预期值 A 和内存值 V 相同时，将内存值V修改为 B，否则什么都不做。Unsafe 借助 CPU 指令 cmpxchg 来实现。</p>
+<p><strong>CAS 使用实例</strong></p>
+<p>对 sizeCtl 的控制都是用 CAS 来实现的：</p>
+<ul>
+<li>-1 代表 table 正在初始化</li>
+<li>N 表示有 -N-1 个线程正在进行扩容操作</li>
+<li>如果 table 未初始化，表示table需要初始化的大小</li>
+<li>如果 table 初始化完成，表示table的容量，默认是table大小的0.75倍，用这个公式算 0.75（n – (n &gt;&gt;&gt; 2)）</li>
+</ul>
+<p><strong>CAS 会出现的问题：ABA</strong></p>
+<p>解决：对变量增加一个版本号，每次修改，版本号加 1，比较的时候比较版本号。</p>
+<p><strong>put 过程</strong></p>
+<ul>
+<li>根据 key 计算出 hashcode</li>
+<li>判断是否需要进行初始化</li>
+<li>通过 key 定位出的 Node，如果为空表示当前位置可以写入数据，利用 CAS 尝试写入，失败则自旋保证成功</li>
+<li>如果当前位置的 hashcode == MOVED == -1,则需要进行扩容</li>
+<li>如果都不满足，则利用 synchronized 锁写入数据</li>
+<li>如果数量大于 TREEIFY_THRESHOLD 则要转换为红黑树</li>
+</ul>
+<p><strong>get 过程</strong></p>
+<ul>
+<li>根据计算出来的 hashcode 寻址，如果就在桶上那么直接返回值</li>
+<li>如果是红黑树那就按照树的方式获取值</li>
+<li>就不满足那就按照链表的方式遍历获取值</li>
+</ul>
+<h2 id="16、ConcurrentHashMap-在-Java-8-中存在一个-bug-会进入死循环"><a href="#16、ConcurrentHashMap-在-Java-8-中存在一个-bug-会进入死循环" class="headerlink" title="16、ConcurrentHashMap 在 Java 8 中存在一个 bug 会进入死循环"></a>16、ConcurrentHashMap 在 Java 8 中存在一个 bug 会进入死循环</h2><p>原因是递归创建 ConcurrentHashMap 对象，但是在 JDK 1.9 已经修复了。场景重现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcurrentHashMapDemo</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer,Integer&gt; cache =<span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">15</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]args)</span></span>&#123;</span><br><span class="line">        ConcurrentHashMapDemo ch =    <span class="keyword">new</span> ConcurrentHashMapDemo();</span><br><span class="line">        System.out.println(ch.fibonaacci(<span class="number">80</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fibonaacci</span><span class="params">(Integer i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">0</span>||i ==<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cache.computeIfAbsent(i,(key) -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;fibonaacci : &quot;</span>+key);</span><br><span class="line">            <span class="keyword">return</span> fibonaacci(key -<span class="number">1</span>)+fibonaacci(key - <span class="number">2</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B71%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">Java核心技术卷1复习笔记</a></div><div class="post-title fs14"><a href="/2019/04/05/Java%E9%9D%A2%E8%AF%95%E4%B9%8BJVM%E8%87%AA%E5%8A%A8%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6/">or prev: Java面试之JVM自动内存管理机制</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

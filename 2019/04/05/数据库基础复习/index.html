@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>数据库基础复习 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这篇文章是对数据库基础的总结和归纳。 前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。 1.常用的数据库有哪些？redis用过吗?  常用的数据库 MySQL SQLServer Redis oracle   Redis是一个速度非常快的非关系型数据库，他可以存储键(key)与5种不同类型的值（value）之间的映射，可以将存储在内存中的键值对数据持久化到硬">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库基础复习">
+<meta property="og:url" content="http://example.com/2019/04/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这篇文章是对数据库基础的总结和归纳。 前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。 1.常用的数据库有哪些？redis用过吗?  常用的数据库 MySQL SQLServer Redis oracle   Redis是一个速度非常快的非关系型数据库，他可以存储键(key)与5种不同类型的值（value）之间的映射，可以将存储在内存中的键值对数据持久化到硬">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/6/sql.png">
+<meta property="og:image" content="http://example.com/blog/6/sql1.png">
+<meta property="og:image" content="http://example.com/blog/6/sql2.png">
+<meta property="og:image" content="http://example.com/blog/6/sql3.png">
+<meta property="article:published_time" content="2019-04-05T03:07:50.659Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.363Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/6/sql.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/Java/">Java</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.659Z'>2019-04-05</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>数据库基础复习</span></h1>
+<h1 id="摘要：这篇文章是对数据库基础的总结和归纳。"><a href="#摘要：这篇文章是对数据库基础的总结和归纳。" class="headerlink" title="摘要：这篇文章是对数据库基础的总结和归纳。"></a>摘要：这篇文章是对数据库基础的总结和归纳。</h1><hr>
+<h1 id="前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。"><a href="#前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。" class="headerlink" title="前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。"></a>前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。</h1><hr>
+<p><strong>1.常用的数据库有哪些？redis用过吗?</strong></p>
+<ul>
+<li>常用的数据库<ul>
+<li>MySQL</li>
+<li>SQLServer</li>
+<li>Redis</li>
+<li>oracle</li>
+</ul>
+</li>
+<li>Redis是一个速度非常快的非关系型数据库，他可以存储键(key)与5种不同类型的值（value）之间的映射，可以将存储在内存中的键值对数据持久化到硬盘中。</li>
+<li>与Memcached相比<ul>
+<li>两者都可用于存储键值映射，彼此性能也相差无几</li>
+<li>Redis能够自动以两种不同的方式将数据写入硬盘</li>
+<li>Redis除了能存储普通的字符串键之外，还可以存储其他4种数据结构，memcached只能存储字符串键</li>
+<li>Redis既能用作主数据库，由可以作为其他存储系统的辅助数据库</li>
+</ul>
+</li>
+</ul>
+<p><strong>2数据库索引的优缺点以及什么时候数据库索引失效</strong></p>
+<ul>
+<li>索引的特点<ul>
+<li>可以加快数据库的检索速度</li>
+<li>降低数据库插入、修改、删除等维护的速度</li>
+<li>只能创建在表上，不能创建到视图上</li>
+<li>既可以直接创建又可以间接创建</li>
+<li>可以在优化隐藏中使用索引</li>
+<li>使用查询处理器执行SQL语句，在一个表上，一次只能使用一个索引</li>
+</ul>
+</li>
+<li>索引的优点</li>
+<li>创建唯一性索引，保证数据库表中每一行数据的唯一性</li>
+<li>大大加快数据的检索速度，这是创建索引的最主要的原因</li>
+<li>加速数据库表之间的连接，特别是在实现数据的参考完整性方面特别有意义</li>
+<li>在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间</li>
+<li>通过使用索引，可以在查询中使用优化隐藏器，提高系统的性能</li>
+<li>索引的缺点</li>
+<li>创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加</li>
+<li>索引需要占用物理空间，除了数据表占用数据空间之外，每一个索引还要占一定的物理空间，如果建立聚簇索引，那么需要的空间就会更大</li>
+<li>当对表中的数据进行增加、删除和修改的时候，索引也需要维护，降低数据维护的速度</li>
+<li>索引分类</li>
+<li>直接创建索引和间接创建索引</li>
+<li>普通索引和唯一性索引</li>
+<li>单个索引和复合索引</li>
+<li>聚簇索引和非聚簇索引</li>
+<li>索引失效</li>
+<li>如果条件中有or，即使其中有条件带索引也不会使用(这就是问什么尽量少使用or的原因)</li>
+<li>对于多列索引，不是使用的第一部分，则不会使用索引</li>
+<li>like查询是以%开头</li>
+<li>如果列类型是字符串，那一定要在条件中使用引号引起来，否则不会使用索引</li>
+<li>如果mysql估计使用全表扫秒比使用索引快，则不适用索引。</li>
+<li>各引擎支持索引<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/6/sql.png" alt="sql"></li>
+</ul>
+<p><strong>3.事务隔离级别</strong></p>
+<ul>
+<li>串行化(Serializable)：所有事务一个接着一个的执行，这样可以避免幻读(phantom read),对于基于锁来实现并发控制的数据库来说，串行化要求在执行范围查询的时候，需要获取范围锁，如果不是基于锁实现并发控制的数据库，则检查到有违反串行操作的事务时，需回滚该事务。</li>
+<li>可重复读(Repeated Read)：所有被Select获取的数据都不能被修改，这样就可以避免一个事务前后读取不一致的情况。但是没有办法控制幻读，因为这个时候其他事务不能更改所选的数据，但是可以增加数据，因为强恶意事务没有范围锁</li>
+<li>读已提交(Read Committed)：被读取的数据可以被其他事务修改，这样可能导致不可重复读。也就是说，事务读取的时候获取读锁，但是在读完之后立即释放(不需要等事务结束)，而写锁则是事务提交之后才释放，释放读锁之后，就可能被其他事务修改数据。改等级也是SQL Server默认的隔离等级</li>
+<li>读未提交(Read Uncommitted)：最低的隔离等级，允许其他事务看到没有提交的数据，会导致脏读</li>
+<li>总结<ul>
+<li>四个级别逐渐增强，每个级别解决一个问题，每个级别解决一个问题，事务级别遇到，性能越差，大多数环境(Read committed 就可以用了)<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/6/sql1.png" alt="sql1"></li>
+</ul>
+</li>
+</ul>
+<p><strong>4.数据库中的范式有哪些？</strong></p>
+<ul>
+<li>目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。满足最低要求的范式是第一范式（1NF）。在第一范式的基础上进一步满足更多规范要求的称为第二范式（2NF），其余范式以次类推。一般说来，数据库只需满足第三范式(3NF）就行了。</li>
+<li>范式的包含关系。一个数据库设计如果符合第二范式，一定也符合第一范式。如果符合第三范式，一定也符合第二范式…</li>
+<li>范式</li>
+<li>1NF ：符合1NF的关系中的每个属性都不可再分</li>
+<li>2NF：属性完全依赖于主键 [消除部分子函数依赖]</li>
+<li>3NF：属性不依赖于其它非主属性[消除传递依赖]</li>
+<li>BCNF：在1NF基础上，任何非主属性不能对主键子集依赖[在3NF基础上消除对主码子集的依赖]</li>
+<li>4NF：要求把同一表内的多对多关系删除。</li>
+<li>5NF：从最终结构重新建立原始结构。</li>
+</ul>
+<p><strong>5数据库中的索引的结构？什么情况下适合建索引?</strong></p>
+<ul>
+<li><p>数据库中的索引结构<br>因为在使用二叉树的时候，由于二叉树的深度过大而造成I/O读写过于频繁，进而导致查询效率低下。因此采用多叉树结构。B树的各种操作能使B树能保持较低的高度。</p>
+</li>
+<li><p>B 树又叫平衡多路查找树，一棵 m 阶的 B 树的特性如下</p>
+</li>
+<li><p>树中每个结点最多含有 m 个孩子（m&gt;=2）；</p>
+</li>
+<li><p>除根结点和叶子结点外，其他每个结点至少有[ceil(m / 2)]个孩子（其中 ceil(x)是一个取上限的函数）；</p>
+</li>
+<li><p>根结点至少有 2 个孩子（除非 B 树只包含一个结点：根结点）；</p>
+</li>
+<li><p>所有叶子结点都出现在同一层， 叶子结点不包含任何关键字信息 (可以看做是外部结点或查询失败的结点，指向这些结点的指针都为 null)；（注：叶子节点只是没有孩子和指向孩子的指针，这些节点也存<br>在，也有元素。类似红黑树中，每一个 NULL 指针即当做叶子结点，只是没画出来而已）。</p>
+</li>
+<li><p>每个非终端结点中包含有 n 个关键字信息： (n，P0，K1，P1，K2，P2，……，Kn，Pn)。其中：<br>a) Ki (i=1…n)为关键字，且关键字按顺序升序排序 K(i-1)&lt; Ki。<br>b) Pi 为指向子树根的结点，且指针 P(i-1)指向子树种所有结点的关键字均小于 Ki，但都大于 K(i-1)。<br>c) 关键字的个数 n 必须满足： [ceil(m / 2)-1]&lt;= n &lt;= m-1。比如有 j 个孩子的非叶结点恰好有 j-1 个关<br>键码。<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/6/sql2.png" alt="sql2"></p>
+</li>
+<li><p>B+树<br><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/6/sql3.png" alt="sql3"></p>
+</li>
+<li><p>在什么情况下适合建立索引</p>
+<ul>
+<li>为经常出现在关键字order by、group by、distinct后面的字段，建立索引。</li>
+<li>在union等集合操作的结果集字段上，建立索引。其建立索引的目的同上。</li>
+<li>为经常用作查询选择的字段，建立索引。</li>
+<li>在经常用作表连接的属性上，建立索引。</li>
+<li>考虑使用索引覆盖。对数据很少被更新的表，如果用户经常只查询其中的几个字段，可以考虑在这几个字段上建立索引，从而将表的扫描改变为索引的扫描。</li>
+</ul>
+</li>
+</ul>
+<p><strong>6.Redis的存储结构，或者说如何工作的，与mysql的区别？有哪些数据类型？</strong></p>
+<ul>
+<li>Redis的数据结构<ul>
+<li>STRING：可以是字符串、整数或者浮点数</li>
+<li>LIST：一个链表，链表上的每个节点都包含了一个字符串</li>
+<li>SET：包含字符串的无序收集器（unordered collection），并且被包含的每个字符串都是独一无二、各不相同的</li>
+<li>HAST：包含键值对的无序散列表</li>
+<li>ZSET：字符串成员（member）与浮点数分值（score）之间的有序映射，元素的排列顺序由分值的大小决定</li>
+</ul>
+</li>
+</ul>
+<p><strong>7.数据库中的分页查询语句怎么写？<a target="_blank" rel="noopener" href="http://qimo601.iteye.com/blog/1634748">http://qimo601.iteye.com/blog/1634748</a></strong></p>
+<ul>
+<li>Mysql的limit用法<ul>
+<li>SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset</li>
+<li>LIMIT 接受一个或两个数字参数。参数必须是一个整数常量。如果给定两个参数，第一个参数指定第一个返回记录行的偏移量，第二个参数指定返回记录行的最大数目。初始记录行的偏移量是 0(而不是 1)</li>
+</ul>
+</li>
+<li>最基本的分页方式：SELECT … FROM … WHERE … ORDER BY … LIMIT …</li>
+<li>子查询的分页方式：</li>
+</ul>
+<p><strong>8.数据库ACID</strong></p>
+<ul>
+<li>原子性(Atomicity)：保证事务中的所有操作全部执行或全部不执行</li>
+<li>一致性(Consistency)：保证数据库始终保持数据的一致性——事务操作之前和之后都是一致的</li>
+<li>隔离性(Isolation)：多个事务并发执行的话，结果应该与多个事务串行执行效果是一样的</li>
+<li>持久性(Durability)：事务操作完成之后，对数据库的影响是持久的，即使数据库因故障而受到破坏，数据库也能够恢复(日志)</li>
+</ul>
+<p><strong>9.脏读、不可重复读和幻读</strong></p>
+<ul>
+<li>脏读：事务T1更新了一行记录的内容，但是并没有提交所做的修改。事务T2读取更新后的行，然后T1执行了回滚操作，取消了刚才所做的修改。现在T2读取的行就无效了（一个事务读取了另一个事务未提交的数据）</li>
+<li>不可重复读：事务T1读取了一行记录，紧接着T2修改了T1刚才读取的那一行记录，然后T1又再次读取这行记录，发现与刚才读取的结果不同。</li>
+<li>幻读：事务T1读取一条指定的Where子句所返回的结果集，然后T2事务新插入一行记录，这行记录恰好可以满足T1所使用的查询条件。然后T1再次对表进行检索，但又看到了T2插入的数据。</li>
+</ul>
+<p><strong>10.MyISAM和InnoDB引擎的区别</strong></p>
+<ul>
+<li>主要区别：<ul>
+<li>MyISAM是非事务安全型的，而InnoDB是事务安全型的。</li>
+<li>MyISAM锁的粒度是表级，而InnoDB支持行级锁定。</li>
+<li>MyISAM支持全文类型索引，而InnoDB不支持全文索引。</li>
+<li>MyISAM相对简单，所以在效率上要优于InnoDB，小型应用可以考虑使用MyISAM。</li>
+<li>MyISAM表是保存成文件的形式，在跨平台的数据转移中使用MyISAM存储会省去不少的麻烦。</li>
+<li>InnoDB表比MyISAM表更安全，可以在保证数据不会丢失的情况下，切换非事务表到事务表（alter table tablename type=innodb）。</li>
+<li></li>
+</ul>
+</li>
+<li>应用场景：<ul>
+<li>MyISAM管理非事务表。它提供高速存储和检索，以及全文搜索能力。如果应用中需要执行大量的SELECT查询，那么MyISAM是更好的选择。</li>
+<li>InnoDB用于事务处理应用程序，具有众多特性，包括ACID事务支持。如果应用中需要执行大量的INSERT或UPDATE操作，则应该使用InnoDB，这样可以提高多用户并发操作的性能。</li>
+</ul>
+</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/%E5%AE%89%E8%A3%85Oracle12C%E5%9D%91%E7%82%B9%E6%80%BB%E7%BB%93/">安装Oracle12C坑点总结</a></div><div class="post-title fs14"><a href="/2019/04/05/%E6%9C%89%E8%B6%A3%E7%9A%84%E6%B5%B7%E7%9B%97%E5%88%86%E9%87%91%E9%97%AE%E9%A2%98/">or prev: 有趣的海盗分金问题</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

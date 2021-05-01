@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>GRPC学习笔记 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点 前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。 gRPC是啥？？？？？所谓RPC(remote procedure call 远程过程调用)框架实际是提供了一套机制，使得应用程序之间可以进行通信，而且也遵从server&#x2F;client模型。使用的时候客户端调用server端提供的接口就像是调">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GRPC学习笔记">
+<meta property="og:url" content="http://example.com/2019/09/24/GRPC%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点 前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。 gRPC是啥？？？？？所谓RPC(remote procedure call 远程过程调用)框架实际是提供了一套机制，使得应用程序之间可以进行通信，而且也遵从server&#x2F;client模型。使用的时候客户端调用server端提供的接口就像是调">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/blog/19/1.png">
+<meta property="og:image" content="http://example.com/blog/19/2.png">
+<meta property="article:published_time" content="2019-09-24T08:11:41.829Z">
+<meta property="article:modified_time" content="2021-05-01T13:09:43.376Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="微服务">
+<meta property="article:tag" content="RPC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/blog/19/1.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gRPC%E6%98%AF%E5%95%A5%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F"><span class="toc-text">gRPC是啥？？？？？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-text">特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EHTTP-2"><span class="toc-text">基于HTTP&#x2F;2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDL%E4%BD%BF%E7%94%A8ProtoBuf"><span class="toc-text">IDL使用ProtoBuf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%EF%BC%88C-C-Python-PHP-Nodejs-C-Objective-C%E3%80%81Golang%E3%80%81Java%EF%BC%89"><span class="toc-text">多语言支持（C, C++, Python, PHP, Nodejs, C#, Objective-C、Golang、Java）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gRPC%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F"><span class="toc-text">gRPC通信方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81-Simple-RPC"><span class="toc-text">1、 Simple RPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Server-side-streaming-RPC"><span class="toc-text">2、Server-side streaming RPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81Client-side-streaming-RPC"><span class="toc-text">3、Client-side streaming RPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81Bidirectional-streaming-RPC"><span class="toc-text">4、Bidirectional streaming RPC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Protobuf3%E8%AF%AD%E6%B3%95"><span class="toc-text">Protobuf3语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="toc-text">常用语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON%E6%98%A0%E5%B0%84"><span class="toc-text">JSON映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grpcurl%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">grpcurl的使用</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/RPC/">RPC</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2019-09-24T08:11:41.829Z'>2019-09-24</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>GRPC学习笔记</span></h1>
+<h1 id="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点"><a href="#摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点" class="headerlink" title="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点"></a>摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点</h1><hr>
+<h1 id="前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。"><a href="#前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。" class="headerlink" title="前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。"></a>前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。</h1><hr>
+<h2 id="gRPC是啥？？？？？"><a href="#gRPC是啥？？？？？" class="headerlink" title="gRPC是啥？？？？？"></a>gRPC是啥？？？？？</h2><p>所谓RPC(remote procedure call 远程过程调用)框架实际是提供了一套机制，使得应用程序之间可以进行通信，而且也遵从server/client模型。使用的时候客户端调用server端提供的接口就像是调用本地的函数一样。如下图所示就是一个典型的RPC结构图。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/19/1.png" alt="RPC"></p>
+<p>gRPC 一开始由 google 开发，是一款语言中立、平台中立、开源的远程过程调用(RPC)系统。在 gRPC 里客户端应用可以像调用本地对象一样直接调用另一台不同的机器上服务端应用的方法，使得您能够更容易地创建分布式应用和服务。与许多 RPC 系统类似，gRPC 也是基于以下理念：定义一个服务，指定其能够被远程调用的方法（包含参数和返回类型）。在服务端实现这个接口，并运行一个 gRPC 服务器来处理客户端调用。在客户端拥有一个存根能够像服务端一样的方法。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="基于HTTP-2"><a href="#基于HTTP-2" class="headerlink" title="基于HTTP/2"></a>基于HTTP/2</h3><p>HTTP/2 提供了连接多路复用、双向流、服务器推送、请求优先级、首部压缩等机制。可以节省带宽、降低TCP链接次数、节省CPU，帮助移动设备延长电池寿命等。gRPC 的协议设计上使用了HTTP2 现有的语义，请求和响应的数据使用HTTP Body 发送，其他的控制信息则用Header 表示。</p>
+<h3 id="IDL使用ProtoBuf"><a href="#IDL使用ProtoBuf" class="headerlink" title="IDL使用ProtoBuf"></a>IDL使用ProtoBuf</h3><p>gRPC使用ProtoBuf来定义服务，ProtoBuf是由Google开发的一种数据序列化协议（类似于XML、JSON、hessian）。ProtoBuf能够将数据进行序列化，并广泛应用在数据存储、通信协议等方面。压缩和传输效率高，语法简单，表达力强。</p>
+<h3 id="多语言支持（C-C-Python-PHP-Nodejs-C-Objective-C、Golang、Java）"><a href="#多语言支持（C-C-Python-PHP-Nodejs-C-Objective-C、Golang、Java）" class="headerlink" title="多语言支持（C, C++, Python, PHP, Nodejs, C#, Objective-C、Golang、Java）"></a>多语言支持（C, C++, Python, PHP, Nodejs, C#, Objective-C、Golang、Java）</h3><p>gRPC支持多种语言，并能够基于语言自动生成客户端和服务端功能库。目前已提供了C版本grpc、Java版本grpc-java 和 Go版本grpc-go，其它语言的版本正在积极开发中，其中，grpc支持C、C++、Node.js、Python、Ruby、Objective-C、PHP和C#等语言，grpc-java已经支持Android开发。</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>gRPC已经应用在Google的云服务和对外提供的API中，其主要应用场景如下：</p>
+<ul>
+<li>低延迟、高扩展性、分布式的系统。</li>
+<li>同云服务器进行通信的移动应用客户端。</li>
+<li>设计语言独立、高效、精确的新协议。</li>
+<li>便于各方面扩展的分层设计，如认证、负载均衡、日志记录、监控等。</li>
+</ul>
+<h2 id="gRPC通信方式"><a href="#gRPC通信方式" class="headerlink" title="gRPC通信方式"></a>gRPC通信方式</h2><p>gRPC有四种通信方式:</p>
+<h3 id="1、-Simple-RPC"><a href="#1、-Simple-RPC" class="headerlink" title="1、 Simple RPC"></a>1、 Simple RPC</h3><p>简单rpc：这就是一般的rpc调用，一个请求对象对应一个返回对象。proto语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpc simpleHello(Person) returns (Result) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、Server-side-streaming-RPC"><a href="#2、Server-side-streaming-RPC" class="headerlink" title="2、Server-side streaming RPC"></a>2、Server-side streaming RPC</h3><p>服务端流式rpc：一个请求对象，服务端可以传回多个结果对象。proto语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpc serverStreamHello(Person) returns (stream Result) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、Client-side-streaming-RPC"><a href="#3、Client-side-streaming-RPC" class="headerlink" title="3、Client-side streaming RPC"></a>3、Client-side streaming RPC</h3><p>客户端流式rpc：客户端传入多个请求对象，服务端返回一个响应结果。proto语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpc clientStreamHello(stream Person) returns (Result) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、Bidirectional-streaming-RPC"><a href="#4、Bidirectional-streaming-RPC" class="headerlink" title="4、Bidirectional streaming RPC"></a>4、Bidirectional streaming RPC</h3><p>双向流式rpc：结合客户端流式rpc和服务端流式rpc，可以传入多个对象，返回多个响应对象。proto语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpc biStreamHello(stream Person) returns (stream Result) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Protobuf3语法"><a href="#Protobuf3语法" class="headerlink" title="Protobuf3语法"></a>Protobuf3语法</h2><h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">syntax &#x3D; &quot;proto3&quot;;&#x2F;&#x2F; 文件首个非空、非注释的行必须表明protobuf的版本，默认是proto2</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;import</span><br><span class="line">import &quot;google&#x2F;protobuf&#x2F;wrappers.proto&quot;;</span><br><span class="line">import &quot;src&#x2F;main&#x2F;proto&#x2F;other.proto&quot;;</span><br><span class="line">&#x2F;&#x2F;import 导入的定义仅在当前文件有效，也就是当前文件只能引用other.proto直接定义的</span><br><span class="line">&#x2F;&#x2F;import public 导入的定义是可以被传递引用的，也就是other.proto中如果</span><br><span class="line">&#x2F;&#x2F;通过import public引用的new.proto,当前文件是可以引用new.proto定义的内容</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;package</span><br><span class="line">package cn.sdut.majiatao;</span><br><span class="line">&#x2F;&#x2F;指定包名后，会对生成的代码产生影响，以Java为例，生成的类会以你指定的package作为包名</span><br><span class="line">&#x2F;&#x2F; 同时引入的.proto文件的路径也需要改动</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;option</span><br><span class="line">option java_package &#x3D; &quot;cn.sdut.majiatao&quot;;</span><br><span class="line"> &#x2F;&#x2F; 编译器为以此作为生成的Java类的包名，如果没有该选项，则会以pb的package作为包名</span><br><span class="line">option java_multiple_files &#x3D; true;</span><br><span class="line">&#x2F;&#x2F; 该选项为true时，生成的Java类将是包级别的，</span><br><span class="line">&#x2F;&#x2F;如果是false，则所有的message和service都将会是java_outer_classname的内部类</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; java_outer_classname (文件选项):</span><br><span class="line">    &#x2F;&#x2F; 该选项表明想要生成Java类的名称。</span><br><span class="line">    &#x2F;&#x2F; 如果在.proto文件中没有明确的java_outer_classname定义，生成的class名称将会根据.proto文件的名称采用驼峰式的命名方式进行生成。</span><br><span class="line">    &#x2F;&#x2F; 如（foo_bar.proto生成的java类名为FooBar.java）,如果不生成java代码，则该选项不起任何作用。如：</span><br><span class="line">      option java_outer_classname &#x3D; &quot;Ponycopter&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;option optimize_for &#x3D; SPEDD;</span><br><span class="line">&#x2F;&#x2F; 对生成的代码的一种优化，有三个值:SPEED,  CODE_SIZE, LITE_RUNTIME;</span><br><span class="line">    &#x2F;&#x2F; SPEED (default): protocol buffer编译器将通过在消息类型上执行序列化、语法分析及其他通用的操作。这种代码是最优的。</span><br><span class="line">    &#x2F;&#x2F; CODE_SIZE: protocol buffer编译器将会产生最少量的类，通过共享或基于反射的代码来实现序列化、语法分析及各种其它操作。采用该方式产生的代码将比SPEED要少得多，但是操作要相对慢些。当然实现的类及其对外的API与SPEED模式都是一样的。这种方式经常用在一些包含大量的.proto文件而且并不盲目追求速度的应用中。</span><br><span class="line">    &#x2F;&#x2F; LITE_RUNTIME: protocol buffer编译器依赖于运行时核心类库来生成代码（即采用libprotobuf-lite 替代libprotobuf）。这种核心类库由于忽略了一些描述符及反射，要比全类库小得多。这种模式经常在移动手机平台应用多一些。编译器采用该模式产生的方法实现与SPEED模式不相上下，产生的类通过实现 MessageLite接口，但它仅仅是Messager接口的一个子集。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;message</span><br><span class="line">&#x2F;&#x2F; message 逻辑上类似于一个Java class,由多个字段(属性)构成,</span><br><span class="line">&#x2F;&#x2F; 每一个字段：由类型、名称组成，等号右边的数值不是默认值，而是数字签名码，不可重复</span><br><span class="line">message SearchRequest &#123;</span><br><span class="line">    string query &#x3D; 1;</span><br><span class="line">    int32 page_number &#x3D; 2;</span><br><span class="line">    int32 result_per_page &#x3D; 3;</span><br><span class="line">    repeated string args &#x3D; 4;&#x2F;&#x2F; 等同于Java中的List&lt;String&gt; args</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 每个枚举类有对应的数值，数值不一定是连续的。</span><br><span class="line">    &#x2F;&#x2F; 第一个枚举值必须是0并且至少有一个枚举值</span><br><span class="line">    enum Corpus&#123;</span><br><span class="line">        option allow_alias &#x3D; true;</span><br><span class="line">        UNIVERSAL &#x3D; 0;&#x2F;&#x2F; 默认</span><br><span class="line">        WEB &#x3D; 1;</span><br><span class="line">        IMAGES &#x3D; 2;</span><br><span class="line">        LOCAL &#x3D; 3;</span><br><span class="line">        &#x2F;&#x2F; 如果一个数值需要对应多个枚举值,必须标明 option allow_alias &#x3D; true</span><br><span class="line">        FRAMEWORK &#x3D; 1;</span><br><span class="line">    &#125;</span><br><span class="line">    Result result &#x3D; 5;&#x2F;&#x2F; 字段类型也可以引用其他的message类型</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">message Result &#123;</span><br><span class="line">    string url &#x3D; 1;</span><br><span class="line">    repeated string snippets &#x3D; 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;scalar value type</span><br><span class="line">&#x2F;&#x2F;类型</span><br><span class="line">&#x2F;&#x2F; 1. for strings, the default value is the empty string</span><br><span class="line">&#x2F;&#x2F; 2. for bytes, the default value is the empty bytes</span><br><span class="line">&#x2F;&#x2F; 3. for bools, the default value is false</span><br><span class="line">&#x2F;&#x2F; 4. for numeric types, the default value is zero</span><br><span class="line">&#x2F;&#x2F; 5. for enums, the default value s the first defined enum value, which must be 0</span><br><span class="line">&#x2F;&#x2F; 6. for message fields, the field is not set, Iys exact value is language-dependent</span><br><span class="line">&#x2F;&#x2F; 7. for repeated fields, the default value is empty list</span><br><span class="line">&#x2F;&#x2F;PS:if a scalar message field is set to its default, the value will not be serialized on the wire.</span><br><span class="line">&#x2F;&#x2F; 如果一个字段的值等于默认值(如bool类型字段为false)，那么它将不会被序列化</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Any</span><br><span class="line">&#x2F;&#x2F; Any类型 需要import &quot;google&#x2F;protobuf&#x2F;any.proto&quot;</span><br><span class="line">&#x2F;&#x2F; Any类型可以允许包装任意的message类型</span><br><span class="line">&#x2F;&#x2F; Any类型消息允许你在没有指定他们的.proto定义的情况下使用消息作为一个嵌套类型。</span><br><span class="line">&#x2F;&#x2F; 一个Any类型包括一个可以被序列化bytes类型的任意消息，以及一个URL作为一个全局标识符和解析消息类型。</span><br><span class="line">import &quot;google&#x2F;protobuf&#x2F;any.proto&quot;;</span><br><span class="line">message Response &#123;</span><br><span class="line">    google.protobuf.Any data &#x3D; 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Oneof</span><br><span class="line">&#x2F;&#x2F;Oneof 有一些字段最多只能有一个被设置，任何一个字段被设置，其他字段会自动成为默认值</span><br><span class="line">&#x2F;&#x2F; 该类型不支持repeated</span><br><span class="line">message SampleMessage &#123;</span><br><span class="line">    oneof test_oneof &#123;</span><br><span class="line">        string last_name &#x3D; 1;</span><br><span class="line">        string family_name &#x3D; 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Maps</span><br><span class="line">message MapsMessage &#123;</span><br><span class="line">    &#x2F;&#x2F; 除了float、bytes、枚举类型作为key，其他scalar value types都可以作为key</span><br><span class="line">    &#x2F;&#x2F; 除了map之外的任意类型可以作为value</span><br><span class="line">    &#x2F;&#x2F; map类型字段不支持repeated,value顺序是无序的</span><br><span class="line">    &#x2F;&#x2F; 当为.proto文件产生生成文本格式的时候，map会按照key 的顺序排序，数值化的key会按照数值排序。</span><br><span class="line">    &#x2F;&#x2F; 从序列化中解析或者融合时，如果有重复的key则后一个key不会被使用，当从文本格式中解析map时，如果存在重复的key。</span><br><span class="line">    map&lt;string, SearchRequest&gt; searchRequest &#x3D; 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;定义服务(Service)</span><br><span class="line">&#x2F;&#x2F;想要定义一个RPC服务并具有一个方法，该方法能够接收 SearchRequest并返回一个SearchResponse，此时可以在.proto文件中进行如下定义：</span><br><span class="line">service SearchService &#123;</span><br><span class="line">  rpc Search (SearchRequest) returns (SearchResponse);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="JSON映射"><a href="#JSON映射" class="headerlink" title="JSON映射"></a>JSON映射</h3><p>Proto3支持标准的JSON编码，使得在不同的系统直接共享数据变得简单。下表列出的是基础的类型对照。</p>
+<p>在JSON编码中，如果某个值被设置为null或丢失，在映射为ProtoBuf的时候会转换为相应的默认值。在ProtoBuf中如果一个字段是默认值，在映射为JSON编码的时候，这个默认值会被忽略以节省空间。可以通过选项设置，使得JSON编码输出中字段带有默认值。</p>
+<table>
+<thead>
+<tr>
+<th>proto3</th>
+<th>JSON</th>
+<th>JSON example</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>message</td>
+<td>object</td>
+<td>{“fooBar”: v,”g”: null,…}</td>
+<td>生成JSON对象。 消息字段名称映射到lowerCamelCase并成为JSON对象键。 如果指定了json_name字段选项，则将指定的值用作键。解析器接受 lowerCamelCase名称（或json_name选项指定的名称）和原始proto字段名称。 null是所有字段类型的可接受值，并被视为相应字段类型的默认值。</td>
+</tr>
+<tr>
+<td>enum</td>
+<td>string</td>
+<td>“FOO_BAR”</td>
+<td>使用proto中指定的枚举值的名称。 解析器接受枚举名称和整数值。</td>
+</tr>
+<tr>
+<td>map&lt;K,V&gt;</td>
+<td>object</td>
+<td>{“k”: v, …}</td>
+<td>所有键都转换为字符串。</td>
+</tr>
+<tr>
+<td>repeated V</td>
+<td>array</td>
+<td>[v, …]</td>
+<td>null被转换为空列表[]</td>
+</tr>
+<tr>
+<td>bool</td>
+<td>true, false</td>
+<td>true, false</td>
+<td></td>
+</tr>
+<tr>
+<td>string</td>
+<td>string</td>
+<td>“Hello World!”</td>
+<td></td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>base64 string</td>
+<td>“YWJjMTIzIT8kKiYoKSctPUB+”</td>
+<td>JSON值将是使用带填充的标准base64编码编码为字符串的数据。 接受带有/不带填充的标准或URL安全base64编码。</td>
+</tr>
+<tr>
+<td>int32, fixed32, uint32</td>
+<td>number</td>
+<td>1, -10, 0</td>
+<td>JSON值将是十进制数。 接受数字或字符串。</td>
+</tr>
+<tr>
+<td>int64, fixed64, uint64</td>
+<td>string</td>
+<td>“1”, “-10”</td>
+<td>JSON值将是十进制字符串。 接受数字或字符串。</td>
+</tr>
+<tr>
+<td>float, double</td>
+<td>number</td>
+<td>1.1, -10.0, 0, “NaN”, “Infinity”</td>
+<td>JSON值将是一个或多个特殊字符串值“NaN”，“Infinity”和“-Infinity”。 接受数字或字符串。 指数表示法也被接受。</td>
+</tr>
+<tr>
+<td>Any</td>
+<td>object</td>
+<td>{“@type”: “url”, “f”: v, … }</td>
+<td>如果Any包含具有特殊JSON映射的值，则它将按如下方式转换： {“@ type”：xxx，“value”：yyy} 。 否则，该值将转换为JSON对象，并将插入 “@ type” 字段以指示实际数据类型。</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>string</td>
+<td>“1972-01-01T10:00:20.021Z”</td>
+<td>使用RFC 3339，其中生成的输出将始终被Z标准化并使用0,3,6或9个小数位。 也接受“Z”以外的偏移。</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>string</td>
+<td>“1.000340012s”, “1s”</td>
+<td>生成的输出始终包含0,3,6或9个小数位，具体取决于所需的精度，后跟后缀“s”。 接受的是任何小数位（也没有），只要它们符合纳秒精度并且需要后缀“s”。</td>
+</tr>
+<tr>
+<td>Struct</td>
+<td>object</td>
+<td>{ … }</td>
+<td>任意JSON对象</td>
+</tr>
+<tr>
+<td>Wrapper types</td>
+<td>various types</td>
+<td>2, “2”, “foo”, true, “true”, null, 0, …</td>
+<td>Wrappers在JSON中使用与包装基元类型相同的表示形式，除了在数据转换和传输期间允许并保留 null .</td>
+</tr>
+<tr>
+<td>FieldMask</td>
+<td>string</td>
+<td>“f.fooBar,h”</td>
+<td>见field_mask.proto.</td>
+</tr>
+<tr>
+<td>ListValue</td>
+<td>array</td>
+<td>[foo, bar, …]</td>
+<td></td>
+</tr>
+<tr>
+<td>Value</td>
+<td>value</td>
+<td></td>
+<td>任意JSON 值</td>
+</tr>
+<tr>
+<td>NullValue</td>
+<td>null</td>
+<td></td>
+<td>JSON null</td>
+</tr>
+</tbody></table>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/19/2.png" alt="JSON映射"></p>
+<h2 id="grpcurl的使用"><a href="#grpcurl的使用" class="headerlink" title="grpcurl的使用"></a>grpcurl的使用</h2><p>下载grpcurl工具：</p>
+<p>github地址：<a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcurl/releases/tag/v1.3.1">https://github.com/fullstorydev/grpcurl/releases/tag/v1.3.1</a> 点击release下载对应的版本</p>
+<p>Linux内核的系统下：./grpcurl -plaintext -d ‘{JSON_FROMAT_DATA}’ {ADDRESS}:{PORT} {SERVICE_NAME}.{METHOD_NAME}</p>
+<p>Windows操作系统下：grpcurl -d {JSON_FROMAT_DATA} -plaintext {ADDRESS}:{PORT} {SERVICE_NAME}/{METHOD_NAME}<br>    需要注意Windows操作系统下{JSON_FROMAT_DATA}需要转义，例如入参为{“aa”:1,”bb”:”zhangsan”} 需要写成 {&quot;aa&quot;:1,&quot;bb&quot;:&quot;zhangsan&quot;}</p>
+<p>调用gRPC服务：</p>
+<p>Linux系统下：./grpcurl -plaintext -d ‘{“name”:”zhangsan”}’ {ADDRESS}:{PORT} com.ypsx.项目名.client.service.HelloService.sayHello</p>
+<p>Windows操作系统cmd命令行下：grpcurl.exe -d {&quot;name&quot;:&quot;zhangsan&quot;} -plaintext {ADDRESS}:{PORT} com.ypsx.项目名.client.service.HelloService/sayHello</p>
+<p>Windows操作系统PowerShell命令行下：grpcurl.exe -d ‘{&quot;name&quot;:&quot;zhangsan&quot;}’ -plaintext ‘{ADDRESS}:{PORT}’ ‘com.ypsx.项目名.client.service.HelloService/sayHello’</p>
+<p>成功返回：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;message&quot;: &quot;Hello zhangsan&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考文章：<a target="_blank" rel="noopener" href="https://colobu.com/2017/03/16/Protobuf3-language-guide/">https://colobu.com/2017/03/16/Protobuf3-language-guide/</a></p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/09/19/linux%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA/">linux深入浅出</a></div><div class="post-title fs14"><a href="/2019/09/25/git%E5%92%8Cmaven%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">or prev: git和maven常用命令</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>面试基础题之《volatile》 - Hexo</title>
+
+  
+    <meta name="description" content="摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。 前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。 volatile关键字基本介绍volatile可以看成是synchronized的一种轻量级的实现，但volatile并不能完全代替synchronized，volatile有synchronized可见">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试基础题之《volatile》">
+<meta property="og:url" content="http://example.com/2020/08/15/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8Avolatile%E3%80%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。 前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。 volatile关键字基本介绍volatile可以看成是synchronized的一种轻量级的实现，但volatile并不能完全代替synchronized，volatile有synchronized可见">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-15T06:17:48.561Z">
+<meta property="article:modified_time" content="2020-08-16T07:15:30.306Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+  
+    <a class='title' href='/'>
+      Hexo
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile%E5%85%B3%E9%94%AE%E5%AD%97%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">volatile关键字基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E8%AF%81%E6%AD%A4%E5%8F%98%E9%87%8F%E5%AF%B9%E6%89%80%E6%9C%89%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%EF%BC%9A"><span class="toc-text">保证此变量对所有线程的可见性：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96%EF%BC%9A"><span class="toc-text">禁止指令重排序优化：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%9D%A5%E4%BA%86volatile%E6%98%AF%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="toc-text">问题来了volatile是如何防止指令重排序优化的呢？</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>Home</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>Blog</a>
+      
+        <span class="sep"></span>
+        <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+      
+    </div>
+    <div id='post-meta'>
+      Posted on&nbsp;<time datetime='2020-08-15T06:17:48.561Z'>2020-08-15</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+<h1 class="article-title"><span>面试基础题之《volatile》</span></h1>
+<h1 id="摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。"><a href="#摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。" class="headerlink" title="摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。"></a>摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。</h1><hr>
+<h1 id="前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。"><a href="#前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。" class="headerlink" title="前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。"></a>前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。</h1><hr>
+<h2 id="volatile关键字基本介绍"><a href="#volatile关键字基本介绍" class="headerlink" title="volatile关键字基本介绍"></a>volatile关键字基本介绍</h2><p>volatile可以看成是synchronized的一种轻量级的实现，但volatile并不能完全代替synchronized，volatile有synchronized可见性的特性，但没有synchronized原子性的特性。可见性即用volatile关键字修饰的成员变量表明该变量不存在工作线程的副本，线程每次直接都从主内存中读取，每次读取的都是最新的值，这也就保证了变量对其他线程的可见性。另外，使用volatile还能确保变量不能被重排序，保证了有序性。</p>
+<ul>
+<li><p>当一个变量定义为volatile之后，它将具备两种特性：</p>
+<ul>
+<li>保证此变量对所有线程的<strong>可见性</strong></li>
+<li>禁止指令重排序优化</li>
+</ul>
+</li>
+<li><p>volatile与synchronized的区别：</p>
+<ul>
+<li>1、volatile只能修饰实例变量和类变量，而synchronized可以修饰方法，以及代码块。</li>
+<li>2、volatile保证数据的可见性，但是不保证原子性; 而synchronized是一种排他(互斥)的机制，既保证可见性，又保证原子性。</li>
+<li>3、volatile不会造成线程的阻塞；synchronized可能会造成线程的阻塞。</li>
+<li>4、volatile可以看做是轻量版的synchronized，volatile不保证原子性，但是如果是对一个共享变量进行多个线程的赋值，而没有其他的操作，那么就可以用volatile来代替synchronized，因为赋值本身是有原子性的，而volatile又保证了可见性，所以就可以保证线程安全了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="保证此变量对所有线程的可见性："><a href="#保证此变量对所有线程的可见性：" class="headerlink" title="保证此变量对所有线程的可见性："></a>保证此变量对所有线程的<strong>可见性</strong>：</h2><p>当一条线程修改了这个变量的值，新值对于其他线程可以说是可以立即得知的。Java内存模型规定了所有的变量都存储在主内存，每条线程还有自己的工作内存，线程的工作内存保存了该线程使用到的变量在主内存的副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读取主内存中的变量。</p>
+<p>知识拓展：<strong>内存可见性</strong>：</p>
+<ul>
+<li>概念：JVM内存模型：<strong>主内存</strong> 和 线程独立的 <strong>工作内存</strong>。Java内存模型规定，对于多个线程共享的变量，存储在主内存当中，每个线程都有自己独立的工作内存（比如CPU的寄存器），线程只能访问自己的工作内存，不可以访问其它线程的工作内存。工作内存中保存了主内存共享变量的副本，线程要操作这些共享变量，只能通过操作工作内存中的副本来实现，操作完毕之后再同步回到主内存当中。</li>
+<li>如何保证多个线程操作主内存的数据完整性是一个难题，Java内存模型也规定了工作内存与主内存之间交互的协议，定义了8种原子操作：<ul>
+<li>(1) lock:将主内存中的变量锁定，为一个线程所独占。</li>
+<li>(2) unclock:将lock加的锁定解除，此时其它的线程可以有机会访问此变量。</li>
+<li>(3) read:将主内存中的变量值读到工作内存当中。</li>
+<li>(4) load:将read读取的值保存到工作内存中的变量副本中。</li>
+<li>(5) use:将值传递给线程的代码执行引擎。</li>
+<li>(6) assign:将执行引擎处理返回的值重新赋值给变量副本。</li>
+<li>(7) store:将变量副本的值存储到主内存中。</li>
+<li>(8) write:将store存储的值写入到主内存的共享变量当中。</li>
+</ul>
+</li>
+</ul>
+<p>  通过上面Java内存模型的概述，我们会注意到这么一个问题，每个线程在获取锁之后会在自己的工作内存来操作共享变量，操作完成之后将工作内存中的副本回写到主内存，并且在其它线程从主内存将变量同步回自己的工作内存之前，共享变量的改变对其是不可见的。即其他线程的本地内存中的变量已经是过时的，并不是更新后的值。volatile保证可见性的原理是在每次访问变量时都会进行一次刷新，因此每次访问都是主内存中最新的版本。所以volatile关键字的作用之一就是保证变量修改的实时可见性。</p>
+<p>  即，volatile的特殊规则就是：</p>
+<ul>
+<li>read、load、use动作必须连续出现。</li>
+<li>assign、store、write动作必须连续出现。</li>
+</ul>
+<p>  所以，使用volatile变量能够保证:</p>
+<ul>
+<li>每次读取前必须先从主内存刷新最新的值。</li>
+<li>每次写入后必须立即同步回主内存当中。</li>
+</ul>
+<p>  也就是说，volatile关键字修饰的变量看到的是自己的最新值。线程1中对变量v的最新修改，对线程2是可见的。</p>
+<h2 id="禁止指令重排序优化："><a href="#禁止指令重排序优化：" class="headerlink" title="禁止指令重排序优化："></a>禁止指令重排序优化：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">volatile boolean isOK &#x3D; false;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;假设以下代码在线程A执行</span><br><span class="line">A.init();</span><br><span class="line">isOK&#x3D;true;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;假设以下代码在线程B执行</span><br><span class="line">while(!isOK)&#123;</span><br><span class="line">  sleep();</span><br><span class="line">&#125;</span><br><span class="line">B.init();</span><br></pre></td></tr></table></figure>
+
+<p>A线程在初始化的时候，B线程处于睡眠状态，等待A线程完成初始化的时候才能够进行自己的初始化。这里的先后关系依赖于isOK这个变量。如果没有volatile修饰isOK这个变量，那么isOK的赋值就可能出现在A.init()之前（指令重排序,Java虚拟机的一种优化措施），此时A没有初始化，而B的初始化就破坏了它们之前形成的那种依赖关系，可能就会出错。</p>
+<p>知识拓展：<strong>指令重排序</strong>：</p>
+<ul>
+<li>概念：指令重排序是JVM为了优化指令，提高程序运行效率，在不影响 <strong>单线程程序</strong> 执行结果的前提下，尽可能地提高并行度。编译器、处理器也遵循这样一个目标。注意是单线程。多线程的情况下指令重排序就会给程序带来问题。</li>
+</ul>
+<p>  不同的指令间可能存在数据依赖。比如下面的语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int l &#x3D; 3; &#x2F;&#x2F; (1)</span><br><span class="line">int w &#x3D; 4; &#x2F;&#x2F; (2)</span><br><span class="line">int s &#x3D; l * w; &#x2F;&#x2F; (3)</span><br></pre></td></tr></table></figure>
+
+<p>面积的计算依赖于l与w两个变量的赋值指令。而l与w无依赖关系。</p>
+<p>重排序会遵守两个规则：</p>
+<ul>
+<li><strong>as-if-serial规则</strong>：as-if-serial规则是指不管如何重排序（编译器与处理器为了提高并行度），（单线程）程序的结果不能被改变。这是编译器、Runtime、处理器必须遵守的语义。</li>
+<li><strong>happens-before规则</strong>：<ul>
+<li>概念：前一个操作的结果可以被后续的操作获取。讲直白点就是前面一个操作把变量a赋值为1，那后面一个操作肯定能知道a已经变成了1。</li>
+<li>happens-before（先行发生）规则如下：<ul>
+<li>程序顺序规则：一个线程中的每个操作，happens-before于线程中的任意后续操作。</li>
+<li>监视器锁规则：一个锁的解锁，happens-before于随后对这个锁的加锁。</li>
+<li>volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。</li>
+<li>传递性：如果（A）happens-before（B），且（B）happens-before（C），那么（A）happens-before（C）。</li>
+<li>线程start()规则：主线程A启动线程B，线程B中可以看到主线程启动B之前的操作。也就是start() happens-before 线程B中的操作。</li>
+<li>线程join()规则：主线程A等待子线程B完成，当子线程B执行完毕后，主线程A可以看到线程B的所有操作。也就是说，子线程B中的任意操作，happens-before join()的返回。</li>
+<li>中断规则：一个线程调用另一个线程的interrupt，happens-before于被中断的线程发现中断。</li>
+<li>终结规则：一个对象的构造函数的结束，happens-before于这个对象finalizer的开始。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>虽然，（1）-happensbefore -&gt;（2）,（2）-happens before-&gt;（3），但是计算顺序(1)(2)(3)与(2)(1)(3)对于l、w、area变量的结果并无区别。编译器、Runtime在优化时可以根据情况重排序（1）与（2），而丝毫不影响程序的结果。</p>
+<ul>
+<li>volatile使用场景：<ul>
+<li>如果正确使用volatile的话，必须依赖下以下种条件：<ul>
+<li>1、对变量的写操作不依赖当前变量的值。</li>
+<li>2、该变量没有包含在其他变量的不变式中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>也可以这样理解，就是上面的2个条件需要保证操作是原子性操作，才能保证使用volatile关键字的程序在并发时能够正确执行。</p>
+<p>第一个条件的限制使 volatile 变量不能用作线程安全计数器。虽然增量操作（i++）看上去类似一个单独操作，实际上它是一个由（读取－修改－写入）操作序列组成的组合操作，必须以原子方式执行，而 volatile 不能提供必须的原子特性。实现正确的操作需要使 i 的值在操作期间保持不变，而 volatile 变量无法实现这点。</p>
+<ul>
+<li>在以下两种情况下都必须使用volatile：<ul>
+<li>1、状态的改变。</li>
+<li>2、读多写少的情况。</li>
+</ul>
+</li>
+</ul>
+<p>具体如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 场景一：状态改变</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 双重检查（DCL）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sun</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Sun sunInstance;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Sun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Sun <span class="title">getSunInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sunInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (Sun.class) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sunInstance == <span class="keyword">null</span>)&#123;</span><br><span class="line">          sunInstance = <span class="keyword">new</span> Sun();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sunInstance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 场景二：读多写少</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//读操作，没有synchronized，提高性能</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//写操作，必须synchronized。因为x++不是原子操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">increment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="问题来了volatile是如何防止指令重排序优化的呢？"><a href="#问题来了volatile是如何防止指令重排序优化的呢？" class="headerlink" title="问题来了volatile是如何防止指令重排序优化的呢？"></a>问题来了volatile是如何防止指令重排序优化的呢？</h2><p>答：</p>
+<p>volatile关键字通过 <strong>“内存屏障”</strong> 的方式来防止指令被重排序，为了实现volatile的内存语义，编译器在生成字节码时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。大多数的处理器都支持内存屏障的指令。</p>
+<p>对于编译器来说，发现一个最优布置来最小化插入屏障的总数几乎不可能，为此，Java内存模型采取保守策略。下面是基于保守策略的JMM内存屏障插入策略：</p>
+<ul>
+<li>在每个volatile写操作的前面插入一个StoreStore屏障。</li>
+<li>在每个volatile写操作的后面插入一个StoreLoad屏障。</li>
+<li>在每个volatile读操作的后面插入一个LoadLoad屏障。</li>
+<li>在每个volatile读操作的后面插入一个LoadStore屏障。</li>
+</ul>
+<p>知识拓展：<strong>内存屏障</strong>：</p>
+<p>内存屏障（Memory Barrier，或有时叫做内存栅栏，Memory Fence）是一种CPU指令，用于控制特定条件下的重排序和内存可见性问题。Java编译器也会根据内存屏障的规则禁止重排序。<br>    内存屏障可以被分为以下几种类型：<br>    - LoadLoad屏障：对于这样的语句Load1; LoadLoad; Load2，在Load2及后续读取操作要读取的数据被访问前，保证Load1要读取的数据被读取完毕。<br>    - StoreStore屏障：对于这样的语句Store1; StoreStore; Store2，在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。<br>    - LoadStore屏障：对于这样的语句Load1; LoadStore; Store2，在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。<br>    - StoreLoad屏障：对于这样的语句Store1; StoreLoad; Load2，在Load2及后续所有读取操作执行前，保证Store1的写入对所有处理器可见。它的开销是四种屏障中最大的。在大多数处理器的实现中，这个屏障是个万能屏障，兼具其它三种内存屏障的功能。</p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">如何保证类线程安全</a></div><div class="post-title fs14"><a href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/">or prev: 面试题目总结</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
+<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: 'Just',
+      min: 'minutes ago',
+      hour: 'hours ago',
+      day: 'days ago',
+      month: 'months ago',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
