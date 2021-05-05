@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-cn'>
 
 <head>
   <meta name="generator" content="Hexo 5.4.0">
@@ -17,19 +17,19 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>面试基础题之《volatile》 - Hexo</title>
+  <title>面试基础题之《volatile》 - 教练，我想学技术</title>
 
   
     <meta name="description" content="摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。 前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。 volatile关键字基本介绍volatile可以看成是synchronized的一种轻量级的实现，但volatile并不能完全代替synchronized，volatile有synchronized可见">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试基础题之《volatile》">
 <meta property="og:url" content="http://example.com/2020/08/15/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8Avolatile%E3%80%8B/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="教练，我想学技术">
 <meta property="og:description" content="摘要：该篇文章主要是总结了一下面试过程中关于volatile关键字的知识点。 前言：volatile相关的知识点，在面试过程中，属于基础问题，是必须要掌握的知识点，如果回答不上来会严重扣分的哦。 volatile关键字基本介绍volatile可以看成是synchronized的一种轻量级的实现，但volatile并不能完全代替synchronized，volatile有synchronized可见">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-15T06:17:48.561Z">
 <meta property="article:modified_time" content="2020-08-16T07:15:30.306Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Java基础">
 <meta name="twitter:card" content="summary">
@@ -61,7 +61,7 @@
   
   
     <a class='title' href='/'>
-      Hexo
+      教练，我想学技术
     </a>
   
 </div>
@@ -74,7 +74,7 @@
     
       
       
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile%E5%85%B3%E9%94%AE%E5%AD%97%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">volatile关键字基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E8%AF%81%E6%AD%A4%E5%8F%98%E9%87%8F%E5%AF%B9%E6%89%80%E6%9C%89%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%EF%BC%9A"><span class="toc-text">保证此变量对所有线程的可见性：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96%EF%BC%9A"><span class="toc-text">禁止指令重排序优化：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%9D%A5%E4%BA%86volatile%E6%98%AF%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="toc-text">问题来了volatile是如何防止指令重排序优化的呢？</span></a></li></ol></div></div></div>
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile%E5%85%B3%E9%94%AE%E5%AD%97%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">volatile关键字基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E8%AF%81%E6%AD%A4%E5%8F%98%E9%87%8F%E5%AF%B9%E6%89%80%E6%9C%89%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%EF%BC%9A"><span class="toc-text">保证此变量对所有线程的可见性：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96%EF%BC%9A"><span class="toc-text">禁止指令重排序优化：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%9D%A5%E4%BA%86volatile%E6%98%AF%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="toc-text">问题来了volatile是如何防止指令重排序优化的呢？</span></a></li></ol></div></div></div>
 
     
   
@@ -92,16 +92,16 @@
   
     
     <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>Home</a>
+      <a class='cap breadcrumb' href='/'>主页</a>
       <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>Blog</a>
+      <a class='cap breadcrumb' href='/'>文章</a>
       
         <span class="sep"></span>
         <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
       
     </div>
     <div id='post-meta'>
-      Posted on&nbsp;<time datetime='2020-08-15T06:17:48.561Z'>2020-08-15</time>
+      发布于&nbsp;<time datetime='2020-08-15T06:17:48.561Z'>2020-08-15</time>
     </div>
   
   </div>
@@ -222,12 +222,12 @@
 <p>内存屏障（Memory Barrier，或有时叫做内存栅栏，Memory Fence）是一种CPU指令，用于控制特定条件下的重排序和内存可见性问题。Java编译器也会根据内存屏障的规则禁止重排序。<br>    内存屏障可以被分为以下几种类型：<br>    - LoadLoad屏障：对于这样的语句Load1; LoadLoad; Load2，在Load2及后续读取操作要读取的数据被访问前，保证Load1要读取的数据被读取完毕。<br>    - StoreStore屏障：对于这样的语句Store1; StoreStore; Store2，在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。<br>    - LoadStore屏障：对于这样的语句Load1; LoadStore; Store2，在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。<br>    - StoreLoad屏障：对于这样的语句Store1; StoreLoad; Load2，在Load2及后续所有读取操作执行前，保证Store1的写入对所有处理器可见。它的开销是四种屏障中最大的。在大多数处理器的实现中，这个屏障是个万能屏障，兼具其它三种内存屏障的功能。</p>
 
 
-<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div></section></div>
 
 </article>
 
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">如何保证类线程安全</a></div><div class="post-title fs14"><a href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/">or prev: 面试题目总结</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">如何保证类线程安全</a></div><div class="post-title fs14"><a href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/">上一篇：面试题目总结</a></div></section></div>
 
 
 
@@ -237,8 +237,8 @@
 
 
       
-<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
-<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://example.com/">@th3ee9ine</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
 </div></footer>
 
       <div class='float-panel mobile-only' style='display:none'>
@@ -345,11 +345,11 @@
   stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
   stellar.config = {
     date_suffix: {
-      just: 'Just',
-      min: 'minutes ago',
-      hour: 'hours ago',
-      day: 'days ago',
-      month: 'months ago',
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
     },
   };
 

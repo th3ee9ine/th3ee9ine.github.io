@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-cn'>
 
 <head>
   <meta name="generator" content="Hexo 5.4.0">
@@ -17,16 +17,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>flagr入门 - Hexo</title>
+  <title>flagr入门 - 教练，我想学技术</title>
 
   
     <meta name="description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。 flagr是什么？在介绍flagr之前，我们先要明白什么是A&#x2F;B测试，什么是灰度测试，这样可以让我们更好的理解flagr。 A&#x2F;B测试A&#x2F;B测试指的是系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flagr入门">
 <meta property="og:url" content="http://example.com/2020/05/05/Flagr%E5%85%A5%E9%97%A8/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="教练，我想学技术">
 <meta property="og:description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。 flagr是什么？在介绍flagr之前，我们先要明白什么是A&#x2F;B测试，什么是灰度测试，这样可以让我们更好的理解flagr。 A&#x2F;B测试A&#x2F;B测试指的是系统">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/blog/23/1.png">
 <meta property="og:image" content="http://example.com/blog/23/2.png">
 <meta property="og:image" content="http://example.com/blog/23/3.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://example.com/blog/23/8.png">
 <meta property="article:published_time" content="2020-05-05T08:38:55.675Z">
 <meta property="article:modified_time" content="2021-05-01T13:09:43.358Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="A&#x2F;B测试">
 <meta name="twitter:card" content="summary">
@@ -70,7 +70,7 @@
   
   
     <a class='title' href='/'>
-      Hexo
+      教练，我想学技术
     </a>
   
 </div>
@@ -83,7 +83,7 @@
     
       
       
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">flagr是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-B%E6%B5%8B%E8%AF%95"><span class="toc-text">A&#x2F;B测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="toc-text">灰度测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E6%B5%8B%E8%AF%95%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-text">灰度测试的意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4"><span class="toc-text">灰度发布步骤</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flagr%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">flagr是什么？可以用来做什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flagr%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A"><span class="toc-text">flagr中的一些专业术语解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E6%8F%90%E4%BE%9B%E7%9A%84http%E6%8E%A5%E5%8F%A3"><span class="toc-text">flagr提供的http接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E5%AE%9E%E4%BE%8B"><span class="toc-text">flagr实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">flagr的结构</span></a></li></ol></div></div></div>
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">flagr是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-B%E6%B5%8B%E8%AF%95"><span class="toc-text">A&#x2F;B测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="toc-text">灰度测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E6%B5%8B%E8%AF%95%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-text">灰度测试的意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4"><span class="toc-text">灰度发布步骤</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flagr%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">flagr是什么？可以用来做什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flagr%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A"><span class="toc-text">flagr中的一些专业术语解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E6%8F%90%E4%BE%9B%E7%9A%84http%E6%8E%A5%E5%8F%A3"><span class="toc-text">flagr提供的http接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E5%AE%9E%E4%BE%8B"><span class="toc-text">flagr实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flagr%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">flagr的结构</span></a></li></ol></div></div></div>
 
     
   
@@ -101,16 +101,16 @@
   
     
     <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>Home</a>
+      <a class='cap breadcrumb' href='/'>主页</a>
       <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>Blog</a>
+      <a class='cap breadcrumb' href='/'>文章</a>
       
         <span class="sep"></span>
         <a class="cap breadcrumb-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>
       
     </div>
     <div id='post-meta'>
-      Posted on&nbsp;<time datetime='2020-05-05T08:38:55.675Z'>2020-05-05</time>
+      发布于&nbsp;<time datetime='2020-05-05T08:38:55.675Z'>2020-05-05</time>
     </div>
   
   </div>
@@ -375,12 +375,12 @@
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/blog/23/8.png" alt="flagr架构图"></p>
 
 
-<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div></section></div>
 
 </article>
 
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2020/03/28/ORM%E4%B9%8B%E4%BB%96%E6%9A%82%E6%97%B6%E5%8F%AF%E8%83%BD%E5%8F%AA%E6%98%AF%E4%B8%AA%E5%BC%9F%E5%BC%9F%E2%80%94%E2%80%94Jooq/">ORM之他暂时可能只是个弟弟——Jooq</a></div><div class="post-title fs14"><a href="/2020/06/13/Java%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/">or prev: Java依赖注入详解</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/03/28/ORM%E4%B9%8B%E4%BB%96%E6%9A%82%E6%97%B6%E5%8F%AF%E8%83%BD%E5%8F%AA%E6%98%AF%E4%B8%AA%E5%BC%9F%E5%BC%9F%E2%80%94%E2%80%94Jooq/">ORM之他暂时可能只是个弟弟——Jooq</a></div><div class="post-title fs14"><a href="/2020/06/13/Java%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/">上一篇：Java依赖注入详解</a></div></section></div>
 
 
 
@@ -390,8 +390,8 @@
 
 
       
-<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
-<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://example.com/">@th3ee9ine</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
 </div></footer>
 
       <div class='float-panel mobile-only' style='display:none'>
@@ -498,11 +498,11 @@
   stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
   stellar.config = {
     date_suffix: {
-      just: 'Just',
-      min: 'minutes ago',
-      hour: 'hours ago',
-      day: 'days ago',
-      month: 'months ago',
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
     },
   };
 

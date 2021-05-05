@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-cn'>
 
 <head>
   <meta name="generator" content="Hexo 5.4.0">
@@ -17,19 +17,19 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Spring中常用的注解 - Hexo</title>
+  <title>Spring中常用的注解 - 教练，我想学技术</title>
 
   
     <meta name="description" content="摘要：本文主要总结了一些Spring和Spring MVC中常用的注解。 前言：今天总结了一下这周所学习的内容，这是第一篇Spring中常用注解的总结。 Spring中常用注解1、声明bean的注解 @Component：这个更多对应的是一个组件的概念，如果一个Bean不知道属于哪个层，可以使用@Component注解标注  @Component作用在类上 @Component注解作用域默认为si">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring中常用的注解">
 <meta property="og:url" content="http://example.com/2019/04/13/Spring%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="教练，我想学技术">
 <meta property="og:description" content="摘要：本文主要总结了一些Spring和Spring MVC中常用的注解。 前言：今天总结了一下这周所学习的内容，这是第一篇Spring中常用注解的总结。 Spring中常用注解1、声明bean的注解 @Component：这个更多对应的是一个组件的概念，如果一个Bean不知道属于哪个层，可以使用@Component注解标注  @Component作用在类上 @Component注解作用域默认为si">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-13T02:55:43.728Z">
 <meta property="article:modified_time" content="2019-05-15T16:04:36.656Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -61,7 +61,7 @@
   
   
     <a class='title' href='/'>
-      Hexo
+      教练，我想学技术
     </a>
   
 </div>
@@ -74,7 +74,7 @@
     
       
       
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">Spring中常用注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%A3%B0%E6%98%8Ebean%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="toc-text">1、声明bean的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81-Bean%E7%9A%84%E5%B1%9E%E6%80%A7%E6%94%AF%E6%8C%81"><span class="toc-text">2、@Bean的属性支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%B3%A8%E5%85%A5bean%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="toc-text">3、注入bean的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81java%E9%85%8D%E7%BD%AE%E7%B1%BB%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="toc-text">4、java配置类相关注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E5%88%87%E9%9D%A2%EF%BC%88AOP%EF%BC%89%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="toc-text">5、切面（AOP）相关注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81-Value%E6%B3%A8%E8%A7%A3"><span class="toc-text">6、@Value注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-%E4%B8%BA%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5%E5%80%BC%EF%BC%88%E5%B1%9E%E6%80%A7%E4%B8%8A%EF%BC%89"><span class="toc-text">@Value 为属性注入值（属性上）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">注入配置使用方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E7%8E%AF%E5%A2%83%E5%88%87%E6%8D%A2"><span class="toc-text">7、环境切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E5%BC%82%E6%AD%A5%E7%9B%B8%E5%85%B3"><span class="toc-text">8、异步相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9B%B8%E5%85%B3"><span class="toc-text">9、定时任务相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%E3%80%81-Enable-%E6%B3%A8%E8%A7%A3%E8%AF%B4%E6%98%8E"><span class="toc-text">10、@Enable*注解说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11%E3%80%81%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="toc-text">11、测试相关注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-MVC%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">Spring MVC中常用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E6%B3%A8%E8%A7%A3"><span class="toc-text">其它注解</span></a></li></ol></div></div></div>
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">Spring中常用注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%A3%B0%E6%98%8Ebean%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="toc-text">1、声明bean的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81-Bean%E7%9A%84%E5%B1%9E%E6%80%A7%E6%94%AF%E6%8C%81"><span class="toc-text">2、@Bean的属性支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%B3%A8%E5%85%A5bean%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="toc-text">3、注入bean的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81java%E9%85%8D%E7%BD%AE%E7%B1%BB%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="toc-text">4、java配置类相关注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E5%88%87%E9%9D%A2%EF%BC%88AOP%EF%BC%89%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="toc-text">5、切面（AOP）相关注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81-Value%E6%B3%A8%E8%A7%A3"><span class="toc-text">6、@Value注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-%E4%B8%BA%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5%E5%80%BC%EF%BC%88%E5%B1%9E%E6%80%A7%E4%B8%8A%EF%BC%89"><span class="toc-text">@Value 为属性注入值（属性上）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">注入配置使用方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E7%8E%AF%E5%A2%83%E5%88%87%E6%8D%A2"><span class="toc-text">7、环境切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E5%BC%82%E6%AD%A5%E7%9B%B8%E5%85%B3"><span class="toc-text">8、异步相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9B%B8%E5%85%B3"><span class="toc-text">9、定时任务相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%E3%80%81-Enable-%E6%B3%A8%E8%A7%A3%E8%AF%B4%E6%98%8E"><span class="toc-text">10、@Enable*注解说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11%E3%80%81%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="toc-text">11、测试相关注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-MVC%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">Spring MVC中常用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E6%B3%A8%E8%A7%A3"><span class="toc-text">其它注解</span></a></li></ol></div></div></div>
 
     
   
@@ -92,16 +92,16 @@
   
     
     <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>Home</a>
+      <a class='cap breadcrumb' href='/'>主页</a>
       <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>Blog</a>
+      <a class='cap breadcrumb' href='/'>文章</a>
       
         <span class="sep"></span>
         <a class="cap breadcrumb-link" href="/categories/Java/">Java</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/Spring/">Spring</a>
       
     </div>
     <div id='post-meta'>
-      Posted on&nbsp;<time datetime='2019-04-13T02:55:43.728Z'>2019-04-13</time>
+      发布于&nbsp;<time datetime='2019-04-13T02:55:43.728Z'>2019-04-13</time>
     </div>
   
   </div>
@@ -419,12 +419,12 @@
 <p>如果想重写父类的方法，比如toString()方法的话，在方法前面加上@Override 系统可以帮你检查方法的正确性。它说明了被标注的方法重载了父类的方法，起到了断言的作用。</p>
 
 
-<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div></section></div>
 
 </article>
 
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/13/MyBatis%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">MyBatis常见面试题总结</a></div><div class="post-title fs14"><a href="/2019/05/06/python%E5%9F%BA%E7%A1%80/">or prev: python基础</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/13/MyBatis%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">MyBatis常见面试题总结</a></div><div class="post-title fs14"><a href="/2019/05/06/python%E5%9F%BA%E7%A1%80/">上一篇：python基础</a></div></section></div>
 
 
 
@@ -434,8 +434,8 @@
 
 
       
-<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
-<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://example.com/">@th3ee9ine</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
 </div></footer>
 
       <div class='float-panel mobile-only' style='display:none'>
@@ -542,11 +542,11 @@
   stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
   stellar.config = {
     date_suffix: {
-      just: 'Just',
-      min: 'minutes ago',
-      hour: 'hours ago',
-      day: 'days ago',
-      month: 'months ago',
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
     },
   };
 

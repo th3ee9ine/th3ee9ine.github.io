@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-cn'>
 
 <head>
   <meta name="generator" content="Hexo 5.4.0">
@@ -17,16 +17,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>彩笔的一天之面试总结 - Hexo</title>
+  <title>彩笔的一天之面试总结 - 教练，我想学技术</title>
 
   
     <meta name="description" content="摘要：2019.09.16这是一个悲惨的日子，菜鸡啊杰在线丢人，笔试没做完，电面也不会，我太难了。 前言：本篇文章主要是记录一下，今天面试过程中遇到的一些面试题，还有一些遗忘的知识点。 丢人之知识点遗忘事务 1、什么是事务？事务的特性（ACID）  什么是事务：事务是程序中一系列严密的操作，所有操作执行必须成功完成，否则在每个操作所做的更改将会被撤销，这也是事务的原子性（要么成功，要么失败）。 事">
 <meta property="og:type" content="article">
 <meta property="og:title" content="彩笔的一天之面试总结">
 <meta property="og:url" content="http://example.com/2019/09/16/%E5%BD%A9%E7%AC%94%E7%9A%84%E4%B8%80%E5%A4%A9%E4%B9%8B%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="教练，我想学技术">
 <meta property="og:description" content="摘要：2019.09.16这是一个悲惨的日子，菜鸡啊杰在线丢人，笔试没做完，电面也不会，我太难了。 前言：本篇文章主要是记录一下，今天面试过程中遇到的一些面试题，还有一些遗忘的知识点。 丢人之知识点遗忘事务 1、什么是事务？事务的特性（ACID）  什么是事务：事务是程序中一系列严密的操作，所有操作执行必须成功完成，否则在每个操作所做的更改将会被撤销，这也是事务的原子性（要么成功，要么失败）。 事">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/blog/17/1.jpg">
 <meta property="og:image" content="http://example.com/blog/17/2.png">
 <meta property="og:image" content="http://example.com/blog/17/3.jpg">
@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://example.com/blog/17/16.png">
 <meta property="article:published_time" content="2019-09-16T07:36:57.677Z">
 <meta property="article:modified_time" content="2021-05-01T13:09:43.394Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/blog/17/1.jpg">
@@ -77,7 +77,7 @@
   
   
     <a class='title' href='/'>
-      Hexo
+      教练，我想学技术
     </a>
   
 </div>
@@ -90,7 +90,7 @@
     
       
       
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A2%E4%BA%BA%E4%B9%8B%E7%9F%A5%E8%AF%86%E7%82%B9%E9%81%97%E5%BF%98"><span class="toc-text">丢人之知识点遗忘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-text">事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98"><span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="toc-text">类加载过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">垃圾回收机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP%E5%92%8CIOC"><span class="toc-text">AOP和IOC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1%E6%80%BB%E7%BB%93"><span class="toc-text">java自动装箱拆箱总结</span></a></li></ol></li></ol></div></div></div>
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A2%E4%BA%BA%E4%B9%8B%E7%9F%A5%E8%AF%86%E7%82%B9%E9%81%97%E5%BF%98"><span class="toc-text">丢人之知识点遗忘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-text">事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98"><span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="toc-text">类加载过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">垃圾回收机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP%E5%92%8CIOC"><span class="toc-text">AOP和IOC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1%E6%80%BB%E7%BB%93"><span class="toc-text">java自动装箱拆箱总结</span></a></li></ol></li></ol></div></div></div>
 
     
   
@@ -108,16 +108,16 @@
   
     
     <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>Home</a>
+      <a class='cap breadcrumb' href='/'>主页</a>
       <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>Blog</a>
+      <a class='cap breadcrumb' href='/'>文章</a>
       
         <span class="sep"></span>
         <a class="cap breadcrumb-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
       
     </div>
     <div id='post-meta'>
-      Posted on&nbsp;<time datetime='2019-09-16T07:36:57.677Z'>2019-09-16</time>
+      发布于&nbsp;<time datetime='2019-09-16T07:36:57.677Z'>2019-09-16</time>
     </div>
   
   </div>
@@ -995,12 +995,12 @@ A线程在初始化的时候，B线程处于睡眠状态，等待A线程完成�
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">Integer b = <span class="number">1</span>;</span><br><span class="line">Integer c = <span class="keyword">new</span> Integer(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(a == b); <span class="comment">//true</span></span><br><span class="line">System.out.println(a == c); <span class="comment">//true</span></span><br><span class="line">System.out.println(c == b); <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Integer a = <span class="number">1</span>;</span><br><span class="line">会调用这个 Integer a = Integer.valueOf(<span class="number">1</span>);</span><br><span class="line">Integer已经默认创建了数值【-<span class="number">128</span>到<span class="number">127</span>】的Integer常量池</span><br><span class="line"></span><br><span class="line">Integer a = -<span class="number">128</span>;</span><br><span class="line">Integer b = -<span class="number">128</span>;</span><br><span class="line">System.out.println(a == b); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">Integer a = <span class="number">128</span>;</span><br><span class="line">Integer b = <span class="number">128</span>;</span><br><span class="line">System.out.println(a == b); <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Java的数学计算是在内存栈里操作的</span><br><span class="line">c1 + c2 会进行拆箱，比较还是基本类型</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">Integer b1 = <span class="number">1000</span>;</span><br><span class="line">Integer c1 = <span class="keyword">new</span> Integer(<span class="number">1000</span>);</span><br><span class="line">Integer b2 = <span class="number">0</span>;</span><br><span class="line">Integer c2 = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">System.out.println(b1 == b1 + b2); <span class="comment">//true</span></span><br><span class="line">System.out.println(c1 == c1 + c2); <span class="comment">//true</span></span><br><span class="line">System.out.println(b1 == b1 + a); <span class="comment">//true</span></span><br><span class="line">System.out.println(c1 == c1 + a); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 
 
-<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div></section></div>
 
 </article>
 
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/09/01/python%E4%B9%8B%E6%93%8D%E4%BD%9CExcel%E6%A8%A1%E5%9D%97/">python之操作Excel模块</a></div><div class="post-title fs14"><a href="/2019/09/19/linux%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA/">or prev: linux深入浅出</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2019/09/01/python%E4%B9%8B%E6%93%8D%E4%BD%9CExcel%E6%A8%A1%E5%9D%97/">python之操作Excel模块</a></div><div class="post-title fs14"><a href="/2019/09/19/linux%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA/">上一篇：linux深入浅出</a></div></section></div>
 
 
 
@@ -1010,8 +1010,8 @@ A线程在初始化的时候，B线程处于睡眠状态，等待A线程完成�
 
 
       
-<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
-<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://example.com/">@th3ee9ine</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
 </div></footer>
 
       <div class='float-panel mobile-only' style='display:none'>
@@ -1118,11 +1118,11 @@ A线程在初始化的时候，B线程处于睡眠状态，等待A线程完成�
   stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
   stellar.config = {
     date_suffix: {
-      just: 'Just',
-      min: 'minutes ago',
-      hour: 'hours ago',
-      day: 'days ago',
-      month: 'months ago',
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
     },
   };
 

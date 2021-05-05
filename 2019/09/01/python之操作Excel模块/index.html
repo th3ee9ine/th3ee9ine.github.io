@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-cn'>
 
 <head>
   <meta name="generator" content="Hexo 5.4.0">
@@ -17,19 +17,19 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>python之操作Excel模块 - Hexo</title>
+  <title>python之操作Excel模块 - 教练，我想学技术</title>
 
   
     <meta name="description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。 常见库简介1.xlrdxlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。http:&#x2F;&#x2F;xlrd.readthedocs.io&#x2F;en&#x2F;latest&#x2F;    1、xlrd支持.xls，.xlsx文件的读    2、通过设置on_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python之操作Excel模块">
 <meta property="og:url" content="http://example.com/2019/09/01/python%E4%B9%8B%E6%93%8D%E4%BD%9CExcel%E6%A8%A1%E5%9D%97/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="教练，我想学技术">
 <meta property="og:description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。 常见库简介1.xlrdxlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。http:&#x2F;&#x2F;xlrd.readthedocs.io&#x2F;en&#x2F;latest&#x2F;    1、xlrd支持.xls，.xlsx文件的读    2、通过设置on_">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-09-01T07:02:14.249Z">
 <meta property="article:modified_time" content="2019-09-01T11:03:32.691Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
   
@@ -60,7 +60,7 @@
   
   
     <a class='title' href='/'>
-      Hexo
+      教练，我想学技术
     </a>
   
 </div>
@@ -73,7 +73,7 @@
     
       
       
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%93%E7%AE%80%E4%BB%8B"><span class="toc-text">常见库简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-xlrd"><span class="toc-text">1.xlrd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-xlwt"><span class="toc-text">2.xlwt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-xlutils"><span class="toc-text">3.xlutils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-xlwings"><span class="toc-text">4.xlwings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-openpyxl"><span class="toc-text">5.openpyxl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-xlsxwriter"><span class="toc-text">6.xlsxwriter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-win32com"><span class="toc-text">7.win32com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-DataNitro"><span class="toc-text">8.DataNitro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-pandas"><span class="toc-text">9.pandas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%86%92%E5%8F%8A%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-text">提醒及注意：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-text">基本功能：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-xlwings"><span class="toc-text">1.xlwings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-openpyxl"><span class="toc-text">2.openpyxl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-pandas"><span class="toc-text">3.pandas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-win32com"><span class="toc-text">4.win32com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-xlsxwriter"><span class="toc-text">5.xlsxwriter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-DataNitro"><span class="toc-text">6.DataNitro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-xlutils"><span class="toc-text">7.xlutils</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95"><span class="toc-text">读写测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="toc-text">测试用例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-text">测试结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%EF%BC%9A"><span class="toc-text">注：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83"><span class="toc-text">性能比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%BF%E6%8D%B7%E6%80%A7%E6%AF%94%E8%BE%83"><span class="toc-text">便捷性比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-xlwings%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.1 xlwings基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-xlsxwriter%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.2 xlsxwriter基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-xlutils%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81import-xlrd-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">6.3 xlutils基本代码import xlrd #读取数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-win32com%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.4 win32com基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-openpyxl%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.5 openpyxl基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-DataNitro%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.6 DataNitro基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openpyxl%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8"><span class="toc-text">openpyxl具体使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAexcel-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E5%86%99%E5%85%A5%E4%B8%8D%E5%90%8C%E7%B1%BB%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">1、 创建一个excel 文件，并写入不同类的内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%88%9B%E5%BB%BAsheet"><span class="toc-text">2、创建sheet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%93%8D%E4%BD%9C%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">3、操作单元格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%93%8D%E4%BD%9C%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-text">4、操作已存在的文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E6%93%8D%E4%BD%9C%E6%89%B9%E9%87%8F%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">5、操作批量的单元格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84%E8%A1%8C-%E5%88%97-%E5%AF%B9%E8%B1%A1%EF%BC%9A"><span class="toc-text">6、获取所有的行(列)对象：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7%E3%80%81%E4%BD%BF%E7%94%A8%E5%85%AC%E5%BC%8F"><span class="toc-text">7、使用公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8%E3%80%81%E5%90%88%E5%B9%B6%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">8、合并单元格</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></div></div></div>
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%93%E7%AE%80%E4%BB%8B"><span class="toc-text">常见库简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-xlrd"><span class="toc-text">1.xlrd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-xlwt"><span class="toc-text">2.xlwt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-xlutils"><span class="toc-text">3.xlutils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-xlwings"><span class="toc-text">4.xlwings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-openpyxl"><span class="toc-text">5.openpyxl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-xlsxwriter"><span class="toc-text">6.xlsxwriter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-win32com"><span class="toc-text">7.win32com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-DataNitro"><span class="toc-text">8.DataNitro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-pandas"><span class="toc-text">9.pandas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%86%92%E5%8F%8A%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-text">提醒及注意：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="toc-text">基本功能：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-xlwings"><span class="toc-text">1.xlwings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-openpyxl"><span class="toc-text">2.openpyxl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-pandas"><span class="toc-text">3.pandas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-win32com"><span class="toc-text">4.win32com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-xlsxwriter"><span class="toc-text">5.xlsxwriter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-DataNitro"><span class="toc-text">6.DataNitro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-xlutils"><span class="toc-text">7.xlutils</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95"><span class="toc-text">读写测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="toc-text">测试用例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-text">测试结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%EF%BC%9A"><span class="toc-text">注：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83"><span class="toc-text">性能比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%BF%E6%8D%B7%E6%80%A7%E6%AF%94%E8%BE%83"><span class="toc-text">便捷性比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-xlwings%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.1 xlwings基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-xlsxwriter%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.2 xlsxwriter基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-xlutils%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81import-xlrd-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">6.3 xlutils基本代码import xlrd #读取数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-win32com%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.4 win32com基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-openpyxl%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.5 openpyxl基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-DataNitro%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81"><span class="toc-text">6.6 DataNitro基本代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openpyxl%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8"><span class="toc-text">openpyxl具体使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAexcel-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E5%86%99%E5%85%A5%E4%B8%8D%E5%90%8C%E7%B1%BB%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">1、 创建一个excel 文件，并写入不同类的内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%88%9B%E5%BB%BAsheet"><span class="toc-text">2、创建sheet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%93%8D%E4%BD%9C%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">3、操作单元格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%93%8D%E4%BD%9C%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-text">4、操作已存在的文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E6%93%8D%E4%BD%9C%E6%89%B9%E9%87%8F%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">5、操作批量的单元格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84%E8%A1%8C-%E5%88%97-%E5%AF%B9%E8%B1%A1%EF%BC%9A"><span class="toc-text">6、获取所有的行(列)对象：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7%E3%80%81%E4%BD%BF%E7%94%A8%E5%85%AC%E5%BC%8F"><span class="toc-text">7、使用公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8%E3%80%81%E5%90%88%E5%B9%B6%E5%8D%95%E5%85%83%E6%A0%BC"><span class="toc-text">8、合并单元格</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></div></div></div>
 
     
   
@@ -91,16 +91,16 @@
   
     
     <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>Home</a>
+      <a class='cap breadcrumb' href='/'>主页</a>
       <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>Blog</a>
+      <a class='cap breadcrumb' href='/'>文章</a>
       
         <span class="sep"></span>
         <a class="cap breadcrumb-link" href="/categories/python/">python</a>
       
     </div>
     <div id='post-meta'>
-      Posted on&nbsp;<time datetime='2019-09-01T07:02:14.249Z'>2019-09-01</time>
+      发布于&nbsp;<time datetime='2019-09-01T07:02:14.249Z'>2019-09-01</time>
     </div>
   
   </div>
@@ -382,12 +382,12 @@
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zeke-python-road/p/8986318.html">https://www.cnblogs.com/zeke-python-road/p/8986318.html</a></p>
 
 
-<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div></section></div>
 
 </article>
 
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/05/20/Mybatis%E7%AC%94%E8%AE%B0/">Mybatis笔记</a></div><div class="post-title fs14"><a href="/2019/09/16/%E5%BD%A9%E7%AC%94%E7%9A%84%E4%B8%80%E5%A4%A9%E4%B9%8B%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">or prev: 彩笔的一天之面试总结</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2019/05/20/Mybatis%E7%AC%94%E8%AE%B0/">Mybatis笔记</a></div><div class="post-title fs14"><a href="/2019/09/16/%E5%BD%A9%E7%AC%94%E7%9A%84%E4%B8%80%E5%A4%A9%E4%B9%8B%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">上一篇：彩笔的一天之面试总结</a></div></section></div>
 
 
 
@@ -397,8 +397,8 @@
 
 
       
-<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
-<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://example.com/">@th3ee9ine</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
 </div></footer>
 
       <div class='float-panel mobile-only' style='display:none'>
@@ -505,11 +505,11 @@
   stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
   stellar.config = {
     date_suffix: {
-      just: 'Just',
-      min: 'minutes ago',
-      hour: 'hours ago',
-      day: 'days ago',
-      month: 'months ago',
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
     },
   };
 

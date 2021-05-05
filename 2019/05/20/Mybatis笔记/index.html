@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-cn'>
 
 <head>
   <meta name="generator" content="Hexo 5.4.0">
@@ -17,19 +17,19 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Mybatis笔记 - Hexo</title>
+  <title>Mybatis笔记 - 教练，我想学技术</title>
 
   
     <meta name="description" content="摘要：Mybatis笔记 前言：对这段时间学习mybatis的一些记录。 介绍官方文档 Github开源地址 版本更新介绍 Mybatis的编程步骤 获取全局配置文件路径  1String resource &#x3D; &quot;conf&#x2F;mybatis-config.xml&quot;;   读取配置文件  1InputStream inputStream &#x3D; Resources.getResourc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis笔记">
 <meta property="og:url" content="http://example.com/2019/05/20/Mybatis%E7%AC%94%E8%AE%B0/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="教练，我想学技术">
 <meta property="og:description" content="摘要：Mybatis笔记 前言：对这段时间学习mybatis的一些记录。 介绍官方文档 Github开源地址 版本更新介绍 Mybatis的编程步骤 获取全局配置文件路径  1String resource &#x3D; &quot;conf&#x2F;mybatis-config.xml&quot;;   读取配置文件  1InputStream inputStream &#x3D; Resources.getResourc">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-20T01:23:01.955Z">
 <meta property="article:modified_time" content="2020-02-28T06:56:31.523Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Mybatis">
 <meta property="article:tag" content="ORM">
@@ -62,7 +62,7 @@
   
   
     <a class='title' href='/'>
-      Hexo
+      教练，我想学技术
     </a>
   
 </div>
@@ -75,7 +75,7 @@
     
       
       
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E7%9A%84%E7%BC%96%E7%A8%8B%E6%AD%A5%E9%AA%A4"><span class="toc-text">Mybatis的编程步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE%EF%BC%88mybatis-config-xml%EF%BC%89"><span class="toc-text">全局配置文件常用标签（mybatis-config.xml）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#properties%E6%A0%87%E7%AD%BE"><span class="toc-text">properties标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setting%E6%A0%87%E7%AD%BE"><span class="toc-text">setting标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typeAliases%E6%A0%87%E7%AD%BE"><span class="toc-text">typeAliases标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#environments%E6%A0%87%E7%AD%BE"><span class="toc-text">environments标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#databaseIdProvider%E6%A0%87%E7%AD%BE"><span class="toc-text">databaseIdProvider标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mappers%E6%A0%87%E7%AD%BE"><span class="toc-text">mappers标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#properties%E6%96%87%E4%BB%B6"><span class="toc-text">properties文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xxxMapper-xml%E6%96%87%E4%BB%B6"><span class="toc-text">xxxMapper.xml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%94%AE%E8%87%AA%E5%A2%9E%E9%97%AE%E9%A2%98"><span class="toc-text">主键自增问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98"><span class="toc-text">mybatis参数处理问题</span></a></li></ol></li></ol></div></div></div>
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E7%9A%84%E7%BC%96%E7%A8%8B%E6%AD%A5%E9%AA%A4"><span class="toc-text">Mybatis的编程步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE%EF%BC%88mybatis-config-xml%EF%BC%89"><span class="toc-text">全局配置文件常用标签（mybatis-config.xml）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#properties%E6%A0%87%E7%AD%BE"><span class="toc-text">properties标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setting%E6%A0%87%E7%AD%BE"><span class="toc-text">setting标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typeAliases%E6%A0%87%E7%AD%BE"><span class="toc-text">typeAliases标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#environments%E6%A0%87%E7%AD%BE"><span class="toc-text">environments标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#databaseIdProvider%E6%A0%87%E7%AD%BE"><span class="toc-text">databaseIdProvider标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mappers%E6%A0%87%E7%AD%BE"><span class="toc-text">mappers标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#properties%E6%96%87%E4%BB%B6"><span class="toc-text">properties文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xxxMapper-xml%E6%96%87%E4%BB%B6"><span class="toc-text">xxxMapper.xml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%94%AE%E8%87%AA%E5%A2%9E%E9%97%AE%E9%A2%98"><span class="toc-text">主键自增问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98"><span class="toc-text">mybatis参数处理问题</span></a></li></ol></li></ol></div></div></div>
 
     
   
@@ -93,16 +93,16 @@
   
     
     <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>Home</a>
+      <a class='cap breadcrumb' href='/'>主页</a>
       <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>Blog</a>
+      <a class='cap breadcrumb' href='/'>文章</a>
       
         <span class="sep"></span>
         <a class="cap breadcrumb-link" href="/categories/ORM/">ORM</a>
       
     </div>
     <div id='post-meta'>
-      Posted on&nbsp;<time datetime='2019-05-20T01:23:01.955Z'>2019-05-20</time>
+      发布于&nbsp;<time datetime='2019-05-20T01:23:01.955Z'>2019-05-20</time>
     </div>
   
   </div>
@@ -371,12 +371,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public Employee getEmp(@Param(&quot;id&quot;)Integer id,String lastName);</span><br><span class="line">	取值：id&#x3D;&#x3D;&gt;#&#123;id&#x2F;param1&#125;   lastName&#x3D;&#x3D;&gt;#&#123;param2&#125;</span><br><span class="line"></span><br><span class="line">public Employee getEmp(Integer id,@Param(&quot;e&quot;)Employee emp);</span><br><span class="line">	取值：id&#x3D;&#x3D;&gt;#&#123;param1&#125;    lastName&#x3D;&#x3D;&#x3D;&gt;#&#123;param2.lastName&#x2F;e.lastName&#125;</span><br><span class="line"></span><br><span class="line">特别注意：</span><br><span class="line">如果是Collection（List、Set）类型或者是数组，</span><br><span class="line">也会特殊处理。也是把传入的list或者数组封装在map中。</span><br><span class="line">key：Collection（collection）,</span><br><span class="line">如果是List还可以使用这个key(list)，数组(array)</span><br><span class="line"></span><br><span class="line">public Employee getEmpById(List&lt;Integer&gt; ids);</span><br><span class="line">	取值：取出第一个id的值：   #&#123;list[0]&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
-<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div></section></div>
 
 </article>
 
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/05/10/python%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">python数据可视化</a></div><div class="post-title fs14"><a href="/2019/09/01/python%E4%B9%8B%E6%93%8D%E4%BD%9CExcel%E6%A8%A1%E5%9D%97/">or prev: python之操作Excel模块</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2019/05/10/python%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">python数据可视化</a></div><div class="post-title fs14"><a href="/2019/09/01/python%E4%B9%8B%E6%93%8D%E4%BD%9CExcel%E6%A8%A1%E5%9D%97/">上一篇：python之操作Excel模块</a></div></section></div>
 
 
 
@@ -386,8 +386,8 @@
 
 
       
-<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
-<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://example.com/">@th3ee9ine</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
 </div></footer>
 
       <div class='float-panel mobile-only' style='display:none'>
@@ -494,11 +494,11 @@
   stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
   stellar.config = {
     date_suffix: {
-      just: 'Just',
-      min: 'minutes ago',
-      hour: 'hours ago',
-      day: 'days ago',
-      month: 'months ago',
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
     },
   };
 

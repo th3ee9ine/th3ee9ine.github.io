@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='zh-cn'>
 
 <head>
   <meta name="generator" content="Hexo 5.4.0">
@@ -17,16 +17,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>利用Hexo和Github搭建Blog（详细版） - Hexo</title>
+  <title>利用Hexo和Github搭建Blog（详细版） - 教练，我想学技术</title>
 
   
     <meta name="description" content="摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。 前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Hexo和Github搭建Blog（详细版）">
 <meta property="og:url" content="http://example.com/2019/04/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="教练，我想学技术">
 <meta property="og:description" content="摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。 前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/blog/1/1.png">
 <meta property="og:image" content="http://example.com/blog/1/2.png">
 <meta property="og:image" content="http://example.com/blog/1/3.png">
@@ -47,7 +47,7 @@
 <meta property="og:image" content="http://example.com/blog/1/18.png">
 <meta property="article:published_time" content="2019-04-05T03:07:50.657Z">
 <meta property="article:modified_time" content="2021-05-01T13:07:43.896Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="github">
 <meta name="twitter:card" content="summary">
@@ -80,7 +80,7 @@
   
   
     <a class='title' href='/'>
-      Hexo
+      教练，我想学技术
     </a>
   
 </div>
@@ -93,7 +93,7 @@
     
       
       
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">TOC</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EGithub%EF%BC%9A"><span class="toc-text">关于Github：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Github%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A"><span class="toc-text">一、Github的优点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Github%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9A"><span class="toc-text">二、Github的缺点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Github-Pages"><span class="toc-text">三、为什么要使用Github Pages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAblog"><span class="toc-text">开始搭建blog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85Node-js"><span class="toc-text">一、安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85Git"><span class="toc-text">二、安装Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85Hexo"><span class="toc-text">三、安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%B0%86Blog%E9%83%A8%E7%BD%B2%E5%88%B0Github-Pages%E4%B8%8A"><span class="toc-text">四、将Blog部署到Github Pages上</span></a></li></ol></li></ol></div></div></div>
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EGithub%EF%BC%9A"><span class="toc-text">关于Github：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Github%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A"><span class="toc-text">一、Github的优点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Github%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9A"><span class="toc-text">二、Github的缺点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Github-Pages"><span class="toc-text">三、为什么要使用Github Pages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAblog"><span class="toc-text">开始搭建blog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85Node-js"><span class="toc-text">一、安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85Git"><span class="toc-text">二、安装Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85Hexo"><span class="toc-text">三、安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%B0%86Blog%E9%83%A8%E7%BD%B2%E5%88%B0Github-Pages%E4%B8%8A"><span class="toc-text">四、将Blog部署到Github Pages上</span></a></li></ol></li></ol></div></div></div>
 
     
   
@@ -111,16 +111,16 @@
   
     
     <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>Home</a>
+      <a class='cap breadcrumb' href='/'>主页</a>
       <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>Blog</a>
+      <a class='cap breadcrumb' href='/'>文章</a>
       
         <span class="sep"></span>
         <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E9%A1%B9/Blog/">Blog</a>
       
     </div>
     <div id='post-meta'>
-      Posted on&nbsp;<time datetime='2019-04-05T03:07:50.657Z'>2019-04-05</time>
+      发布于&nbsp;<time datetime='2019-04-05T03:07:50.657Z'>2019-04-05</time>
     </div>
   
   </div>
@@ -234,12 +234,12 @@
 </ul>
 
 
-<div class="article-footer fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div></section></div>
 
 </article>
 
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>READ NEXT</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/YAML%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">YAML的常用语法</a></div><div class="post-title fs14"><a href="/2019/04/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/">or prev: 数据库基础复习</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2019/04/05/YAML%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">YAML的常用语法</a></div><div class="post-title fs14"><a href="/2019/04/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/">上一篇：数据库基础复习</a></div></section></div>
 
 
 
@@ -249,8 +249,8 @@
 
 
       
-<footer class="page-footer fs12"><hr><div><p>All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</p>
-<p>This site was deployed by <a href="http://example.com/">@John Doe</a> using <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a>.</p>
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="http://example.com/">@th3ee9ine</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
 </div></footer>
 
       <div class='float-panel mobile-only' style='display:none'>
@@ -357,11 +357,11 @@
   stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
   stellar.config = {
     date_suffix: {
-      just: 'Just',
-      min: 'minutes ago',
-      hour: 'hours ago',
-      day: 'days ago',
-      month: 'months ago',
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
     },
   };
 
