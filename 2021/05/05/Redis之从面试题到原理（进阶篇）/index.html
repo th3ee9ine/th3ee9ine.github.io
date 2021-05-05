@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.blog.ajie39.top">
-  <title>Category: 数据库 | 教练，我想学技术!</title>
+  <title>Redis 之从面试题到原理（基础篇） | 教练，我想学技术!</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="th3ee9ine&#39;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="教练，我想学技术!">
-<meta property="og:url" content="https://www.blog.ajie39.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+  <meta name="description" content="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。 前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 之从面试题到原理（基础篇）">
+<meta property="og:url" content="https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="th3ee9ine&#39;s blog">
+<meta property="og:description" content="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。 前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-05-05T08:16:46.257Z">
+<meta property="article:modified_time" content="2021-05-05T08:16:25.231Z">
 <meta property="article:author" content="th3ee9ine">
-<meta property="article:tag" content="th3ee9ine,blog">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
@@ -197,41 +200,95 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Redis之从面试题到原理（进阶篇）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/04/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-        <time datetime="2019-04-05T03:07:50.659Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-05</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/04/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/" target="_blank">数据库基础复习</a>
   
+    <h1 class="article-title" itemprop="name">
+      Redis 之从面试题到原理（基础篇）
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-05-05T08:16:46.257Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">344字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">1分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。"><a href="#摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。" class="headerlink" title="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。"></a>摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。</h1><hr>
+<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!</h1><hr>
+<span id="more"></span>
+
+<h2 id="题目摘要"><a href="#题目摘要" class="headerlink" title="题目摘要"></a>题目摘要</h2><p>1、说说 Redis 哈希槽的概念？<br>2、Redis 的同步机制了解么？<br>3、是否使用过 Redis 集群，集群的原理是什么？<br>4、Redis 集群方案什么情况下会导致整个集群不可<br>5、Redis 集群的主从复制模型是怎样的？<br>6、Redis 集群会有写操作丢失吗？为什么？<br>7、Redis 集群之间是如何复制的？<br>8、Redis 集群最大节点个数是多少？<br>9、Redis 集群如何选择数据库？<br>10、如何实现集群中的 session 共享存储？</p>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          th3ee9ine
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.blog.ajie39.top/2021/05/05/Redis之从面试题到原理（进阶篇）/" title="Redis 之从面试题到原理（基础篇）" target="_blank">https://www.blog.ajie39.top/2021/05/05/Redis之从面试题到原理（进阶篇）/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/th3ee9ine/th3ee9ine.github.io/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -241,17 +298,13 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -261,28 +314,121 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数据库//" class="article-tag-list-link color4">数据库</a>
+        			<a href="/categories/面试/Redis//" class="article-tag-list-link color1">Redis</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Redis 之从面试题到原理（拓展篇）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Redis 之从面试题到原理（基础篇）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -323,10 +469,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",

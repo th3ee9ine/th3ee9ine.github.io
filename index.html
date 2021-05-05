@@ -204,7 +204,7 @@
             
 
   
-    <article id="post-Redis之从面试题到原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Redis之从面试题到原理（拓展篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -212,7 +212,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86/" target="_blank">Redis 之从面试题到原理</a>
+	  <a class="article-title" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/" target="_blank">Redis 之从面试题到原理（拓展篇）</a>
   
     </h1>
   
@@ -220,8 +220,8 @@
 
   
   
-<a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86/" class="archive-article-date">
-        <time datetime="2021-05-05T07:39:46.014Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+<a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-05-05T08:16:46.258Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
 </a>
 
   
@@ -234,9 +234,9 @@
   <div class="article-entry" itemprop="articleBody">
     
     <h1 id="摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。"><a href="#摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。" class="headerlink" title="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。"></a>摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。</h1><hr>
-<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！A good day from now on!</h1><hr>
+<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!</h1><hr>
     
-    <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86/#more">more >></a>
+    <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/#more">more >></a>
     
     
 
@@ -282,7 +282,223 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86/">展开全文 >></a>
+      <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Redis之从面试题到原理（进阶篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/" target="_blank">Redis 之从面试题到原理（基础篇）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-05-05T08:16:46.257Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。"><a href="#摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。" class="headerlink" title="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。"></a>摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。</h1><hr>
+<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!</h1><hr>
+    
+    <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试/Redis//" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Redis之从面试题到原理（基础篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/" target="_blank">Redis 之从面试题到原理（基础篇）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-05-05T07:39:46.014Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。"><a href="#摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。" class="headerlink" title="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。"></a>摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。</h1><hr>
+<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!</h1><hr>
+    
+    <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试/Redis//" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/">展开全文 >></a>
     </p>
     
 
@@ -1036,220 +1252,6 @@
 
 
   
-    <article id="post-ORM之他暂时可能只是个弟弟——Jooq" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/03/28/ORM%E4%B9%8B%E4%BB%96%E6%9A%82%E6%97%B6%E5%8F%AF%E8%83%BD%E5%8F%AA%E6%98%AF%E4%B8%AA%E5%BC%9F%E5%BC%9F%E2%80%94%E2%80%94Jooq/" target="_blank">ORM之他暂时可能只是个弟弟——Jooq</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/03/28/ORM%E4%B9%8B%E4%BB%96%E6%9A%82%E6%97%B6%E5%8F%AF%E8%83%BD%E5%8F%AA%E6%98%AF%E4%B8%AA%E5%BC%9F%E5%BC%9F%E2%80%94%E2%80%94Jooq/" class="archive-article-date">
-        <time datetime="2020-03-28T07:32:00.031Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：这篇文章主要是对之前一段时间学习Jooq的总结。"><a href="#摘要：这篇文章主要是对之前一段时间学习Jooq的总结。" class="headerlink" title="摘要：这篇文章主要是对之前一段时间学习Jooq的总结。"></a>摘要：这篇文章主要是对之前一段时间学习Jooq的总结。</h1><hr>
-<h1 id="前言：相比较Hibernate、Mybatis等大家早已熟知的ORM框架来说，JOOQ只能算是一个弟弟。但它之所以能够脱颖而出，是因为它找到了正确的设计思想。"><a href="#前言：相比较Hibernate、Mybatis等大家早已熟知的ORM框架来说，JOOQ只能算是一个弟弟。但它之所以能够脱颖而出，是因为它找到了正确的设计思想。" class="headerlink" title="前言：相比较Hibernate、Mybatis等大家早已熟知的ORM框架来说，JOOQ只能算是一个弟弟。但它之所以能够脱颖而出，是因为它找到了正确的设计思想。"></a>前言：相比较Hibernate、Mybatis等大家早已熟知的ORM框架来说，JOOQ只能算是一个弟弟。但它之所以能够脱颖而出，是因为它找到了正确的设计思想。</h1><hr>
-    
-    <a class="article-more-a" href="/2020/03/28/ORM%E4%B9%8B%E4%BB%96%E6%9A%82%E6%97%B6%E5%8F%AF%E8%83%BD%E5%8F%AA%E6%98%AF%E4%B8%AA%E5%BC%9F%E5%BC%9F%E2%80%94%E2%80%94Jooq/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ORM</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Jooq</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ORM//" class="article-tag-list-link color4">ORM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/03/28/ORM%E4%B9%8B%E4%BB%96%E6%9A%82%E6%97%B6%E5%8F%AF%E8%83%BD%E5%8F%AA%E6%98%AF%E4%B8%AA%E5%BC%9F%E5%BC%9F%E2%80%94%E2%80%94Jooq/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Google Java 编程风格指南（中文）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/02/14/Google%20Java%20%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97%EF%BC%88%E4%B8%AD%E6%96%87%EF%BC%89/" target="_blank">Google Java编程风格规范（中文）</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/02/14/Google%20Java%20%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97%EF%BC%88%E4%B8%AD%E6%96%87%EF%BC%89/" class="archive-article-date">
-        <time datetime="2020-02-14T00:09:15.341Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-14</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：这份文档是Google-Java编程风格规范的完整定义。"><a href="#摘要：这份文档是Google-Java编程风格规范的完整定义。" class="headerlink" title="摘要：这份文档是Google Java编程风格规范的完整定义。"></a>摘要：这份文档是Google Java编程风格规范的完整定义。</h1><hr>
-<h1 id="前言：这份文档是Google-Java编程风格规范的完整定义。当且仅当一个Java源文件符合此文档中的规则，我们才认为它符合Google的Java编程风格。与其它的编程风格指南一样，这里所讨论的不仅仅是编码格式美不美观的问题，同时也讨论一些约定及编码标准。然而，这份文档主要侧重于我们所普遍遵循的规则，对于那些不是明确强制要求的，我们尽量避免提供意见。"><a href="#前言：这份文档是Google-Java编程风格规范的完整定义。当且仅当一个Java源文件符合此文档中的规则，我们才认为它符合Google的Java编程风格。与其它的编程风格指南一样，这里所讨论的不仅仅是编码格式美不美观的问题，同时也讨论一些约定及编码标准。然而，这份文档主要侧重于我们所普遍遵循的规则，对于那些不是明确强制要求的，我们尽量避免提供意见。" class="headerlink" title="前言：这份文档是Google Java编程风格规范的完整定义。当且仅当一个Java源文件符合此文档中的规则，我们才认为它符合Google的Java编程风格。与其它的编程风格指南一样，这里所讨论的不仅仅是编码格式美不美观的问题，同时也讨论一些约定及编码标准。然而，这份文档主要侧重于我们所普遍遵循的规则，对于那些不是明确强制要求的，我们尽量避免提供意见。"></a>前言：这份文档是Google Java编程风格规范的完整定义。当且仅当一个Java源文件符合此文档中的规则，我们才认为它符合Google的Java编程风格。与其它的编程风格指南一样，这里所讨论的不仅仅是编码格式美不美观的问题，同时也讨论一些约定及编码标准。然而，这份文档主要侧重于我们所普遍遵循的规则，对于那些不是明确强制要求的，我们尽量避免提供意见。</h1><p>原文《Google Java Style》：<a target="_blank" rel="noopener" href="https://google.github.io/styleguide/javaguide.html">https://google.github.io/styleguide/javaguide.html</a></p>
-<p>January 20, 2014<br>作者：Hawstein<br>出处：<a target="_blank" rel="noopener" href="http://hawstein.com/2014/01/20/google-java-style/">http://hawstein.com/2014/01/20/google-java-style/</a><br>声明：本文采用以下协议进行授权： 自由转载-非商用-非衍生-保持署名|Creative Commons BY-NC-ND 3.0，转载请注明作者及出处。</p>
-<hr>
-    
-    <a class="article-more-a" href="/2020/02/14/Google%20Java%20%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97%EF%BC%88%E4%B8%AD%E6%96%87%EF%BC%89/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/编程规范//" class="article-tag-list-link color5">编程规范</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/02/14/Google%20Java%20%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97%EF%BC%88%E4%B8%AD%E6%96%87%EF%BC%89/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1434,15 +1436,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
