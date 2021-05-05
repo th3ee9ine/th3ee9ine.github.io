@@ -10,19 +10,19 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：本文主要是对linux的一些知识点进行总结。 前言：主要是对linux的一些知识点进行总结。 linux基础篇虚拟机的网络连接三种形式的说明 Bridged（桥接模式）桥接模式是通过虚拟网桥将主机的网卡与虚拟机的Vmnet0连接在一起，虚拟机即可通过VMnet0连接到主机的网卡进而进行网络的访问，所以桥接模式的虚拟机的IP地址需要和主机的IP地址在同一个网段，并且子网掩码，网关，与DNS也需">
+  <meta name="description" content="摘要：本文主要是对linux的一些知识点进行总结。 前言：主要是对linux的一些知识点进行总结。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux深入浅出">
 <meta property="og:url" content="https://www.blog.ajie39.top/2019/09/19/linux%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：本文主要是对linux的一些知识点进行总结。 前言：主要是对linux的一些知识点进行总结。 linux基础篇虚拟机的网络连接三种形式的说明 Bridged（桥接模式）桥接模式是通过虚拟网桥将主机的网卡与虚拟机的Vmnet0连接在一起，虚拟机即可通过VMnet0连接到主机的网卡进而进行网络的访问，所以桥接模式的虚拟机的IP地址需要和主机的IP地址在同一个网段，并且子网掩码，网关，与DNS也需">
+<meta property="og:description" content="摘要：本文主要是对linux的一些知识点进行总结。 前言：主要是对linux的一些知识点进行总结。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/18/1.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/18/2.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/18/3.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/18/4.jpg">
 <meta property="article:published_time" content="2019-09-19T12:00:14.753Z">
-<meta property="article:modified_time" content="2021-05-01T13:09:43.357Z">
+<meta property="article:modified_time" content="2021-05-05T04:26:19.123Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -127,14 +127,14 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+	<div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
-      
-      <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" 
-        href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank">
-        <img src="/img/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-      
+     <!--  -->
+     <!-- <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" -->
+     <!--   href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank"> -->
+     <!--   <img src="/img/forkme.png" -->
+     <!--     class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+	 <!--   -->
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
@@ -259,6 +259,8 @@
     
     <h1 id="摘要：本文主要是对linux的一些知识点进行总结。"><a href="#摘要：本文主要是对linux的一些知识点进行总结。" class="headerlink" title="摘要：本文主要是对linux的一些知识点进行总结。"></a>摘要：本文主要是对linux的一些知识点进行总结。</h1><hr>
 <h1 id="前言：主要是对linux的一些知识点进行总结。"><a href="#前言：主要是对linux的一些知识点进行总结。" class="headerlink" title="前言：主要是对linux的一些知识点进行总结。"></a>前言：主要是对linux的一些知识点进行总结。</h1><hr>
+<span id="more"></span>
+
 <h2 id="linux基础篇"><a href="#linux基础篇" class="headerlink" title="linux基础篇"></a>linux基础篇</h2><h3 id="虚拟机的网络连接三种形式的说明"><a href="#虚拟机的网络连接三种形式的说明" class="headerlink" title="虚拟机的网络连接三种形式的说明"></a>虚拟机的网络连接三种形式的说明</h3><ul>
 <li><p>Bridged（桥接模式）<br>桥接模式是通过虚拟网桥将主机的网卡与虚拟机的Vmnet0连接在一起，虚拟机即可通过VMnet0连接到主机的网卡进而进行网络的访问，所以桥接模式的虚拟机的IP地址需要和主机的IP地址在同一个网段，并且子网掩码，网关，与DNS也需要和主机的一致才可以。也就是说桥接的方式是虚拟机通过vmnet0这块虚拟网卡来和主机上面的网卡进行连接，进而进行通信的。</p>
 <p><img src="/blog/18/1.png" alt="桥接模式"></p>
@@ -539,7 +541,7 @@
   
 </footer>
 
-    </div>
+    </div> 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
@@ -683,6 +685,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -692,10 +698,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -711,11 +713,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">

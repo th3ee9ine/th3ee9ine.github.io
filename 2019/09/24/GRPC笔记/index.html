@@ -10,17 +10,17 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点 前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。 gRPC是啥？？？？？所谓RPC(remote procedure call 远程过程调用)框架实际是提供了一套机制，使得应用程序之间可以进行通信，而且也遵从server&#x2F;client模型。使用的时候客户端调用server端提供的接口就像是调">
+  <meta name="description" content="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点 前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GRPC学习笔记">
 <meta property="og:url" content="https://www.blog.ajie39.top/2019/09/24/GRPC%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点 前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。 gRPC是啥？？？？？所谓RPC(remote procedure call 远程过程调用)框架实际是提供了一套机制，使得应用程序之间可以进行通信，而且也遵从server&#x2F;client模型。使用的时候客户端调用server端提供的接口就像是调">
+<meta property="og:description" content="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点 前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/19/1.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/19/2.png">
 <meta property="article:published_time" content="2019-09-24T08:11:41.829Z">
-<meta property="article:modified_time" content="2021-05-01T13:09:43.376Z">
+<meta property="article:modified_time" content="2021-05-05T04:24:59.271Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="微服务">
 <meta property="article:tag" content="RPC">
@@ -126,14 +126,14 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+	<div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
-      
-      <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" 
-        href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank">
-        <img src="/img/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-      
+     <!--  -->
+     <!-- <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" -->
+     <!--   href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank"> -->
+     <!--   <img src="/img/forkme.png" -->
+     <!--     class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+	 <!--   -->
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
@@ -258,6 +258,8 @@
     
     <h1 id="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点"><a href="#摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点" class="headerlink" title="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点"></a>摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点</h1><hr>
 <h1 id="前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。"><a href="#前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。" class="headerlink" title="前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。"></a>前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。</h1><hr>
+<span id="more"></span>
+
 <h2 id="gRPC是啥？？？？？"><a href="#gRPC是啥？？？？？" class="headerlink" title="gRPC是啥？？？？？"></a>gRPC是啥？？？？？</h2><p>所谓RPC(remote procedure call 远程过程调用)框架实际是提供了一套机制，使得应用程序之间可以进行通信，而且也遵从server/client模型。使用的时候客户端调用server端提供的接口就像是调用本地的函数一样。如下图所示就是一个典型的RPC结构图。</p>
 <p><img src="/blog/19/1.png" alt="RPC"></p>
 <p>gRPC 一开始由 google 开发，是一款语言中立、平台中立、开源的远程过程调用(RPC)系统。在 gRPC 里客户端应用可以像调用本地对象一样直接调用另一台不同的机器上服务端应用的方法，使得您能够更容易地创建分布式应用和服务。与许多 RPC 系统类似，gRPC 也是基于以下理念：定义一个服务，指定其能够被远程调用的方法（包含参数和返回类型）。在服务端实现这个接口，并运行一个 gRPC 服务器来处理客户端调用。在客户端拥有一个存根能够像服务端一样的方法。</p>
@@ -627,7 +629,7 @@
   
 </footer>
 
-    </div>
+    </div> 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
@@ -771,6 +773,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -780,10 +786,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,11 +801,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">

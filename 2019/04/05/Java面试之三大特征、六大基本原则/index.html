@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：Java面试之三大特征、六大基本原则总结 前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。四大特征：抽象、封装、继承、多态六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP） 四大特征：抽象、封装、继承、多态抽象抽象是将一">
+  <meta name="description" content="摘要：Java面试之三大特征、六大基本原则总结 前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。四大特征：抽象、封装、继承、多态六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java面试之三大特征、六大基本原则">
 <meta property="og:url" content="https://www.blog.ajie39.top/2019/04/05/Java%E9%9D%A2%E8%AF%95%E4%B9%8B%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81%E3%80%81%E5%85%AD%E5%A4%A7%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：Java面试之三大特征、六大基本原则总结 前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。四大特征：抽象、封装、继承、多态六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP） 四大特征：抽象、封装、继承、多态抽象抽象是将一">
+<meta property="og:description" content="摘要：Java面试之三大特征、六大基本原则总结 前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。四大特征：抽象、封装、继承、多态六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-05T03:07:50.651Z">
-<meta property="article:modified_time" content="2019-04-07T03:07:56.235Z">
+<meta property="article:modified_time" content="2021-05-05T04:25:56.542Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Java">
@@ -123,14 +123,14 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+	<div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
-      
-      <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" 
-        href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank">
-        <img src="/img/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-      
+     <!--  -->
+     <!-- <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" -->
+     <!--   href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank"> -->
+     <!--   <img src="/img/forkme.png" -->
+     <!--     class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+	 <!--   -->
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
@@ -255,6 +255,8 @@
     
     <h1 id="摘要：Java面试之三大特征、六大基本原则总结"><a href="#摘要：Java面试之三大特征、六大基本原则总结" class="headerlink" title="摘要：Java面试之三大特征、六大基本原则总结"></a>摘要：Java面试之三大特征、六大基本原则总结</h1><hr>
 <h1 id="前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。"><a href="#前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。" class="headerlink" title="前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。"></a>前言：Java面试基础内容的一部分，虽然看似简单，不过如果没有对其理解清楚，在写代码的时候经常会使自己的代码漏洞百出。</h1><h1 id="四大特征：抽象、封装、继承、多态"><a href="#四大特征：抽象、封装、继承、多态" class="headerlink" title="四大特征：抽象、封装、继承、多态"></a>四大特征：抽象、封装、继承、多态</h1><h1 id="六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）"><a href="#六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）" class="headerlink" title="六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）"></a>六大基本原则：单一职责原则（SRP）、里氏替换原则（LSP）、依赖倒置原则（DIP）、接口隔离原则（ISP）、迪米特原则（LOD）、开放封闭原则（OCP）</h1><hr>
+<span id="more"></span>
+
 <h2 id="四大特征：抽象、封装、继承、多态-1"><a href="#四大特征：抽象、封装、继承、多态-1" class="headerlink" title="四大特征：抽象、封装、继承、多态"></a>四大特征：抽象、封装、继承、多态</h2><h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>抽象是将一类对象的共同特征总结出来构造类的过程，包括数据抽象和行为抽象两方面。抽象只关注对象有哪些属性和行为，并不关注这些行为的细节是什么。</p>
 <h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>通常认为封装是把<strong>数据</strong>和<strong>操作数据的方法</strong>绑定起来，对数据的访问<strong>只能通过已定义的接口</strong>。面向对象的本质就是将现实世界描绘成一系列完全自治、封闭的对象。我们在类中编写的方法就是对实现细节的一种封装；我们编写一个类就是对数据和数据操作的封装。可以说，封装就是<strong>隐藏一切可隐藏的东西</strong>，只向外界<strong>提供最简单的编程接口</strong>。</p>
 <h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承是<strong>从已有类得到继承信息创建新类的过程</strong>。提供继承信息的类被称为 <strong>父类（超类、基类）</strong>；得到继承信息的类被称为 <strong>子类（派生类）</strong>。继承让变化中的软件系统有了一定的延续性，同时继承也是封装程序中可变因素的重要手段（桥梁模式）。</p>
@@ -621,7 +623,7 @@
   
 </footer>
 
-    </div>
+    </div> 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
@@ -765,6 +767,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -774,10 +780,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,11 +795,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">

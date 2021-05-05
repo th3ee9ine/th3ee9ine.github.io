@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：主要总结了一下如何保证类线程安全。 前言：总结了一下如何保证类线程安全。 保证类线程安全的措施 不共享线程间的变量； 设置属性变量为不可变变量； 每个共享的可变变量都使用一个确定的锁保护。  保证线程安全的思路1. 通过架构设计通过上层的架构设计和业务分析来避免并发场景。比如需要用多线程或分布式集群统计一堆用户的相关统计值，由于用户的统计值是共享数据，因此需要保证线程安全。 从业务上分析出用">
+  <meta name="description" content="摘要：主要总结了一下如何保证类线程安全。 前言：总结了一下如何保证类线程安全。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何保证类线程安全">
 <meta property="og:url" content="https://www.blog.ajie39.top/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：主要总结了一下如何保证类线程安全。 前言：总结了一下如何保证类线程安全。 保证类线程安全的措施 不共享线程间的变量； 设置属性变量为不可变变量； 每个共享的可变变量都使用一个确定的锁保护。  保证线程安全的思路1. 通过架构设计通过上层的架构设计和业务分析来避免并发场景。比如需要用多线程或分布式集群统计一堆用户的相关统计值，由于用户的统计值是共享数据，因此需要保证线程安全。 从业务上分析出用">
+<meta property="og:description" content="摘要：主要总结了一下如何保证类线程安全。 前言：总结了一下如何保证类线程安全。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-20T17:02:22.886Z">
-<meta property="article:modified_time" content="2020-06-20T17:02:11.372Z">
+<meta property="article:modified_time" content="2021-05-05T04:23:43.752Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -122,14 +122,14 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+	<div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
-      
-      <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" 
-        href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank">
-        <img src="/img/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-      
+     <!--  -->
+     <!-- <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" -->
+     <!--   href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank"> -->
+     <!--   <img src="/img/forkme.png" -->
+     <!--     class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+	 <!--   -->
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
@@ -254,6 +254,8 @@
     
     <h1 id="摘要：主要总结了一下如何保证类线程安全。"><a href="#摘要：主要总结了一下如何保证类线程安全。" class="headerlink" title="摘要：主要总结了一下如何保证类线程安全。"></a>摘要：主要总结了一下如何保证类线程安全。</h1><hr>
 <h1 id="前言：总结了一下如何保证类线程安全。"><a href="#前言：总结了一下如何保证类线程安全。" class="headerlink" title="前言：总结了一下如何保证类线程安全。"></a>前言：总结了一下如何保证类线程安全。</h1><hr>
+<span id="more"></span>
+
 <h2 id="保证类线程安全的措施"><a href="#保证类线程安全的措施" class="headerlink" title="保证类线程安全的措施"></a>保证类线程安全的措施</h2><ul>
 <li>不共享线程间的变量；</li>
 <li>设置属性变量为不可变变量；</li>
@@ -468,7 +470,7 @@
   
 </footer>
 
-    </div>
+    </div> 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
@@ -612,6 +614,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -621,10 +627,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,11 +642,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">

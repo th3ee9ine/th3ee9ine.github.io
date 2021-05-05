@@ -10,17 +10,17 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。 前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。 什么是Lambda表达式Lambda表达式是Java SE 8中一个重要的新特性。lambda表达式允许你通过表达式来">
+  <meta name="description" content="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。 前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从零开始学习lambda表达式">
 <meta property="og:url" content="https://www.blog.ajie39.top/2019/12/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。 前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。 什么是Lambda表达式Lambda表达式是Java SE 8中一个重要的新特性。lambda表达式允许你通过表达式来">
+<meta property="og:description" content="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。 前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/21/1.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/21/2.png">
 <meta property="article:published_time" content="2019-12-03T11:18:52.686Z">
-<meta property="article:modified_time" content="2021-05-01T13:09:43.385Z">
+<meta property="article:modified_time" content="2021-05-05T04:23:53.917Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -125,14 +125,14 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+	<div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
-      
-      <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" 
-        href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank">
-        <img src="/img/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-      
+     <!--  -->
+     <!-- <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" -->
+     <!--   href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank"> -->
+     <!--   <img src="/img/forkme.png" -->
+     <!--     class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+	 <!--   -->
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
@@ -257,6 +257,8 @@
     
     <h1 id="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。"><a href="#摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。" class="headerlink" title="摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。"></a>摘要：重新把Lambda表达式过了一遍，新写的这篇总结更简单易懂。</h1><hr>
 <h1 id="前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。"><a href="#前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。" class="headerlink" title="前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。"></a>前言：Lambda表达式是Java8的一个新特性，但是我之前并没有运用的很熟练，并且在某次面试的时候，还因为这个原因，丢人了，所以特意重新总结了一下，这篇更简单易懂。之前文章跳转（建议这篇文章看完，之前的那篇）。</h1><hr>
+<span id="more"></span>
+
 <h2 id="什么是Lambda表达式"><a href="#什么是Lambda表达式" class="headerlink" title="什么是Lambda表达式"></a>什么是Lambda表达式</h2><p>Lambda表达式是Java SE 8中一个重要的新特性。lambda表达式允许你通过表达式来代替功能接口。lambda表达式就和方法一样,它提供了一个正常的参数列表和一个使用这些参数的主体(body,可以是一个表达式或一个代码块)。Lambda表达式还增强了集合库。</p>
 <p>Java Lambda表达式的一个重要用法是简化某些匿名内部类（Anonymous Classes）的写法。实际上Lambda表达式并不仅仅是匿名内部类的语法糖，JVM内部是通过invokedynamic指令来实现Lambda表达式的。</p>
 <h2 id="Lambda表达式语法"><a href="#Lambda表达式语法" class="headerlink" title="Lambda表达式语法"></a>Lambda表达式语法</h2><p>Lambda 表达式在 Java 语言中引入了一个新的语法元素和操作符。这个操作符为 “-&gt;”，该操作符被称 为 Lambda 操作符或箭头操作符。它将 Lambda 分为两个部分：</p>
@@ -922,7 +924,7 @@
   
 </footer>
 
-    </div>
+    </div> 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
@@ -1066,6 +1068,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -1075,10 +1081,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1094,11 +1096,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。 常见库简介1.xlrdxlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。http:&#x2F;&#x2F;xlrd.readthedocs.io&#x2F;en&#x2F;latest&#x2F;    1、xlrd支持.xls，.xlsx文件的读    2、通过设置on_">
+  <meta name="description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python之操作Excel模块">
 <meta property="og:url" content="https://www.blog.ajie39.top/2019/09/01/python%E4%B9%8B%E6%93%8D%E4%BD%9CExcel%E6%A8%A1%E5%9D%97/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。 常见库简介1.xlrdxlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。http:&#x2F;&#x2F;xlrd.readthedocs.io&#x2F;en&#x2F;latest&#x2F;    1、xlrd支持.xls，.xlsx文件的读    2、通过设置on_">
+<meta property="og:description" content="摘要：python操作Excel文件，第三方模块汇总。 前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-09-01T07:02:14.249Z">
-<meta property="article:modified_time" content="2019-09-01T11:03:32.691Z">
+<meta property="article:modified_time" content="2021-05-05T04:26:46.611Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -122,14 +122,14 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+	<div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
-      
-      <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" 
-        href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank">
-        <img src="/img/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-      
+     <!--  -->
+     <!-- <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" -->
+     <!--   href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank"> -->
+     <!--   <img src="/img/forkme.png" -->
+     <!--     class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+	 <!--   -->
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
@@ -254,6 +254,8 @@
     
     <h1 id="摘要：python操作Excel文件，第三方模块汇总。"><a href="#摘要：python操作Excel文件，第三方模块汇总。" class="headerlink" title="摘要：python操作Excel文件，第三方模块汇总。"></a>摘要：python操作Excel文件，第三方模块汇总。</h1><hr>
 <h1 id="前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。"><a href="#前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。" class="headerlink" title="前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。"></a>前言：本篇文章主要总结了一下利用python操作Excel文件的第三方库和方法。</h1><hr>
+<span id="more"></span>
+
 <h2 id="常见库简介"><a href="#常见库简介" class="headerlink" title="常见库简介"></a>常见库简介</h2><h3 id="1-xlrd"><a href="#1-xlrd" class="headerlink" title="1.xlrd"></a>1.xlrd</h3><p>xlrd是一个从Excel文件读取数据和格式化信息的库，支持.xls以及.xlsx文件。<br><a target="_blank" rel="noopener" href="http://xlrd.readthedocs.io/en/latest/">http://xlrd.readthedocs.io/en/latest/</a><br>    1、xlrd支持.xls，.xlsx文件的读<br>    2、通过设置on_demand变量使open_workbook()函数只加载那些需要的sheet，从而节省时间和内存（该方法对.xlsx文件无效）。<br>    3、xlrd.Book对象有一个unload_sheet方法，它将从内存中卸载工作表，由工作表索引或工作表名称指定（该方法对.xlsx文件无效）</p>
 <h3 id="2-xlwt"><a href="#2-xlwt" class="headerlink" title="2.xlwt"></a>2.xlwt</h3><p>xlwt是一个用于将数据和格式化信息写入旧Excel文件的库（如.xls）。<br><a target="_blank" rel="noopener" href="https://xlwt.readthedocs.io/en/latest/">https://xlwt.readthedocs.io/en/latest/</a><br>    1、xlwt支持.xls文件写。</p>
 <h3 id="3-xlutils"><a href="#3-xlutils" class="headerlink" title="3.xlutils"></a>3.xlutils</h3><p>xlutils是一个处理Excel文件的库，依赖于xlrd和xlwt。<br><a target="_blank" rel="noopener" href="http://xlutils.readthedocs.io/en/latest/">http://xlutils.readthedocs.io/en/latest/</a><br>    1、xlutils支持.xls文件。<br>    2、支持Excel操作。</p>
@@ -722,7 +724,7 @@
   
 </footer>
 
-    </div>
+    </div> 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
@@ -866,6 +868,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -875,10 +881,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -894,11 +896,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">

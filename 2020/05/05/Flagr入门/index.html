@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。 flagr是什么？在介绍flagr之前，我们先要明白什么是A&#x2F;B测试，什么是灰度测试，这样可以让我们更好的理解flagr。 A&#x2F;B测试A&#x2F;B测试指的是系统">
+  <meta name="description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flagr入门">
 <meta property="og:url" content="https://www.blog.ajie39.top/2020/05/05/Flagr%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。 flagr是什么？在介绍flagr之前，我们先要明白什么是A&#x2F;B测试，什么是灰度测试，这样可以让我们更好的理解flagr。 A&#x2F;B测试A&#x2F;B测试指的是系统">
+<meta property="og:description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/23/1.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/23/2.png">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/23/7.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/23/8.png">
 <meta property="article:published_time" content="2020-05-05T08:38:55.675Z">
-<meta property="article:modified_time" content="2021-05-01T13:09:43.358Z">
+<meta property="article:modified_time" content="2021-05-05T04:24:45.212Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="A&#x2F;B测试">
@@ -132,14 +132,14 @@
 </div>
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+	<div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       
-      
-      <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" 
-        href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank">
-        <img src="/img/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-      
+     <!--  -->
+     <!-- <a class="forkMe" style="position:absolute;z-index:999;top:0;right:0.5em;" -->
+     <!--   href="https://github.com/JoeyBling/hexo-theme-yilia-plus" target="_blank"> -->
+     <!--   <img src="/img/forkme.png" -->
+     <!--     class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+	 <!--   -->
       
 <nav id="mobile-nav">
   	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
@@ -264,6 +264,8 @@
     
     <h1 id="摘要：这篇文章主要介绍一个A-B测试的中间件–flagr"><a href="#摘要：这篇文章主要介绍一个A-B测试的中间件–flagr" class="headerlink" title="摘要：这篇文章主要介绍一个A/B测试的中间件–flagr"></a>摘要：这篇文章主要介绍一个A/B测试的中间件–flagr</h1><hr>
 <h1 id="前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。-它提供功能标记，实验（A-B测试）和动态配置。-它具有用于标志管理和标志评估的清晰的REST-API。"><a href="#前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。-它提供功能标记，实验（A-B测试）和动态配置。-它具有用于标志管理和标志评估的清晰的REST-API。" class="headerlink" title="前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A / B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。"></a>前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A / B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。</h1><hr>
+<span id="more"></span>
+
 <h2 id="flagr是什么？"><a href="#flagr是什么？" class="headerlink" title="flagr是什么？"></a>flagr是什么？</h2><p>在介绍flagr之前，我们先要明白什么是A/B测试，什么是灰度测试，这样可以让我们更好的理解flagr。</p>
 <h3 id="A-B测试"><a href="#A-B测试" class="headerlink" title="A/B测试"></a>A/B测试</h3><p>A/B测试指的是系统测试通过并发布后，同一个软件功能不同的用户会看到不同的实现方式，收集每个用户的反馈。本质上是上线后的测试，收集用户的反馈。即让一部分用户继续用产品特性A，一部分用户开始用产品特性B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。</p>
 <h3 id="灰度测试"><a href="#灰度测试" class="headerlink" title="灰度测试"></a>灰度测试</h3><p>灰度发布，又名金丝雀发布，或者灰度测试，是指在黑与白之间能够平滑过渡的一种发布方式。在其上可以进行A/B测试。</p>
@@ -719,7 +721,7 @@
   
 </footer>
 
-    </div>
+    </div> 
     <script>
 	var yiliaConfig = {
 		mathjax: false,
@@ -863,6 +865,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -872,10 +878,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -891,11 +893,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">
