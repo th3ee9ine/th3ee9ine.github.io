@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/6/sql2.png">
 <meta property="og:image" content="https://www.blog.ajie39.top/blog/6/sql3.png">
 <meta property="article:published_time" content="2019-04-05T03:07:50.659Z">
-<meta property="article:modified_time" content="2021-05-05T04:24:27.075Z">
+<meta property="article:modified_time" content="2021-05-15T14:55:39.022Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Java">
@@ -283,7 +283,8 @@
 </ul>
 <p><strong>2数据库索引的优缺点以及什么时候数据库索引失效</strong></p>
 <ul>
-<li>索引的特点<ul>
+<li><p>索引的特点</p>
+<ul>
 <li>可以加快数据库的检索速度</li>
 <li>降低数据库插入、修改、删除等维护的速度</li>
 <li>只能创建在表上，不能创建到视图上</li>
@@ -292,28 +293,42 @@
 <li>使用查询处理器执行SQL语句，在一个表上，一次只能使用一个索引</li>
 </ul>
 </li>
-<li>索引的优点</li>
+<li><p>索引的优点</p>
+<ul>
 <li>创建唯一性索引，保证数据库表中每一行数据的唯一性</li>
 <li>大大加快数据的检索速度，这是创建索引的最主要的原因</li>
 <li>加速数据库表之间的连接，特别是在实现数据的参考完整性方面特别有意义</li>
 <li>在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间</li>
 <li>通过使用索引，可以在查询中使用优化隐藏器，提高系统的性能</li>
-<li>索引的缺点</li>
+</ul>
+</li>
+<li><p>索引的缺点</p>
+<ul>
 <li>创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加</li>
 <li>索引需要占用物理空间，除了数据表占用数据空间之外，每一个索引还要占一定的物理空间，如果建立聚簇索引，那么需要的空间就会更大</li>
 <li>当对表中的数据进行增加、删除和修改的时候，索引也需要维护，降低数据维护的速度</li>
-<li>索引分类</li>
+</ul>
+</li>
+<li><p>索引分类</p>
+<ul>
 <li>直接创建索引和间接创建索引</li>
 <li>普通索引和唯一性索引</li>
 <li>单个索引和复合索引</li>
 <li>聚簇索引和非聚簇索引</li>
-<li>索引失效</li>
+</ul>
+</li>
+<li><p>索引失效</p>
+<ul>
 <li>如果条件中有or，即使其中有条件带索引也不会使用(这就是问什么尽量少使用or的原因)</li>
 <li>对于多列索引，不是使用的第一部分，则不会使用索引</li>
 <li>like查询是以%开头</li>
 <li>如果列类型是字符串，那一定要在条件中使用引号引起来，否则不会使用索引</li>
-<li>如果mysql估计使用全表扫秒比使用索引快，则不适用索引。</li>
-<li>各引擎支持索引<br><img src="/blog/6/sql.png" alt="sql"></li>
+</ul>
+</li>
+<li><p>如果mysql估计使用全表扫秒比使用索引快，则不适用索引。</p>
+</li>
+<li><p>各引擎支持索引<br><img src="/blog/6/sql.png" alt="sql"></p>
+</li>
 </ul>
 <p><strong>3.事务隔离级别</strong></p>
 <ul>
