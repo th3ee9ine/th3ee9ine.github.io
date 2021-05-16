@@ -204,6 +204,114 @@
             
 
   
+    <article id="post-利用hexo和github搭建blog（详细版）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2019/04/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/" target="_blank">利用Hexo和Github搭建Blog（详细版）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2019/04/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/" class="archive-article-date">
+        <time datetime="2019-04-05T03:07:50.657Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-05</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：这是一篇有关如何使用Github-Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。"><a href="#摘要：这是一篇有关如何使用Github-Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。" class="headerlink" title="摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。"></a>摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。</h1><hr>
+<h1 id="前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。"><a href="#前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。" class="headerlink" title="前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。"></a>前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。</h1><hr>
+    
+    <a class="article-more-a" href="/2019/04/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项/Blog//" class="article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2019/04/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-YAML的常用语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1293,6 +1401,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
               </li>
             
             <div class="clearfix"></div>
