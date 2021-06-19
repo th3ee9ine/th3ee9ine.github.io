@@ -854,6 +854,143 @@
 
 
   
+    <article id="post-乌班图安装Tools等教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/" target="_blank">乌班图安装Tools等教程</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/" class="archive-article-date">
+        <time datetime="2020-10-25T15:21:38.757Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-25</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：主要总结了一下乌班图安装一些Tool的步骤。"><a href="#摘要：主要总结了一下乌班图安装一些Tool的步骤。" class="headerlink" title="摘要：主要总结了一下乌班图安装一些Tool的步骤。"></a>摘要：主要总结了一下乌班图安装一些Tool的步骤。</h1><hr>
+<h1 id="前言：乌班图安装一些开发Tool的步骤。"><a href="#前言：乌班图安装一些开发Tool的步骤。" class="headerlink" title="前言：乌班图安装一些开发Tool的步骤。"></a>前言：乌班图安装一些开发Tool的步骤。</h1><hr>
+<h2 id="一、乌班图安装-mysql-5-7"><a href="#一、乌班图安装-mysql-5-7" class="headerlink" title="一、乌班图安装 mysql-5.7"></a>一、乌班图安装 mysql-5.7</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><p>执行以下命令即可完成安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get update  <span class="comment">#更新软件源</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install mysql-server  <span class="comment">#安装mysql</span></span></span><br><span class="line">sudo apt-get install mysql-client</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、更改密码"><a href="#2、更改密码" class="headerlink" title="2、更改密码"></a>2、更改密码</h3><h4 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入完命令直接回车即可，确认密码也直接回车</span></span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第一种方法-用SET-PASSWORD命令"><a href="#第一种方法-用SET-PASSWORD命令" class="headerlink" title="第一种方法, 用SET PASSWORD命令"></a>第一种方法, 用SET PASSWORD命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">格式：mysql&gt; set password for 用户名@localhost = password(&#x27;新密码&#x27;);</span><br><span class="line"></span><br><span class="line">例子：mysql&gt; set password for root@localhost = password(&#x27;123&#x27;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第一种方法-用mysqladmin"><a href="#第一种方法-用mysqladmin" class="headerlink" title="第一种方法, 用mysqladmin"></a>第一种方法, 用mysqladmin</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">格式：mysqladmin -u用户名 -p旧密码 password 新密码</span><br><span class="line"></span><br><span class="line">例子：mysqladmin -uroot -p123456 password 123</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第三种方法，用UPDATE直接编辑user表"><a href="#第三种方法，用UPDATE直接编辑user表" class="headerlink" title="第三种方法，用UPDATE直接编辑user表"></a>第三种方法，用UPDATE直接编辑user表</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 首先登录MySQL。</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> use mysql;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改密码</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> update user <span class="built_in">set</span> password=password(<span class="string">&#x27;123&#x27;</span>) <span class="built_in">where</span> user=<span class="string">&#x27;root&#x27;</span> and host=<span class="string">&#x27;localhost&#x27;</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 刷新MySQL的系统权限相关表，否则会出现拒绝访问。</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> flush privileges;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> quit­</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="第四种方法，忘记root密码"><a href="#第四种方法，忘记root密码" class="headerlink" title="第四种方法，忘记root密码"></a>第四种方法，忘记root密码</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1、编辑mysqld.cnf文件</span></span><br><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、在文件中的skip-external-locking一行的下面添加一行：</span></span><br><span class="line"></span><br><span class="line">skip-grant-tables</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3、重启MySQL服务</span></span><br><span class="line"></span><br><span class="line">sudo service mysql restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 4、终端输入mysql进入MySQL，输入USE mysql切换至mysql数据库</span></span><br><span class="line"></span><br><span class="line">mysql</span><br><span class="line"></span><br><span class="line">USE mysql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 5、把root用户的密码修改为000000</span></span><br><span class="line"></span><br><span class="line">UPDATE mysql.user SET authentication_string=password(&#x27;000000&#x27;) WHERE User=&#x27;root&#x27; AND Host =&#x27;localhost&#x27;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 6、修改字段plugin</span></span><br><span class="line"></span><br><span class="line">UPDATE user SET plugin=&quot;mysql_native_password&quot;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 7、刷新MySQL的系统权限相关表，否则会出现拒绝访问。</span></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 8、退出</span></span><br><span class="line"></span><br><span class="line">quit;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 9、注释掉/etc/mysql/mysql.conf.d/mysqld.cnf文件中添加的一行</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、更改编码方式"><a href="#3、更改编码方式" class="headerlink" title="3、更改编码方式"></a>3、更改编码方式</h3><p>(1)编辑配置文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(2)在[mysqld]下添加一行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">character_set_server = utf8</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(3)重启服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">service mysql restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、关闭防火墙"><a href="#4、关闭防火墙" class="headerlink" title="4、关闭防火墙"></a>4、关闭防火墙</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">systemctl start firewalld # 开启防火墙</span><br><span class="line">systemctl stop firewalld  # 关闭防火墙</span><br><span class="line">systemctl status firewalld  #检查防火墙状态</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、远程连接设置"><a href="#5、远程连接设置" class="headerlink" title="5、远程连接设置"></a>5、远程连接设置</h3><p>(1)注释掉bind-address = 127.0.0.1</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(2)执行授权命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 登录mysql</span></span><br><span class="line">mysql -uroot -p123456</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 授权</span></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(3)重启服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo service mysql restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="二、乌班图安装-redis"><a href="#二、乌班图安装-redis" class="headerlink" title="二、乌班图安装 redis"></a>二、乌班图安装 redis</h2><h3 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h3><p>在 Ubuntu 系统安装 Redi 可以使用以下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash">sudo apt-get update</span></span><br><span class="line"><span class="meta">$</span><span class="bash">sudo apt-get install redis-server</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动 Redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo /etc/init.d/redis-server start</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看 redis 是否启动</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改redis的配置文件</span></span><br><span class="line">cd /etc/redis  (首先查询redis文件夹下所有的文件，去这个文件夹去找一个叫redis.conf的配置文件)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 用vi打开这个redis.conf的配置文件，将redis.conf配置文件中的<span class="built_in">bind</span> 127.0.0.1注释掉（改成<span class="comment">#bind 127.0.0.1）保存</span></span></span><br><span class="line">vi /etc/redis/redis.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启redis服务</span></span><br><span class="line">sudo /etc/init.d/redis-server restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置Redis密码</span></span><br><span class="line">sudo vi /etc/redis/redis.conf   （找到# requirepass foobared 这一行，将前面的#号删除，然后将foobared改成你要设置的密码）</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启Redis服务</span></span><br><span class="line">sudo /etc/init.d/redis-server restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询密码</span></span><br><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 密码验证：</span></span><br><span class="line">redis 127.0.0.1:6379&gt; auth test123</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 登陆有密码的Redis</span></span><br><span class="line">redis-cli -p 6379 -a test123</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果是用apt-get或者yum install安装的redis，可以直接通过下面的命令停止/启动/重启redis</span></span><br><span class="line">/etc/init.d/redis-server stop</span><br><span class="line">/etc/init.d/redis-server start</span><br><span class="line">/etc/init.d/redis-server restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂项</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项/Tool//" class="article-tag-list-link color5">Tool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-面试基础题之《面向对象》" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1166,109 +1303,9 @@
 
 
   
-    <article id="post-保证类线程安全" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" target="_blank">如何保证类线程安全</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="archive-article-date">
-        <time datetime="2020-06-20T17:02:22.886Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-21</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：主要总结了一下如何保证类线程安全。"><a href="#摘要：主要总结了一下如何保证类线程安全。" class="headerlink" title="摘要：主要总结了一下如何保证类线程安全。"></a>摘要：主要总结了一下如何保证类线程安全。</h1><hr>
-<h1 id="前言：总结了一下如何保证类线程安全。"><a href="#前言：总结了一下如何保证类线程安全。" class="headerlink" title="前言：总结了一下如何保证类线程安全。"></a>前言：总结了一下如何保证类线程安全。</h1><hr>
-    
-    <a class="article-more-a" href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/06/21/%E4%BF%9D%E8%AF%81%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1495,6 +1532,30 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
               </li>
             
             <div class="clearfix"></div>
