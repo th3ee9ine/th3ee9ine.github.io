@@ -212,7 +212,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2021/10/24/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/" target="_blank">如何写容易测试的代码（结尾附带单元测试神器推荐）</a>
+	  <a class="article-title" href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/" target="_blank">如何写容易测试的代码（结尾附带单元测试神器推荐）</a>
   
     </h1>
   
@@ -220,8 +220,8 @@
 
   
   
-<a href="/2021/10/24/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/" class="archive-article-date">
-        <time datetime="2021-10-24T15:24:02.194Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-24</time>
+<a href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-10-24T16:13:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-25</time>
 </a>
 
   
@@ -236,7 +236,7 @@
     <h1 id="摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。"><a href="#摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。" class="headerlink" title="摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。"></a>摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。</h1><hr>
 <h1 id="前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。"><a href="#前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。" class="headerlink" title="前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。"></a>前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。</h1><hr>
     
-    <a class="article-more-a" href="/2021/10/24/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/#more">more >></a>
+    <a class="article-more-a" href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/#more">more >></a>
     
     
 
@@ -278,7 +278,222 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2021/10/24/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/">展开全文 >></a>
+      <a class="article-more-a" href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Redis之从面试题到原理（基础篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/06/29/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/" target="_blank">Redis 之从面试题到原理（基础篇）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/06/29/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-06-29T15:25:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-29</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。"><a href="#摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。" class="headerlink" title="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。"></a>摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。</h1><hr>
+<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!</h1><hr>
+<h2 id="文章关联"><a href="#文章关联" class="headerlink" title="文章关联"></a>文章关联</h2><p><a href="https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/"> Redis 之从面试题到原理（拓展篇）</a></p>
+<p><a href="https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/"> Redis 之从面试题到原理（进阶篇）</a></p>
+<hr>
+    
+    <a class="article-more-a" href="/2021/06/29/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试/Redis//" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/06/29/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-自用插件汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/06/20/%E8%87%AA%E7%94%A8%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/" target="_blank">开发工具汇总</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/06/20/%E8%87%AA%E7%94%A8%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/" class="archive-article-date">
+        <time datetime="2021-06-19T18:15:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-20</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：本文主要总结了自己开发所用的各种工具。"><a href="#摘要：本文主要总结了自己开发所用的各种工具。" class="headerlink" title="摘要：本文主要总结了自己开发所用的各种工具。"></a>摘要：本文主要总结了自己开发所用的各种工具。</h1><hr>
+<h1 id="前言：主要是汇总了一下，自己在开发过程中的各种工具。"><a href="#前言：主要是汇总了一下，自己在开发过程中的各种工具。" class="headerlink" title="前言：主要是汇总了一下，自己在开发过程中的各种工具。"></a>前言：主要是汇总了一下，自己在开发过程中的各种工具。</h1><hr>
+    
+    <a class="article-more-a" href="/2021/06/20/%E8%87%AA%E7%94%A8%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂项</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项/Tool//" class="article-tag-list-link color5">Tool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/06/20/%E8%87%AA%E7%94%A8%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/">展开全文 >></a>
     </p>
     
 
@@ -325,7 +540,7 @@
   
   
 <a href="/2021/05/16/Mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="archive-article-date">
-        <time datetime="2021-05-16T07:44:58.392Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-16</time>
+        <time datetime="2021-05-16T14:51:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-16</time>
 </a>
 
   
@@ -417,6 +632,230 @@
 
 
   
+    <article id="post-Java面试之Hashmap" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/05/16/Java%E9%9D%A2%E8%AF%95%E4%B9%8BHashmap/" target="_blank">Java面试之Hashmap</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/05/16/Java%E9%9D%A2%E8%AF%95%E4%B9%8BHashmap/" class="archive-article-date">
+        <time datetime="2021-05-16T10:46:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-16</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：Hashmap面试内容总结"><a href="#摘要：Hashmap面试内容总结" class="headerlink" title="摘要：Hashmap面试内容总结"></a>摘要：Hashmap面试内容总结</h1><hr>
+<h1 id="前言：Hashmap面试内容总结，为面试做准备。"><a href="#前言：Hashmap面试内容总结，为面试做准备。" class="headerlink" title="前言：Hashmap面试内容总结，为面试做准备。"></a>前言：Hashmap面试内容总结，为面试做准备。</h1><hr>
+    
+    <a class="article-more-a" href="/2021/05/16/Java%E9%9D%A2%E8%AF%95%E4%B9%8BHashmap/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法与数据结构//" class="article-tag-list-link color3">算法与数据结构</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法与数据结构/数据结构//" class="article-tag-list-link color5">数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/05/16/Java%E9%9D%A2%E8%AF%95%E4%B9%8BHashmap/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-数据库基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/05/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/" target="_blank">数据库基础复习</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/05/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+        <time datetime="2021-05-16T07:34:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-16</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：这篇文章是对数据库基础的总结和归纳。"><a href="#摘要：这篇文章是对数据库基础的总结和归纳。" class="headerlink" title="摘要：这篇文章是对数据库基础的总结和归纳。"></a>摘要：这篇文章是对数据库基础的总结和归纳。</h1><hr>
+<h1 id="前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。"><a href="#前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。" class="headerlink" title="前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。"></a>前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。</h1><hr>
+    
+    <a class="article-more-a" href="/2021/05/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/数据库//" class="article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/05/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Redis 是单线程的？？？？你别唬我，我可不是厦（吓）大的" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -425,7 +864,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2021/05/08/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/" target="_blank">Redis 是单线程的？？？？你别唬我，我可不是厦（吓）大的</a>
+	  <a class="article-title" href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/" target="_blank">Redis 是单线程的？？？？你别唬我，我可不是厦（吓）大的</a>
   
     </h1>
   
@@ -433,8 +872,8 @@
 
   
   
-<a href="/2021/05/08/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/" class="archive-article-date">
-        <time datetime="2021-05-08T06:54:53.707Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-08</time>
+<a href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/" class="archive-article-date">
+        <time datetime="2021-05-09T12:53:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-09</time>
 </a>
 
   
@@ -449,7 +888,7 @@
     <h1 id="摘要：Redis-单线程相关内容，包括其中涉及的一些原理等。"><a href="#摘要：Redis-单线程相关内容，包括其中涉及的一些原理等。" class="headerlink" title="摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。"></a>摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。</h1><hr>
 <h1 id="前言：相信大家一定和我一样在很多标题党文章中，看到-Redis-是单线程等等相关的说明，但是其中并没系统、完整的总结-Redis-是否真的是单线程，还是-Redis-中的某个模块是单线程。今天我们就一起来揭秘一下这个-“熟悉的陌生人”。"><a href="#前言：相信大家一定和我一样在很多标题党文章中，看到-Redis-是单线程等等相关的说明，但是其中并没系统、完整的总结-Redis-是否真的是单线程，还是-Redis-中的某个模块是单线程。今天我们就一起来揭秘一下这个-“熟悉的陌生人”。" class="headerlink" title="前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。"></a>前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。</h1><hr>
     
-    <a class="article-more-a" href="/2021/05/08/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/#more">more >></a>
+    <a class="article-more-a" href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/#more">more >></a>
     
     
 
@@ -487,7 +926,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2021/05/08/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/">展开全文 >></a>
+      <a class="article-more-a" href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/">展开全文 >></a>
     </p>
     
 
@@ -534,7 +973,7 @@
   
   
 <a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/" class="archive-article-date">
-        <time datetime="2021-05-05T08:16:46.258Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+        <time datetime="2021-05-05T08:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
 </a>
 
   
@@ -645,7 +1084,7 @@
   
   
 <a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/" class="archive-article-date">
-        <time datetime="2021-05-05T08:16:46.257Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+        <time datetime="2021-05-05T08:53:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
 </a>
 
   
@@ -739,117 +1178,6 @@
 
 
   
-    <article id="post-Redis之从面试题到原理（基础篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/" target="_blank">Redis 之从面试题到原理（基础篇）</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/" class="archive-article-date">
-        <time datetime="2021-05-05T07:39:46.014Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。"><a href="#摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。" class="headerlink" title="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。"></a>摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。</h1><hr>
-<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!</h1><hr>
-<h2 id="文章关联"><a href="#文章关联" class="headerlink" title="文章关联"></a>文章关联</h2><p><a href="https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/"> Redis 之从面试题到原理（拓展篇）</a></p>
-<p><a href="https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/"> Redis 之从面试题到原理（进阶篇）</a></p>
-<hr>
-    
-    <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试/Redis//" class="article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-分布式锁原理分析与应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -858,7 +1186,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2021/04/30/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/" target="_blank">分布式锁原理分析与应用</a>
+	  <a class="article-title" href="/2021/05/05/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/" target="_blank">分布式锁原理分析与应用</a>
   
     </h1>
   
@@ -866,8 +1194,8 @@
 
   
   
-<a href="/2021/04/30/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/" class="archive-article-date">
-        <time datetime="2021-04-30T13:53:06.943Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-30</time>
+<a href="/2021/05/05/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/" class="archive-article-date">
+        <time datetime="2021-05-05T07:54:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
 </a>
 
   
@@ -882,7 +1210,7 @@
     <h1 id="摘要：这篇文章主要是介绍分布式锁相关的内容。"><a href="#摘要：这篇文章主要是介绍分布式锁相关的内容。" class="headerlink" title="摘要：这篇文章主要是介绍分布式锁相关的内容。"></a>摘要：这篇文章主要是介绍分布式锁相关的内容。</h1><hr>
 <h1 id="前言：对于锁大家肯定不会陌生，比如-synchronized-关键字-和-ReentrantLock-可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。"><a href="#前言：对于锁大家肯定不会陌生，比如-synchronized-关键字-和-ReentrantLock-可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。" class="headerlink" title="前言：对于锁大家肯定不会陌生，比如 synchronized 关键字 和 ReentrantLock 可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。"></a>前言：对于锁大家肯定不会陌生，比如 synchronized 关键字 和 ReentrantLock 可重入锁，一般我们用其在多线程环境中控制对资源的并发访问。但是随着业务的发展，分布式的概念逐渐出现在我们系统中，我们在开发的过程中经常需要进行多个系统之间的交互，于是上面的加锁方法就会失去作用。于是在分布式锁就自然而然的诞生了，接下来我们来聊一聊分布式锁实现的几种方式。</h1><hr>
     
-    <a class="article-more-a" href="/2021/04/30/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/#more">more >></a>
+    <a class="article-more-a" href="/2021/05/05/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/#more">more >></a>
     
     
 
@@ -928,352 +1256,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2021/04/30/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-乌班图安装Tools等教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/" target="_blank">乌班图安装Tools等教程</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/" class="archive-article-date">
-        <time datetime="2020-10-25T15:21:38.757Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-25</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：主要总结了一下乌班图安装一些Tool的步骤。"><a href="#摘要：主要总结了一下乌班图安装一些Tool的步骤。" class="headerlink" title="摘要：主要总结了一下乌班图安装一些Tool的步骤。"></a>摘要：主要总结了一下乌班图安装一些Tool的步骤。</h1><hr>
-<h1 id="前言：乌班图安装一些开发Tool的步骤。"><a href="#前言：乌班图安装一些开发Tool的步骤。" class="headerlink" title="前言：乌班图安装一些开发Tool的步骤。"></a>前言：乌班图安装一些开发Tool的步骤。</h1><hr>
-<h2 id="一、乌班图安装-mysql-5-7"><a href="#一、乌班图安装-mysql-5-7" class="headerlink" title="一、乌班图安装 mysql-5.7"></a>一、乌班图安装 mysql-5.7</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><p>执行以下命令即可完成安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get update  <span class="comment">#更新软件源</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install mysql-server  <span class="comment">#安装mysql</span></span></span><br><span class="line">sudo apt-get install mysql-client</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2、更改密码"><a href="#2、更改密码" class="headerlink" title="2、更改密码"></a>2、更改密码</h3><h4 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输入完命令直接回车即可，确认密码也直接回车</span></span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="第一种方法-用SET-PASSWORD命令"><a href="#第一种方法-用SET-PASSWORD命令" class="headerlink" title="第一种方法, 用SET PASSWORD命令"></a>第一种方法, 用SET PASSWORD命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">格式：mysql&gt; set password for 用户名@localhost = password(&#x27;新密码&#x27;);</span><br><span class="line"></span><br><span class="line">例子：mysql&gt; set password for root@localhost = password(&#x27;123&#x27;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="第一种方法-用mysqladmin"><a href="#第一种方法-用mysqladmin" class="headerlink" title="第一种方法, 用mysqladmin"></a>第一种方法, 用mysqladmin</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">格式：mysqladmin -u用户名 -p旧密码 password 新密码</span><br><span class="line"></span><br><span class="line">例子：mysqladmin -uroot -p123456 password 123</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="第三种方法，用UPDATE直接编辑user表"><a href="#第三种方法，用UPDATE直接编辑user表" class="headerlink" title="第三种方法，用UPDATE直接编辑user表"></a>第三种方法，用UPDATE直接编辑user表</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 首先登录MySQL。</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> use mysql;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改密码</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> update user <span class="built_in">set</span> password=password(<span class="string">&#x27;123&#x27;</span>) <span class="built_in">where</span> user=<span class="string">&#x27;root&#x27;</span> and host=<span class="string">&#x27;localhost&#x27;</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 刷新MySQL的系统权限相关表，否则会出现拒绝访问。</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> flush privileges;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> quit­</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="第四种方法，忘记root密码"><a href="#第四种方法，忘记root密码" class="headerlink" title="第四种方法，忘记root密码"></a>第四种方法，忘记root密码</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1、编辑mysqld.cnf文件</span></span><br><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、在文件中的skip-external-locking一行的下面添加一行：</span></span><br><span class="line"></span><br><span class="line">skip-grant-tables</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3、重启MySQL服务</span></span><br><span class="line"></span><br><span class="line">sudo service mysql restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 4、终端输入mysql进入MySQL，输入USE mysql切换至mysql数据库</span></span><br><span class="line"></span><br><span class="line">mysql</span><br><span class="line"></span><br><span class="line">USE mysql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 5、把root用户的密码修改为000000</span></span><br><span class="line"></span><br><span class="line">UPDATE mysql.user SET authentication_string=password(&#x27;000000&#x27;) WHERE User=&#x27;root&#x27; AND Host =&#x27;localhost&#x27;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 6、修改字段plugin</span></span><br><span class="line"></span><br><span class="line">UPDATE user SET plugin=&quot;mysql_native_password&quot;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 7、刷新MySQL的系统权限相关表，否则会出现拒绝访问。</span></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 8、退出</span></span><br><span class="line"></span><br><span class="line">quit;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 9、注释掉/etc/mysql/mysql.conf.d/mysqld.cnf文件中添加的一行</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="3、更改编码方式"><a href="#3、更改编码方式" class="headerlink" title="3、更改编码方式"></a>3、更改编码方式</h3><p>(1)编辑配置文件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>(2)在[mysqld]下添加一行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">character_set_server = utf8</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>(3)重启服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">service mysql restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="4、关闭防火墙"><a href="#4、关闭防火墙" class="headerlink" title="4、关闭防火墙"></a>4、关闭防火墙</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">systemctl start firewalld # 开启防火墙</span><br><span class="line">systemctl stop firewalld  # 关闭防火墙</span><br><span class="line">systemctl status firewalld  #检查防火墙状态</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="5、远程连接设置"><a href="#5、远程连接设置" class="headerlink" title="5、远程连接设置"></a>5、远程连接设置</h3><p>(1)注释掉bind-address = 127.0.0.1</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>(2)执行授权命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 登录mysql</span></span><br><span class="line">mysql -uroot -p123456</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 授权</span></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 刷新权限</span></span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>(3)重启服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo service mysql restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="二、乌班图安装-redis"><a href="#二、乌班图安装-redis" class="headerlink" title="二、乌班图安装 redis"></a>二、乌班图安装 redis</h2><h3 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h3><p>在 Ubuntu 系统安装 Redi 可以使用以下命令:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash">sudo apt-get update</span></span><br><span class="line"><span class="meta">$</span><span class="bash">sudo apt-get install redis-server</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动 Redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo /etc/init.d/redis-server start</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看 redis 是否启动</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改redis的配置文件</span></span><br><span class="line">cd /etc/redis  (首先查询redis文件夹下所有的文件，去这个文件夹去找一个叫redis.conf的配置文件)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 用vi打开这个redis.conf的配置文件，将redis.conf配置文件中的<span class="built_in">bind</span> 127.0.0.1注释掉（改成<span class="comment">#bind 127.0.0.1）保存</span></span></span><br><span class="line">vi /etc/redis/redis.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启redis服务</span></span><br><span class="line">sudo /etc/init.d/redis-server restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置Redis密码</span></span><br><span class="line">sudo vi /etc/redis/redis.conf   （找到# requirepass foobared 这一行，将前面的#号删除，然后将foobared改成你要设置的密码）</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启Redis服务</span></span><br><span class="line">sudo /etc/init.d/redis-server restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动redis</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> redis-cli</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询密码</span></span><br><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 密码验证：</span></span><br><span class="line">redis 127.0.0.1:6379&gt; auth test123</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 登陆有密码的Redis</span></span><br><span class="line">redis-cli -p 6379 -a test123</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果是用apt-get或者yum install安装的redis，可以直接通过下面的命令停止/启动/重启redis</span></span><br><span class="line">/etc/init.d/redis-server stop</span><br><span class="line">/etc/init.d/redis-server start</span><br><span class="line">/etc/init.d/redis-server restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂项</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/杂项/Tool//" class="article-tag-list-link color5">Tool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/10/25/%E4%B9%8C%E7%8F%AD%E5%9B%BE%E5%AE%89%E8%A3%85Tools%E7%AD%89%E6%95%99%E7%A8%8B/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-面试基础题之《面向对象》" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/" target="_blank">面试基础题之《面向对象》</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/" class="archive-article-date">
-        <time datetime="2020-08-16T09:46:55.312Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。"><a href="#摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。" class="headerlink" title="摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。"></a>摘要：该篇文章主要是总结了一下面试过程中关于接口、抽象类、面向对象的四大特性的知识点。</h1><hr>
-<h1 id="前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。"><a href="#前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。" class="headerlink" title="前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。"></a>前言：接口、抽象类、面向对象的四大特性在面试的过程中属于基础中的基础，是属于入门级别的题目，这些内容如果回答不上，基本上你的面试就会直接GG。建议熟练掌握，特别是一些容易混淆的概念。</h1><hr>
-    
-    <a class="article-more-a" href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/08/16/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E4%B9%8B%E3%80%8A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E3%80%8B/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-面试题目总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" target="_blank">面试题目总结</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" class="archive-article-date">
-        <time datetime="2020-08-15T06:54:53.062Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。"><a href="#摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。" class="headerlink" title="摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。"></a>摘要：这是一个悲伤的故事，因为太菜、频繁出现低级错误而惨遭leader嫌弃，为了不被T出团队，便将公司的面试题总结了一遍，（今天也是元气满满的一天）。</h1><hr>
-<h1 id="前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。"><a href="#前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。" class="headerlink" title="前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。"></a>前言：题目主要包括四个部分：基础问题、进阶问题、扩展问题、编程题。基础问题：是必须数量掌握题目，如果答不上来，在面试的过程中会惨遭扣分，基本面试无望，一般出现在一面中，和少数的二面中。进阶问题：一般是了解面试者对于改技术的了解深度，答的越多，评分越高，一般出现在二面和三面中。扩展问题：一般属于开发性的题目，不要出现致命性的低级错误即可，一般出现在三面和四面中。编程题：这里主要是为了考验面试者的编码能力，和一些算法功底，我们公司现在的编程题目较为简单，主要是为了考验编码能力，涉及算法部分较少，一般出现在笔试中。</h1><hr>
-    
-    <a class="article-more-a" href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/08/15/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/">展开全文 >></a>
+      <a class="article-more-a" href="/2021/05/05/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/">展开全文 >></a>
     </p>
     
 
@@ -1427,11 +1410,23 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1447,15 +1442,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1467,11 +1466,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
+                <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1483,7 +1486,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1491,7 +1506,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1515,6 +1530,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -1523,47 +1542,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
               </li>
             
             <div class="clearfix"></div>
