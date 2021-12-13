@@ -17,21 +17,21 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：这篇文章主要介绍一个A&#x2F;B测试的中间件–flagr 前言：Flagr是一个开源Go服务，可为正确的实体提供正确的体验并监视其影响。 它提供功能标记，实验（A &#x2F; B测试）和动态配置。 它具有用于标志管理和标志评估的清晰的REST API。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/1.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/2.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/3.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/4.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/5.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/6.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/7.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/23/8.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/1.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/2.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/3.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/4.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/5.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/6.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/7.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/23/8.png">
 <meta property="article:published_time" content="2021-05-05T04:24:46.000Z">
-<meta property="article:modified_time" content="2021-05-05T04:24:46.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:16:07.711Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="中间件">
 <meta property="article:tag" content="A&#x2F;B测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/23/1.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/23/1.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -502,23 +502,23 @@
 </tbody></table>
 <p>具体的api文档可以参考以下地址：<br><a target="_blank" rel="noopener" href="https://checkr.github.io/flagr/api_docs/">https://checkr.github.io/flagr/api_docs/</a></p>
 <h2 id="flagr实例"><a href="#flagr实例" class="headerlink" title="flagr实例"></a>flagr实例</h2><p>假设我们想向美国用户推出一个新按钮，而我们不知道哪种颜色效果最好。 绿色/蓝色/粉红色是标志的三种变体。</p>
-<p><img src="/blog/23/1.png" alt="按钮1"></p>
-<p><img src="/blog/23/2.png" alt="按钮2"></p>
+<p><img src="/img/image/blog/23/1.png" alt="按钮1"></p>
+<p><img src="/img/image/blog/23/2.png" alt="按钮2"></p>
 <p>我们可能希望将标志公开给一小部分用户，例如加利福尼亚的用户。 因此，加利福尼亚的用户属于细分区。</p>
-<p><img src="/blog/23/3.png" alt="细分区图1"></p>
+<p><img src="/img/image/blog/23/3.png" alt="细分区图1"></p>
 <p>后来，我们了解到CA的用户喜欢绿色的按钮，NY的人们喜欢粉红色的按钮，DC的人们喜欢蓝色的按钮。因此，我们将分为三个部分，每个部分均由约束定义：州 ==？。该细分区也可以由多个约束定义。 例如，州== NY AND 年龄 &gt;= 21</p>
-<p><img src="/blog/23/4.png" alt="细分区图2"></p>
-<p><img src="/blog/23/5.png" alt="细分区图3"></p>
+<p><img src="/img/image/blog/23/4.png" alt="细分区图2"></p>
+<p><img src="/img/image/blog/23/5.png" alt="细分区图3"></p>
 <p>要对此标志进行A / B测试，我们可以尝试使用50％ / 50％（分布）的绿色 / 蓝色，并仅对CA细分区域中20％（点击率）的用户进行测试。 稍后，我们可以将推广百分比设置为100％，以便CA中的每个用户都能以50％的机会获得绿色或蓝色。 当然，如果要向100％的用户推广到100％绿色，只需将分发设置为100％ / 0％的绿色 / 蓝色和100％的推广百分比。</p>
-<p><img src="/blog/23/6.png" alt="A/B测试图1"></p>
-<p><img src="/blog/23/7.png" alt="A/B测试图1"></p>
+<p><img src="/img/image/blog/23/6.png" alt="A/B测试图1"></p>
+<p><img src="/img/image/blog/23/7.png" alt="A/B测试图1"></p>
 <h2 id="flagr的结构"><a href="#flagr的结构" class="headerlink" title="flagr的结构"></a>flagr的结构</h2><p>flagr中包含三个组件，标志评估器，标志管理器和flagr指标。</p>
 <ul>
 <li>flagr评估器：评估传入的请求。</li>
 <li>flagr管理器：flagr管理器是 CRUD 的出入口。flagr的所有变化都在这里发生。</li>
 <li>flagr指标. Flagr指标是收集评估结果的数据管道。 目前Flagr仅支持Kafka作为管道。</li>
 </ul>
-<p><img src="/blog/23/8.png" alt="flagr架构图"></p>
+<p><img src="/img/image/blog/23/8.png" alt="flagr架构图"></p>
 
     
 
@@ -797,11 +797,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -813,11 +813,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -837,19 +837,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -861,15 +857,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -881,10 +881,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -893,7 +889,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -901,15 +897,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -921,7 +913,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -934,10 +938,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

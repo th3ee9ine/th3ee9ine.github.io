@@ -17,20 +17,20 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：这篇文章是对Java基础的总结和归纳，为自己下半年的面试做准备。 前言：hexo的一些基础内容已经学习的差不多了，blog也已经布置完善了，接下来准备复习java和学习一下新的知识点，为自己下半年的面试做准备，先复习复习java吧，把一些坑点总结一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/5/java.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/5/java1.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/5/java2.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/5/java3.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/5/java4.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/5/java5.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/5/java6.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/5/java.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/5/java1.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/5/java2.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/5/java3.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/5/java4.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/5/java5.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/5/java6.png">
 <meta property="article:published_time" content="2021-05-05T04:25:44.000Z">
-<meta property="article:modified_time" content="2021-05-05T04:25:44.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:18:43.645Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/5/java.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/5/java.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -475,7 +475,7 @@
 <ul>
 <li>静态集合类，使用Set、Vector、HashMap等集合类的时候需要特别注意。当这些类被定义成静态的时候，由于他们的生命周期跟应用程序一样长，这时候就有可能发生内存泄漏。<br>例子</li>
 </ul>
-<p> <img src="/blog/5/java.png" alt="java"></p>
+<p> <img src="/img/image/blog/5/java.png" alt="java"></p>
 <p> 在上面的代码中，循环申请了Object对象，并添加到Vector中，然后设置为null，可是这些对象呗vector引用着，因此不能被GC回收，因此造成内存泄漏。因此要释放这些对象，还需要将它们从vector删除，最简单的方法就是将vector设置为null</p>
 <ul>
 <li><p>监听器： 在Java编程中，我们都需要和监听器打交道，通常一个应用中会用到很多监听器，我们会调用一个控件，诸如addXXXListener()等方法来增加监听器，但往往在释放的时候却没有去删除这些监听器，从而增加了内存泄漏的机会。</p>
@@ -597,7 +597,7 @@
 <li><p>常见的异常</p>
 </li>
 </ul>
-<p><img src="/blog/5/java1.png" alt="java1"></p>
+<p><img src="/img/image/blog/5/java1.png" alt="java1"></p>
 <p><strong>13.Java中的NIO，BIO，AIO分别是什么？</strong> </p>
 <ul>
 <li>BIO<ul>
@@ -689,7 +689,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/blog/5/java2.png" alt="java2"></p>
+<p><img src="/img/image/blog/5/java2.png" alt="java2"></p>
 <ul>
 <li>ParNew收集器<ul>
 <li>ParNew收集器是Serial收集器的多线程版本</li>
@@ -700,7 +700,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/blog/5/java3.png" alt="java3"></p>
+<p><img src="/img/image/blog/5/java3.png" alt="java3"></p>
 <ul>
 <li>ParNew Scanvenge收集器<ul>
 <li>类似ParNew，但更加关注吞吐量。目标是：达到一个可控制吞吐量的收集器。</li>
@@ -723,7 +723,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/blog/5/java4.png" alt="java4"></p>
+<p><img src="/img/image/blog/5/java4.png" alt="java4"></p>
 <p><strong>6.Java虚拟机内存的划分，每个区域的功能</strong></p>
 <ul>
 <li>程序计数器(线程私有)<ul>
@@ -764,7 +764,7 @@
 <p><strong>8.JVM如何加载一个类的过程，双亲委派模型中有哪些方法有没有可能父类加载器和子类加载器，加载同一个类？如果加载同一个类，该使用哪一个类？</strong></p>
 <ul>
 <li><p>双亲委派机制图</p>
-<p><img src="/blog/5/java5.png" alt="java5"></p>
+<p><img src="/img/image/blog/5/java5.png" alt="java5"></p>
 </li>
 <li><p>双亲委派概念</p>
 <ul>
@@ -887,7 +887,7 @@
 </ul>
 <p><strong>6.Spring MVC的原理</strong></p>
 <p>Spring MVC的工作原理如下图所示： </p>
-<p><img src="/blog/5/java6.png" alt="java6"></p>
+<p><img src="/img/image/blog/5/java6.png" alt="java6"></p>
 <ul>
 <li>① 客户端的所有请求都交给前端控制器DispatcherServlet来处理，它会负责调用系统的其他模块来真正处理用户的请求。 </li>
 <li>② DispatcherServlet收到请求后，将根据请求的信息（包括URL、HTTP协议方法、请求头、请求参数、Cookie等）以及HandlerMapping的配置找到处理该请求的Handler（任何一个对象都可以作为请求的Handler）。 </li>
@@ -1255,11 +1255,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1271,11 +1271,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1295,19 +1295,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1319,15 +1315,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1339,10 +1339,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -1351,7 +1347,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1359,15 +1355,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1379,7 +1371,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1392,10 +1396,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

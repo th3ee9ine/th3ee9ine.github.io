@@ -17,15 +17,15 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：这篇文章主要是总结了一下这段时间学习gRPC的过程中遇到的一些问题和知识点 前言：本篇文章主要是总结了一下学习gRPC的过程中遇到的一些问题和知识点。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/19/1.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/19/2.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/19/1.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/19/2.png">
 <meta property="article:published_time" content="2021-05-05T04:25:00.000Z">
-<meta property="article:modified_time" content="2021-05-05T04:25:00.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:17:37.215Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="微服务">
 <meta property="article:tag" content="RPC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/19/1.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/19/1.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -261,7 +261,7 @@
 <span id="more"></span>
 
 <h2 id="gRPC是啥？？？？？"><a href="#gRPC是啥？？？？？" class="headerlink" title="gRPC是啥？？？？？"></a>gRPC是啥？？？？？</h2><p>所谓RPC(remote procedure call 远程过程调用)框架实际是提供了一套机制，使得应用程序之间可以进行通信，而且也遵从server/client模型。使用的时候客户端调用server端提供的接口就像是调用本地的函数一样。如下图所示就是一个典型的RPC结构图。</p>
-<p><img src="/blog/19/1.png" alt="RPC"></p>
+<p><img src="/img/image/blog/19/1.png" alt="RPC"></p>
 <p>gRPC 一开始由 google 开发，是一款语言中立、平台中立、开源的远程过程调用(RPC)系统。在 gRPC 里客户端应用可以像调用本地对象一样直接调用另一台不同的机器上服务端应用的方法，使得您能够更容易地创建分布式应用和服务。与许多 RPC 系统类似，gRPC 也是基于以下理念：定义一个服务，指定其能够被远程调用的方法（包含参数和返回类型）。在服务端实现这个接口，并运行一个 gRPC 服务器来处理客户端调用。在客户端拥有一个存根能够像服务端一样的方法。</p>
 <h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="基于HTTP-2"><a href="#基于HTTP-2" class="headerlink" title="基于HTTP/2"></a>基于HTTP/2</h3><p>HTTP/2 提供了连接多路复用、双向流、服务器推送、请求优先级、首部压缩等机制。可以节省带宽、降低TCP链接次数、节省CPU，帮助移动设备延长电池寿命等。gRPC 的协议设计上使用了HTTP2 现有的语义，请求和响应的数据使用HTTP Body 发送，其他的控制信息则用Header 表示。</p>
 <h3 id="IDL使用ProtoBuf"><a href="#IDL使用ProtoBuf" class="headerlink" title="IDL使用ProtoBuf"></a>IDL使用ProtoBuf</h3><p>gRPC使用ProtoBuf来定义服务，ProtoBuf是由Google开发的一种数据序列化协议（类似于XML、JSON、hessian）。ProtoBuf能够将数据进行序列化，并广泛应用在数据存储、通信协议等方面。压缩和传输效率高，语法简单，表达力强。</p>
@@ -414,7 +414,7 @@
 <td>JSON null</td>
 </tr>
 </tbody></table>
-<p><img src="/blog/19/2.png" alt="JSON映射"></p>
+<p><img src="/img/image/blog/19/2.png" alt="JSON映射"></p>
 <h2 id="grpcurl的使用"><a href="#grpcurl的使用" class="headerlink" title="grpcurl的使用"></a>grpcurl的使用</h2><p>下载grpcurl工具：</p>
 <p>github地址：<a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcurl/releases/tag/v1.3.1">https://github.com/fullstorydev/grpcurl/releases/tag/v1.3.1</a> 点击release下载对应的版本</p>
 <p>Linux内核的系统下：./grpcurl -plaintext -d ‘{JSON_FROMAT_DATA}’ {ADDRESS}:{PORT} {SERVICE_NAME}.{METHOD_NAME}</p>
@@ -705,11 +705,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,11 +721,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,19 +745,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -769,15 +765,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -789,10 +789,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -801,7 +797,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -809,15 +805,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -829,7 +821,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -842,10 +846,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

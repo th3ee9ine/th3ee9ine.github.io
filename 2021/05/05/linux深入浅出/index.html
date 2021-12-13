@@ -17,16 +17,16 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：本文主要是对linux的一些知识点进行总结。 前言：主要是对linux的一些知识点进行总结。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/18/1.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/18/2.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/18/3.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/18/4.jpg">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/18/1.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/18/2.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/18/3.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/18/4.jpg">
 <meta property="article:published_time" content="2021-05-05T04:26:20.000Z">
-<meta property="article:modified_time" content="2021-05-05T04:26:20.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:20:30.571Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/18/1.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/18/1.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -263,13 +263,13 @@
 
 <h2 id="linux基础篇"><a href="#linux基础篇" class="headerlink" title="linux基础篇"></a>linux基础篇</h2><h3 id="虚拟机的网络连接三种形式的说明"><a href="#虚拟机的网络连接三种形式的说明" class="headerlink" title="虚拟机的网络连接三种形式的说明"></a>虚拟机的网络连接三种形式的说明</h3><ul>
 <li><p>Bridged（桥接模式）<br>桥接模式是通过虚拟网桥将主机的网卡与虚拟机的Vmnet0连接在一起，虚拟机即可通过VMnet0连接到主机的网卡进而进行网络的访问，所以桥接模式的虚拟机的IP地址需要和主机的IP地址在同一个网段，并且子网掩码，网关，与DNS也需要和主机的一致才可以。也就是说桥接的方式是虚拟机通过vmnet0这块虚拟网卡来和主机上面的网卡进行连接，进而进行通信的。</p>
-<p><img src="/blog/18/1.png" alt="桥接模式"></p>
+<p><img src="/img/image/blog/18/1.png" alt="桥接模式"></p>
 </li>
 <li><p>NAT地址转换模式<br>在Nat模式上面主机网卡直接和虚拟NAT相连，NAT与DHCP一同连接到Vmnet8上面，这样就实现了虚拟联网。也就是说我们在用NAT进行联网的时候，采用的是Vmnet8这块网卡。NAT模式可以手动编辑虚拟机的静态IP，不要求和主机的IP地址在同一个网段。</p>
-<p><img src="/blog/18/2.png" alt="NAT地址转换模式"></p>
+<p><img src="/img/image/blog/18/2.png" alt="NAT地址转换模式"></p>
 </li>
 <li><p>仅主机模式<br>HostOnly模式通过主机的VMware NetWork  Adapter Vmnet1来连接虚拟机的VMnet1，这样做使得虚拟机只能够和主机进行通信，而不能够上网。</p>
-<p><img src="/blog/18/3.png" alt="仅主机模式"></p>
+<p><img src="/img/image/blog/18/3.png" alt="仅主机模式"></p>
 </li>
 <li><p>总结：桥接方式可以进行连接互联网，使用的是VMnet0，IP地址需要和主机的IP地址在同一个网段当中。NAT模式也可以进行连接互联网，IP地址可以自己定义，不过要在许可的范围内。仅主机模式使用的是VMnet1，只能够和主机进行通信，不能够连接网络。</p>
 </li>
@@ -280,7 +280,7 @@
 <li>linux的目录中有且只有一个根目录。</li>
 <li>linux系统中，一切皆为文件。</li>
 </ul>
-<p>  <img src="/blog/18/4.jpg" alt="linux的目录结构"></p>
+<p>  <img src="/img/image/blog/18/4.jpg" alt="linux的目录结构"></p>
 <p>以下是对这些目录的解释：</p>
 <ul>
 <li><p>系统启动必须：</p>
@@ -617,11 +617,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,11 +633,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,19 +657,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,15 +677,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,10 +701,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -713,7 +709,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,15 +717,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -741,7 +733,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,10 +758,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

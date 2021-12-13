@@ -17,15 +17,15 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：这篇文章主要是总结了一下Java依赖注入的相关知识点。 前言：依赖注入是用来做对象管理的，为啥要管理呢？面向对象本质上是要多个不同职责相互对立的Object互相通过发消息来进行交互的。但是这个思想落地时，因为性能的原因，Object之间并不像网络那样真的发消息，而是互相调用对方的方法（C++，Java，C#等都是这么做的）。如果想调用某个Object的方法，就得拿到那个Object的引用。那">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/24/1.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/24/2.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/24/3.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/24/1.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/24/2.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/24/3.png">
 <meta property="article:published_time" content="2021-05-05T04:26:14.000Z">
-<meta property="article:modified_time" content="2021-05-05T04:26:14.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:18:28.487Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/24/1.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/24/1.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -296,7 +296,7 @@
 <p>We usually advise people to use constructor injection for all mandatory collaborators and setter injection for all other properties. Again, constructor injection ensures all mandatory properties have been satisfied, and it is simply not possible to instantiate an object in an invalid state (not having passed its collaborators). In other words, when using constructor injection you do not have to use a dedicated mechanism to ensure required properties are set (other than normal Java mechanisms).</p>
 <p>具体详情可以参考一下这篇文章：<a target="_blank" rel="noopener" href="https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required/">https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required/</a></p>
 <h2 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h2><h3 id="1、什么是循环依赖？"><a href="#1、什么是循环依赖？" class="headerlink" title="1、什么是循环依赖？"></a>1、什么是循环依赖？</h3><p>循环依赖其实就是循环引用，也就是两个或者两个以上的bean互相持有对方，最终形成闭环。比如A依赖于B，B依赖于C，C又依赖于A。如下图：</p>
-<p><img src="/blog/24/1.png" alt="循环依赖图"></p>
+<p><img src="/img/image/blog/24/1.png" alt="循环依赖图"></p>
 <p>注意，这里不是函数的循环调用，是对象的相互依赖关系。循环调用其实就是一个死循环，除非有终结条件。</p>
 <p>循环依赖场景有：</p>
 <ol>
@@ -306,7 +306,7 @@
 <p>其中，构造器的循环依赖问题无法通过框架自动去解决，但是它会在编译时就报错，我们可以人为的解决它。在解决属性循环依赖时，Spring通过将实例化后的对象提前暴露给Spring容器中的singletonFactories，解决了循环依赖的问题。</p>
 <h3 id="2、Spring怎么解决循环依赖"><a href="#2、Spring怎么解决循环依赖" class="headerlink" title="2、Spring怎么解决循环依赖"></a>2、Spring怎么解决循环依赖</h3><p>Spring的循环依赖的理论依据基于Java的引用传递，当获得对象的引用时，对象的属性是可以延后设置的（但是构造器必须是在获取引用之前）。</p>
 <p>Spring的单例对象的初始化主要分为三步：</p>
-<p><img src="/blog/24/2.png" alt="单例对象的初始化三步骤"></p>
+<p><img src="/img/image/blog/24/2.png" alt="单例对象的初始化三步骤"></p>
 <ol>
 <li>createBeanInstance：实例化，其实也就是调用对象的构造方法实例化对象。</li>
 <li>populateBean：填充属性，这一步主要是多bean的依赖属性进行填充。</li>
@@ -330,7 +330,7 @@
 <p>这样做有什么好处呢？让我们来分析一下“A的某个field或者setter依赖了B的实例对象，同时B的某个field或者setter依赖了A的实例对象”这种循环依赖的情况：</p>
 <p>A首先完成了初始化的第一步，并且将自己提前曝光到singletonFactories中，此时进行初始化的第二步，发现自己依赖对象B，此时就尝试去get(B)，发现B还没有被create，所以走create流程，B在初始化第一步的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects(肯定没有，因为A还没初始化完全)，尝试二级缓存 earlySingletonObjects（也没有），尝试三级缓存singletonFactories，由于A通过ObjectFactory将自己提前曝光了，所以B能够通过ObjectFactory.getObject拿到A对象(虽然A还没有初始化完全，但是总比没有好呀)，B拿到A对象后顺利完成了初始化阶段1、2、3，完全初始化之后将自己放入到一级缓存singletonObjects中。此时返回A中，A此时能拿到B的对象顺利完成自己的初始化阶段2、3，最终A也完成了初始化，进去了一级缓存singletonObjects中，而且更加幸运的是，由于B拿到了A的对象引用，所以B现在hold住的A对象完成了初始化。</p>
 <p>知道了这个原理时候，肯定就知道为啥Spring不能解决“A的构造方法中依赖了B的实例对象，同时B的构造方法中依赖了A的实例对象”这类问题了！因为加入singletonFactories三级缓存的前提是执行了构造器，所以构造器的循环依赖没法解决。</p>
-<p><img src="/blog/24/3.png" alt="DEBUG流程图"></p>
+<p><img src="/img/image/blog/24/3.png" alt="DEBUG流程图"></p>
 <h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/27053548">https://www.zhihu.com/question/27053548</a></p>
 <p><a target="_blank" rel="noopener" href="https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required/">https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required/</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zzq6032010/p/11406405.html">https://www.cnblogs.com/zzq6032010/p/11406405.html</a></p>
@@ -609,11 +609,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,11 +625,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,19 +649,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,15 +669,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -693,10 +693,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -705,7 +701,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -713,15 +709,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,7 +725,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,10 +750,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

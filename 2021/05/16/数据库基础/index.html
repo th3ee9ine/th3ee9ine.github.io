@@ -17,18 +17,18 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：这篇文章是对数据库基础的总结和归纳。 前言：上一篇我们已经把java基础复习了一遍，现在我们来复习一下数据库的有关内容。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/6/sql.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/6/sql1.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/6/sql2.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/6/sql3.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/6/sql.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/6/sql1.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/6/sql2.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/6/sql3.png">
 <meta property="article:published_time" content="2021-05-16T07:34:26.000Z">
-<meta property="article:modified_time" content="2021-05-16T07:34:26.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:24:36.198Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/6/sql.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/6/sql.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -327,7 +327,7 @@
 </li>
 <li><p>如果mysql估计使用全表扫秒比使用索引快，则不适用索引。</p>
 </li>
-<li><p>各引擎支持索引<br><img src="/blog/6/sql.png" alt="sql"></p>
+<li><p>各引擎支持索引<br><img src="/img/image/blog/6/sql.png" alt="sql"></p>
 </li>
 </ul>
 <p><strong>3.事务隔离级别</strong></p>
@@ -337,7 +337,7 @@
 <li>读已提交(Read Committed)：被读取的数据可以被其他事务修改，这样可能导致不可重复读。也就是说，事务读取的时候获取读锁，但是在读完之后立即释放(不需要等事务结束)，而写锁则是事务提交之后才释放，释放读锁之后，就可能被其他事务修改数据。改等级也是SQL Server默认的隔离等级</li>
 <li>读未提交(Read Uncommitted)：最低的隔离等级，允许其他事务看到没有提交的数据，会导致脏读</li>
 <li>总结<ul>
-<li>四个级别逐渐增强，每个级别解决一个问题，每个级别解决一个问题，事务级别遇到，性能越差，大多数环境(Read committed 就可以用了)<br><img src="/blog/6/sql1.png" alt="sql1"></li>
+<li>四个级别逐渐增强，每个级别解决一个问题，每个级别解决一个问题，事务级别遇到，性能越差，大多数环境(Read committed 就可以用了)<br><img src="/img/image/blog/6/sql1.png" alt="sql1"></li>
 </ul>
 </li>
 </ul>
@@ -367,9 +367,9 @@
 </li>
 <li><p>所有叶子结点都出现在同一层， 叶子结点不包含任何关键字信息 (可以看做是外部结点或查询失败的结点，指向这些结点的指针都为 null)；（注：叶子节点只是没有孩子和指向孩子的指针，这些节点也存<br>在，也有元素。类似红黑树中，每一个 NULL 指针即当做叶子结点，只是没画出来而已）。</p>
 </li>
-<li><p>每个非终端结点中包含有 n 个关键字信息： (n，P0，K1，P1，K2，P2，……，Kn，Pn)。其中：<br>a) Ki (i=1…n)为关键字，且关键字按顺序升序排序 K(i-1)&lt; Ki。<br>b) Pi 为指向子树根的结点，且指针 P(i-1)指向子树种所有结点的关键字均小于 Ki，但都大于 K(i-1)。<br>c) 关键字的个数 n 必须满足： [ceil(m / 2)-1]&lt;= n &lt;= m-1。比如有 j 个孩子的非叶结点恰好有 j-1 个关<br>键码。<br><img src="/blog/6/sql2.png" alt="sql2"></p>
+<li><p>每个非终端结点中包含有 n 个关键字信息： (n，P0，K1，P1，K2，P2，……，Kn，Pn)。其中：<br>a) Ki (i=1…n)为关键字，且关键字按顺序升序排序 K(i-1)&lt; Ki。<br>b) Pi 为指向子树根的结点，且指针 P(i-1)指向子树种所有结点的关键字均小于 Ki，但都大于 K(i-1)。<br>c) 关键字的个数 n 必须满足： [ceil(m / 2)-1]&lt;= n &lt;= m-1。比如有 j 个孩子的非叶结点恰好有 j-1 个关<br>键码。<br><img src="/img/image/blog/6/sql2.png" alt="sql2"></p>
 </li>
-<li><p>B+树<br><img src="/blog/6/sql3.png" alt="sql3"></p>
+<li><p>B+树<br><img src="/img/image/blog/6/sql3.png" alt="sql3"></p>
 </li>
 <li><p>在什么情况下适合建立索引</p>
 <ul>
@@ -417,7 +417,8 @@
 </ul>
 <p><strong>10.MyISAM和InnoDB引擎的区别</strong></p>
 <ul>
-<li>主要区别：<ul>
+<li><p>主要区别：</p>
+<ul>
 <li>MyISAM是非事务安全型的，而InnoDB是事务安全型的。</li>
 <li>MyISAM锁的粒度是表级，而InnoDB支持行级锁定。</li>
 <li>MyISAM支持全文类型索引，而InnoDB不支持全文索引。</li>
@@ -426,7 +427,8 @@
 <li>InnoDB表比MyISAM表更安全，可以在保证数据不会丢失的情况下，切换非事务表到事务表（alter table tablename type=innodb）。</li>
 </ul>
 </li>
-<li>应用场景：<ul>
+<li><p>应用场景：</p>
+<ul>
 <li>MyISAM管理非事务表。它提供高速存储和检索，以及全文搜索能力。如果应用中需要执行大量的SELECT查询，那么MyISAM是更好的选择。</li>
 <li>InnoDB用于事务处理应用程序，具有众多特性，包括ACID事务支持。如果应用中需要执行大量的INSERT或UPDATE操作，则应该使用InnoDB，这样可以提高多用户并发操作的性能。</li>
 </ul>
@@ -722,11 +724,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,11 +740,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,19 +764,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -786,15 +784,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,10 +808,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -818,7 +816,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -826,15 +824,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -846,7 +840,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -859,10 +865,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

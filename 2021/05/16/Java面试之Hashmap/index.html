@@ -17,21 +17,21 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：Hashmap面试内容总结 前言：Hashmap面试内容总结，为面试做准备。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/1.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/2.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/3.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/4.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/5.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/6.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/7.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/8.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/12/9.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/1.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/2.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/3.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/4.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/5.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/6.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/7.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/8.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/12/9.png">
 <meta property="article:published_time" content="2021-05-16T10:46:10.000Z">
-<meta property="article:modified_time" content="2021-05-16T10:46:10.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:26:35.553Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/12/1.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/12/1.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -274,7 +274,7 @@
 <li>HashMap 存储着Entry(hash, key, value, next)对象</li>
 </ul>
 <h2 id="2、HashMap-的工作原理是什么？"><a href="#2、HashMap-的工作原理是什么？" class="headerlink" title="2、HashMap 的工作原理是什么？"></a>2、HashMap 的工作原理是什么？</h2><p>HashMap 通过put和get存储和获取对象。存储对象时，我们将K/V传给put方法时，它调用hashCode计算hash从而得到bucket位置，进一步存储，HashMap会根据当前bucket的占用情况自动调整容量(超过Load Facotr则resize为原来的2倍)。获取对象时，我们将K传给get，它调用hashCode计算hash从而得到bucket位置，并进一步调用equals()方法确定键值对。如果发生碰撞的时候，Hashmap通过链表将产生碰撞冲突的元素组织起来，在Java 8中，如果一个bucket中碰撞冲突的元素超过某个限制(默认是8)，则使用红黑树来替换链表，从而提高速度。</p>
-<p><img src="/blog/12/1.png"></p>
+<p><img src="/img/image/blog/12/1.png"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">以下是 HashMap 初始化</span><br><span class="line">简化的模拟数据结构：</span><br><span class="line"></span><br><span class="line">Node[] table = <span class="keyword">new</span> Node[<span class="number">16</span>]; <span class="comment">// 散列桶初始化，table</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    hash; <span class="comment">//hash值</span></span><br><span class="line">    key; <span class="comment">//键</span></span><br><span class="line">    value; <span class="comment">//值</span></span><br><span class="line">    node next; <span class="comment">//用于指向链表的下一层（产生冲突，用拉链法）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>以下是具体的 put 过程（JDK1.8）</p>
@@ -282,19 +282,19 @@
 <li>对 Key 求 Hash 值，然后再计算下标</li>
 <li>如果没有碰撞，直接放入桶中（碰撞的意思是计算得到的 Hash 值相同，需要放到同一个 bucket 中）</li>
 <li>如果碰撞了，以链表的方式链接到后面</li>
-<li>4、如果链表长度超过阀值（TREEIFY THRESHOLD==8），就把链表转成红黑树，链表长度低于6，就把红黑树转回链表</li>
-<li>5、如果节点已经存在就替换旧值</li>
-<li>6、如果桶满了（容量16*加载因子0.75），就需要 resize（扩容2倍后重排）</li>
+<li>如果链表长度超过阀值（TREEIFY THRESHOLD==8），就把链表转成红黑树，链表长度低于6，就把红黑树转回链表</li>
+<li>如果节点已经存在就替换旧值</li>
+<li>如果桶满了（容量16*加载因子0.75），就需要 resize（扩容2倍后重排）</li>
 </ol>
 <p>以下是具体 get 过程</p>
 <p>考虑特殊情况：如果两个键的 hashcode 相同，你如何获取值对象？</p>
 <p>当我们调用 get() 方法，HashMap 会使用键对象的 hashcode 找到 bucket 位置，找到 bucket 位置之后，会调用 keys.equals() 方法去找到链表中正确的节点，最终找到要找的值对象。</p>
-<p><img src="/blog/12/2.png"></p>
+<p><img src="/img/image/blog/12/2.png"></p>
 <h2 id="3、有什么方法可以减少碰撞？"><a href="#3、有什么方法可以减少碰撞？" class="headerlink" title="3、有什么方法可以减少碰撞？"></a>3、有什么方法可以减少碰撞？</h2><p><strong>碰撞：所谓“碰撞”就上面所述是多个元素计算得出相同的hashCode，在put时出现冲突。</strong></p>
 <p>处理方法:<br>　　Java中HashMap是利用“拉链法”处理HashCode的碰撞问题。在调用HashMap的put方法或get方法时，都会首先调用hashcode方法，去查找相关的key，当有冲突时，再调用equals方法。</p>
 <p>hashMap 通过put和get方法存取对象。当我们将键值对传递给put方法时，他调用键对象的hashCode()方法来计算hashCode，然后找到bucket（哈希桶）位置来存储对象。当获取对象时，通过键对象的equals()方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当碰撞发生了，对象将会存储在链表的下一个节点中。hashMap在每个链表节点存储键值对对象。当两个不同的键却有相同的hashCode时，他们会存储在同一个bucket位置的链表中。键对象的equals()来找到键值对。</p>
 <p><strong>HashMap基本结构概念图：</strong></p>
-<p><img src="/blog/12/3.png"></p>
+<p><img src="/img/image/blog/12/3.png"></p>
 <p>到目前为止，我们了解了两件事：</p>
 <ul>
 <li>1、HashMap通过键的hashCode来快速的存取元素。</li>
@@ -306,7 +306,7 @@
 <p>但是“模”运算的消耗还是比较大的，能不能找一种更快速、消耗更小的方式？我们来看看 JDK1.8 源码是怎么做的.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    h = key.hashCode()；返回散列值也就是hashcode</span><br><span class="line">    <span class="comment">// ^ ：按位异或</span></span><br><span class="line">    <span class="comment">// &gt;&gt;&gt;:无符号右移，忽略符号位，空位都以0补齐</span></span><br><span class="line">    <span class="comment">//其中n是数组的长度，即Map的数组部分初始化长度</span></span><br><span class="line">    <span class="keyword">return</span> (n-<span class="number">1</span>)&amp;(h ^ (h &gt;&gt;&gt; <span class="number">16</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/blog/12/4.png"></p>
+<p><img src="/img/image/blog/12/4.png"></p>
 <p>简单来说就是：</p>
 <ul>
 <li>1、高16 bit 不变，低16 bit 和高16 bit 做了一个异或（得到的 hashcode 转化为32位二进制，前16位和后16位低16 bit和6 bit做了一个异或）</li>
@@ -314,7 +314,7 @@
 </ul>
 <h2 id="6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？"><a href="#6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？" class="headerlink" title="6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？"></a>6、拉链法导致的链表过深，为什么不用二叉查找树代替而选择红黑树？为什么不一直使用红黑树？</h2><p>之所以选择红黑树是为了解决二叉查找树的缺陷：</p>
 <p>二叉查找树在特殊情况下会变成一条线性结构（这就跟原来使用链表结构一样了，造成层次很深的问题），遍历查找会非常慢。而红黑树在插入新数据后可能需要通过左旋、右旋、变色这些操作来保持平衡。引入红黑树就是为了查找数据快，解决链表查询深度的问题。我们知道红黑树属于平衡二叉树，为了保持“平衡”是需要付出代价的，但是该代价所损耗的资源要比遍历线性链表要少。所以当长度大于8的时候，会使用红黑树；如果链表长度很短的话，根本不需要引入红黑树，引入反而会慢。</p>
-<h2 id="7、说说你对红黑树的见解？"><a href="#7、说说你对红黑树的见解？" class="headerlink" title="7、说说你对红黑树的见解？"></a>7、说说你对红黑树的见解？</h2><p><img src="/blog/12/5.png"></p>
+<h2 id="7、说说你对红黑树的见解？"><a href="#7、说说你对红黑树的见解？" class="headerlink" title="7、说说你对红黑树的见解？"></a>7、说说你对红黑树的见解？</h2><p><img src="/img/image/blog/12/5.png"></p>
 <ol>
 <li>每个节点非红即黑</li>
 <li>根节点总是黑色的</li>
@@ -330,7 +330,7 @@
 <p>当发生冲突时，使用第二个、第三个、哈希函数计算地址，直到无冲突时。缺点：计算时间增加。比如上面第一次按照姓首字母进行哈希，如果产生冲突可以按照姓字母首字母第二位进行哈希，再冲突，第三位，直到不冲突为止。</p>
 <p><strong>3.链地址法（拉链法）</strong></p>
 <p>将所有关键字为同义词的记录存储在同一线性链表中。如下：</p>
-<p><img src="/blog/12/6.png"></p>
+<p><img src="/img/image/blog/12/6.png"></p>
 <p>因此这种方法，可以近似的认为是筒子里面套筒子。</p>
 <p><strong>优点：</strong></p>
 <ol>
@@ -347,11 +347,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Initializes or doubles table size. If null, allocates in accord with initial capacity target held in field threshold. Otherwise, because we are using power-of-two expansion, the elements from each bin must either stay at same index, or move with a power of two offset in the new table.</span><br><span class="line"></span><br><span class="line">大致意思就是说，当超过限制的时候会resize，然而又因为我们使用的是2次幂的扩展(指长度扩为原来2倍)，所以，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。</span><br></pre></td></tr></table></figure>
 
 <p>怎么理解呢？例如我们从16扩展为32时，具体的变化如下所示：</p>
-<p><img src="/blog/12/7.png"></p>
+<p><img src="/img/image/blog/12/7.png"></p>
 <p>因此元素在重新计算hash之后，因为n变为2倍，那么n-1的mask范围在高位多1bit(红色)，因此新的index就会发生这样的变化：</p>
-<p><img src="/blog/12/8.png"></p>
+<p><img src="/img/image/blog/12/8.png"></p>
 <p>因此，我们在扩充HashMap的时候，不需要重新计算hash，只需要看看原来的hash值新增的那个bit是1还是0就好了，是0的话索引没变，是1的话索引变成“原索引+oldCap”。可以看看下图为16扩充为32的resize示意图：</p>
-<p><img src="/blog/12/9.png"></p>
+<p><img src="/img/image/blog/12/9.png"></p>
 <p>这个设计确实非常的巧妙，既省去了重新计算hash值的时间，而且同时，由于新增的1bit是0还是1可以认为是随机的，因此resize的过程，均匀的把之前的冲突的节点分散到新的bucket了。</p>
 <h2 id="10、重新调整-HashMap-大小存在什么问题吗？"><a href="#10、重新调整-HashMap-大小存在什么问题吗？" class="headerlink" title="10、重新调整 HashMap 大小存在什么问题吗？"></a>10、重新调整 HashMap 大小存在什么问题吗？</h2><p>重新调整 HashMap 大小的时候，确实存在条件竞争。</p>
 <p>因为如果两个线程都发现 HashMap 需要重新调整大小了，它们会同时试着调整大小。在调整大小的过程中，存储在链表中的元素的次序会反过来。因为移动到新的 bucket 位置的时候，HashMap 并不会将元素放在链表的尾部，而是放在头部。这是为了避免尾部遍历（tail traversing）。如果条件竞争发生了，那么就死循环了。<strong>多线程的环境下不使用 HashMap。</strong></p>
@@ -706,11 +706,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,11 +722,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,19 +746,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,15 +766,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -790,10 +790,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -802,7 +798,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -810,15 +806,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -830,7 +822,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -843,10 +847,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

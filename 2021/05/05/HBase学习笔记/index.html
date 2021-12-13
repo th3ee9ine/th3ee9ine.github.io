@@ -17,17 +17,17 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：HBase基础。 前言：本篇文章主要是总结了一下学习HBase的过程中遇到的一些问题和知识点。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/19/3.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/19/4.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/19/5.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/19/6.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/19/7.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/19/3.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/19/4.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/19/5.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/19/6.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/19/7.png">
 <meta property="article:published_time" content="2021-05-05T04:25:36.000Z">
-<meta property="article:modified_time" content="2021-05-05T04:25:36.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:18:10.013Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="HBase">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/19/3.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/19/3.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -263,7 +263,7 @@
 <span id="more"></span>
 
 <h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><h3 id="HBase是什么？"><a href="#HBase是什么？" class="headerlink" title="HBase是什么？"></a>HBase是什么？</h3><p>HBase是Apache Hadoop中的一个子项目，Hbase依托于Hadoop的HDFS作为最基本存储基础单元，通过使用hadoop的DFS工具就可以看到这些这些数据 存储文件夹的结构,还可以通过Map/Reduce的框架(算法)对HBase进行操作，如下图所示：</p>
-<p><img src="/blog/19/3.png" alt="HBase"></p>
+<p><img src="/img/image/blog/19/3.png" alt="HBase"></p>
 <p>HBASE是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBASE技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
 <p>HBASE的目标是存储并处理大型的数据，更具体来说是仅需使用普通的硬件配置，就能够处理由成千上万的行和列所组成的大型数据。</p>
 <p>HBASE是Google Bigtable的开源实现，但是也有很多不同之处。比如：Google Bigtable使用GFS作为其文件存储系统，HBASE利用Hadoop HDFS作为其文件存储系统；Google运行MAPREDUCE来处理Bigtable中的海量数据，HBASE同样利用Hadoop MapReduce来处理HBASE中的海量数据；Google Bigtable利用Chubby作为协同服务，HBASE利用Zookeeper作为协同服务。</p>
@@ -288,8 +288,8 @@
 <li>多个从节点，HregionServer。</li>
 <li>HBase依赖项，zookeeper。</li>
 </ul>
-<p> HBase数据模型<br><img src="/blog/19/4.png" alt="HBase数据模型1"></p>
-<p><img src="/blog/19/5.png" alt="HBase数据模型2"></p>
+<p> HBase数据模型<br><img src="/img/image/blog/19/4.png" alt="HBase数据模型1"></p>
+<p><img src="/img/image/blog/19/5.png" alt="HBase数据模型2"></p>
 <h3 id="HBase的存储机制"><a href="#HBase的存储机制" class="headerlink" title="HBase的存储机制"></a>HBase的存储机制</h3><p>HBase是一个面向列的数据库，在表中它由行排序。表模式定义只能列族，也就是键值对。一个表有多个列族以及每一个列族可以有任意数量的列。后续列的值连续存储在磁盘上。表中的每个单元格值都具有时间戳。总之，在一个HBase：</p>
 <ul>
 <li>表是行的集合。</li>
@@ -310,7 +310,7 @@
 <p>关键字：无类型、字节码</p>
 <h4 id="Time-Stamp-时间戳"><a href="#Time-Stamp-时间戳" class="headerlink" title="Time Stamp 时间戳"></a>Time Stamp 时间戳</h4><p>HBASE中通过rowkey和columns确定的为一个存储单元称为cell。每个cell都保存着同一份数据的多个版本。版本通过时间戳来索引。时间戳的类型是64位整型。时间戳可以由HBASE(在数据写入时自动)赋值，此时时间戳是精确到毫秒的当前系统时间。时间戳也可以由客户显示赋值。如果应用程序要避免数据版本冲突，就必须自己生成具有唯一性的时间戳。每个cell中，不同版本的数据按照时间倒序排序，即最新的数据排在最前面。</p>
 <p>为了避免数据存在过多版本造成的管理(包括存储和索引)负担，HBASE提供了两种数据版本回收方式。一是保存数据的最后n个版本，而是保存最近一段时间内的版本(比如最近7天)。用户可以针对每个列族进行设置。</p>
-<h3 id="HBase原理"><a href="#HBase原理" class="headerlink" title="HBase原理"></a>HBase原理</h3><h4 id="HBase系统架构体系图"><a href="#HBase系统架构体系图" class="headerlink" title="HBase系统架构体系图"></a>HBase系统架构体系图</h4><p><img src="/blog/19/6.png" alt="HBase系统架构体系图"></p>
+<h3 id="HBase原理"><a href="#HBase原理" class="headerlink" title="HBase原理"></a>HBase原理</h3><h4 id="HBase系统架构体系图"><a href="#HBase系统架构体系图" class="headerlink" title="HBase系统架构体系图"></a>HBase系统架构体系图</h4><p><img src="/img/image/blog/19/6.png" alt="HBase系统架构体系图"></p>
 <h4 id="组成部件说明"><a href="#组成部件说明" class="headerlink" title="组成部件说明"></a>组成部件说明</h4><p>Client：</p>
 <p>使用HBase RPC机制与HMaster和HRegionServer进行通信<br>Client与HMaster进行管理类操作<br>Client与HRegionServer进行数据读写类操作</p>
 <p>Zookeeper：</p>
@@ -326,7 +326,7 @@
 </ol>
 <p>HRegionServer：</p>
 <p>HBase中最核心的模块，主要负责响应用户I/O请求，向HDFS文件系统中读写</p>
-<p><img src="/blog/19/7.png" alt="HBase系统架构体系图"></p>
+<p><img src="/img/image/blog/19/7.png" alt="HBase系统架构体系图"></p>
 <p>HRegionServer管理一系列HRegion对象；<br>每个HRegion对应Table中一个Region，HRegion由多个HStore组成；<br>每个HStore对应Table中一个Column Family的存储；<br>Column Family就是一个集中的存储单元，故将具有相同IO特性的Column放在一个Column Family会更高效。</p>
 <p>可以看到，client访问hbase上的数据并不需要master参与（寻址访问zookeeper和region server，数据读写访问region server），master仅仅维护table和region的元数据信息（table的元数据信息保存在zookeeper上），负载很低。HRegionServer存取一个子表时，会创建一个HRegion对象，然后对表的每个列族创建一个Store实例，每个Store都会有一个MemStore和0个或多个StoreFile与之对应，每个StoreFile都会对应一个HFile，HFile就是实际的存储文件。因此，一个HRegion（表）有多少个列族就有多少个Store。一个HRegionServer会有多个HRegion和一个HLog。</p>
 <p>HRegion：</p>
@@ -641,11 +641,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,11 +657,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,19 +681,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,15 +701,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -725,10 +725,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -737,7 +733,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,15 +741,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -765,7 +757,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -778,10 +782,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

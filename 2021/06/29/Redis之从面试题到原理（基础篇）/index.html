@@ -17,16 +17,16 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。 前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/20210505/SDS%E7%A4%BA%E4%BE%8B.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/20210505/RDB%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png">
-<meta property="og:image" content="https://www.blog.ajie39.top/blog/20210505/AOF%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20210505/SDS%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20210505/RDB%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20210505/AOF%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png">
 <meta property="article:published_time" content="2021-06-29T15:25:40.000Z">
-<meta property="article:modified_time" content="2021-06-29T15:25:40.000Z">
+<meta property="article:modified_time" content="2021-12-13T16:21:40.796Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.blog.ajie39.top/blog/20210505/SDS%E7%A4%BA%E4%BE%8B.png">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/20210505/SDS%E7%A4%BA%E4%BE%8B.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -311,7 +311,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> &#123;</span></span><br><span class="line"><span class="comment">// 记录buf 数组中已使用字节的数量</span></span><br><span class="line"><span class="comment">// 等于SDS 所保存字符串的长度</span></span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"><span class="comment">// 记录buf 数组中未使用字节的数量</span></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">free</span>;</span><br><span class="line"><span class="comment">// 字节数组，用于保存字符串</span></span><br><span class="line"><span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>下图展示了一个 SDS 示例：</p>
-<p><img src="/blog/20210505/SDS%E7%A4%BA%E4%BE%8B.png" alt="SDS示例"></p>
+<p><img src="/img/image/blog/20210505/SDS%E7%A4%BA%E4%BE%8B.png" alt="SDS示例"></p>
 <ul>
 <li>free 属性的值为0，表示这个 SDS 没有分配任何未使用空间。</li>
 <li>len 属性的值为5，表示这个 SDS 保存了一个五字节长的字符串。</li>
@@ -389,7 +389,7 @@
 <h2 id="4、Redis-的持久化机制有哪些？各自的优缺点？"><a href="#4、Redis-的持久化机制有哪些？各自的优缺点？" class="headerlink" title="4、Redis 的持久化机制有哪些？各自的优缺点？"></a>4、Redis 的持久化机制有哪些？各自的优缺点？</h2><p>​        Redis 是一个内存数据库，数据都存储在内存中，这也是 Redis 非常快的原因之一。虽然速度提上来了，但是如果数据一直放在内存中，是非常容易丢失的。比如服务器关闭或宕机了，内存中的数据就丢失了。为了解决这一问题，Redis 提供了持久化机制。一种是 RDB 持久化（<strong>原理是将Redis 在内存中的数据库记录定时dump到磁盘上</strong>），另一种是 AOF (append only file) 持久化，（<strong>原理是将 Redis 的操作日志以追加的方式写入文件</strong>）。两种方式的持久化是可以同时存在的，但是当 Redis 重启时，AOF 文件会被优先用于重建数据。</p>
 <h4 id="1）RDB（默认）"><a href="#1）RDB（默认）" class="headerlink" title="1）RDB（默认）"></a>1）RDB（默认）</h4><p>RDB 持久化方式会在一个特定的间隔保存那个时间点的一个数据快照 (point-in-time snapshot)。</p>
 <p>RDB持久化是指在指定的时间间隔内将内存中的数据集快照写入磁盘，实际操作过程是fork一个子进程，先将数据集写入临时文件，写入成功后，再替换之前的文件，用二进制压缩存储。</p>
-<p><img src="/blog/20210505/RDB%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png" alt="RDB持久化过程"></p>
+<p><img src="/img/image/blog/20210505/RDB%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png" alt="RDB持久化过程"></p>
 <p><strong>RDB存在哪些优势？</strong></p>
 <ol>
 <li>一旦采用该方式，那么你的整个 Redis 数据库将只包含一个文件，这对于文件备份而言是非常完美的。比如，你可能打算每个小时归档一次最近24小时的数据，同时还要每天归档一次最近30天的数据。通过这样的备份策略，一旦系统出现灾难性故障，我们可以非常容易的进行恢复。</li>
@@ -405,7 +405,7 @@
 <h4 id="2）AOF"><a href="#2）AOF" class="headerlink" title="2）AOF"></a>2）AOF</h4><p>AOF 持久化方式则会记录每一个服务器收到的写操作。在服务启动时，这些记录的操作会逐条执行从而重建出原来的数据。写操作命令记录的格式跟 Redis 协议一致，以追加的方式进行保存。</p>
 <p>Redis 可以在 AOF 文件体积变得过大时，自动地在后台对 AOF进行重写<strong>，</strong>重写后的新 AOF 文件包含了恢复当前数据集所需的<strong>最小命令集合</strong>。</p>
 <p>AOF 持久化以日志的形式记录服务器所处理的每一个写、删操作（注意查询操作不会被记录）。以文本的方式记录，可以打开文件看到详细的操作记录。</p>
-<p><img src="/blog/20210505/AOF%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png" alt="AOF持久化过程"></p>
+<p><img src="/img/image/blog/20210505/AOF%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%87%E7%A8%8B.png" alt="AOF持久化过程"></p>
 <p><strong>AOF的优势？</strong></p>
 <ol>
 <li>该机制可以带来更高的数据安全性，即数据持久性。Redis 中提供了3种同步策略，及每秒同步，每修改同步和不同步。事实上，每秒同步也是异步完成的，其效率非常高。所差的是一旦系统出现宕机现象，那么这一秒种之内修改的数据将会丢失。而每修改同步，我们可以将其视为同步持久化，即每次发生的数据变化都会被立即记录到磁盘中。可以预见，这种方式在效率上是最低的。至于无同步，无需多言，大家都能正确的理解它。</li>
@@ -713,11 +713,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +729,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,19 +753,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -777,15 +773,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,10 +797,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -809,7 +805,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -817,15 +813,11 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -837,7 +829,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -850,10 +854,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
