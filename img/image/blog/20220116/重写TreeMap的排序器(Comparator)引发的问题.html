@@ -1,0 +1,280 @@
+<hr>
+<p>title: 重写TreeMap的比较器(Comparator)引发的问题（源码分析）</p>
+<p>tags:</p>
+<ul>
+<li>问题总结</li>
+<li>Map</li>
+<li>Java基础</li>
+<li>源码分析</li>
+</ul>
+<p>categories:</p>
+<ul>
+<li>[问题总结]</li>
+</ul>
+<hr>
+<h1 id="摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。"><a href="#摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。" class="headerlink" title="摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。"></a>摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。</h1><hr>
+<h2 id="需求背景"><a href="#需求背景" class="headerlink" title="需求背景"></a>需求背景</h2><p>1、给一个无序的map，按照value的值进行排序，value值越小，排在越前面。<br>2、key和value都不为null<br>3、value可能相同<br>4、返回结果为一个相同的有序map</p>
+<p>代码如下所示:</p>
+<pre><code class="java">// 假设，key=商品id，value=商品剩余库存
+Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+map.put(1L, 10);
+map.put(2L, 20);
+map.put(3L, 10);
+</code></pre>
+<p>到这里，大家可以先想想，如果是你会怎么解决？</p>
+<!--more-->
+
+<h2 id="我的解决思路"><a href="#我的解决思路" class="headerlink" title="我的解决思路"></a>我的解决思路</h2><p>1、使用TreeMap，因为TreeMap可以对元素进行排序<br>2、重写TreeMap的比较器</p>
+<p>代码如下所示：</p>
+<pre><code class="java">// 承接上面的代码
+// 按照 value 排序
+Map&lt;Long, Integer&gt; treeMap1 = new TreeMap&lt;&gt;(new Comparator&lt;Long&gt;() {
+    @Override
+    public int compare(Long o1, Long o2) {
+        // 1、如果v1等于v2，则值为0
+        // 2、如果v1小于v2，则值为-1
+        // 3、如果v1等于v2，则值为1
+        Integer value1 = map.get(o1);
+        Integer value2 = map.get(o2);
+        return value1.compareTo(value2);
+    }
+});
+treeMap1.putAll(map);
+System.out.println(treeMap1);
+</code></pre>
+<p>运行后的结果为：</p>
+<pre><code class="java">{1=10, 2=20}
+</code></pre>
+<p>what？为什么我们添加了3个元素，结果少了一个呢？<br><img src="./%E7%96%91%E9%97%AE.jpg" alt="疑问"></p>
+<h2 id="TreeMap-putAll源码分析"><a href="#TreeMap-putAll源码分析" class="headerlink" title="TreeMap putAll源码分析"></a>TreeMap putAll源码分析</h2><p>让我们来看看 putAll 的具体过程</p>
+<h3 id="1、分析-TreeMap-putAll"><a href="#1、分析-TreeMap-putAll" class="headerlink" title="1、分析 TreeMap.putAll"></a>1、分析 TreeMap.putAll</h3><p>源码如下所示:</p>
+<pre><code class="java">public void putAll(Map&lt;? extends K, ? extends V&gt; map) {
+    // 一、获取待添加的map的大小
+    int mapSize = map.size();
+    // 二、当前的size大小等于0 且 待添加的map的大小不等于0 且 待添加的map是SortedMap的实现类，则执行以下逻辑
+    if (size==0 &amp;&amp; mapSize!=0 &amp;&amp; map instanceof SortedMap) {
+        // 1、获取待添加的map的比较器
+        Comparator&lt;?&gt; c = ((SortedMap&lt;?,?&gt;)map).comparator();
+        // 2、如果两个比较器相同，则执行以下逻辑
+        if (c == comparator || (c != null &amp;&amp; c.equals(comparator))) {
+            // 3、修改次数+1
+            ++modCount;
+            try {
+                // 4、基于排序数据的线性时间树构建算法，进行build
+                buildFromSorted(mapSize, map.entrySet().iterator(),
+                        null, null);
+            } catch (java.io.IOException cannotHappen) {
+            } catch (ClassNotFoundException cannotHappen) {
+            }
+            return;
+        }
+    }
+    // 三、如果不符合上面的条件，则执行父类的 putAll 方法
+    super.putAll(map);
+}
+</code></pre>
+<p>从上面源码，不难看出，我们的数据符合 流程二，但是不符合 流程二-2，所以我们会执行父类的 putAll 方法，即流程三。</p>
+<h3 id="2、分析-AbstractMap-putAll"><a href="#2、分析-AbstractMap-putAll" class="headerlink" title="2、分析 AbstractMap.putAll"></a>2、分析 AbstractMap.putAll</h3><p>TreeMap 继承 AbstractMap，所以 super.putAll(map)，执行的 putAll 为 AbstractMap 的 putAll 方法，源码如下所示：</p>
+<pre><code class="java">public void putAll(Map&lt;? extends K, ? extends V&gt; m) {
+    // 遍历 m map，将它所有的值，使用put方法，全部添加到当前的map中
+    for (Map.Entry&lt;? extends K, ? extends V&gt; e : m.entrySet())
+        put(e.getKey(), e.getValue());
+}
+</code></pre>
+<p>这段代码简单，就是一个遍历添加元素的。</p>
+<p>但是有一个问题，这里的 put 方法执行的是谁的 put 方法呢？</p>
+<ul>
+<li>1、AbstractMap.put</li>
+<li>2、TreeMap.put</li>
+</ul>
+<p>这里大家可以先思考1分钟，然后再继续往下看。</p>
+<p>答案是：</p>
+<pre><code>执行的是 TreeMap.put
+</code></pre>
+<p>回答错误 or 不知道真实原因的小伙伴，可以去网上搜搜答案，这里是一个很重要的基础知识点哦。</p>
+<h3 id="3、分析-TreeMap-put"><a href="#3、分析-TreeMap-put" class="headerlink" title="3、分析 TreeMap.put"></a>3、分析 TreeMap.put</h3><p>源代码如下所示：</p>
+<pre><code class="java">public V put(K key, V value) {
+    // 一、获取根节点
+    TreeMap.Entry&lt;K,V&gt; t = root;
+    // 二、判断跟节点是否为空
+    if (t == null) {
+        // 类型检查 and null 检查
+        compare(key, key); // type (and possibly null) check
+        // 创建根节点
+        root = new TreeMap.Entry&lt;&gt;(key, value, null);
+        size = 1;
+        // 修改次数加1
+        modCount++;
+        return null;
+    }
+
+    int cmp;
+    TreeMap.Entry&lt;K,V&gt; parent;
+    // 获取比较器
+    Comparator&lt;? super K&gt; cpr = comparator;
+    // 三、如果比较器不为空，则执行一下逻辑，即自定义比较器执行逻辑
+    if (cpr != null) {
+        do {
+            // 1、将t节点赋值给parent
+            parent = t;
+            // 2、比较t节点的key是否与待添加的key相等
+            cmp = cpr.compare(key, t.key);
+            // 3、如果返回值小于0，则将左子树赋值给t节点，即后续遍历左子树
+            if (cmp &lt; 0)
+                t = t.left;
+            // 4、如果返回值大于0，则将右子树赋值给t节点，即后续遍历右子树
+            else if (cmp &gt; 0)
+                t = t.right;
+            else
+                // 5、如果返回值为0，则覆盖原来的值
+                return t.setValue(value);
+        } while (t != null);
+    }
+    // 四、如果比较器为空，则执行以下逻辑，即默认执行逻辑
+    else {
+      // 这部分逻辑，先忽略
+    }
+    TreeMap.Entry&lt;K,V&gt; e = new TreeMap.Entry&lt;&gt;(key, value, parent);
+    if (cmp &lt; 0)
+        parent.left = e;
+    else
+        parent.right = e;
+    fixAfterInsertion(e);
+    size++;
+    modCount++;
+    return null;
+}
+</code></pre>
+<p>我们结合上面的源码和我们自定义的排序器，就可以发现以下问题：</p>
+<p>1、我们比较的是两个 value 的大小，而 value 可能是一样的。</p>
+<p><img src="%E6%AF%94%E8%BE%83%E5%99%A81.jpg" alt="比较器1"></p>
+<p>这种情况下，就会覆盖原来的值，这个就是我们执行 putAll 后，元素缺失的原因了。</p>
+<p><img src="%E6%AF%94%E8%BE%83%E5%99%A82.jpg" alt="比较器2"></p>
+<p>好了既然问题找到了，那如何解决这个问题呢？</p>
+<p>如果是你，你会怎么解决呢？可以花一分钟时间思考一下，再看后面的内容。</p>
+<h3 id="4、解决-TreeMap-putAll，元素缺失的问题"><a href="#4、解决-TreeMap-putAll，元素缺失的问题" class="headerlink" title="4、解决 TreeMap.putAll，元素缺失的问题"></a>4、解决 TreeMap.putAll，元素缺失的问题</h3><p>我当时想到最直接的方案就是，在 value 相等的情况下，不返回 0，返回1 or -1，这样就可以最简单、最快捷的解决这个问题了。</p>
+<p>修改后的代码如下所示：</p>
+<pre><code class="java">// 这里换了一种写法，是java8的特性，简化了代码（为了偷懒）
+Map&lt;Long, Integer&gt; treeMap2 = new TreeMap&lt;&gt;((key1, key2) -&gt; {
+    // 1、如果v1等于v2，则值为0
+    // 2、如果v1小于v2，则值为-1
+    // 3、如果v1等于v2，则值为1
+    Integer value1 = map.get(key1);
+    Integer value2 = map.get(key2);
+
+    int result = value1.compareTo(value2);
+
+    if (result == 0) {
+        return -1;
+    }
+    return result;
+});
+
+treeMap2.putAll(map);
+System.out.println(treeMap2);
+</code></pre>
+<p>运行后的结果为：</p>
+<pre><code class="java">{3=10, 1=10, 2=20}
+</code></pre>
+<p>我们可以发现，3个值都有了，并且是有序的，完美符合需求！好了，关机下班！</p>
+<p><img src="%E5%85%B3%E6%9C%BA%E4%B8%8B%E7%8F%AD.webp" alt="关机下班"></p>
+<p>然而事情并没有结束<strong>（大家可以想一下，这样写会有什么问题呢？）</strong>！</p>
+<h2 id="新的问题出现"><a href="#新的问题出现" class="headerlink" title="新的问题出现"></a>新的问题出现</h2><p>第二天，高高兴兴的写着业务代码、调试逻辑，突然一个<strong>空指针</strong>的报错，出现了。这也太常见了吧，3分钟内解决！</p>
+<p><img src="2000%E5%B9%B4%E4%B9%8B%E5%90%8E.jpeg" alt="2000年之后"></p>
+<p>排查了半天，发现又回到了昨天的修改的那段逻辑了。</p>
+<h3 id="1、TreeMap-get-获取不到值"><a href="#1、TreeMap-get-获取不到值" class="headerlink" title="1、TreeMap.get 获取不到值"></a>1、TreeMap.get 获取不到值</h3><p>简化版代码如下所示：</p>
+<pre><code class="java">// 假设，key=商品id，value=商品剩余库存
+Map&lt;Long, Integer&gt; map = new HashMap&lt;&gt;();
+map.put(1L, 10);
+map.put(2L, 20);
+map.put(3L, 10);
+
+// 排序
+Map&lt;Long, Integer&gt; treeMap2 = new TreeMap&lt;&gt;((key1, key2) -&gt; {
+    Integer value1 = map.get(key1);
+    Integer value2 = map.get(key2);
+
+    int result = value1.compareTo(value2);
+
+    if (result == 0) {
+        return -1;
+    }
+    return result;
+});
+treeMap2.putAll(map);
+System.out.println(treeMap2);
+
+// 获取商品1的剩余数量
+Integer quantity = treeMap2.get(1L);
+System.out.println(quantity);
+</code></pre>
+<p>运行后的结果为：</p>
+<pre><code class="java">{3=10, 1=10, 2=20}
+null
+</code></pre>
+<p>这个结果令我百思不得其解，只能看看源码咯。</p>
+<h3 id="2、分析-TreeMap-get"><a href="#2、分析-TreeMap-get" class="headerlink" title="2、分析 TreeMap.get"></a>2、分析 TreeMap.get</h3><p>源码如下所示：</p>
+<pre><code class="java">public V get(Object key) {
+    // 根据key获取节点
+    TreeMap.Entry&lt;K,V&gt; p = getEntry(key);
+    // 节点为空则返回null，否则返回节点的 value 值
+    return (p==null ? null : p.value);
+}
+
+final TreeMap.Entry&lt;K,V&gt; getEntry(Object key) {
+    // 一、如果比较器不为空，则执行一下逻辑
+    if (comparator != null)
+        // 1、使用自定义比较器取出key对应的节点
+        return getEntryUsingComparator(key);
+    // 二、如果比较器为空，且key为null，则抛空指针异常
+    if (key == null)
+        throw new NullPointerException();
+    @SuppressWarnings(&quot;unchecked&quot;)
+    Comparable&lt;? super K&gt; k = (Comparable&lt;? super K&gt;) key;
+    TreeMap.Entry&lt;K,V&gt; p = root;
+    // 三、取出key对应的节点
+    while (p != null) {
+        int cmp = k.compareTo(p.key);
+        if (cmp &lt; 0)
+            p = p.left;
+        else if (cmp &gt; 0)
+            p = p.right;
+        else
+            return p;
+    }
+    return null;
+}
+</code></pre>
+<p>从上面的源码，我们可以发现，问题肯定就是出现在 getEntryUsingComparator 方法里了。</p>
+<h3 id="2、分析-TreeMap-getEntryUsingComparator"><a href="#2、分析-TreeMap-getEntryUsingComparator" class="headerlink" title="2、分析 TreeMap.getEntryUsingComparator"></a>2、分析 TreeMap.getEntryUsingComparator</h3><p>源码如下所示：</p>
+<pre><code class="java">final TreeMap.Entry&lt;K,V&gt; getEntryUsingComparator(Object key) {
+    // 一、将key转换成对应的类型
+    @SuppressWarnings(&quot;unchecked&quot;)
+    K k = (K) key;
+    // 二、获取比较器
+    Comparator&lt;? super K&gt; cpr = comparator;
+    // 三、判断比较器是否为空
+    if (cpr != null) {
+        // 1、遍历map，取出key对应的节点对象
+        TreeMap.Entry&lt;K,V&gt; p = root;
+        while (p != null) {
+            int cmp = cpr.compare(k, p.key);
+            // 2、如果小于0，则将左节点的值赋值给p
+            if (cmp &lt; 0)
+                p = p.left;
+            // 3、如果大于0，则将右节点的值赋值给p
+            else if (cmp &gt; 0)
+                p = p.right;
+            else
+                // 4、如果等于0，则返回p节点
+                return p;
+        }
+    }
+    return null;
+}
+</code></pre>
+<p>结合上面的源码，和我们之前自定义的比较器，我们不难发现问题出现在哪里：</p>
+<p><img src="%E6%AF%94%E8%BE%83%E5%99%A83.jpg" alt="比较器3"></p>
+<pre><code>自定义比较器，没有返回0的情况
+</code></pre>
+<p>问题找到了，解决吧！<br>加班中，今天到此结束！<br>啊杰，在这里谢谢大家的观看，下次再见。<br><strong>（快要失业了，有无缺人的小伙伴，求推荐？联系邮箱<a href="mailto:&#51;&#56;&#57;&#57;&#x36;&#x34;&#x33;&#x40;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;">&#51;&#56;&#57;&#57;&#x36;&#x34;&#x33;&#x40;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;</a>）</strong></p>
