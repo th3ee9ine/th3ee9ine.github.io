@@ -480,9 +480,9 @@
     
     <category term="Java" scheme="https://www.blog.ajie39.top/tags/Java/"/>
     
-    <category term="Jooq" scheme="https://www.blog.ajie39.top/tags/Jooq/"/>
-    
     <category term="ORM" scheme="https://www.blog.ajie39.top/tags/ORM/"/>
+    
+    <category term="Jooq" scheme="https://www.blog.ajie39.top/tags/Jooq/"/>
     
   </entry>
   
@@ -532,9 +532,9 @@
     
     <category term="Java" scheme="https://www.blog.ajie39.top/tags/Java/"/>
     
-    <category term="ORM" scheme="https://www.blog.ajie39.top/tags/ORM/"/>
-    
     <category term="Mybatis" scheme="https://www.blog.ajie39.top/tags/Mybatis/"/>
+    
+    <category term="ORM" scheme="https://www.blog.ajie39.top/tags/ORM/"/>
     
   </entry>
   
