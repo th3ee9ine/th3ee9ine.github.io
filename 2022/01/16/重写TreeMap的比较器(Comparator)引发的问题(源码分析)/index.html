@@ -13,7 +13,7 @@
   <meta name="description" content="摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。 需求背景1、给一个无序的map，按照value的值进行排序，value值越小，排在越前面。2、key和value都不为null3、value可能相同4、返回结果为一个相同的有序map 代码如下所示: 123456&#x2F;&#x2F; 假设，key&#x3D;商品id，value&#x3D;商品剩余库存Map&lt;Long, Integer&gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重写TreeMap的比较器(Comparator)引发的问题（源码分析）">
-<meta property="og:url" content="https://www.blog.ajie39.top/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%8E%92%E5%BA%8F%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:url" content="https://www.blog.ajie39.top/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%AF%94%E8%BE%83%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98(%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。 需求背景1、给一个无序的map，按照value的值进行排序，value值越小，排在越前面。2、key和value都不为null3、value可能相同4、返回结果为一个相同的有序map 代码如下所示: 123456&#x2F;&#x2F; 假设，key&#x3D;商品id，value&#x3D;商品剩余库存Map&lt;Long, Integer&gt;">
 <meta property="og:locale" content="zh_CN">
@@ -24,11 +24,11 @@
 <meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20220116/2000%E5%B9%B4%E4%B9%8B%E5%90%8E.jpeg">
 <meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20220116/%E6%AF%94%E8%BE%83%E5%99%A83.jpg">
 <meta property="article:published_time" content="2022-01-16T06:58:04.646Z">
-<meta property="article:modified_time" content="2022-01-16T10:28:45.098Z">
+<meta property="article:modified_time" content="2022-01-17T12:49:26.734Z">
 <meta property="article:author" content="th3ee9ine">
+<meta property="article:tag" content="Java基础">
 <meta property="article:tag" content="问题总结">
 <meta property="article:tag" content="Map">
-<meta property="article:tag" content="Java基础">
 <meta property="article:tag" content="源码分析">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/20220116/%E7%96%91%E9%97%AE.jpg">
@@ -209,7 +209,7 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-重写TreeMap的排序器(Comparator)引发的问题" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-重写TreeMap的比较器(Comparator)引发的问题(源码分析)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -228,7 +228,7 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%8E%92%E5%BA%8F%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
+<a href="/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%AF%94%E8%BE%83%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98(%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)/" class="archive-article-date">
         <time datetime="2022-01-16T06:58:04.646Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
 </a>
 
@@ -354,7 +354,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://www.blog.ajie39.top/2022/01/16/重写TreeMap的排序器(Comparator)引发的问题/" title="重写TreeMap的比较器(Comparator)引发的问题（源码分析）" target="_blank">https://www.blog.ajie39.top/2022/01/16/重写TreeMap的排序器(Comparator)引发的问题/</a>
+          <a href="https://www.blog.ajie39.top/2022/01/16/重写TreeMap的比较器(Comparator)引发的问题(源码分析)/" title="重写TreeMap的比较器(Comparator)引发的问题（源码分析）" target="_blank">https://www.blog.ajie39.top/2022/01/16/重写TreeMap的比较器(Comparator)引发的问题(源码分析)/</a>
         </li>
         
         <li>
@@ -376,15 +376,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">问题总结</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Map</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -455,7 +455,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.blog.ajie39.top/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%8E%92%E5%BA%8F%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.blog.ajie39.top/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%AF%94%E8%BE%83%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98(%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -469,6 +469,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2022/02/02/git----Fork%E4%BB%A3%E7%A0%81%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%90%8C%E6%AD%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          git--Fork代码更新与同步
+        
+      </div>
+    </a>
   
   
     <a href="/2021/11/21/%E6%8E%92%E5%BA%8F%E5%A5%87%E5%8D%87%E5%81%B6%E9%99%8D%E9%93%BE%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
@@ -657,7 +666,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,27 +686,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,6 +698,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
@@ -709,15 +710,23 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,15 +742,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">测试</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">开发基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,15 +770,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Map</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
               <li class="article-tag-list-item">
