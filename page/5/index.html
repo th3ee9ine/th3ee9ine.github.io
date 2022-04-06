@@ -204,6 +204,114 @@
             
 
   
+    <article id="post-利用hexo和github搭建blog（详细版）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/05/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/" target="_blank">利用Hexo和Github搭建Blog（详细版）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/05/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-05-05T04:24:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：这是一篇有关如何使用Github-Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。"><a href="#摘要：这是一篇有关如何使用Github-Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。" class="headerlink" title="摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。"></a>摘要：这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。</h1><hr>
+<h1 id="前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。"><a href="#前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。" class="headerlink" title="前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。"></a>前言：我是一名java开发者（还未入门的那种，贼菜）。一开始我自己的笔记是写在有道笔记上的，由于是自己看，所以写的笔记杂乱，而且繁琐，时间一久东西一多，很多知识点就要找半天，所以趁着寒假这段时间吧知识点梳理一遍，整理到Blog上，这样便于自己学习，也可以和人多多交流，希望大佬们多多指教。</h1><hr>
+    
+    <a class="article-more-a" href="/2021/05/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂项/Blog//" class="article-tag-list-link color5">Blog</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/05/05/%E5%88%A9%E7%94%A8hexo%E5%92%8Cgithub%E6%90%AD%E5%BB%BAblog%EF%BC%88%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-从零开始学习lambda表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1913,118 +2021,6 @@
 
 
   
-    <article id="post-安装Oracle12C坑点总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2019/04/07/%E5%AE%89%E8%A3%85Oracle12C%E5%9D%91%E7%82%B9%E6%80%BB%E7%BB%93/" target="_blank">安装Oracle12C坑点总结</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2019/04/07/%E5%AE%89%E8%A3%85Oracle12C%E5%9D%91%E7%82%B9%E6%80%BB%E7%BB%93/" class="archive-article-date">
-        <time datetime="2019-04-07T14:29:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：安装Oracle12C坑点总结"><a href="#摘要：安装Oracle12C坑点总结" class="headerlink" title="摘要：安装Oracle12C坑点总结"></a>摘要：安装Oracle12C坑点总结</h1><hr>
-<h1 id="前言：安装Oracle12C坑点总结。"><a href="#前言：安装Oracle12C坑点总结。" class="headerlink" title="前言：安装Oracle12C坑点总结。"></a>前言：安装Oracle12C坑点总结。</h1><hr>
-<h2 id="INS-30131错误"><a href="#INS-30131错误" class="headerlink" title="INS-30131错误"></a>INS-30131错误</h2><p><strong>打开计算机管理——本地用户和组——用户——Administrator（右键属性）——账户已禁用（取消勾选）——确定</strong></p>
-<h2 id="INS-20802错误"><a href="#INS-20802错误" class="headerlink" title="INS-20802错误"></a>INS-20802错误</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">查询监听是否启动</span><br><span class="line">lsnrctl status</span><br><span class="line">启动监听</span><br><span class="line">lsnrctl start LISTENER</span><br><span class="line"></span><br><span class="line">关闭防火墙</span><br><span class="line"></span><br><span class="line">改hosts</span><br><span class="line">Windows下目录：</span><br><span class="line">C:\Windows\System32\drivers\etc\hosts</span><br><span class="line">添加</span><br><span class="line">127.0.0.1	localhost</span><br><span class="line"></span><br><span class="line">下面文件赋予管理员权限(右击，以管理员方式启动)</span><br><span class="line">xxxxxxx\Oracle\product\12.2.0\dbhome_1\bin\oradim.exe</span><br></pre></td></tr></table></figure>
-
-<h2 id="em页面404"><a href="#em页面404" class="headerlink" title="em页面404"></a>em页面404</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">启动监听器</span><br><span class="line">lsnrctl start</span><br></pre></td></tr></table></figure>
-
-<h2 id="Oracle-SQL-Developer连接报错-ORA-12505或27101-的解决方案-两种"><a href="#Oracle-SQL-Developer连接报错-ORA-12505或27101-的解决方案-两种" class="headerlink" title="Oracle SQL Developer连接报错(ORA-12505或27101)的解决方案(两种)"></a>Oracle SQL Developer连接报错(ORA-12505或27101)的解决方案(两种)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">第一种</span><br><span class="line">在Oracle SQL Developer连接工具上修改你的数据库SID名，把&quot;xe&quot;修改成&quot;orcl&quot;</span><br><span class="line"></span><br><span class="line">第二种</span><br><span class="line">启动监听器</span><br><span class="line">lsnrctl start</span><br><span class="line">启动数据库</span><br><span class="line">sqlplus &#x2F;nolog</span><br><span class="line">conn 账号&#x2F;密码 as sysdba</span><br><span class="line">startup</span><br></pre></td></tr></table></figure>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂项</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">问题and坑点</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/杂项/问题and坑点//" class="article-tag-list-link color3">问题and坑点</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2019/04/07/%E5%AE%89%E8%A3%85Oracle12C%E5%9D%91%E7%82%B9%E6%80%BB%E7%BB%93/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &amp;raquo;</a>
@@ -2149,14 +2145,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">微服务</a>
               </li>
              
@@ -2169,27 +2157,27 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Jackson</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">HBase</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2201,27 +2189,27 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2233,11 +2221,23 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2245,7 +2245,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2257,7 +2257,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2277,6 +2277,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
@@ -2289,10 +2293,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
@@ -2301,7 +2301,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jackson</a>
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
               </li>
             
             <div class="clearfix"></div>
