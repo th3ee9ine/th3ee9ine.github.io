@@ -17,12 +17,16 @@
 <meta property="og:site_name" content="教练，我想学技术!">
 <meta property="og:description" content="摘要：go入门相关内容，参考：Go入门指南，主要总结其中：六到十三章的内容。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20220604/%E5%88%87%E7%89%87%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20220604/make%E6%96%B9%E6%B3%95%E7%94%9F%E6%88%90%E7%9A%84%E5%88%87%E7%89%87%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20220604/new%E5%92%8Cmake%E7%9A%84%E5%8C%BA%E5%88%AB.png">
 <meta property="article:published_time" content="2022-05-07T07:10:19.400Z">
-<meta property="article:modified_time" content="2022-06-04T07:56:41.731Z">
+<meta property="article:modified_time" content="2022-06-04T09:27:38.578Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="go">
 <meta property="article:tag" content="go基础">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/20220604/%E5%88%87%E7%89%87%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -233,7 +237,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">2.8k字</span>
+      <span class="post-count">5.1k字</span>
     </span>
   </span>
 
@@ -242,7 +246,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">11分</span>
+      <span class="post-count">21分</span>
     </span>
   </span>
 </div>
@@ -375,7 +379,100 @@
 
 <p>我们可以看到变量 g 代表的是 func(int)，变量的值是一个内存地址。</p>
 <p>所以我们实际上拥有的是一个函数值：匿名函数可以被赋值给变量并作为值使用。</p>
-<h2 id="二、数组与切片"><a href="#二、数组与切片" class="headerlink" title="二、数组与切片"></a>二、数组与切片</h2><h2 id="三、Map"><a href="#三、Map" class="headerlink" title="三、Map"></a>三、Map</h2><h2 id="四、包（package）"><a href="#四、包（package）" class="headerlink" title="四、包（package）"></a>四、包（package）</h2><h2 id="五、结构与方法"><a href="#五、结构与方法" class="headerlink" title="五、结构与方法"></a>五、结构与方法</h2><h2 id="六、接口与反射"><a href="#六、接口与反射" class="headerlink" title="六、接口与反射"></a>六、接口与反射</h2><h2 id="七、读写数据"><a href="#七、读写数据" class="headerlink" title="七、读写数据"></a>七、读写数据</h2><h2 id="八、错误处理与测试"><a href="#八、错误处理与测试" class="headerlink" title="八、错误处理与测试"></a>八、错误处理与测试</h2>
+<h2 id="二、数组与切片"><a href="#二、数组与切片" class="headerlink" title="二、数组与切片"></a>二、数组与切片</h2><h3 id="1、数组（概念和java相同，略过）"><a href="#1、数组（概念和java相同，略过）" class="headerlink" title="1、数组（概念和java相同，略过）"></a>1、数组（概念和java相同，略过）</h3><p>Go 语言中的数组是一种 值类型（不像 C/C++ 中是指向首元素的指针），所以可以通过 new() 来创建： var arr1 = new([5]int)。</p>
+<p>那么这种方式和 var arr2 [5]int 的区别是什么呢？arr1 的类型是 *[5]int，而 arr2 的类型是 [5]int。</p>
+<p>这样的结果就是当把一个数组赋值给另一个时，需要再做一次数组内存的拷贝操作。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr2 :&#x3D; *arr1</span><br><span class="line">arr2[2] &#x3D; 100</span><br></pre></td></tr></table></figure>
+
+<p>这样两个数组就有了不同的值，在赋值后修改 arr2 不会对 arr1 生效。</p>
+<p>所以在函数中数组作为参数传入时，如 func1(arr2)，会产生一次数组拷贝，func1 方法不会修改原始的数组 arr2。</p>
+<p>如果你想修改原数组，那么 arr2 必须通过 &amp; 操作符以引用方式传过来，例如 func1 (&amp;arr2），例子如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func f(a [3]int) &#123;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	a[0] &#x3D; 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func fp(a *[3]int) &#123;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	a[0] &#x3D; 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var ar [3]int</span><br><span class="line">	f(ar)   &#x2F;&#x2F; passes a copy of ar</span><br><span class="line">	fp(&amp;ar) &#x2F;&#x2F; passes a pointer to ar</span><br><span class="line">	fmt.Println(ar)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1）数组初始化"><a href="#1）数组初始化" class="headerlink" title="1）数组初始化"></a>1）数组初始化</h4><p>例子如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F; var arrAge &#x3D; [5]int&#123;18, 20, 15, 22, 16&#125;</span><br><span class="line">	&#x2F;&#x2F; var arrLazy &#x3D; [...]int&#123;5, 6, 7, 8, 22&#125;</span><br><span class="line">	&#x2F;&#x2F; var arrLazy &#x3D; []int&#123;5, 6, 7, 8, 22&#125;</span><br><span class="line">	var arrKeyValue &#x3D; [5]string&#123;3: &quot;Chris&quot;, 4: &quot;Ron&quot;&#125;</span><br><span class="line">	&#x2F;&#x2F; var arrKeyValue &#x3D; []string&#123;3: &quot;Chris&quot;, 4: &quot;Ron&quot;&#125;</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; len(arrKeyValue); i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;Person at %d is %s\n&quot;, i, arrKeyValue[i])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2）将数组传递给函数"><a href="#2）将数组传递给函数" class="headerlink" title="2）将数组传递给函数"></a>2）将数组传递给函数</h4><p>把一个大数组传递给函数会消耗很多内存。有两种方法可以避免这种现象：</p>
+<ul>
+<li>传递数组的指针</li>
+<li>使用数组的切片</li>
+</ul>
+<h5 id="传递数组的指针"><a href="#传递数组的指针" class="headerlink" title="传递数组的指针"></a>传递数组的指针</h5><p>例子如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	array :&#x3D; [3]float64&#123;7.0, 8.5, 9.1&#125;</span><br><span class="line">	x :&#x3D; Sum(&amp;array) &#x2F;&#x2F; Note the explicit address-of operator</span><br><span class="line">	&#x2F;&#x2F; to pass a pointer to the array</span><br><span class="line">	fmt.Printf(&quot;The sum of the array is: %f&quot;, x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Sum(a *[3]float64) (sum float64) &#123;</span><br><span class="line">	for _, v :&#x3D; range *a &#123; &#x2F;&#x2F; derefencing *a to get back to the array is not necessary!</span><br><span class="line">		sum +&#x3D; v</span><br><span class="line">	&#125;</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line"></span><br><span class="line">The sum of the array is: 24.600000</span><br></pre></td></tr></table></figure>
+
+<p>但这在 Go 中并不常用，通常使用切片。</p>
+<h5 id="使用数组的切片"><a href="#使用数组的切片" class="headerlink" title="使用数组的切片"></a>使用数组的切片</h5><p>例子如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	array :&#x3D; [3]float64&#123;7.0, 8.5, 9.1&#125;</span><br><span class="line">	x :&#x3D; sum(array[:])</span><br><span class="line">	fmt.Printf(&quot;The sum of the array is: %f&quot;, x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func sum(a []float64) float64 &#123;</span><br><span class="line">	s :&#x3D; 0.0</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(a); i++ &#123;</span><br><span class="line">		s +&#x3D; a[i]</span><br><span class="line">	&#125;</span><br><span class="line">	return s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、切片"><a href="#2、切片" class="headerlink" title="2、切片"></a>2、切片</h3><h4 id="1）概念"><a href="#1）概念" class="headerlink" title="1）概念"></a>1）概念</h4><p>切片（slice）是对数组一个 <strong>连续片段的引用（该数组我们称之为相关数组，通常是匿名的）</strong>，所以 <strong>切片是一个引用类型</strong>（因此更类似于 C/C++ 中的数组类型，或者 Python 中的 list 类型）。这个片段可以是整个数组，或者是由起始和终止索引标识的一些项的子集。需要注意的是，终止索引标识的项不包括在切片内。</p>
+<p>特点如下所示：</p>
+<ul>
+<li>切片是一个引用类型</li>
+<li>切片是可索引的，并且可以由 len() 函数获取长度。</li>
+<li>给定项的切片索引可能比相关数组的相同元素的索引小。</li>
+<li>和数组不同的是，切片的长度可以在运行时修改，最小为 0 ，最大为相关数组的长度：切片是一个长度可变的数组。</li>
+<li>切片提供了计算容量的函数 cap() 可以测量切片最长可以达到多少：它等于切片从第一个元素开始，到相关数组末尾的元素个数。对于 切片 s 来说该不等式永远成立：0 &lt;= len(s) &lt;= cap(s)。</li>
+<li>多个切片如果表示同一个数组的片段，它们可以共享数据；因此一个切片和相关数组的其他切片是共享存储的，相反，不同的数组总是代表不同的存储。数组实际上是切片的构建块。</li>
+</ul>
+<p>声明切片的格式，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var identifier []type（不需要说明长度）</span><br></pre></td></tr></table></figure>
+
+<p>一个切片在未初始化之前默认为 nil，长度为 0。</p>
+<p>切片的初始化格式，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var slice1 []type &#x3D; arr1[start:end]</span><br></pre></td></tr></table></figure>
+
+<p>这表示 slice1 是由数组 arr1 从 start 索引到 end-1 索引之间的元素构成的子集（切分数组，start:end 被称为 slice 表达式）。所以 slice1[0] 就等于 arr1[start]。这可以在 arr1 被填充前就定义好。</p>
+<p>如果某个人写：var slice1 []type = arr1[:] 那么 slice1 就等于完整的 arr1 数组（所以这种表示方式是 arr1[0:len(arr1)] 的一种缩写）。另外一种表述方式是：slice1 = &amp;arr1。</p>
+<p>arr1[2:] 和 arr1[2:len(arr1)] 相同，都包含了数组从第三个到最后的所有元素。</p>
+<p>arr1[:3] 和 arr1[0:3] 相同，包含了从第一个到第三个元素（不包括第四个 / 不包含下标为三的元素）。</p>
+<p>如果你想去掉 slice1 的最后一个元素，只要 slice1 = slice1[:len(slice1)-1]。</p>
+<p>一个由数字 1、2、3 组成的切片可以这么生成：s := [3]int{1,2,3}[:] 甚至更简单的 s := []int{1,2,3}。</p>
+<p>s2 := s[:] 是用切片组成的切片，拥有相同的元素，但是 <strong>仍然指向相同的相关数组</strong>。</p>
+<p>一个切片 s 可以这样扩展到它的大小上限：s = s[:cap(s)]，如果再扩大的话就会导致运行时错误。</p>
+<p>切片也可以用类似数组的方式初始化：var x = []int{2, 3, 5, 7, 11}。这样就创建了一个长度为 5 的数组并且创建了一个相关切片。</p>
+<h4 id="2）切片的内存结构"><a href="#2）切片的内存结构" class="headerlink" title="2）切片的内存结构"></a>2）切片的内存结构</h4><p>切片在内存中的组织方式实际上是一个有 3 个域的结构体：</p>
+<ul>
+<li>指向相关数组的指针</li>
+<li>切片长度：切片的长度就是它所包含的元素个数。</li>
+<li>切片容量：切片的容量是从它的第一个元素开始数，到其底层数组元素末尾的个数。</li>
+</ul>
+<p>一个长度为 2，容量为 4 的切片 y，如下所示：</p>
+<p><img src="/img/image/blog/20220604/%E5%88%87%E7%89%87%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" alt="切片内存结构"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y[0] &#x3D; 3 且 y[1] &#x3D; 5。</span><br></pre></td></tr></table></figure>
+
+<p>切片 s 的长度和容量可通过表达式 len(s) 和 cap(s) 来获取。</p>
+<p>注意: <strong>绝对不要用指针指向 slice。切片本身已经是一个引用类型，所以它本身就是一个指针！！</strong></p>
+<h4 id="3）创建切片"><a href="#3）创建切片" class="headerlink" title="3）创建切片"></a>3）创建切片</h4><p>当相关数组还没有定义时，我们可以使用 make () 函数来创建一个切片 同时创建好相关数组：var slice1 []type = make([]type, len)。</p>
+<p>也可以简写为 slice1 := make([]type, len)，这里 len 是数组的长度并且也是 slice 的初始长度。</p>
+<p>所以定义 s2 := make([]int, 10)，那么 cap(s2) == len(s2) == 10。</p>
+<p>make 接受 2 个参数：元素的类型以及切片的元素个数。</p>
+<p>如果你想创建一个 slice1，它不占用整个数组，而只是占用以 len 为个数个项，那么只要：slice1 := make([]type, len, cap)。</p>
+<p>make 的使用方式是：func make([]T, len, cap)，其中 cap 是可选参数。</p>
+<p>所以下面两种方法可以生成相同的切片:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make([]int, 50, 100)</span><br><span class="line">new([100]int)[0:50]</span><br></pre></td></tr></table></figure>
+
+<p>使用 make 方法生成的切片的内存结构，如下图所示：</p>
+<p><img src="/img/image/blog/20220604/make%E6%96%B9%E6%B3%95%E7%94%9F%E6%88%90%E7%9A%84%E5%88%87%E7%89%87%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" alt="make方法生成的切片的内存结构"></p>
+<p>例子如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    var slice1 []int &#x3D; make([]int, 10)</span><br><span class="line">    &#x2F;&#x2F; load the array&#x2F;slice:</span><br><span class="line">    for i :&#x3D; 0; i &lt; len(slice1); i++ &#123;</span><br><span class="line">        slice1[i] &#x3D; 5 * i</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; print the slice:</span><br><span class="line">    for i :&#x3D; 0; i &lt; len(slice1); i++ &#123;</span><br><span class="line">        fmt.Printf(&quot;Slice at %d is %d\n&quot;, i, slice1[i])</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(&quot;\nThe length of slice1 is %d\n&quot;, len(slice1))</span><br><span class="line">    fmt.Printf(&quot;The capacity of slice1 is %d\n&quot;, cap(slice1))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4）new-和-make-的区别"><a href="#4）new-和-make-的区别" class="headerlink" title="4）new () 和 make () 的区别"></a>4）new () 和 make () 的区别</h4><p>看起来二者没有什么区别，都在堆上分配内存，但是它们的行为不同，适用于不同的类型。</p>
+<ul>
+<li>new (T) 为每个新的类型 T 分配一片内存，初始化为 0 并且返回类型为 * T 的内存地址：这种方法 返回一个指向类型为 T，值为 0 的地址的指针，它适用于值类型如数组和结构体；它相当于 &amp;T{}。</li>
+<li>make(T) 返回一个类型为 T 的初始值，它只适用于 3 种内建的引用类型：切片、map 和 channel。</li>
+</ul>
+<p>换言之，new 函数分配内存，make 函数初始化；下图给出了区别：</p>
+<p><img src="/img/image/blog/20220604/new%E5%92%8Cmake%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="new和make的区别"></p>
+<h4 id="5）多维切片"><a href="#5）多维切片" class="headerlink" title="5）多维切片"></a>5）多维切片</h4><p>Go语言中同样允许使用多维切片，声明一个多维数组的语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var sliceName [][]...[]sliceType</span><br></pre></td></tr></table></figure>
+
+<p>下面以二维切片为例，声明一个二维切片并赋值，代码如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;声明一个二维切片</span><br><span class="line">var slice [][]int</span><br><span class="line">&#x2F;&#x2F;为二维切片赋值</span><br><span class="line">slice &#x3D; [][]int&#123;&#123;10&#125;, &#123;100, 200&#125;&#125;</span><br><span class="line">上面的代码也可以简写为下面的样子。</span><br><span class="line">&#x2F;&#x2F; 声明一个二维整型切片并赋值</span><br><span class="line">slice :&#x3D; [][]int&#123;&#123;10&#125;, &#123;100, 200&#125;&#125;</span><br><span class="line">&#x2F;&#x2F; 为第一个切片追加值为 20 的元素</span><br><span class="line">slice[0] &#x3D; append(slice[0], 20)</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、Map"><a href="#三、Map" class="headerlink" title="三、Map"></a>三、Map</h2><h2 id="四、包（package）"><a href="#四、包（package）" class="headerlink" title="四、包（package）"></a>四、包（package）</h2><h2 id="五、结构与方法"><a href="#五、结构与方法" class="headerlink" title="五、结构与方法"></a>五、结构与方法</h2><h2 id="六、接口与反射"><a href="#六、接口与反射" class="headerlink" title="六、接口与反射"></a>六、接口与反射</h2><h2 id="七、读写数据"><a href="#七、读写数据" class="headerlink" title="七、读写数据"></a>七、读写数据</h2><h2 id="八、错误处理与测试"><a href="#八、错误处理与测试" class="headerlink" title="八、错误处理与测试"></a>八、错误处理与测试</h2><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go">Go 入门指南</a></li>
+</ul>
+
     
 
     
@@ -644,15 +741,19 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">微服务</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RPC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,15 +765,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">go</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -685,6 +778,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">go</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,11 +809,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -728,11 +825,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -744,11 +841,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">go基础</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">go基础</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -756,11 +853,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂项</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -804,11 +901,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
               <li class="article-tag-list-item">
