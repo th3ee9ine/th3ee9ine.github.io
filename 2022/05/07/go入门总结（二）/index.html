@@ -18,7 +18,7 @@
 <meta property="og:description" content="摘要：go入门相关内容，参考：Go入门指南，主要总结其中：六到十三章的内容。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-07T07:10:19.400Z">
-<meta property="article:modified_time" content="2022-05-07T07:30:34.947Z">
+<meta property="article:modified_time" content="2022-06-04T07:56:41.731Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="go">
 <meta property="article:tag" content="go基础">
@@ -233,7 +233,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">69字</span>
+      <span class="post-count">2.8k字</span>
     </span>
   </span>
 
@@ -242,7 +242,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">1分</span>
+      <span class="post-count">11分</span>
     </span>
   </span>
 </div>
@@ -256,7 +256,126 @@
     <h1 id="摘要：go入门相关内容，参考：Go入门指南，主要总结其中：六到十三章的内容。"><a href="#摘要：go入门相关内容，参考：Go入门指南，主要总结其中：六到十三章的内容。" class="headerlink" title="摘要：go入门相关内容，参考：Go入门指南，主要总结其中：六到十三章的内容。"></a>摘要：go入门相关内容，参考：<a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go">Go入门指南</a>，主要总结其中：六到十三章的内容。</h1><hr>
 <span id="more"></span>
 
-<h2 id="一、函数"><a href="#一、函数" class="headerlink" title="一、函数"></a>一、函数</h2><h2 id="二、数组与切片"><a href="#二、数组与切片" class="headerlink" title="二、数组与切片"></a>二、数组与切片</h2><h2 id="三、Map"><a href="#三、Map" class="headerlink" title="三、Map"></a>三、Map</h2><h2 id="四、包（package）"><a href="#四、包（package）" class="headerlink" title="四、包（package）"></a>四、包（package）</h2><h2 id="五、结构与方法"><a href="#五、结构与方法" class="headerlink" title="五、结构与方法"></a>五、结构与方法</h2><h2 id="六、接口与反射"><a href="#六、接口与反射" class="headerlink" title="六、接口与反射"></a>六、接口与反射</h2><h2 id="七、读写数据"><a href="#七、读写数据" class="headerlink" title="七、读写数据"></a>七、读写数据</h2><h2 id="八、错误处理与测试"><a href="#八、错误处理与测试" class="headerlink" title="八、错误处理与测试"></a>八、错误处理与测试</h2>
+<h2 id="一、函数"><a href="#一、函数" class="headerlink" title="一、函数"></a>一、函数</h2><h3 id="1、基本介绍"><a href="#1、基本介绍" class="headerlink" title="1、基本介绍"></a>1、基本介绍</h3><h4 id="1）特性"><a href="#1）特性" class="headerlink" title="1）特性"></a>1）特性</h4><ul>
+<li>函数是基本的代码块。</li>
+<li>Go 是编译型语言，所以函数编写的顺序是无关紧要的。</li>
+<li>最好把 main() 函数写在文件的前面，其他函数按照一定逻辑顺序进行编写（例如函数被调用的顺序）。</li>
+<li>DRY 原则：即不要重复你自己（Don’t Repeat Yourself），意思是执行特定任务的代码只能在程序里面出现一次。</li>
+<li>当函数执行到代码块最后一行（} 之前）或者 return 语句的时候会退出，其中 return 语句可以带有零个或多个参数。</li>
+<li>函数可以将其他函数调用作为它的参数，只要这个被调用函数的返回值个数、返回值类型和返回值的顺序与调用函数所需求的实参是一致的，例如：f1(f2(a, b))。</li>
+<li>Go不允许函数重载。</li>
+</ul>
+<h4 id="2）不同类型的函数"><a href="#2）不同类型的函数" class="headerlink" title="2）不同类型的函数"></a>2）不同类型的函数</h4><p>Go 里面有三种类型的函数：</p>
+<ul>
+<li>普通的带有名字的函数</li>
+<li>匿名函数或者 lambda 函数</li>
+<li>方法</li>
+</ul>
+<p>除了 main ()、init () 函数外，其它所有类型的函数都可以有参数与返回值。函数参数、返回值以及它们的类型被统称为<strong>函数签名</strong>。</p>
+<h4 id="3）语法"><a href="#3）语法" class="headerlink" title="3）语法"></a>3）语法</h4><p>函数基本语法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">g</span><span class="params">()</span></span> &#123;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数被调用的基本格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pack1.Function(arg1, arg2, …, argn)</span><br></pre></td></tr></table></figure>
+
+<p>Function 是 pack1 包里面的一个函数，括号里的是被调用函数的 <strong>实参</strong>（argument）：这些值被传递给被调用函数的 <strong>形参</strong>。函数被调用的时候，这些实参将被复制（简单而言）然后传递给被调用函数。</p>
+<p>函数一般是在其他函数里面被调用的，这个其他函数被称为调用函数（calling function）。函数能多次调用其他函数，这些被调用函数按顺序（简单而言）执行，理论上，函数调用其他函数的次数是无限制的（直到函数调用栈被耗尽）。</p>
+<h4 id="4）方法"><a href="#4）方法" class="headerlink" title="4）方法"></a>4）方法</h4><p>方法与函数的区别是，函数不属于任何类型，方法属于特定的类型。</p>
+<p>Go语言中的 ​​方法（Method）​​ 是一种作用于特定类型变量的函数。这种特定类型变量叫做 ​​接收者（Receiver）​​。接收者的概念就类似于其他语言中的 ​​this​​ 或者 ​​self​​。</p>
+<p>方法的定义格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func (接收者变量 接收者类型) 方法名(参数列表) (返回参数) &#123;</span><br><span class="line">  &#x2F;&#x2F; 函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在go语言中，没有类的概念但是可以给类型（结构体，自定义类型）定义方法。所谓方法就是定义了接受者的函数，<strong>方法和函数的写法只有一个区别</strong>，那就是 <strong>方法在 func 和标识符之间多了一个参数——接受者定义在func关键字和函数名之间</strong>。</p>
+<p>接收者类型：接收者类型和参数类似，可以是指针类型和非指针类型。</p>
+<p>方法的接收者什么时候适合指向结构体的指针而不是结构体值？</p>
+<p>以C语言为例，我们知道在C中如果对一个指针变量进行修改，那么它的“副本”们也都会被修改。所以在Go中，如果你的方法是需要对结构体本身修改的，请使用指针作为接收器。否则，以值为接收器，改动将无效（类似slice，map特殊结构体）。你的结构体很大，用一个指针传递，会节约资源。为统一起见，如果你的大多方法以指针为接收器，请把其他方法也优先以指针作为接收器，不然调用时可能会提示该方法不属于某结构体的乌龙错误。</p>
+<h4 id="5）函数类型"><a href="#5）函数类型" class="headerlink" title="5）函数类型"></a>5）函数类型</h4><p>函数也可以以申明的方式被使用，作为一个函数类型，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 声明 Greeting 函数类型</span><br><span class="line">type Greeting func(name string) string</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 定义方法</span><br><span class="line">func (g Greeting) say(n string) &#123;</span><br><span class="line">	fmt.Println(g(n))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>GO 是类C语言，也就是面向过程语言。<a target="_blank" rel="noopener" href="https://go.dev/doc/faq#ancestors">见此</a><br>以C语言为例，它是没有类这种概念的，只有结构体。<br>在C中，编写一个结构体的方法，我们通常采用以下写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void func(s *Student, id int)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把第一个参数做为该方法的 <strong>“类对象”</strong>，也称为 <strong>接受者</strong>，receiver。<br>而 <strong>Go只是把C语言中的第一个参数放到方法前面</strong> 而已，所以它并不是用来类型转换的，而是一个接收者，<strong>说明该方法属于哪个结构体</strong>。</p>
+<h3 id="2、传递变长参数"><a href="#2、传递变长参数" class="headerlink" title="2、传递变长参数"></a>2、传递变长参数</h3><p>如果函数的最后一个参数是采用 …type 的形式，那么这个函数就可以处理一个变长的参数，这个长度可以为 0，这样的函数称为变长函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func myFunc(a, b, arg ...int) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数接受一个类似某个类型的 slice 的参数，该参数可以通过 for 循环结构迭代。</p>
+<p>如果参数被存储在一个 slice 类型的变量 slice 中，则可以通过 slice… 的形式来传递参数调用变参函数，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    x :&#x3D; min(1, 3, 2, 0)</span><br><span class="line">    fmt.Printf(&quot;The minimum is: %d\n&quot;, x)</span><br><span class="line">    slice :&#x3D; []int&#123;7,9,3,5,1&#125;</span><br><span class="line">    x &#x3D; min(slice...)</span><br><span class="line">    fmt.Printf(&quot;The minimum in the slice is: %d&quot;, x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func min(s ...int) int &#123;</span><br><span class="line">    if len(s)&#x3D;&#x3D;0 &#123;</span><br><span class="line">        return 0</span><br><span class="line">    &#125;</span><br><span class="line">    min :&#x3D; s[0]</span><br><span class="line">    for _, v :&#x3D; range s &#123;</span><br><span class="line">        if v &lt; min &#123;</span><br><span class="line">            min &#x3D; v</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return min</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、defer-和追踪"><a href="#3、defer-和追踪" class="headerlink" title="3、defer 和追踪"></a>3、defer 和追踪</h3><p>关键字 defer 允许我们推迟到函数返回之前（或任意位置执行 return 语句之后）一刻才执行某个语句或函数（为什么要在返回之后才执行这些语句？因为 return 语句同样可以包含一些操作，而不是单纯地返回某个值）。</p>
+<p>关键字 defer 的用法类似于面向对象编程语言 Java 和 C# 的 finally 语句块，它一般用于释放某些已分配的资源。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    function1()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func function1() &#123;</span><br><span class="line">    fmt.Printf(&quot;In function1 at the top\n&quot;)</span><br><span class="line">    defer function2()</span><br><span class="line">    fmt.Printf(&quot;In function1 at the bottom!\n&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func function2() &#123;</span><br><span class="line">    fmt.Printf(&quot;function2: Deferred until the end of the calling function!&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">In Function1 at the top</span><br><span class="line">In Function1 at the bottom!</span><br><span class="line">Function2: Deferred until the end of the calling function!</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用 defer 的语句同样可以接受参数，下面这个例子就会在执行 defer 语句时打印 0：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func a() &#123;</span><br><span class="line">    i :&#x3D; 0</span><br><span class="line">    defer fmt.Println(i)</span><br><span class="line">    i++</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当有多个 defer 行为被注册时，它们会以逆序执行（类似栈，即后进先出）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">func f() &#123;</span><br><span class="line">    for i :&#x3D; 0; i &lt; 5; i++ &#123;</span><br><span class="line">        defer fmt.Printf(&quot;%d &quot;, i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">4 3 2 1 0</span><br></pre></td></tr></table></figure>
+
+<h4 id="1）使用-defer-语句实现代码追踪"><a href="#1）使用-defer-语句实现代码追踪" class="headerlink" title="1）使用 defer 语句实现代码追踪"></a>1）使用 defer 语句实现代码追踪</h4><p>一个基础但十分实用的实现代码执行追踪的方案就是在进入和离开某个函数打印相关的消息，即可以提炼为下面两个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">func trace(s string) &#123; fmt.Println(&quot;entering:&quot;, s) &#125;</span><br><span class="line">func untrace(s string) &#123; fmt.Println(&quot;leaving:&quot;, s) &#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func trace(s string)   &#123; fmt.Println(&quot;entering:&quot;, s) &#125;</span><br><span class="line">func untrace(s string) &#123; fmt.Println(&quot;leaving:&quot;, s) &#125;</span><br><span class="line"></span><br><span class="line">func a() &#123;</span><br><span class="line">    trace(&quot;a&quot;)</span><br><span class="line">    defer untrace(&quot;a&quot;)</span><br><span class="line">    fmt.Println(&quot;in a&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func b() &#123;</span><br><span class="line">    trace(&quot;b&quot;)</span><br><span class="line">    defer untrace(&quot;b&quot;)</span><br><span class="line">    fmt.Println(&quot;in b&quot;)</span><br><span class="line">    a()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    b()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2）使用-defer-语句来记录函数的参数与返回值"><a href="#2）使用-defer-语句来记录函数的参数与返回值" class="headerlink" title="2）使用 defer 语句来记录函数的参数与返回值"></a>2）使用 defer 语句来记录函数的参数与返回值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;io&quot;</span><br><span class="line">    &quot;log&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func func1(s string) (n int, err error) &#123;</span><br><span class="line">    defer func() &#123;</span><br><span class="line">        log.Printf(&quot;func1(%q) &#x3D; %d, %v&quot;, s, n, err)</span><br><span class="line">    &#125;()</span><br><span class="line">    return 7, io.EOF</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    func1(&quot;Go&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">Output: 2011&#x2F;10&#x2F;04 10:46:11 func1(&quot;Go&quot;) &#x3D; 7, EOF</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、内置函数"><a href="#4、内置函数" class="headerlink" title="4、内置函数"></a>4、内置函数</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>close</td>
+<td>用于管道通信</td>
+</tr>
+<tr>
+<td>len、cap</td>
+<td>len 用于返回某个类型的长度或数量（字符串、数组、切片、map 和管道）；cap 是容量的意思，用于返回某个类型的最大容量（只能用于切片和 map）</td>
+</tr>
+<tr>
+<td>new、make</td>
+<td>new 和 make 均是用于分配内存：new 用于值类型和用户定义的类型，如自定义结构，make 用于内置引用类型（切片、map 和管道）。它们的用法就像是函数，但是将类型作为参数：new (type)、make (type)。new (T) 分配类型 T 的零值并返回其地址，也就是指向类型 T 的指针。它也可以被用于基本类型：v := new(int)。make (T) 返回类型 T 的初始化之后的值，因此它比 new 进行更多的工作 new () 是一个函数，不要忘记它的括号</td>
+</tr>
+<tr>
+<td>copy、append</td>
+<td>用于复制和连接切片</td>
+</tr>
+<tr>
+<td>panic、recover</td>
+<td>两者均用于错误处理机制</td>
+</tr>
+<tr>
+<td>print、println</td>
+<td>底层打印函数，在部署环境中建议使用 fmt 包</td>
+</tr>
+<tr>
+<td>complex、real、imag</td>
+<td>用于创建和操作复数</td>
+</tr>
+</tbody></table>
+<h3 id="5、将函数作为参数"><a href="#5、将函数作为参数" class="headerlink" title="5、将函数作为参数"></a>5、将函数作为参数</h3><p>函数可以作为其它函数的参数进行传递，然后在其它函数内调用执行，一般称之为回调。</p>
+<p>例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    callback(1, Add)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Add(a, b int) &#123;</span><br><span class="line">    fmt.Printf(&quot;The sum of %d and %d is: %d\n&quot;, a, b, a+b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func callback(y int, f func(int, int)) &#123;</span><br><span class="line">    f(y, 2) &#x2F;&#x2F; this becomes Add(1, 2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">The sum of 1 and 2 is: 3</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="6、匿名函数（闭包，函数式语言的术语）"><a href="#6、匿名函数（闭包，函数式语言的术语）" class="headerlink" title="6、匿名函数（闭包，函数式语言的术语）"></a>6、匿名函数（闭包，函数式语言的术语）</h3><p>当我们不希望给函数起名字的时候，可以使用匿名函数，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func(x, y int) int &#123; return x + y &#125;。</span><br><span class="line"></span><br><span class="line">这样的一个函数不能够独立存在（编译器会返回错误：non-declaration statement outside function body），但可以被赋值于某个变量，即保存函数的地址到变量中：</span><br><span class="line"></span><br><span class="line">fplus :&#x3D; func(x, y int) int &#123; return x + y &#125;</span><br><span class="line"></span><br><span class="line">然后通过变量名对函数进行调用：fplus(3,4)。</span><br></pre></td></tr></table></figure>
+
+<p>当然，也可以直接对匿名函数进行调用：func(x, y int) int { return x + y } (3, 4)。</p>
+<p>具体语法如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func() &#123;</span><br><span class="line">    sum :&#x3D; 0</span><br><span class="line">    for i :&#x3D; 1; i &lt;&#x3D; 1e6; i++ &#123;</span><br><span class="line">        sum +&#x3D; i</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>表示参数列表的第一对括号必须紧挨着关键字 func，因为匿名函数没有名称。花括号 {} 涵盖着函数体，最后的一对括号表示对该匿名函数的调用。</p>
+<p>具体例子如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    f()</span><br><span class="line">&#125;</span><br><span class="line">func f() &#123;</span><br><span class="line">    for i :&#x3D; 0; i &lt; 4; i++ &#123;</span><br><span class="line">        g :&#x3D; func(i int) &#123; fmt.Printf(&quot;%d &quot;, i) &#125; &#x2F;&#x2F;此例子中只是为了演示匿名函数可分配不同的内存地址，在现实开发中，不应该把该部分信息放置到循环中。</span><br><span class="line">        g(i)</span><br><span class="line">        fmt.Printf(&quot; - g is of type %T and has value %v\n&quot;, g, g)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到变量 g 代表的是 func(int)，变量的值是一个内存地址。</p>
+<p>所以我们实际上拥有的是一个函数值：匿名函数可以被赋值给变量并作为值使用。</p>
+<h2 id="二、数组与切片"><a href="#二、数组与切片" class="headerlink" title="二、数组与切片"></a>二、数组与切片</h2><h2 id="三、Map"><a href="#三、Map" class="headerlink" title="三、Map"></a>三、Map</h2><h2 id="四、包（package）"><a href="#四、包（package）" class="headerlink" title="四、包（package）"></a>四、包（package）</h2><h2 id="五、结构与方法"><a href="#五、结构与方法" class="headerlink" title="五、结构与方法"></a>五、结构与方法</h2><h2 id="六、接口与反射"><a href="#六、接口与反射" class="headerlink" title="六、接口与反射"></a>六、接口与反射</h2><h2 id="七、读写数据"><a href="#七、读写数据" class="headerlink" title="七、读写数据"></a>七、读写数据</h2><h2 id="八、错误处理与测试"><a href="#八、错误处理与测试" class="headerlink" title="八、错误处理与测试"></a>八、错误处理与测试</h2>
     
 
     
@@ -525,6 +644,14 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
              
@@ -533,11 +660,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,11 +672,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">go</a>
+                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">go</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,10 +685,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,15 +708,23 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,7 +736,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,19 +744,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">go基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,6 +788,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -678,10 +801,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
