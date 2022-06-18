@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.blog.ajie39.top">
-  <title>Archives: 2021/11 | 教练，我想学技术!</title>
+  <title>Go 中常见的陷阱与错误 | 教练，我想学技术!</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="th3ee9ine&#39;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="教练，我想学技术!">
-<meta property="og:url" content="https://www.blog.ajie39.top/archives/2021/11/index.html">
+  <meta name="description" content="摘要：go入门相关内容，参考：Go入门指南，主要总结一些在日常开发中容易遇到的陷阱、错误。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go 中常见的陷阱与错误">
+<meta property="og:url" content="https://www.blog.ajie39.top/2022/06/18/Go%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E9%94%99%E8%AF%AF/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="th3ee9ine&#39;s blog">
+<meta property="og:description" content="摘要：go入门相关内容，参考：Go入门指南，主要总结一些在日常开发中容易遇到的陷阱、错误。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-18T07:18:15.050Z">
+<meta property="article:modified_time" content="2022-06-18T08:10:38.598Z">
 <meta property="article:author" content="th3ee9ine">
-<meta property="article:tag" content="th3ee9ine,blog">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="go基础">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
@@ -197,138 +200,308 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Go中常见的陷阱与错误" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/11/21/%E6%8E%92%E5%BA%8F%E5%A5%87%E5%8D%87%E5%81%B6%E9%99%8D%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2021-11-21T07:36:47.986Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-21</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2021/11/21/%E6%8E%92%E5%BA%8F%E5%A5%87%E5%8D%87%E5%81%B6%E9%99%8D%E9%93%BE%E8%A1%A8/" target="_blank">算法--排序奇升偶降链表</a>
   
+    <h1 class="article-title" itemprop="name">
+      Go 中常见的陷阱与错误
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/06/18/Go%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E9%94%99%E8%AF%AF/" class="archive-article-date">
+        <time datetime="2022-06-18T07:18:15.050Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-18</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">3k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">11分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：go入门相关内容，参考：Go入门指南，主要总结一些在日常开发中容易遇到的陷阱、错误。"><a href="#摘要：go入门相关内容，参考：Go入门指南，主要总结一些在日常开发中容易遇到的陷阱、错误。" class="headerlink" title="摘要：go入门相关内容，参考：Go入门指南，主要总结一些在日常开发中容易遇到的陷阱、错误。"></a>摘要：go入门相关内容，参考：<a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go">Go入门指南</a>，主要总结一些在日常开发中容易遇到的陷阱、错误。</h1><hr>
+<span id="more"></span>
+
+<h2 id="一、一些常见的陷阱"><a href="#一、一些常见的陷阱" class="headerlink" title="一、一些常见的陷阱"></a>一、一些常见的陷阱</h2><ul>
+<li>永远不要使用形如 var p*a 声明变量，这会混淆指针声明和乘法运算。</li>
+<li>永远不要在 for 循环自身中改变计数器变量。</li>
+<li>永远不要在 for-range 循环中使用一个值去改变自身的值。</li>
+<li>永远不要将 goto 和前置标签一起使用。</li>
+<li>永远不要忘记在函数名后加括号 ()，尤其调用一个对象的方法或者使用匿名函数启动一个协程时。</li>
+<li>永远不要使用 new() 一个 map，一直使用 make。</li>
+<li>当为一个类型定义一个 String () 方法时，不要使用 fmt.Print 或者类似的代码。</li>
+<li>永远不要忘记当终止缓存写入时，使用 Flush 函数。</li>
+<li>永远不要忽略错误提示，忽略错误会导致程序奔溃。</li>
+<li>不要使用全局变量或者共享内存，这会使并发执行的代码变得不安全。</li>
+<li>println 函数仅仅是用于调试的目的。</li>
+</ul>
+<p>最佳实践：对比以下使用方式：</p>
+<ul>
+<li>使用正确的方式初始化一个元素是切片的映射，例如 map[type]slice。</li>
+<li>一直使用逗号，ok 或者 checked 形式作为类型断言。</li>
+<li>使用一个工厂函数创建并初始化自己定义类型。</li>
+<li>仅当一个结构体的方法想改变结构体时，使用结构体指针作为方法的接受者，否则使用一个结构体值类型。</li>
+</ul>
+<h2 id="二、误用短声明导致变量覆盖"><a href="#二、误用短声明导致变量覆盖" class="headerlink" title="二、误用短声明导致变量覆盖"></a>二、误用短声明导致变量覆盖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var remember bool &#x3D; false</span><br><span class="line">if something &#123;</span><br><span class="line">    remember :&#x3D; true &#x2F;&#x2F;错误</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 使用remember</span><br></pre></td></tr></table></figure>
+
+<p>在此代码段中，remember 变量永远不会在 if 语句外面变成 true，如果 something 为 true，由于使用了短声明 :=，if 语句内部的新变量 remember 将覆盖外面的 remember 变量，并且该变量的值为 true，但是在 if 语句外面，变量 remember 的值变成了 false，所以正确的写法应该是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if something &#123;</span><br><span class="line">    remember &#x3D; true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此类错误也容易在 for 循环中出现，尤其当函数返回一个具名变量时难于察觉<br>，例如以下的代码段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func shadow() (err error) &#123;</span><br><span class="line">    x, err :&#x3D; check1() &#x2F;&#x2F; x是新创建变量，err是被赋值</span><br><span class="line">    if err !&#x3D; nil &#123;</span><br><span class="line">        return &#x2F;&#x2F; 正确返回err</span><br><span class="line">    &#125;</span><br><span class="line">    if y, err :&#x3D; check2(x); err !&#x3D; nil &#123; &#x2F;&#x2F; y和if语句中err被创建</span><br><span class="line">        return &#x2F;&#x2F; if语句中的err覆盖外面的err，所以错误的返回nil！</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        fmt.Println(y)</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、误用字符串"><a href="#三、误用字符串" class="headerlink" title="三、误用字符串"></a>三、误用字符串</h2><p>当需要对一个字符串进行频繁的操作时，谨记在 go 语言中字符串是不可变的（类似 java 和 c#）。使用诸如 a += b 形式连接字符串效率低下，尤其在一个循环内部使用这种形式。这会导致大量的内存开销和拷贝。应该使用一个字符数组代替字符串，将字符串内容写入一个缓存中。 例如以下的代码示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var b bytes.Buffer</span><br><span class="line">...</span><br><span class="line">for condition &#123;</span><br><span class="line">    b.WriteString(str) &#x2F;&#x2F; 将字符串str写入缓存buffer</span><br><span class="line">&#125;</span><br><span class="line">return b.String()</span><br></pre></td></tr></table></figure>
+
+<p>注意：由于编译优化和依赖于使用缓存操作的字符串大小，当循环次数大于 15 时，效率才会更佳。</p>
+<h2 id="四、发生错误时使用defer关闭一个文件"><a href="#四、发生错误时使用defer关闭一个文件" class="headerlink" title="四、发生错误时使用defer关闭一个文件"></a>四、发生错误时使用defer关闭一个文件</h2><p>如果你在一个 for 循环内部处理一系列文件，你需要使用 defer 确保文件在处理完毕后被关闭，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for _, file :&#x3D; range files &#123;</span><br><span class="line">    if f, err &#x3D; os.Open(file); err !&#x3D; nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 这是错误的方式，当循环结束时文件没有关闭</span><br><span class="line">    defer f.Close()</span><br><span class="line">    &#x2F;&#x2F; 对文件进行操作</span><br><span class="line">    f.Process(data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是在循环结尾处的 defer 没有执行，所以文件一直没有关闭！垃圾回收机制可能会自动关闭文件，但是这会产生一个错误，更好的做法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for _, file :&#x3D; range files &#123;</span><br><span class="line">    if f, err &#x3D; os.Open(file); err !&#x3D; nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 对文件进行操作</span><br><span class="line">    f.Process(data)</span><br><span class="line">    &#x2F;&#x2F; 关闭文件</span><br><span class="line">    f.Close()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>defer 仅在函数返回时才会执行，在循环的结尾或其他一些有限范围的代码内不会执行。</strong></p>
+<h2 id="五、何时使用-new-和-make"><a href="#五、何时使用-new-和-make" class="headerlink" title="五、何时使用 new() 和 make()"></a>五、何时使用 new() 和 make()</h2><ul>
+<li>切片、映射（Map）和通道（channel），使用 make</li>
+<li>数组、结构体和所有的值类型，使用 new</li>
+</ul>
+<h2 id="六、不需要将一个指向切片的指针传递给函数"><a href="#六、不需要将一个指向切片的指针传递给函数" class="headerlink" title="六、不需要将一个指向切片的指针传递给函数"></a>六、不需要将一个指向切片的指针传递给函数</h2><p>切片实际是一个 <strong>指向潜在数组的指针</strong>。我们常常需要把切片作为一个参数传递给函数是因为：实际就是传递一个指向变量的指针，在函数内可以改变这个变量，而不是传递数据的拷贝。</p>
+<p>因此应该这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func findBiggest(listOfNumbers []int) int &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而不是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func findBiggest(listOfNumbers *[]int) int &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>当切片作为参数传递时，切记不要解引用切片。</strong></p>
+<h2 id="七、使用指针指向接口类型"><a href="#七、使用指针指向接口类型" class="headerlink" title="七、使用指针指向接口类型"></a>七、使用指针指向接口类型</h2><p>查看如下程序：</p>
+<p>nexter 是一个接口类型，并且定义了一个 next() 方法读取下一字节。</p>
+<p>函数 nextFew1 将 nexter 接口作为参数并读取接下来的 num 个字节，并返回一个切片：这是正确做法。</p>
+<p>但是 nextFew2 使用一个指向 nexter 接口类型的指针作为参数传递给函数：当使用 next() 函数时，系统会给出一个编译错误：n.next undefined (type *nexter has no<br>field or method next)</p>
+<p>例(不能通过编译):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    “fmt”</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type nexter interface &#123;</span><br><span class="line">    next() byte</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func nextFew1(n nexter, num int) []byte &#123;</span><br><span class="line">    var b []byte</span><br><span class="line">    for i:&#x3D;0; i &lt; num; i++ &#123;</span><br><span class="line">        b[i] &#x3D; n.next()</span><br><span class="line">    &#125;</span><br><span class="line">    return b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func nextFew2(n *nexter, num int) []byte &#123;</span><br><span class="line">    var b []byte</span><br><span class="line">    for i:&#x3D;0; i &lt; num; i++ &#123;</span><br><span class="line">        b[i] &#x3D; n.next() &#x2F;&#x2F; 编译错误:n.next未定义（*nexter类型没有next成员或next方法）</span><br><span class="line">    &#125;</span><br><span class="line">    return b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    fmt.Println(&quot;Hello World!&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>永远不要使用一个指针指向一个接口类型，因为它已经是一个指针。</strong></p>
+<h2 id="八、使用值类型时误用指针"><a href="#八、使用值类型时误用指针" class="headerlink" title="八、使用值类型时误用指针"></a>八、使用值类型时误用指针</h2><p>将一个值类型作为一个参数传递给函数或者作为一个方法的接收者，似乎是对内存的滥用，因为值类型一直是传递拷贝。</p>
+<p>但是另一方面，<strong>值类型的内存是在栈上分配，内存分配快速且开销不大。</strong></p>
+<p>如果你传递一个指针，而不是一个值类型，<strong>go 编译器大多数情况下会认为需要创建一个对象，并将对象移动到堆上</strong>，所以会导致 <strong>额外的内存分配</strong>：因此当使用指针代替值类型作为参数传递时，我们没有任何收获。</p>
+<h2 id="九、误用协程和通道"><a href="#九、误用协程和通道" class="headerlink" title="九、误用协程和通道"></a>九、误用协程和通道</h2><p>在实际应用中，你不需要并发执行，或者你不需要关注协程和通道的开销，在大多数情况下，通过栈传递参数会更有效率。</p>
+<p>但是，如果你使用 break、return 或者 panic 去跳出一个循环，很有可能会导致内存溢出，因为协程正处理某些事情而被阻塞。在实际代码中，通常仅需写一个简单的过程式循环即可。当且仅当代码中并发执行非常重要，才使用协程和通道。</p>
+<h2 id="十、闭包和协程的使用"><a href="#十、闭包和协程的使用" class="headerlink" title="十、闭包和协程的使用"></a>十、闭包和协程的使用</h2><p>请看下面代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var values &#x3D; [5]int&#123;10, 11, 12, 13, 14&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    &#x2F;&#x2F; 版本A:</span><br><span class="line">    for ix :&#x3D; range values &#123; &#x2F;&#x2F; ix是索引值</span><br><span class="line">        func() &#123;</span><br><span class="line">            fmt.Print(ix, &quot; &quot;)</span><br><span class="line">        &#125;() &#x2F;&#x2F; 调用闭包打印每个索引值</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println()</span><br><span class="line">    &#x2F;&#x2F; 版本B: 和A版本类似，但是通过调用闭包作为一个协程</span><br><span class="line">    for ix :&#x3D; range values &#123;</span><br><span class="line">        go func() &#123;</span><br><span class="line">            fmt.Print(ix, &quot; &quot;)</span><br><span class="line">        &#125;()</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println()</span><br><span class="line">    time.Sleep(5e9)</span><br><span class="line">    &#x2F;&#x2F; 版本C: 正确的处理方式</span><br><span class="line">    for ix :&#x3D; range values &#123;</span><br><span class="line">        go func(ix interface&#123;&#125;) &#123;</span><br><span class="line">            fmt.Print(ix, &quot; &quot;)</span><br><span class="line">        &#125;(ix)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println()</span><br><span class="line">    time.Sleep(5e9)</span><br><span class="line">    &#x2F;&#x2F; 版本D: 输出值:</span><br><span class="line">    for ix :&#x3D; range values &#123;</span><br><span class="line">        val :&#x3D; values[ix]</span><br><span class="line">        go func() &#123;</span><br><span class="line">            fmt.Print(val, &quot; &quot;)</span><br><span class="line">        &#125;()</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(1e9)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line"></span><br><span class="line">0 1 2 3 4</span><br><span class="line">4 4 4 4 4</span><br><span class="line">4 2 3 0 1</span><br><span class="line">12 10 13 14 11</span><br></pre></td></tr></table></figure>
+
+<p>版本 A 调用闭包 5 次打印每个索引值。</p>
+<p>版本 B 也做相同的事，但是通过协程调用每个闭包。按理说这将执行得更快，因为闭包是并发执行的。如果我们阻塞足够多的时间，让所有协程执行完毕，版本 B 的输出是：4 4 4 4 4。为什么会这样？在版本 B 的循环中，ix 变量实际是一个单变量，表示每个数组元素的索引值。因为这些闭包都只绑定到一个变量，这是一个比较好的方式，当你运行这段代码时，你将看见每次循环都打印最后一个索引值 4，而不是每个元素的索引值。 <strong>因为协程可能在循环结束后还没有开始执行</strong> ，而此时 ix 值是 4。</p>
+<p>版本 C 的循环写法才是正确的：调用每个闭包是将 ix 作为参数传递给闭包。 <strong>ix 在每次循环时都被重新赋值</strong>，并 <strong>将每个协程的 ix 放置在栈中</strong> ，所以当协程最终被执行时，每个索引值对协程都是可用的。注意这里的输出可能是 0 2 1 3 4 或者 0 3 1 2 4 或者其他类似的序列，<strong>这主要取决于每个协程何时开始被执行。</strong></p>
+<p>在版本 D 中，我们输出这个数组的值，为什么版本 B 不能而版本 D 可以呢？ <strong>因为版本 D 中的变量声明是在循环体内部，所以在每次循环时，这些变量相互之间是不共享的，所以这些变量可以单独的被每个闭包使用。</strong></p>
+<p>如果版本 D 改成下面这样，则就会出现和版本 B 类似的输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 版本D: 输出值:</span><br><span class="line">for _, value :&#x3D; range values &#123;</span><br><span class="line">  go func() &#123;</span><br><span class="line">    fmt.Print(value, &quot; &quot;)</span><br><span class="line">  &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="十一、糟糕的错误处理"><a href="#十一、糟糕的错误处理" class="headerlink" title="十一、糟糕的错误处理"></a>十一、糟糕的错误处理</h2><h3 id="1、不要使用布尔值："><a href="#1、不要使用布尔值：" class="headerlink" title="1、不要使用布尔值："></a>1、不要使用布尔值：</h3><p>像下面代码一样，创建一个布尔型变量用于测试错误条件是多余的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var good bool</span><br><span class="line">&#x2F;&#x2F; 测试一个错误，&#96;good&#96;被赋为&#96;true&#96;或者&#96;false&#96;</span><br><span class="line">if !good &#123;</span><br><span class="line">  return errors.New(&quot;things aren’t good&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>立即检测一个错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">... err1 :&#x3D; api.Func1()</span><br><span class="line">if err1 !&#x3D; nil &#123; … &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、避免错误检测使代码变得混乱"><a href="#2、避免错误检测使代码变得混乱" class="headerlink" title="2、避免错误检测使代码变得混乱"></a>2、避免错误检测使代码变得混乱</h3><p>避免写出这样的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">... err1 :&#x3D; api.Func1()</span><br><span class="line">if err1 !&#x3D; nil &#123;</span><br><span class="line">    fmt.Println(&quot;err: &quot; + err.Error())</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">err2 :&#x3D; api.Func2()</span><br><span class="line">if err2 !&#x3D; nil &#123;</span><br><span class="line">    ...</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，包括在一个初始化的 if 语句中对函数的调用。但即使代码中到处都是以 if 语句的形式通知错误（通过打印错误信息）。通过这种方式，<strong>很难分辨什么是正常的程序逻辑，什么是错误检测或错误通知。</strong> 还需注意的是，大部分代码都是致力于错误的检测。通常解决此问题的好办法是 <strong>尽可能以闭包的形式封装你的错误检测</strong> ，例如下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">func httpRequestHandler(w http.ResponseWriter, req *http.Request) &#123;</span><br><span class="line">	err :&#x3D; func() error &#123;</span><br><span class="line">		if req.Method !&#x3D; &quot;GET&quot; &#123;</span><br><span class="line">			return errors.New(&quot;expected GET&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">		if input :&#x3D; parseInput(req); input !&#x3D; &quot;command&quot; &#123;</span><br><span class="line">			return errors.New(&quot;malformed command&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F; 可以在此进行其他的错误检测</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		w.WriteHeader(400)</span><br><span class="line">		io.WriteString(w, err)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	doSomething() ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方法可以很容易分辨出错误检测、错误通知和正常的程序逻辑。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://godoc.murphyyi.com/">《Go入门指南》</a></p>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          th3ee9ine
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.blog.ajie39.top/2022/06/18/Go中常见的陷阱与错误/" title="Go 中常见的陷阱与错误" target="_blank">https://www.blog.ajie39.top/2022/06/18/Go中常见的陷阱与错误/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/th3ee9ine/th3ee9ine.github.io/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">go基础</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        			<a href="/categories/go//" class="article-tag-list-link color3">go</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.blog.ajie39.top/2022/06/18/Go%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E9%94%99%E8%AF%AF/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/11/14/Java%20%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" class="archive-article-date">
-        <time datetime="2021-11-14T07:21:41.423Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-14</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一个有意思的协程例子</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2021/11/14/Java%20%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" target="_blank">Java 面试题目总结（非完整版，待补充）</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
+
+
 
 
           </div>
@@ -369,8 +542,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
