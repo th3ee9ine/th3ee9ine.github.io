@@ -18,7 +18,7 @@
 <meta property="og:description" content="摘要：go入门相关内容，参考：Go入门指南，主要总结其中：协程与通道（channel）的内容。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-16T16:40:38.340Z">
-<meta property="article:modified_time" content="2022-06-18T07:00:07.892Z">
+<meta property="article:modified_time" content="2022-06-18T07:12:05.253Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="go">
 <meta property="article:tag" content="go基础">
@@ -607,7 +607,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">const (</span><br><span class="line">	&#x2F;&#x2F; 10 * 1024 * 1024</span><br><span class="line">	AvailableMemory &#x3D; 10 &lt;&lt; 20</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 10 * 1024</span><br><span class="line">	AverageMemoryPerRequest &#x3D; 10 &lt;&lt; 10</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 1024</span><br><span class="line">	MAXREQS &#x3D; AvailableMemory &#x2F; AverageMemoryPerRequest</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var sem &#x3D; make(chan int, MAXREQS)</span><br><span class="line"></span><br><span class="line">type Request struct &#123;</span><br><span class="line">	a, b   int</span><br><span class="line">	replyc chan int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func process(r *Request) &#123;</span><br><span class="line">	&#x2F;&#x2F; Do something 做任何事</span><br><span class="line">	&#x2F;&#x2F; 可能需要很长时间并使用大量内存或CPU</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func handle(r *Request) &#123;</span><br><span class="line">	process(r)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 信号完成：开始启用下一个请求</span><br><span class="line">	&#x2F;&#x2F; 将 sem 的缓冲区释放一个位置</span><br><span class="line">	&lt;-sem</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Server(queue chan *Request) &#123;</span><br><span class="line"></span><br><span class="line">	for &#123;</span><br><span class="line">		sem &lt;- 1</span><br><span class="line">		&#x2F;&#x2F; 当通道已满（1024 个请求被激活）的时候将被阻塞</span><br><span class="line">		&#x2F;&#x2F; 所以停在这里等待，直到 sem 有容量（被释放），才能继续去处理请求</span><br><span class="line">		&#x2F;&#x2F; (doesn’t matter what we put in it)</span><br><span class="line">		request :&#x3D; &lt;-queue</span><br><span class="line">		go handle(request)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	queue :&#x3D; make(chan *Request)</span><br><span class="line"></span><br><span class="line">	go Server(queue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>通过这种方式，程序中的协程通过使用缓冲通道（这个通道作为一个 semaphore 被使用）来调整资源的使用，实现了对内存等有限资源的优化。</p>
-<h2 id="十二、链式操作（重点！！！！）"><a href="#十二、链式操作（重点！！！！）" class="headerlink" title="十二、链式操作（重点！！！！）"></a>十二、链式操作（重点！！！！）</h2><p>下面的程序演示了启动大量的协程是多么的容易。它发生在 mian 函数的 for 循环中。在循环之后，向 rightmost 通道中插入 0，在不到 1.5s 的时间执行了 100000 个协程，并将结果 100000 打印。</p>
+<h2 id="十二、链式操作（重点！！！！）"><a href="#十二、链式操作（重点！！！！）" class="headerlink" title="十二、链式操作（重点！！！！）"></a>十二、链式操作（重点！！！！）</h2><p>下面的程序演示了启动大量的协程是多么的容易。它发生在 mian 函数的 for 循环中。在循环之后，向 right 通道中插入 0，在不到 1.5s 的时间执行了 100000 个协程，并将结果 100000 打印。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;flag&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;runtime&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var ngoroutine &#x3D; flag.Int(&quot;n&quot;, 100000, &quot;how many goroutines&quot;)</span><br><span class="line"></span><br><span class="line">func f(left, right chan int) &#123;</span><br><span class="line">	&#x2F;&#x2F;fmt.Println(&quot;left:&quot;, left, &quot;    right:&quot;, right)</span><br><span class="line">	left &lt;- 1 + &lt;-right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	runtime.GOMAXPROCS(runtime.NumCPU())</span><br><span class="line">	flag.Parse()</span><br><span class="line">	leftmost :&#x3D; make(chan int)</span><br><span class="line"></span><br><span class="line">	var left, right chan int &#x3D; nil, leftmost</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; *ngoroutine; i++ &#123;</span><br><span class="line">		left, right &#x3D; right, make(chan int)</span><br><span class="line">		&#x2F;&#x2F;fmt.Println(&quot;left:&quot;, left, &quot;    right:&quot;, right)</span><br><span class="line">		go f(left, right)</span><br><span class="line">	&#125;</span><br><span class="line">	right &lt;- 0</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; start the chaining 开始链接</span><br><span class="line">	x :&#x3D; &lt;-leftmost &#x2F;&#x2F; wait for completion 等待完成</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	&#x2F;&#x2F; 结果： 100000</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里有个很有意思的点：在没有运行程序之前，我认为leftmost的结果为1，认为只在最初做了一次赋值，实际结果为100000（无缓存信道，具有同步阻塞的特性），这个是为什么呢？</p>
@@ -769,6 +769,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          一个有意思的协程例子
+        
+      </div>
+    </a>
   
   
     <a href="/2022/06/12/go%E5%85%A5%E9%97%A8%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
@@ -949,6 +958,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">go基础</a>
               </li>
              
@@ -958,10 +971,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">channel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1017,15 +1026,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1073,15 +1082,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -204,6 +204,110 @@
             
 
   
+    <article id="post-如何写好单元测试（另有神器分享）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/" target="_blank">如何写容易测试的代码（结尾附带单元测试神器推荐）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-10-24T16:13:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-25</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。"><a href="#摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。" class="headerlink" title="摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。"></a>摘要：分享一些个人在编写单元测试过程中遇到的问题，以及从写单元测试的角度出发，分析如何让我们写出”容易单元测试的代码”。</h1><hr>
+<h1 id="前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。"><a href="#前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。" class="headerlink" title="前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。"></a>前言：单元测试是所有测试体系里的一个部分，而非全部，不能解决所有问题。覆盖率并不是越高，就能保证系统绝对不出错。为了单元测试，而单元测试是不可取的。单元测试最主要的目的之一，是为了提高我们的代码质量。</h1><hr>
+    
+    <a class="article-more-a" href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">测试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">开发基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/测试//" class="article-tag-list-link color3">测试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/10/25/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%88%E5%8F%A6%E6%9C%89%E7%A5%9E%E5%99%A8%E5%88%86%E4%BA%AB%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Redis之从面试题到原理（基础篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1174,110 +1278,6 @@
 
 
   
-    <article id="post-YAML的常用语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/05/05/YAML%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" target="_blank">YAML的常用语法</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/05/05/YAML%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" class="archive-article-date">
-        <time datetime="2021-05-05T04:26:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：主要介绍YAML的常用语法"><a href="#摘要：主要介绍YAML的常用语法" class="headerlink" title="摘要：主要介绍YAML的常用语法"></a>摘要：主要介绍YAML的常用语法</h1><hr>
-<h1 id="前言：上一篇文章我们已经学会了一些基本美化博客的技巧，接下来我们将学习YAML的常用语法。"><a href="#前言：上一篇文章我们已经学会了一些基本美化博客的技巧，接下来我们将学习YAML的常用语法。" class="headerlink" title="前言：上一篇文章我们已经学会了一些基本美化博客的技巧，接下来我们将学习YAML的常用语法。"></a>前言：上一篇文章我们已经学会了一些基本美化博客的技巧，接下来我们将学习YAML的常用语法。</h1><hr>
-    
-    <a class="article-more-a" href="/2021/05/05/YAML%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">YAML</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/杂项//" class="article-tag-list-link color3">杂项</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/杂项/Blog//" class="article-tag-list-link color5">Blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/05/05/YAML%E7%9A%84%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
@@ -1426,6 +1426,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">go基础</a>
               </li>
              
@@ -1435,10 +1439,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">channel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1494,15 +1494,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1550,15 +1550,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">

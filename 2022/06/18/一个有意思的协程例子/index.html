@@ -6,19 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.blog.ajie39.top">
-  <title>Category: 分布式 | 教练，我想学技术!</title>
+  <title>一个有意思的协程例子 | 教练，我想学技术!</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="th3ee9ine&#39;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="教练，我想学技术!">
-<meta property="og:url" content="https://www.blog.ajie39.top/categories/%E5%88%86%E5%B8%83%E5%BC%8F/index.html">
+  <meta name="description" content="摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个有意思的协程例子">
+<meta property="og:url" content="https://www.blog.ajie39.top/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="th3ee9ine&#39;s blog">
+<meta property="og:description" content="摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-18T07:02:39.862Z">
+<meta property="article:modified_time" content="2022-06-18T07:15:29.866Z">
 <meta property="article:author" content="th3ee9ine">
-<meta property="article:tag" content="th3ee9ine,blog">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="协程">
+<meta property="article:tag" content="channel">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
@@ -197,76 +201,238 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-一个有意思的协程例子" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/05/05/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/" class="archive-article-date">
-        <time datetime="2021-05-05T07:54:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2021/05/05/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8/" target="_blank">分布式锁原理分析与应用</a>
   
+    <h1 class="article-title" itemprop="name">
+      一个有意思的协程例子
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/" class="archive-article-date">
+        <time datetime="2022-06-18T07:02:39.862Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-18</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">385字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">1分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。"><a href="#摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。" class="headerlink" title="摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。"></a>摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。</h1><hr>
+<span id="more"></span>
+
+<p>程序如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;flag&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;runtime&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var ngoroutine &#x3D; flag.Int(&quot;n&quot;, 100000, &quot;how many goroutines&quot;)</span><br><span class="line"></span><br><span class="line">func f(left, right chan int) &#123;</span><br><span class="line">	&#x2F;&#x2F;fmt.Println(&quot;left:&quot;, left, &quot;    right:&quot;, right)</span><br><span class="line">	left &lt;- 1 + &lt;-right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	runtime.GOMAXPROCS(runtime.NumCPU())</span><br><span class="line">	flag.Parse()</span><br><span class="line">	leftmost :&#x3D; make(chan int)</span><br><span class="line"></span><br><span class="line">	var left, right chan int &#x3D; nil, leftmost</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; *ngoroutine; i++ &#123;</span><br><span class="line">		left, right &#x3D; right, make(chan int)</span><br><span class="line">		&#x2F;&#x2F;fmt.Println(&quot;left:&quot;, left, &quot;    right:&quot;, right)</span><br><span class="line">		go f(left, right)</span><br><span class="line">	&#125;</span><br><span class="line">	right &lt;- 0</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; start the chaining 开始链接</span><br><span class="line">	x :&#x3D; &lt;-leftmost &#x2F;&#x2F; wait for completion 等待完成</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 mian 函数的 for 循环中启动 100000 个协程。在循环之后，向 right 通道中插入 0，最后打印结果。</p>
+<p>这里可以猜想一下，最后输出的结果是什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输出结果：</span><br><span class="line"></span><br><span class="line">100000</span><br></pre></td></tr></table></figure>
+
+<p>不知道你是否猜想正确了，反正我是错了。</p>
+<p>在没有运行程序之前，我认为leftmost的结果为1，认为只在最初做了一次赋值，实际结果为100000（无缓存信道，具有同步阻塞的特性），这个是为什么呢？</p>
+<ul>
+<li>1.主线程的right &lt;- 0，right不是最初循环的那个right，而是最终循环的right</li>
+<li>2.for循环中最初的go f(left, right)因为没有发送者一直处于等待状态</li>
+<li>3.当主线程的right &lt;- 0执行时，类似于递归函数在最内层产生返回值一般</li>
+</ul>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          th3ee9ine
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.blog.ajie39.top/2022/06/18/一个有意思的协程例子/" title="一个有意思的协程例子" target="_blank">https://www.blog.ajie39.top/2022/06/18/一个有意思的协程例子/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/th3ee9ine/th3ee9ine.github.io/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分布式锁</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">协程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">channel</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/分布式//" class="article-tag-list-link color4">分布式</a>
+        			<a href="/categories/go//" class="article-tag-list-link color3">go</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.blog.ajie39.top/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/17/Go%E5%8D%8F%E7%A8%8B%E4%B8%8E%E7%AE%A1%E9%81%93%EF%BC%88channel%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Go 协程与通道（channel）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -307,10 +473,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
