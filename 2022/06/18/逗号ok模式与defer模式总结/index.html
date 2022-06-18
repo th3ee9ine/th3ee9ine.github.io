@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.blog.ajie39.top">
-  <title>Category: 基础 | 教练，我想学技术!</title>
+  <title>逗号 ok 模式与 defer 模式总结 | 教练，我想学技术!</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="th3ee9ine&#39;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="教练，我想学技术!">
-<meta property="og:url" content="https://www.blog.ajie39.top/categories/%E5%9F%BA%E7%A1%80/index.html">
+  <meta name="description" content="摘要：go入门相关内容，参考：Go入门指南。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逗号 ok 模式与 defer 模式总结">
+<meta property="og:url" content="https://www.blog.ajie39.top/2022/06/18/%E9%80%97%E5%8F%B7ok%E6%A8%A1%E5%BC%8F%E4%B8%8Edefer%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="th3ee9ine&#39;s blog">
+<meta property="og:description" content="摘要：go入门相关内容，参考：Go入门指南。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-18T08:39:18.428Z">
+<meta property="article:modified_time" content="2022-06-18T08:54:07.780Z">
 <meta property="article:author" content="th3ee9ine">
-<meta property="article:tag" content="th3ee9ine,blog">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="go基础">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
@@ -197,144 +200,253 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-逗号ok模式与defer模式总结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/05/05/HBase%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-        <time datetime="2021-05-05T04:25:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2021/05/05/HBase%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank">HBase学习笔记</a>
   
+    <h1 class="article-title" itemprop="name">
+      逗号 ok 模式与 defer 模式总结
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/06/18/%E9%80%97%E5%8F%B7ok%E6%A8%A1%E5%BC%8F%E4%B8%8Edefer%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" class="archive-article-date">
+        <time datetime="2022-06-18T08:39:18.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-18</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">617字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">2分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：go入门相关内容，参考：Go入门指南。"><a href="#摘要：go入门相关内容，参考：Go入门指南。" class="headerlink" title="摘要：go入门相关内容，参考：Go入门指南。"></a>摘要：go入门相关内容，参考：<a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go">Go入门指南</a>。</h1><hr>
+<span id="more"></span>
+
+<h2 id="一、逗号-ok-模式"><a href="#一、逗号-ok-模式" class="headerlink" title="一、逗号 ok 模式"></a>一、逗号 ok 模式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">，ok</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数是一个值或者 nil，第二个参数是 true/false 或者一个错误 error。在一个需要赋值的 if 条件语句中，使用这种模式去检测第二个参数值会让代码显得优雅简洁。这种模式在 go 语言编码规范中非常重要。下面总结了所有使用这种模式的例子。</p>
+<h3 id="1、在函数返回时检测错误"><a href="#1、在函数返回时检测错误" class="headerlink" title="1、在函数返回时检测错误"></a>1、在函数返回时检测错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">value, err :&#x3D; pack1.Func1(param1)</span><br><span class="line"></span><br><span class="line">if err !&#x3D; nil &#123;</span><br><span class="line">    fmt.Printf(“Error %s in pack1.Func1 with parameter %v”, err.Error(), param1)</span><br><span class="line">    return err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 函数Func1没有错误:</span><br><span class="line">Process(value)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码中的函数将错误返回给它的调用者，当函数执行成功时，返回的错误是 nil，所以使用这种写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">func SomeFunc() error &#123;</span><br><span class="line">    …</span><br><span class="line">    if value, err :&#x3D; pack1.Func1(param1); err !&#x3D; nil &#123;</span><br><span class="line">        …</span><br><span class="line">        return err</span><br><span class="line">    &#125;</span><br><span class="line">    …</span><br><span class="line">    return nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种模式也常用于通过 defer 使程序从 panic 中恢复执行。</p>
+<h3 id="2、检测映射中是否存在一个键值"><a href="#2、检测映射中是否存在一个键值" class="headerlink" title="2、检测映射中是否存在一个键值"></a>2、检测映射中是否存在一个键值</h3><p>key1 在映射 map1 中是否有值？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if value, isPresent &#x3D; map1[key1]; isPresent &#123;</span><br><span class="line">        Process(value)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; key1不存在</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、检测一个接口类型变量-varI-是否包含了类型-T（类型断言）"><a href="#3、检测一个接口类型变量-varI-是否包含了类型-T（类型断言）" class="headerlink" title="3、检测一个接口类型变量 varI 是否包含了类型 T（类型断言）"></a>3、检测一个接口类型变量 varI 是否包含了类型 T（类型断言）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if value, ok :&#x3D; varI.(T); ok &#123;</span><br><span class="line">    Process(value)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 接口类型varI没有包含类型T</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、检测一个通道-ch-是否关闭"><a href="#4、检测一个通道-ch-是否关闭" class="headerlink" title="4、检测一个通道 ch 是否关闭"></a>4、检测一个通道 ch 是否关闭</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for input :&#x3D; range ch &#123;</span><br><span class="line">     Process(input)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">或者:</span><br><span class="line"></span><br><span class="line">for &#123;</span><br><span class="line">  if input, open :&#x3D; &lt;-ch; !open &#123;</span><br><span class="line">    break &#x2F;&#x2F; 通道是关闭的</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    Process(input)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、defer-模式"><a href="#二、defer-模式" class="headerlink" title="二、defer 模式"></a>二、defer 模式</h2><p>当资源不再被使用时，使用 defer 延迟调用其后的代码，确保资源能够被关闭或返回给连接池。其次最重要的是从 panic 中恢复程序运行。</p>
+<p><strong>defer 仅在函数返回时才会执行，在循环的结尾或其他一些有限范围的代码内不会执行。</strong></p>
+<h3 id="1、关闭文件流"><a href="#1、关闭文件流" class="headerlink" title="1、关闭文件流"></a>1、关闭文件流</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; open a file f</span><br><span class="line"></span><br><span class="line">defer f.Close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、解锁一个已加锁的资源-a-mutex"><a href="#2、解锁一个已加锁的资源-a-mutex" class="headerlink" title="2、解锁一个已加锁的资源 (a mutex)"></a>2、解锁一个已加锁的资源 (a mutex)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mu.Lock()</span><br><span class="line"></span><br><span class="line">defer mu.Unlock()</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、关闭-channel-如果必要的话"><a href="#3、关闭-channel-如果必要的话" class="headerlink" title="3、关闭 channel (如果必要的话)"></a>3、关闭 channel (如果必要的话)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ch :&#x3D; make(chan float64)</span><br><span class="line"></span><br><span class="line">defer close(ch)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、从-panic-中恢复"><a href="#4、从-panic-中恢复" class="headerlink" title="4、从 panic 中恢复"></a>4、从 panic 中恢复</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">defer func() &#123;</span><br><span class="line">    if err :&#x3D; recover(); err !&#x3D; nil &#123;</span><br><span class="line">        log.Printf(“run time panic: %v”, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、停止一个-Ticker"><a href="#5、停止一个-Ticker" class="headerlink" title="5、停止一个 Ticker"></a>5、停止一个 Ticker</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tick1 :&#x3D; time.NewTicker(updateInterval)</span><br><span class="line"></span><br><span class="line">defer tick1.Stop()</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、释放一个进程-p"><a href="#6、释放一个进程-p" class="headerlink" title="6、释放一个进程 p"></a>6、释放一个进程 p</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p, err :&#x3D; os.StartProcess(…, …, …)</span><br><span class="line"></span><br><span class="line">defer p.Release()</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、停止-CPU-分析并刷新信息"><a href="#7、停止-CPU-分析并刷新信息" class="headerlink" title="7、停止 CPU 分析并刷新信息"></a>7、停止 CPU 分析并刷新信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pprof.StartCPUProfile(f)</span><br><span class="line"></span><br><span class="line">defer pprof.StopCPUProfile()</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://godoc.murphyyi.com/">《Go入门指南》</a></p>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          th3ee9ine
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.blog.ajie39.top/2022/06/18/逗号ok模式与defer模式总结/" title="逗号 ok 模式与 defer 模式总结" target="_blank">https://www.blog.ajie39.top/2022/06/18/逗号ok模式与defer模式总结/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">HBase</a>
-        		</li>
-      		
-		</ul>
-	</div>
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/th3ee9ine/th3ee9ine.github.io/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/基础//" class="article-tag-list-link color3">基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
-</article>
-  
+  <div class="article-info article-info-index">
     
     
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/10/26/git%E5%92%8Cmaven%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2020-10-25T17:15:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-26</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/10/26/git%E5%92%8Cmaven%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_blank">git和maven常用命令</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">go基础</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/基础//" class="article-tag-list-link color3">基础</a>
+        			<a href="/categories/go//" class="article-tag-list-link color3">go</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.blog.ajie39.top/2022/06/18/%E9%80%97%E5%8F%B7ok%E6%A8%A1%E5%BC%8F%E4%B8%8Edefer%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/18/Go%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E9%94%99%E8%AF%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Go 中常见的陷阱与错误</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -375,10 +487,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
