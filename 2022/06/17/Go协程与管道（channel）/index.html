@@ -18,7 +18,7 @@
 <meta property="og:description" content="摘要：go入门相关内容，参考：Go入门指南，主要总结其中：协程与通道（channel）的内容。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-16T16:40:38.340Z">
-<meta property="article:modified_time" content="2022-06-16T16:40:38.340Z">
+<meta property="article:modified_time" content="2022-06-18T07:00:07.892Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="go">
 <meta property="article:tag" content="go基础">
@@ -235,7 +235,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">11.8k字</span>
+      <span class="post-count">13.6k字</span>
     </span>
   </span>
 
@@ -244,7 +244,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">48分</span>
+      <span class="post-count">57分</span>
     </span>
   </span>
 </div>
@@ -387,8 +387,8 @@
 <p>在 for 循环中并行计算迭代可能带来很好的性能提升。不过所有的迭代都必须是独立完成的。有些语言比如 Fortress 或者其他并行框架以不同的结构实现了这种方式，在 Go 中用协程实现起来非常容易。</p>
 <h3 id="8、用带缓冲通道实现一个信号量"><a href="#8、用带缓冲通道实现一个信号量" class="headerlink" title="8、用带缓冲通道实现一个信号量"></a>8、用带缓冲通道实现一个信号量</h3><p>信号量是实现互斥锁（排外锁）常见的同步机制，限制对资源的访问，解决读写问题，比如没有实现信号量的 sync 的 Go 包，使用带缓冲的通道可以轻松实现：</p>
 <ul>
-<li>带缓冲通道的容量和要同步的资源容量相同 </li>
-<li>通道的长度（当前存放的元素个数）与当前资源被使用的数量相同 </li>
+<li>带缓冲通道的容量和要同步的资源容量相同</li>
+<li>通道的长度（当前存放的元素个数）与当前资源被使用的数量相同</li>
 <li>容量减去通道的长度就是未处理的资源个数（标准信号量的整数值）</li>
 </ul>
 <p>不用管通道中存放的是什么，只关注长度；因此我们创建了一个长度可变但容量为 0（字节）的通道：</p>
@@ -418,7 +418,7 @@
 <p>调用这个方法的代码可以这样迭代容器：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for x :&#x3D; range container.Iter() &#123; ... &#125;</span><br></pre></td></tr></table></figure>
 
-<p>可以运行在自己的协程中，所以上边的迭代用到了一个通道和两个协程（可能运行在两个线程上）。就有了一个特殊的生产者-消费者模式。 </p>
+<p>可以运行在自己的协程中，所以上边的迭代用到了一个通道和两个协程（可能运行在两个线程上）。就有了一个特殊的生产者-消费者模式。</p>
 <p>如果程序在协程给通道写完值之前结束，协程不会被回收；设计如此。这种行为看起来是错误的，但是通道是一种线程安全的通信。</p>
 <p>在这种情况下，协程尝试写入一个通道，而这个通道永远不会被读取，这可能是个 bug 而并非期望它被静默的回收。</p>
 <h4 id="习惯用法：生产者消费者模式"><a href="#习惯用法：生产者消费者模式" class="headerlink" title="习惯用法：生产者消费者模式"></a>习惯用法：生产者消费者模式</h4><p>假设你有 Produce() 函数来产生 Consume 函数需要的值。它们都可以运行在独立的协程中，生产者在通道中放入给消费者读取的值。整个处理过程可以替换为无限循环：</p>
@@ -445,7 +445,7 @@
 <h2 id="三、协程的同步：关闭通道-测试阻塞的通道"><a href="#三、协程的同步：关闭通道-测试阻塞的通道" class="headerlink" title="三、协程的同步：关闭通道-测试阻塞的通道"></a>三、协程的同步：关闭通道-测试阻塞的通道</h2><p>通道可以被显式的关闭；尽管它们和文件不同：不必每次都关闭。只有在当需要告诉接收者不会再提供新的值的时候，才需要关闭通道。</p>
 <p>只有发送者需要关闭通道，接收者永远不会需要。</p>
 <p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    ch :&#x3D; make(chan string)</span><br><span class="line"></span><br><span class="line">    go sendData(ch)</span><br><span class="line">    go getData(ch)  </span><br><span class="line"></span><br><span class="line">    time.Sleep(1e9)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func sendData(ch chan string) &#123;</span><br><span class="line">    ch &lt;- &quot;Washington&quot;</span><br><span class="line">    ch &lt;- &quot;Tripoli&quot;</span><br><span class="line">    ch &lt;- &quot;London&quot;</span><br><span class="line">    ch &lt;- &quot;Beijing&quot;</span><br><span class="line">    ch &lt;- &quot;Tokio&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func getData(ch chan string) &#123;</span><br><span class="line">    var input string</span><br><span class="line">    &#x2F;&#x2F; time.Sleep(2e9)</span><br><span class="line">    for &#123;</span><br><span class="line">        input &#x3D; &lt;-ch</span><br><span class="line">        fmt.Printf(&quot;%s &quot;, input)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    ch :&#x3D; make(chan string)</span><br><span class="line"></span><br><span class="line">    go sendData(ch)</span><br><span class="line">    go getData(ch)</span><br><span class="line"></span><br><span class="line">    time.Sleep(1e9)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func sendData(ch chan string) &#123;</span><br><span class="line">    ch &lt;- &quot;Washington&quot;</span><br><span class="line">    ch &lt;- &quot;Tripoli&quot;</span><br><span class="line">    ch &lt;- &quot;London&quot;</span><br><span class="line">    ch &lt;- &quot;Beijing&quot;</span><br><span class="line">    ch &lt;- &quot;Tokio&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func getData(ch chan string) &#123;</span><br><span class="line">    var input string</span><br><span class="line">    &#x2F;&#x2F; time.Sleep(2e9)</span><br><span class="line">    for &#123;</span><br><span class="line">        input &#x3D; &lt;-ch</span><br><span class="line">        fmt.Printf(&quot;%s &quot;, input)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们如何在通道的 sendData() 完成的时候发送一个信号，getData() 又如何检测到通道是否关闭或阻塞？</p>
 <p>第一个问题可以通过函数 close(ch) 来完成：这个将通道标记为无法通过发送操作 &lt;- 接受更多的值；给已经关闭的通道发送或者再次关闭都会导致运行时的 panic。在创建一个通道后使用 defer 语句是个不错的办法（类似这种情况）：</p>
@@ -459,9 +459,9 @@
 
 <p>select 做的就是：选择处理列出的多个通信情况中的一个。</p>
 <ul>
-<li>如果都阻塞了，会等待直到其中一个可以处理 </li>
-<li>如果多个可以处理，随机选择一个 </li>
-<li>如果没有通道操作可以处理并且写了 default 语句，它就会执行：default 永远是可运行的（这就是准备好了，可以执行）。 </li>
+<li>如果都阻塞了，会等待直到其中一个可以处理</li>
+<li>如果多个可以处理，随机选择一个</li>
+<li>如果没有通道操作可以处理并且写了 default 语句，它就会执行：default 永远是可运行的（这就是准备好了，可以执行）。</li>
 <li>在 select 中使用发送操作并且有 default 可以确保发送不被阻塞！如果没有 case，select 就会一直阻塞。</li>
 </ul>
 <p>在 select 中使用发送操作并且有 default 可以确保发送不被阻塞！如果没有 case，select 就会一直阻塞。</p>
@@ -556,15 +556,15 @@
 <p>go 语言让你可以根据实际问题进行选择：创建一个优雅、简单、可读性强、在大多数场景性能表现都能很好的方案。如果你的问题适合使用锁，也不要忌讳使用它。</p>
 <p>go 语言注重实用，什么方式最能解决你的问题就用什么方式，而不是强迫你使用一种编码风格。下面列出一个普遍的经验法则：</p>
 <ul>
-<li>使用锁的情景： <ul>
-<li>访问共享数据结构中的缓存信息 </li>
+<li>使用锁的情景：<ul>
+<li>访问共享数据结构中的缓存信息</li>
 <li>保存应用程序上下文和状态信息数据</li>
 </ul>
 </li>
-<li>使用通道的情景： <ul>
-<li>与异步操作的结果进行交互 </li>
-<li>分发任务 </li>
-<li>传递数据所有权 </li>
+<li>使用通道的情景：<ul>
+<li>与异步操作的结果进行交互</li>
+<li>分发任务</li>
+<li>传递数据所有权</li>
 </ul>
 </li>
 </ul>
@@ -595,7 +595,7 @@
 <p>InverseFuture 函数起了一个 goroutine 协程，在其执行闭包运算，该闭包会将矩阵求逆结果放入到 future 通道中：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func InverseFuture(a Matrix) &#123;</span><br><span class="line">    future :&#x3D; make(chan Matrix)</span><br><span class="line">    go func() &#123;</span><br><span class="line">        future &lt;- Inverse(a)</span><br><span class="line">    &#125;()</span><br><span class="line">    return future</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="九、客户端-服务端模式"><a href="#九、客户端-服务端模式" class="headerlink" title="九、客户端-服务端模式"></a>九、客户端-服务端模式</h2><p>Client-server 类的应用是协程（goroutine）和频道（channel）的大显身手的闪光点。</p>
+<h2 id="十、客户端-服务端模式"><a href="#十、客户端-服务端模式" class="headerlink" title="十、客户端-服务端模式"></a>十、客户端-服务端模式</h2><p>Client-server 类的应用是协程（goroutine）和频道（channel）的大显身手的闪光点。</p>
 <p>客户端可以是任何一种运行在任何设备上的，且需要来自服务端信息的一种程序，所以它需要发送请求。</p>
 <p>服务端接收请求，做一些处理，然后把给客户端发送响应信息。在通常情况下，就是多个客户端（很多请求）对一个（或几个）服务端。</p>
 <p>一个常见例子就是我们使用的发送网页请求的客户端浏览器。然后一个 web 服务器将响应网页发回给浏览器。</p>
@@ -603,7 +603,43 @@
 <p>一种典型的做法就是客户端请求本身包含了一个频道（channel），服务端可以用它来发送响应。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type Request struct &#123;</span><br><span class="line">    a, b   int</span><br><span class="line">    replyc chan int &#x2F;&#x2F; 请求中的回复频道</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type binOp func(a, b int) int</span><br><span class="line"></span><br><span class="line">func run(op binOp, req *Request) &#123;</span><br><span class="line">    req.replyc &lt;- op(req.a, req.b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func server(op binOp, service chan *Request) &#123;</span><br><span class="line">    for &#123;</span><br><span class="line">        req :&#x3D; &lt;-service &#x2F;&#x2F; 请求到达这里</span><br><span class="line">        &#x2F;&#x2F; 开启请求的 Goroutine ：</span><br><span class="line">        go run(op, req) &#x2F;&#x2F; 不要等待 op</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func startServer(op binOp) chan *Request &#123;</span><br><span class="line">    reqChan :&#x3D; make(chan *Request)</span><br><span class="line">    go server(op, reqChan)</span><br><span class="line">    return reqChan</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    adder :&#x3D; startServer(func(a, b int) int &#123; return a + b &#125;)</span><br><span class="line">    const N &#x3D; 100</span><br><span class="line">    var reqs [N]Request</span><br><span class="line"></span><br><span class="line">    for i :&#x3D; 0; i &lt; N; i++ &#123;</span><br><span class="line">        req :&#x3D; &amp;reqs[i]</span><br><span class="line">        req.a &#x3D; i</span><br><span class="line">        req.b &#x3D; i + N</span><br><span class="line">        req.replyc &#x3D; make(chan int)</span><br><span class="line">        adder &lt;- req</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 校验：</span><br><span class="line">    for i :&#x3D; N - 1; i &gt;&#x3D; 0; i-- &#123; &#x2F;&#x2F; 顺序无所谓</span><br><span class="line">        if &lt;-reqs[i].replyc !&#x3D; N+2*i &#123;</span><br><span class="line">            fmt.Println(&quot;fail at&quot;, i)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            fmt.Println(&quot;Request &quot;, i, &quot;is ok!&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(&quot;done&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a target="_blank" rel="noopener" href="https://godoc.murphyyi.com/">《Go入门指南》</a></p>
+<h2 id="十一、限制并发数"><a href="#十一、限制并发数" class="headerlink" title="十一、限制并发数"></a>十一、限制并发数</h2><p>例子如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">const (</span><br><span class="line">	&#x2F;&#x2F; 10 * 1024 * 1024</span><br><span class="line">	AvailableMemory &#x3D; 10 &lt;&lt; 20</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 10 * 1024</span><br><span class="line">	AverageMemoryPerRequest &#x3D; 10 &lt;&lt; 10</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 1024</span><br><span class="line">	MAXREQS &#x3D; AvailableMemory &#x2F; AverageMemoryPerRequest</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var sem &#x3D; make(chan int, MAXREQS)</span><br><span class="line"></span><br><span class="line">type Request struct &#123;</span><br><span class="line">	a, b   int</span><br><span class="line">	replyc chan int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func process(r *Request) &#123;</span><br><span class="line">	&#x2F;&#x2F; Do something 做任何事</span><br><span class="line">	&#x2F;&#x2F; 可能需要很长时间并使用大量内存或CPU</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func handle(r *Request) &#123;</span><br><span class="line">	process(r)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 信号完成：开始启用下一个请求</span><br><span class="line">	&#x2F;&#x2F; 将 sem 的缓冲区释放一个位置</span><br><span class="line">	&lt;-sem</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Server(queue chan *Request) &#123;</span><br><span class="line"></span><br><span class="line">	for &#123;</span><br><span class="line">		sem &lt;- 1</span><br><span class="line">		&#x2F;&#x2F; 当通道已满（1024 个请求被激活）的时候将被阻塞</span><br><span class="line">		&#x2F;&#x2F; 所以停在这里等待，直到 sem 有容量（被释放），才能继续去处理请求</span><br><span class="line">		&#x2F;&#x2F; (doesn’t matter what we put in it)</span><br><span class="line">		request :&#x3D; &lt;-queue</span><br><span class="line">		go handle(request)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	queue :&#x3D; make(chan *Request)</span><br><span class="line"></span><br><span class="line">	go Server(queue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过这种方式，程序中的协程通过使用缓冲通道（这个通道作为一个 semaphore 被使用）来调整资源的使用，实现了对内存等有限资源的优化。</p>
+<h2 id="十二、链式操作（重点！！！！）"><a href="#十二、链式操作（重点！！！！）" class="headerlink" title="十二、链式操作（重点！！！！）"></a>十二、链式操作（重点！！！！）</h2><p>下面的程序演示了启动大量的协程是多么的容易。它发生在 mian 函数的 for 循环中。在循环之后，向 rightmost 通道中插入 0，在不到 1.5s 的时间执行了 100000 个协程，并将结果 100000 打印。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;flag&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;runtime&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var ngoroutine &#x3D; flag.Int(&quot;n&quot;, 100000, &quot;how many goroutines&quot;)</span><br><span class="line"></span><br><span class="line">func f(left, right chan int) &#123;</span><br><span class="line">	&#x2F;&#x2F;fmt.Println(&quot;left:&quot;, left, &quot;    right:&quot;, right)</span><br><span class="line">	left &lt;- 1 + &lt;-right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	runtime.GOMAXPROCS(runtime.NumCPU())</span><br><span class="line">	flag.Parse()</span><br><span class="line">	leftmost :&#x3D; make(chan int)</span><br><span class="line"></span><br><span class="line">	var left, right chan int &#x3D; nil, leftmost</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; *ngoroutine; i++ &#123;</span><br><span class="line">		left, right &#x3D; right, make(chan int)</span><br><span class="line">		&#x2F;&#x2F;fmt.Println(&quot;left:&quot;, left, &quot;    right:&quot;, right)</span><br><span class="line">		go f(left, right)</span><br><span class="line">	&#125;</span><br><span class="line">	right &lt;- 0</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; start the chaining 开始链接</span><br><span class="line">	x :&#x3D; &lt;-leftmost &#x2F;&#x2F; wait for completion 等待完成</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	&#x2F;&#x2F; 结果： 100000</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有个很有意思的点：在没有运行程序之前，我认为leftmost的结果为1，认为只在最初做了一次赋值，实际结果为100000（无缓存信道，具有同步阻塞的特性），这个是为什么呢？</p>
+<ul>
+<li>1.主线程的right &lt;- 0，right不是最初循环的那个right，而是最终循环的right</li>
+<li>2.for循环中最初的go f(left, right)因为没有发送者一直处于等待状态</li>
+<li>3.当主线程的right &lt;- 0执行时，类似于递归函数在最内层产生返回值一般</li>
+</ul>
+<h2 id="十三、多核运算"><a href="#十三、多核运算" class="headerlink" title="十三、多核运算"></a>十三、多核运算</h2><p>假设我们的 CPU 核数是 NCPU 个： const NCPU = 4 // 例如：4 代表 4 核处理器，我们将计算划分为 NCPU 部分，每部分与其他部分并行运行。</p>
+<p>下面是一个简单的示例（我们忽略具体的参数）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">func DoAll() &#123;</span><br><span class="line">	sem :&#x3D; make(chan int, NCPU)</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; NCPU; i++ &#123;</span><br><span class="line">		&#x2F;&#x2F; Buffering optional but sensible. 合理的缓冲区选项（个人理解就是和 CPU 的核心数相同）</span><br><span class="line">		go DoPart(sem)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 等待 NCPU 任务完成，释放通道 sem 的缓冲区</span><br><span class="line">	for i :&#x3D; 0; i &lt; NCPU; i++ &#123;</span><br><span class="line">		&lt;-sem &#x2F;&#x2F; 等待一个任务完成</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; 全部完成。</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func DoPart(sem chan int) &#123;</span><br><span class="line">	&#x2F;&#x2F; 进行计算的部分</span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	sem &lt;- 1 &#x2F;&#x2F; 发送一个这部分已经完成的信号，用来释放 sem 的缓冲区</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	runtime.GOMAXPROCS &#x3D; NCPU</span><br><span class="line">	DoAll()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数 DoAll() 生成一个通道 sem ，在此基础上完成每一个并行计算；在 for 循环中启动 NCPU 个协程，每一个协程执行全部工作的 1/NCPU 。通过 sem 发送每一个协程中 DoPart() 完成的信号。</p>
+<p>DoAll() 中用一个 for 循环来等待所有（NCPU 个）协程完成计算： 通道 sem 的行为就像一个 semaphore（信号量）；这个代码展示了一个典型的信号量模式。</p>
+<p>在当前的运行模式下，你还必须设置 GOMAXPROCS 为 NCPU。</p>
+<h2 id="十四、多核运算处理大量数据"><a href="#十四、多核运算处理大量数据" class="headerlink" title="十四、多核运算处理大量数据"></a>十四、多核运算处理大量数据</h2><p>假设我们必须处理 <strong>大量的彼此独立的数据项</strong> ，通过一个输入通道进入，并且全部处理完成后放到一个输出通道，就像一个工厂的管道。每个数据项的处理也许会涉及多个步骤： 预处理 / 步骤 A / 步骤 B / … / 后期处理</p>
+<p>一个典型的顺序 <strong>流水线算法</strong> 可以用来解决这个问题，下面示例展示了每一步执行的顺序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func SerialProcessData (in &lt;- chan *Data, out &lt;- chan *Data) &#123;</span><br><span class="line">    for data :&#x3D; range in &#123;</span><br><span class="line">        tmpA :&#x3D; PreprocessData(data)</span><br><span class="line">        tmpB :&#x3D; ProcessStepA(tmpA)</span><br><span class="line">        tmpC :&#x3D; ProcessStepB(tmpB)</span><br><span class="line">        out &lt;- PostProcessData(tmpC)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一次只执行一步，并且每个项目按顺序处理：在第一个项目被处理完并将结果放到输出通道之前第二个项目不会开始。</p>
+<p>如果你仔细想想，你很快就会意识到这样会非常的浪费时间。</p>
+<p>一个更有效的计算是 <strong>让每一个步骤都作为一个协程独立工作</strong> 。每个步骤都从上一步的输出通道获取输入数据。这样可以尽可能的避免时间浪费，并且大部分时间所有的步骤都会繁忙的执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">func ParallelProcessData (in &lt;- chan *Data, out &lt;- chan *Data) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; make channels:</span><br><span class="line"></span><br><span class="line">    preOut :&#x3D; make(chan *Data, 100)</span><br><span class="line">    stepAOut :&#x3D; make(chan *Data, 100)</span><br><span class="line">    stepBOut :&#x3D; make(chan *Data, 100)</span><br><span class="line">    stepCOut :&#x3D; make(chan *Data, 100)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; start parallel computations:</span><br><span class="line"></span><br><span class="line">    go PreprocessData(in, preOut)</span><br><span class="line">    go ProcessStepA(preOut, stepAOut)</span><br><span class="line">    go ProcessStepB(stepAOut, stepBOut)</span><br><span class="line">    go ProcessStepC(stepBOut, stepCOut)</span><br><span class="line">    go PostProcessData(stepCOut, out)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通道缓冲区可以用于进一步优化整个过程。</p>
+<h2 id="十五、使用-Channel-来并发读取对象"><a href="#十五、使用-Channel-来并发读取对象" class="headerlink" title="十五、使用 Channel 来并发读取对象"></a>十五、使用 Channel 来并发读取对象</h2><p>为了保护一个对象的并发修改，我们可以使用一个后台的协程来顺序执行一个匿名函数，而不是通过同步 互斥锁（Mutex） 进行锁定。</p>
+<p>在下面的程序中，我们有一个 Person 类型，它包含了一个匿名函数类型的通道字段 chF。它在构造器方法 NewPerson 中初始化，用一个协程启动一个 backend() 方法。这个方法在一个无限 for 循环中执行所有被放到 chF 上的函数，有效的序列化他们，从而提供安全的并发访问。</p>
+<p>改变和获取 salary 可以通过一个放在 chF 上的匿名函数来实现，backend() 会顺序执行它们。注意如何在 Salary 方法中的闭合（匿名）函数中去包含 fChan 通道。</p>
+<p>这是一个简化的例子，并且它不应该在这种情况下应用，但是它展示了如何在更复杂的情况下解决问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Person struct &#123;</span><br><span class="line">	Name   string</span><br><span class="line">	salary float64</span><br><span class="line">	chF    chan func()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewPerson(name string, salary float64) *Person &#123;</span><br><span class="line">	p :&#x3D; &amp;Person&#123;name, salary, make(chan func())&#125;</span><br><span class="line">	go p.backend()</span><br><span class="line">	return p</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *Person) backend() &#123;</span><br><span class="line">	for f :&#x3D; range p.chF &#123;</span><br><span class="line">		f()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; SetSalary 设置 salary.</span><br><span class="line">func (p *Person) SetSalary(sal float64) &#123;</span><br><span class="line">	p.chF &lt;- func() &#123; p.salary &#x3D; sal &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Salary 取回 salary.</span><br><span class="line">func (p *Person) Salary() float64 &#123;</span><br><span class="line">	fChan :&#x3D; make(chan float64)</span><br><span class="line">	p.chF &lt;- func() &#123; fChan &lt;- p.salary &#125;</span><br><span class="line">	return &lt;-fChan</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *Person) String() string &#123;</span><br><span class="line">	return &quot;Person - name is: &quot; + p.Name + &quot; - salary is: &quot; +</span><br><span class="line">		strconv.FormatFloat(p.Salary(), &#39;f&#39;, 2, 64)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	bs :&#x3D; NewPerson(&quot;Smith Bill&quot;, 2500.5)</span><br><span class="line">	fmt.Println(bs)</span><br><span class="line"></span><br><span class="line">	bs.SetSalary(4000.25)</span><br><span class="line">	fmt.Println(&quot;Salary changed:&quot;)</span><br><span class="line">	fmt.Println(bs)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">Person - name is: Smith Bill - salary is: 2500.50</span><br><span class="line"></span><br><span class="line">Salary changed:</span><br><span class="line"></span><br><span class="line">Person - name is: Smith Bill - salary is: 4000.25</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a target="_blank" rel="noopener" href="https://godoc.murphyyi.com/">《Go入门指南》</a></p>
 
     
 
@@ -909,14 +945,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jackson</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">go</a>
               </li>
              
@@ -937,6 +965,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Jackson</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -949,15 +985,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1037,15 +1073,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">推理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
