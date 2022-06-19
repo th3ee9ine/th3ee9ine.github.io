@@ -204,6 +204,122 @@
             
 
   
+    <article id="post-重写TreeMap的比较器(Comparator)引发的问题(源码分析)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%AF%94%E8%BE%83%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98(%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)/" target="_blank">重写TreeMap的比较器(Comparator)引发的问题（源码分析）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%AF%94%E8%BE%83%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98(%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)/" class="archive-article-date">
+        <time datetime="2022-01-16T06:58:04.646Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。"><a href="#摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。" class="headerlink" title="摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。"></a>摘要：最近在开发过程中，因为重写了TreeMap的比较器，而引发了一些有趣的问题。</h1><hr>
+<h2 id="需求背景"><a href="#需求背景" class="headerlink" title="需求背景"></a>需求背景</h2><p>1、给一个无序的map，按照value的值进行排序，value值越小，排在越前面。<br>2、key和value都不为null<br>3、value可能相同<br>4、返回结果为一个相同的有序map</p>
+<p>代码如下所示:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设，key=商品id，value=商品剩余库存</span></span><br><span class="line">Map&lt;Long, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">map.put(<span class="number">1L</span>, <span class="number">10</span>);</span><br><span class="line">map.put(<span class="number">2L</span>, <span class="number">20</span>);</span><br><span class="line">map.put(<span class="number">3L</span>, <span class="number">10</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>到这里，大家可以先想想，如果是你会怎么解决？</p>
+    
+    <a class="article-more-a" href="/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%AF%94%E8%BE%83%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98(%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">问题总结</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Map</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码分析</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/问题总结//" class="article-tag-list-link color5">问题总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/01/16/%E9%87%8D%E5%86%99TreeMap%E7%9A%84%E6%AF%94%E8%BE%83%E5%99%A8(Comparator)%E5%BC%95%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98(%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Jackson序列化时间导致的相关问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1182,109 +1298,9 @@
 
 
   
-    <article id="post-Redis 是单线程的？？？？你别唬我，我可不是厦（吓）大的" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/" target="_blank">Redis 是单线程的？？？？你别唬我，我可不是厦（吓）大的</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/" class="archive-article-date">
-        <time datetime="2021-05-09T12:53:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-09</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：Redis-单线程相关内容，包括其中涉及的一些原理等。"><a href="#摘要：Redis-单线程相关内容，包括其中涉及的一些原理等。" class="headerlink" title="摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。"></a>摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。</h1><hr>
-<h1 id="前言：相信大家一定和我一样在很多标题党文章中，看到-Redis-是单线程等等相关的说明，但是其中并没系统、完整的总结-Redis-是否真的是单线程，还是-Redis-中的某个模块是单线程。今天我们就一起来揭秘一下这个-“熟悉的陌生人”。"><a href="#前言：相信大家一定和我一样在很多标题党文章中，看到-Redis-是单线程等等相关的说明，但是其中并没系统、完整的总结-Redis-是否真的是单线程，还是-Redis-中的某个模块是单线程。今天我们就一起来揭秘一下这个-“熟悉的陌生人”。" class="headerlink" title="前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。"></a>前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。</h1><hr>
-    
-    <a class="article-more-a" href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Redis//" class="article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1406,19 +1422,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">微服务</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RPC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1431,6 +1447,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">go基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">工程化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1458,6 +1478,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
@@ -1474,23 +1498,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1502,11 +1514,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
               <li class="article-tag-list-item">
