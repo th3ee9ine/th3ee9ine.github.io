@@ -204,6 +204,113 @@
             
 
   
+    <article id="post-开发新环境安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2022/12/18/%E5%BC%80%E5%8F%91%E6%96%B0%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" target="_blank">办公软件安装指南</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2022/12/18/%E5%BC%80%E5%8F%91%E6%96%B0%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2022-12-18T06:19:15.283Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-12-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：自用办公软件汇总。"><a href="#摘要：自用办公软件汇总。" class="headerlink" title="摘要：自用办公软件汇总。"></a>摘要：自用办公软件汇总。</h1><hr>
+<h2 id="一、日常工具介绍"><a href="#一、日常工具介绍" class="headerlink" title="一、日常工具介绍"></a>一、日常工具介绍</h2><ul>
+<li>工作交流：钉钉 or 企业微信</li>
+<li>邮箱：Foxmail</li>
+<li>开发工具：IntelliJ IDEA、vscode、postman、XMind、burp</li>
+<li>终端：tabby</li>
+<li>输入法：搜狗输入法</li>
+<li>梯子：v2rayU</li>
+</ul>
+    
+    <a class="article-more-a" href="/2022/12/18/%E5%BC%80%E5%8F%91%E6%96%B0%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tools//" class="article-tag-list-link color1">tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2022/12/18/%E5%BC%80%E5%8F%91%E6%96%B0%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-feign坑点总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -234,47 +341,9 @@
   <div class="article-entry" itemprop="articleBody">
     
     <h1 id="摘要：主要是总结了一下这段时间在使用-feign-的过程中的遇到的一些坑点。"><a href="#摘要：主要是总结了一下这段时间在使用-feign-的过程中的遇到的一些坑点。" class="headerlink" title="摘要：主要是总结了一下这段时间在使用 feign 的过程中的遇到的一些坑点。"></a>摘要：主要是总结了一下这段时间在使用 feign 的过程中的遇到的一些坑点。</h1><hr>
-<h2 id="一、Get请求自动转化成POST的问题"><a href="#一、Get请求自动转化成POST的问题" class="headerlink" title="一、Get请求自动转化成POST的问题"></a>一、Get请求自动转化成POST的问题</h2><h3 id="1、client-请求参数没有加上-RequestParam-注解"><a href="#1、client-请求参数没有加上-RequestParam-注解" class="headerlink" title="1、client 请求参数没有加上 @RequestParam 注解"></a>1、client 请求参数没有加上 @RequestParam 注解</h3><p>问题代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&quot;&#x2F;showName&quot;)</span><br><span class="line">String showName(String name);</span><br></pre></td></tr></table></figure>
-
-<p>错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&quot;timestamp&quot;:&quot;2022-12-14T09:46:22.370+00:00&quot;,&quot;status&quot;:405,&quot;error&quot;:&quot;Method Not Allowed&quot;,&quot;path&quot;:&quot;&#x2F;showName&quot;&#125;]</span><br></pre></td></tr></table></figure>
-
-<p>修改建议：</p>
-<p>在对应的请求参数上加上 @RequestParam 注解，代码示例如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&quot;&#x2F;showName&quot;)</span><br><span class="line">String showName(@RequestParam(&quot;name&quot;) String name);</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、client-请求参数中使用了-RequestBody-注解"><a href="#2、client-请求参数中使用了-RequestBody-注解" class="headerlink" title="2、client 请求参数中使用了 @RequestBody 注解"></a>2、client 请求参数中使用了 @RequestBody 注解</h3><p>问题代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&quot;&#x2F;showBody&quot;)</span><br><span class="line">String showBody(@RequestBody String body);</span><br></pre></td></tr></table></figure>
-
-<p>错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&quot;timestamp&quot;:&quot;2022-12-14T10:04:08.943+00:00&quot;,&quot;status&quot;:405,&quot;error&quot;:&quot;Method Not Allowed&quot;,&quot;path&quot;:&quot;&#x2F;showBody&quot;&#125;]</span><br></pre></td></tr></table></figure>
-
-<p>原因：</p>
-<p>okhttp 和 HttpURLConnection 不支持 @RequestBody + RequestMethod.GET，只有 httpclient 支持，默认使用 HttpURLConnection。</p>
-<p>修改建议：</p>
-<p>1、最佳建议：要求提供方，更改为Post请求</p>
-<p>2、使用 httpclient</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">引入 httpclient 包</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;io.github.openfeign&lt;&#x2F;groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;feign-httpclient&lt;&#x2F;artifactId&gt;</span><br><span class="line">		&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">修改配置：</span><br><span class="line">feign.httpclient.enabled &#x3D; true</span><br></pre></td></tr></table></figure>
-
-<h2 id="二、Feign-Hystrix-熔断、线程使用坑点"><a href="#二、Feign-Hystrix-熔断、线程使用坑点" class="headerlink" title="二、Feign Hystrix 熔断、线程使用坑点"></a>二、Feign Hystrix 熔断、线程使用坑点</h2><p>hystrx 官方配置解释地址：<a target="_blank" rel="noopener" href="https://github.com/Netflix/Hystrix/wiki/Configuration">https://github.com/Netflix/Hystrix/wiki/Configuration</a></p>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoll880214/article/details/99411211">https://blog.csdn.net/xiaoll880214/article/details/99411211</a></p>
-<h3 id="1、线程池队列配置问题"><a href="#1、线程池队列配置问题" class="headerlink" title="1、线程池队列配置问题"></a>1、线程池队列配置问题</h3><p>常用配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 核心线程池大小，默认值为：10</span><br><span class="line">hystrix.threadpool.default.coreSize &#x3D; 10</span><br><span class="line"></span><br><span class="line"># 调用超时时间，默认值为 1000ms</span><br><span class="line">hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds &#x3D; 15000</span><br><span class="line"></span><br><span class="line"># 最大线程池大小，这是在不开始拒绝的情况下可以支持的最大并发量。默认值为10。</span><br><span class="line">hystrix.threadpool.default.maximumSize &#x3D; 50</span><br><span class="line"></span><br><span class="line"># 队列大小拒绝阈值，默认值为 5。即使 maxQueueSize 未达到也会发生拒绝。在 maxQueueSize &#x3D;&#x3D; -1 时不生效。</span><br><span class="line">hystrix.threadpool.default.queueSizeRejectionThreshold &#x3D; 100</span><br><span class="line"></span><br><span class="line"># maximumSize 配置是否生效，默认值为 false。maximumSize 可以等于或高于 coreSize。</span><br><span class="line"># 设置 coreSize &lt; maximumSize 创建一个可以维持maximumSize并发性的线程池；</span><br><span class="line"># 但会在相对不活动期间将线程返回给系统。（受限于keepAliveTimeInMinutes）。</span><br><span class="line">hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize &#x3D; true</span><br><span class="line"></span><br><span class="line"># 最大队列大小，默认值为 -1。值为-1时：使用 thenSynchronousQueue；值为正值时：使用 LinkedBlockingQueue。</span><br><span class="line">hystrix.threadpool.default.maxQueueSize &#x3D; 50</span><br></pre></td></tr></table></figure>
-
-<p>错误配置①：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds&#x3D;1000</span><br></pre></td></tr></table></figure>
-
-<p>feign使用的是懒加载，第一次调用时，会初始化各种bean，速度很慢，默认1秒很容易超时。</p>
-<p>错误配置②：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hystrix.threadpool.default.coreSize &#x3D; 10</span><br><span class="line">hystrix.threadpool.default.maxQueueSize &#x3D; 1000</span><br><span class="line">hystrix.threadpool.default.queueSizeRejectionThreshold &#x3D; 20</span><br></pre></td></tr></table></figure>
-
-<p>因为 queueSizeRejectionThreshold 太小，实际上在并发达到 30 以上的时候，就会拒绝后面的请求了。</p>
-<p>错误配置③：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hystrix.threadpool.default.coreSize &#x3D; 10</span><br><span class="line">hystrix.threadpool.default.maxQueueSize &#x3D; 20</span><br><span class="line">hystrix.threadpool.default.queueSizeRejectionThreshold &#x3D; 1000</span><br></pre></td></tr></table></figure>
-
-<p>因为 maxQueueSize 太小，实际上在并发达到 30 以上的时候，就会拒绝后面的请求了。</p>
-
+    
+    <a class="article-more-a" href="/2022/12/18/feign%E5%9D%91%E7%82%B9%E6%80%BB%E7%BB%93/#more">more >></a>
+    
     
 
     
@@ -1236,113 +1305,6 @@
 
 
   
-    <article id="post-一个有意思的协程例子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/" target="_blank">一个有意思的协程例子</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/" class="archive-article-date">
-        <time datetime="2022-06-18T07:02:39.862Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。"><a href="#摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。" class="headerlink" title="摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。"></a>摘要：这是一个有趣的协程例子，了解其中的原理，对于理解协程、channel非常有帮助。</h1><hr>
-    
-    <a class="article-more-a" href="/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">协程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">channel</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/go//" class="article-tag-list-link color3">go</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2022/06/18/%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E5%8D%8F%E7%A8%8B%E4%BE%8B%E5%AD%90/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1357,7 +1319,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019-2022 <a href="https://www.blog.ajie39.top/" target="_blank">th3ee9ine</a>
+    		&copy; 2019-2023 <a href="https://www.blog.ajie39.top/" target="_blank">th3ee9ine</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1467,19 +1429,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">A/B测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1495,15 +1457,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">工程化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">协程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">channel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">工程化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1636,6 +1598,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">问题and坑点</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">tools</a>
               </li>
              
               <li class="article-tag-list-item">
