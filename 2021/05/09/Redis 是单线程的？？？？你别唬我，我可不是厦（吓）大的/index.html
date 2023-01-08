@@ -10,18 +10,23 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。 前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。">
+  <meta name="description" content="摘要：Redis 单线程&#x2F;多线程相关内容，包括其中涉及的一些原理等。 前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis 是单线程的？？？？你别唬我，我可不是厦（吓）大的">
 <meta property="og:url" content="https://www.blog.ajie39.top/2021/05/09/Redis%20%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%EF%BC%9F%EF%BC%9F%EF%BC%9F%EF%BC%9F%E4%BD%A0%E5%88%AB%E5%94%AC%E6%88%91%EF%BC%8C%E6%88%91%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%8E%A6%EF%BC%88%E5%90%93%EF%BC%89%E5%A4%A7%E7%9A%84/index.html">
 <meta property="og:site_name" content="教练，我想学技术!">
-<meta property="og:description" content="摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。 前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。">
+<meta property="og:description" content="摘要：Redis 单线程&#x2F;多线程相关内容，包括其中涉及的一些原理等。 前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20210509/%E4%B8%89%E7%A7%8D%E4%BA%8B%E4%BB%B6.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20210509/%E5%8D%95Reactor%E5%8D%95%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20210509/%E5%8D%95Reactor%E5%A4%9A%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://www.blog.ajie39.top/img/image/blog/20210509/%E5%A4%9AReactor%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E8%BF%9B%E7%A8%8B.png">
 <meta property="article:published_time" content="2021-05-09T12:53:14.000Z">
-<meta property="article:modified_time" content="2021-05-09T12:53:14.000Z">
+<meta property="article:modified_time" content="2023-01-08T09:17:38.797Z">
 <meta property="article:author" content="th3ee9ine">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.blog.ajie39.top/img/image/blog/20210509/%E4%B8%89%E7%A7%8D%E4%BA%8B%E4%BB%B6.png">
   
     <link rel="alternative" href="/atom.xml" title="教练，我想学技术!" type="application/atom+xml">
   
@@ -232,7 +237,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">2.1k字</span>
+      <span class="post-count">3.5k字</span>
     </span>
   </span>
 
@@ -241,7 +246,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">7分</span>
+      <span class="post-count">12分</span>
     </span>
   </span>
 </div>
@@ -252,7 +257,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="摘要：Redis-单线程相关内容，包括其中涉及的一些原理等。"><a href="#摘要：Redis-单线程相关内容，包括其中涉及的一些原理等。" class="headerlink" title="摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。"></a>摘要：Redis 单线程相关内容，包括其中涉及的一些原理等。</h1><hr>
+    <h1 id="摘要：Redis-单线程-多线程相关内容，包括其中涉及的一些原理等。"><a href="#摘要：Redis-单线程-多线程相关内容，包括其中涉及的一些原理等。" class="headerlink" title="摘要：Redis 单线程/多线程相关内容，包括其中涉及的一些原理等。"></a>摘要：Redis 单线程/多线程相关内容，包括其中涉及的一些原理等。</h1><hr>
 <h1 id="前言：相信大家一定和我一样在很多标题党文章中，看到-Redis-是单线程等等相关的说明，但是其中并没系统、完整的总结-Redis-是否真的是单线程，还是-Redis-中的某个模块是单线程。今天我们就一起来揭秘一下这个-“熟悉的陌生人”。"><a href="#前言：相信大家一定和我一样在很多标题党文章中，看到-Redis-是单线程等等相关的说明，但是其中并没系统、完整的总结-Redis-是否真的是单线程，还是-Redis-中的某个模块是单线程。今天我们就一起来揭秘一下这个-“熟悉的陌生人”。" class="headerlink" title="前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。"></a>前言：相信大家一定和我一样在很多标题党文章中，看到 Redis 是单线程等等相关的说明，但是其中并没系统、完整的总结 Redis 是否真的是单线程，还是 Redis 中的某个模块是单线程。今天我们就一起来揭秘一下这个 “熟悉的陌生人”。</h1><hr>
 <span id="more"></span>
 
@@ -260,34 +265,111 @@
 <p>​         Redis 服务器是典型的一对多服务器程序： 一个服务器可以与多个客户端建立网络连接，每个客户端可以向服务器发送命令请求，而服务器则接收并处理客户端发送的命令请求， 并向客户端返回命令回复。</p>
 <p>​    Redis 服务器状态结构的 clients 属性是一个链表。这个链表保存了所有与服务器连接的客户端的状态结构，对客户端执行批量操作，或者查找某个指定的客户端，都可以通过遍历 clients 链表来完成。</p>
 <ul>
-<li>Redis v4.0（引入多线程处理异步任务）</li>
-<li>Redis v6.0（正式在网络模型中实现 I/O 多线程）</li>
+<li>Redis v4.0 之前的版本，真正的单线程。</li>
+<li>Redis v4.0，引入多线程处理 AOF 等任务，但核心的网络模型中依旧使用单线程。</li>
+<li>Redis v6.0（正式在网络模型中实现 I/O 多线程）。</li>
 </ul>
-<h2 id="二、Redis-单线程模型"><a href="#二、Redis-单线程模型" class="headerlink" title="二、Redis 单线程模型"></a>二、Redis 单线程模型</h2><p>Redis作为一个成熟的分布式缓存框架，它由很多个模块组成，如网络请求模块、索引模块、存储模块、高可用集群支撑模块、数据操作模块等。</p>
-<p>我们所说的Redis单线程，指的是”其网络IO和键值对读写是由一个线程完成的”，也就是说，Redis中只有网络请求模块和数据操作模块是单线程的。而其他的如持久化存储模块、集群支撑模块等是多线程的。</p>
-<p>Redis客户端对服务端的每次调用都经历了发送命令，执行命令，返回结果三个过程。其中执行命令阶段，由于Redis是单线程来处理命令的，所以每一条到达服务端的命令不会立刻执行，所有的命令都会进入一个队列中，然后逐个被执行。并且多个客户端发送的命令的执行顺序是不确定的。但是可以确定的是不会有两条命令被同时执行，不会产生并发问题。</p>
+<p>从 Redis v1.0 到 Redis v6.0以前，Redis 的核心网络模型一直都是一个典型的单 Reactor 模型，所有的事件都在这个线程内处理完成。</p>
+<h2 id="二、Redis-单线程模型"><a href="#二、Redis-单线程模型" class="headerlink" title="二、Redis 单线程模型"></a>二、Redis 单线程模型</h2><p>Redis 作为一个成熟的分布式缓存框架，它由很多个模块组成，如网络请求模块、索引模块、存储模块、高可用集群支撑模块、数据操作模块等。</p>
+<p>我们所说的 Redis 单线程，指的是”其网络IO和键值对读写是由一个线程完成的”，也就是说，Redis中只有网络请求模块和数据操作模块是单线程的。而其他的如持久化存储模块、集群支撑模块等是多线程的。</p>
+<p>Redis 客户端对服务端的每次调用都经历了发送命令，执行命令，返回结果三个过程。其中执行命令阶段，由于 Redis 是单线程来处理命令的，所以每一条到达服务端的命令不会立刻执行，所有的命令都会进入一个队列中，然后逐个被执行。并且多个客户端发送的命令的执行顺序是不确定的。但是可以确定的是不会有两条命令被同时执行，不会产生并发问题。</p>
 <h2 id="三、Redis-客户端到服务端请求过程"><a href="#三、Redis-客户端到服务端请求过程" class="headerlink" title="三、Redis 客户端到服务端请求过程"></a>三、Redis 客户端到服务端请求过程</h2><ol>
 <li>客户端到服务端建立网络连接</li>
 <li>客户端发生读写事件并向服务器端发送请求数据</li>
 <li>服务端进行数据处理</li>
 <li>服务端数据返回</li>
 </ol>
-<h3 id="1、客户端到服务端建立网络连接"><a href="#1、客户端到服务端建立网络连接" class="headerlink" title="1、客户端到服务端建立网络连接"></a>1、客户端到服务端建立网络连接</h3><p>首先，客户端和服务端是 socket 通信方式，socket 服务端监听可同时接受多个客户端请求，这点很重要，如果不理解可先记住。注意这里可以理解为本质上与 redis 无关，这里仅仅做网络连接，或者可以理解为，为 redis 服务端提供网络交互api。</p>
+<h3 id="1、客户端到服务端建立网络连接"><a href="#1、客户端到服务端建立网络连接" class="headerlink" title="1、客户端到服务端建立网络连接"></a>1、客户端到服务端建立网络连接</h3><p>首先，客户端和服务端是 socket 通信方式，socket 服务端监听可同时接受多个客户端请求，这点很重要，如果不理解可先记住。注意这里可以理解为本质上与 redis 无关，这里仅仅做网络连接，或者可以理解为，为 redis 服务端提供网络交互 api。</p>
 <p>假设建立网络连接需要15秒（实际上比这个时间小非常多）。</p>
-<h3 id="2、客户端发生读写事件并向服务端发送请求数据"><a href="#2、客户端发生读写事件并向服务端发送请求数据" class="headerlink" title="2、客户端发生读写事件并向服务端发送请求数据"></a>2、客户端发生读写事件并向服务端发送请求数据</h3><p>首先确定一点，redis的客户端与服务端通信是基于TCP连接，第一阶段仅仅是建立了客户端到服务端的网络连接，然后才是发生第二阶段的读写事件。</p>
-<p>完成了上一个阶段的网络连接，redis客户端开始真正向服务端发起读写事件，假设是set（写）事件，此时redis客户端开始向建立的网络流中送数据，服务端可以理解为给每一个网络连接创建一个线程同时接收客户端的请求数据。<br>假设从客户端发数据，到服务端接收完数据需要5秒。</p>
+<h3 id="2、客户端发生读写事件并向服务端发送请求数据"><a href="#2、客户端发生读写事件并向服务端发送请求数据" class="headerlink" title="2、客户端发生读写事件并向服务端发送请求数据"></a>2、客户端发生读写事件并向服务端发送请求数据</h3><p>首先确定一点，redis 的客户端与服务端通信是基于 TCP 连接，第一阶段仅仅是建立了客户端到服务端的网络连接，然后才是发生第二阶段的读写事件。</p>
+<p>完成了上一个阶段的网络连接，redis 客户端开始真正向服务端发起读写事件，假设是 set（写）事件，此时 redis 客户端开始向建立的网络流中送数据，服务端可以理解为给每一个网络连接创建一个线程同时接收客户端的请求数据。</p>
+<p>假设从客户端发数据，到服务端接收完数据需要5秒。</p>
 <h3 id="3、Redis-服务器进行数据处理"><a href="#3、Redis-服务器进行数据处理" class="headerlink" title="3、Redis 服务器进行数据处理"></a>3、Redis 服务器进行数据处理</h3><p>服务端完成了第二阶段的数据接收，接下来开始依据接收到的数据做逻辑处理，然后得到处理后的数据。数据处理可以理解为一次方法调用，带参调用方法，最终得到方法返回值。不要想复杂，重在理解流程。假设redis服务端处理数据需要0.1秒</p>
-<h3 id="4、服务器数据返回"><a href="#4、服务器数据返回" class="headerlink" title="4、服务器数据返回"></a>4、服务器数据返回</h3><p>这一阶段很简单，当reids服务端数据处理完后 就会立即返回处理后的数据，没什么特别需要强调的。假设服务端把处理后的数据回送给客户端需要5秒。</p>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>第一阶段说过，redis 是以 socket 方式通信，socket服务端可同时接受多个客户端请求连接，也就是说，redis服务同时面对多个redis客户端连接请求，而redis服务本身是单线程运行。</p>
-<p>假设，现在有A,B,C,D,E五个客户端同时发起redis请求，A优先稍微一点点第一个到达，然后是B，C，D，E依次到达，此时redis服务端开始处理A请求，建立连接需要15秒，获取请求数据需要5秒，然后处理数据需要0.1秒，回送数据给客户端需要5秒，总共大概需要25.1秒。也就是说，下一个B请求需要等待25.1秒，这里注意，也许这五个几乎同时请求，由于socket可以同时处理多个请求，所以建立网络连接阶段时间差可忽略<code>(也就是说少了15秒)</code>，但是在第二阶段，服务端需要什么事都不干，坐等5秒中，对于CPU和客户端来说是无法忍受的。所以说单线程效率非常，非常低，但是正是因为这些类似问题，Redis单线程本质上并不是如此运行。接下来讨论redis真正的单线程运行方式。</p>
-<h2 id="Redis-单线程运行方式简单理解"><a href="#Redis-单线程运行方式简单理解" class="headerlink" title="Redis 单线程运行方式简单理解"></a>Redis 单线程运行方式简单理解</h2><p>客户端与服务端建立连接交由 socket，可以同时建立多个连接（这里应该是多线程/多进程），建立的连接redis是知道的（不了解的，这里可以去看一下socket编程），然后 redis 会基于这些建立的连接去探测哪个连接已经接收完了客户端的请求数据（注意：不是探测哪个连接建立好了，<code>而是探测哪个接收完了请求数据</code>），而且这里的探测动作就是单线程的开始，一旦探测到则基于接收到的数据开始数据处理阶段，然后返回数据，再继续探测下一个已经接收完请求数据的网络连接。注意，从探测到数据处理再到数据返回，全程单线程。</p>
-<p>从探测到接受完请求数据的网络连接到最终的数据返回，服务器只需要5.1秒，这个时间是我放大N倍后的数据，实际时间远远小于这个，最终的返回数据虽然牵扯到网络，但是网络连接已经建立，这个速度也是非常非常快的，只是比数据处理阶段慢那么一点点。因此单线程方式在效率上其实并不需要担心。</p>
-<h2 id="单线程事件循环"><a href="#单线程事件循环" class="headerlink" title="单线程事件循环"></a>单线程事件循环</h2><h2 id="四、为什么-Redis-网络操作模块和数据存储模块最初并没有使用多线程呢"><a href="#四、为什么-Redis-网络操作模块和数据存储模块最初并没有使用多线程呢" class="headerlink" title="四、为什么 Redis 网络操作模块和数据存储模块最初并没有使用多线程呢?"></a>四、为什么 Redis 网络操作模块和数据存储模块最初并没有使用多线程呢?</h2><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.51cto.com/art/202103/650049.htm">Redis不是一直号称单线程效率也很高吗，为什么又采用多线程了？</a></li>
+<h3 id="4、服务器数据返回"><a href="#4、服务器数据返回" class="headerlink" title="4、服务器数据返回"></a>4、服务器数据返回</h3><p>这一阶段很简单，当 reids 服务端数据处理完后 就会立即返回处理后的数据，没什么特别需要强调的。假设服务端把处理后的数据回送给客户端需要5秒。</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>第一阶段说过，redis 是以 socket 方式通信，socket 服务端可同时接受多个客户端请求连接，也就是说，redis 服务同时面对多个 redis 客户端连接请求，而 redis 服务本身是单线程运行。</p>
+<p>假设，现在有 A,B,C,D,E 五个客户端同时发起 redis 请求，A 优先稍微一点点第一个到达，然后是 B，C，D，E 依次到达，此时 redis 服务端开始处理A请求，建立连接需要15秒，获取请求数据需要5秒，然后处理数据需要0.1秒，回送数据给客户端需要5秒，总共大概需要25.1秒。也就是说，下一个B请求需要等待25.1秒，这里注意，也许这五个几乎同时请求，由于 socket 可以同时处理多个请求，所以建立网络连接阶段时间差可忽略<code>(也就是说少了15秒)</code>，但是在第二阶段，服务端需要什么事都不干，坐等5秒中，对于 CPU 和客户端来说是无法忍受的。所以说单线程效率非常，非常低，但是正是因为这些类似问题，redis 单线程本质上并不是如此运行。接下来讨论 redis 真正的单线程运行方式。</p>
+<h2 id="四、Redis-单线程运行方式简单理解"><a href="#四、Redis-单线程运行方式简单理解" class="headerlink" title="四、Redis 单线程运行方式简单理解"></a>四、Redis 单线程运行方式简单理解</h2><p>客户端与服务端建立连接交由 socket，可以同时建立多个连接（这里应该是多线程/多进程），建立的连接 redis 是知道的，然后 redis 会基于这些建立的连接去探测哪个连接已经接收完了客户端的请求数据（注意：不是探测哪个连接建立好了，<code>而是探测哪个接收完了请求数据</code>），而且这里的探测动作就是单线程的开始，一旦探测到则基于接收到的数据开始数据处理阶段，然后返回数据，再继续探测下一个已经接收完请求数据的网络连接。注意，从探测到数据处理再到数据返回，全程单线程。</p>
+<p>从探测到接受完请求数据的网络连接到最终的数据返回，服务器只需要5.1秒（实际时间远远小于这个），最终的返回数据虽然牵扯到网络，但是网络连接已经建立，这个速度也是非常非常快的，只是比数据处理阶段慢那么一点点。因此单线程方式在效率上其实并不需要担心。</p>
+<p>上面说的从探测到返回数据的过程，实际就是 redis 的单线程事件循环，即单 Reactor 模型。</p>
+<h2 id="五、Reactor-模型"><a href="#五、Reactor-模型" class="headerlink" title="五、Reactor 模型"></a>五、Reactor 模型</h2><p>Reactor 模型本质上指的是使用 <code>I/O多路复用(I/O multiplexing) + 非阻塞 I/O(non-blocking I/O) 的模式</code>。</p>
+<p>Reactor 模型中有三种角色、三种事件、三种模式。</p>
+<h3 id="1、三种事件"><a href="#1、三种事件" class="headerlink" title="1、三种事件"></a>1、三种事件</h3><p>连接事件: 当一个客户端要和服务器端进行交互时，客户端会向服务器端发送连接请求，以建立连接。</p>
+<p>写事件: 一旦连接建立后，客户端会给服务器端发送读请求，以便读取数据。服务器端在处理读请求时，需要向客户端写回数据。</p>
+<p>读事件: 无论客户端给服务器端发送读或写请求，服务器端都需要从客户端读取请求内容。</p>
+<p><img src="/img/image/blog/20210509/%E4%B8%89%E7%A7%8D%E4%BA%8B%E4%BB%B6.png" alt="三种事件"></p>
+<h3 id="2、三种角色"><a href="#2、三种角色" class="headerlink" title="2、三种角色"></a>2、三种角色</h3><ul>
+<li><p>Reactor：主线程，模型核心，通过事件循环不断处理事件，如果是新的连接事件，则交给 Acceptor，如果是已经连接的 I/O 事件，则交给 Handler；</p>
+</li>
+<li><p>Acceptor：负责 server 和 client 的连接。Reactor 模式一条最重要的原则就是：I/O 操作不能阻塞主线程循环，所以对于阻塞网络的 I/O，一般都是通过 I/O 多路复用实现的，如 Linux 上的 epoll，这样可以最大程度地满足 <code>“一个线程非阻塞地监听多个 I/O 事件”</code>。当有新的连接到来是，Acceptor 创建一个新的 socket，并将这个 socket 添加到 epoll 的监听队列中，指定事件类型(读事件 或 写事件)，指定对应事件发生时的回调函数，这样当此客户端的请求到来时，epoll 会调用设定好的回调函数(可以理解成 Handler)；</p>
+</li>
+<li><p>Handler：真正的业务处理逻辑。已经建立连接的客户端请求到来后，触发 epoll 的读事件，调用 Handler 执行具体的业务逻辑。</p>
+</li>
+</ul>
+<h3 id="3、三种模式"><a href="#3、三种模式" class="headerlink" title="3、三种模式"></a>3、三种模式</h3><ul>
+<li>单 Reactor 单线程</li>
+<li>单 Reactor 多线程</li>
+<li>多 Reactor 多线程/进程</li>
+</ul>
+<h4 id="1-、单-Reactor-单线程"><a href="#1-、单-Reactor-单线程" class="headerlink" title="1)、单 Reactor 单线程"></a>1)、单 Reactor 单线程</h4><p>单 Reactor 单线程：建立连接（Acceptor）、监听accept、read、write事件（Reactor）、处理事件（Handler）都只用一个单线程。如下图所示：</p>
+<p><img src="/img/image/blog/20210509/%E5%8D%95Reactor%E5%8D%95%E7%BA%BF%E7%A8%8B.png" alt="单Reactor单线程"></p>
+<p>具体流程：</p>
+<ul>
+<li>Reactor 对象通过 select 监控连接事件，收到事件后通过 dispatch 进行分发。</li>
+<li>如果是连接建立的事件，则交由 Acceptor 通过 accept 处理连接请求，然后创建一个 Handler 对象处理连接完成后的后续业务处理。</li>
+<li>如果不是建立连接事件，则 Reactor 会分发调用连接对应的 Handler 来响应。</li>
+<li>Handler 会完成 read -&gt; 业务处理 -&gt; send 的完整业务流程。</li>
+</ul>
+<p><code>注：Redis 6.0 以下版本，属于单 Reactor 单线程模式。</code></p>
+<p>优点：模型简单，没有多线程，进程通信，竞争的问题，全部都在一个线程中完成。</p>
+<p>缺点：</p>
+<ul>
+<li>单线程无法利用多核。</li>
+<li>处理请求发生耗时，会阻塞整个线程，影响整体性能。</li>
+<li>并发请求过高，读取/写回数据存在瓶颈。</li>
+</ul>
+<h4 id="2-、单-Reactor-多线程"><a href="#2-、单-Reactor-多线程" class="headerlink" title="2)、单 Reactor 多线程"></a>2)、单 Reactor 多线程</h4><p>单 Reactor 多线程也是只有一个 Reactor，与单线程的主要区别在于，使用多线程来进行业务逻辑的处理。</p>
+<p>一个线程 + 一个线程池：</p>
+<ul>
+<li>单线程：建立连接（Acceptor）和 监听accept、read、write事件（Reactor），复用一个线程。</li>
+<li>工作线程池：处理事件（Handler），由一个工作线程池来执行业务逻辑，包括数据就绪后，用户态的数据读写。</li>
+</ul>
+<p><img src="/img/image/blog/20210509/%E5%8D%95Reactor%E5%A4%9A%E7%BA%BF%E7%A8%8B.png" alt="单Reactor多线程"></p>
+<p>具体流程:</p>
+<ul>
+<li>主线程中，Reactor 对象通过 select 监听连接事件，收到事件后通过 dispatch 进行分发。</li>
+<li>如果是连接建立的事件，则由 Acceptor 处理，Acceptor 通过 accept 接受连接，并创建一个 Handler 来处理连接后续的各种事件。</li>
+<li>如果不是连接建立事件，则 Reactor 会调用连接对应的 Handler 来进行相应。</li>
+<li>Handler 只负责响应事件，不进行业务处理，Handler 通过 read 读取到数据后，会发给 Processor 进行业务处理。</li>
+<li>Processor 会在独立的子线程中完成真正的业务处理，然后将响应结果发给主进程的 Handler 处理，Handler 收到响应后通过 send 将响应结果返回给 client。</li>
+</ul>
+<p>优点:能够充分利用多核多 CPU的处理能力</p>
+<p>缺点：</p>
+<ul>
+<li>多线程数据共享和访问比较复杂</li>
+<li>Reactor 承担所有事件的监听和响应，只在主线程中运行，瞬间高并发时会成为性能瓶颈</li>
+</ul>
+<h4 id="3-、多-Reactor-多线程-进程"><a href="#3-、多-Reactor-多线程-进程" class="headerlink" title="3)、多 Reactor 多线程/进程"></a>3)、多 Reactor 多线程/进程</h4><p>相比多线程 Reactor 模型，多 reactor 多线程模型拥有了一个独立处理 SocketChannel 连接的线程池，当客户端从 Acceptor 建立连接之后，便将该连接绑定到 Subreactor 线程池中的某个线程中，然后由该线程绑定客户端感兴趣的I/O事件（READ/WRITE），监听客户端连接请求，最后处理。</p>
+<ul>
+<li>MainReactor : 监听 ServerSocketChannel 、建立与 SocketChannel 的连接、将完成建立连接之后的Socket 交给subReactor。</li>
+<li>SubReactor : 监听SocketChannel的 I/O事件，完成编解码、相应的业务处理（默认为CPU个数）。</li>
+</ul>
+<p>三个线程池：</p>
+<ul>
+<li>主线程池：建立连接（Acceptor），并且将accept事件注册到从线程池。</li>
+<li>从线程池：监听accept、read、write事件（Reactor），包括等待数据就绪时，内核态的数据I读写。</li>
+<li>工作线程池：处理事件（Handler），由一个工作线程池来执行业务逻辑，包括数据就绪后，用户态的数据读写。</li>
+</ul>
+<p><img src="/img/image/blog/20210509/%E5%A4%9AReactor%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E8%BF%9B%E7%A8%8B.png" alt="多Reactor多线程/进程"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hollischuang/p/14535826.html">Redis不是一直号称单线程效率也很高吗，为什么又采用多线程了？</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/myseries/p/11733861.html">Redis 单线程的理解</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/140927022">Redis 网络通信模块源码分析（一）</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/352557644">Redis 多线程网络模型全面揭秘</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/345327284">Redis 的通讯协议及事件处理机制</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JemmyH/gogoredis/issues/1">Redis 单线程事件循环</a></li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/408491">10 | Redis事件驱动框架（中）：Redis实现了Reactor模型吗？（极客时间）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.yijiyong.com/framework/netty/04-nettyreactor.html#_3%E3%80%81%E4%B8%BB%E4%BB%8Ereactor-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B">Netty-Reactor模式总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903682509635598">Java NIO 系列文章之 浅析Reactor模式</a></li>
 </ul>
 
     
@@ -579,18 +661,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">go</a>
               </li>
              
@@ -599,19 +669,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">协程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">channel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">工程化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,11 +681,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -643,31 +709,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,6 +718,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,6 +737,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">协程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">channel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -699,15 +757,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂项</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,6 +822,38 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">源码分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Jooq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">JavaWEB</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
               </li>
             
             <div class="clearfix"></div>
