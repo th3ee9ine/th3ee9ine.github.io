@@ -204,6 +204,124 @@
             
 
   
+    <article id="post-git多账号配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/05/28/git%E5%A4%9A%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE/" target="_blank">Git多账号配置</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/05/28/git%E5%A4%9A%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+        <time datetime="2023-05-28T08:30:57.412Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-05-28</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：本文介绍了如何配置Git多账号，以便在同一计算机上管理多个Git账号。"><a href="#摘要：本文介绍了如何配置Git多账号，以便在同一计算机上管理多个Git账号。" class="headerlink" title="摘要：本文介绍了如何配置Git多账号，以便在同一计算机上管理多个Git账号。"></a>摘要：本文介绍了如何配置Git多账号，以便在同一计算机上管理多个Git账号。</h1><hr>
+<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>所谓多个git账号，可能存在一下的情况:</p>
+<ul>
+<li>我有多个 github 的账号，不同的账号对应不同的 repo，需要 push 的时候自动区分账号。</li>
+<li>我有多个 git 的账号，有的是 github 的，有的是单位的 gitlab 的，不同账号对应不同的 repo，需要 push 的时候自动区分账号。</li>
+</ul>
+<p>以上的这两种情况的处理方法是一样的，大致步骤如下：</p>
+<ul>
+<li>1、清空原有的配置</li>
+<li>2、分别生成不同账号的ssh公钥与密钥</li>
+<li>3、将对应的 SSH Keys 添加到对应账号的配置中</li>
+<li>4、修改git的配置，统一管理不同账号的信息</li>
+<li>5、测试配置是否可用</li>
+</ul>
+<p>接下来我们来看一下每一个步骤的详细操作。</p>
+<p>注：接下来的所有步骤，都是以 mac 系统为例。</p>
+    
+    <a class="article-more-a" href="/2023/05/28/git%E5%A4%9A%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Git</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Git//" class="article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/05/28/git%E5%A4%9A%E8%B4%A6%E5%8F%B7%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-开发新环境安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1206,109 +1324,6 @@
 
 
   
-    <article id="post-逗号ok模式与defer模式总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/06/18/%E9%80%97%E5%8F%B7ok%E6%A8%A1%E5%BC%8F%E4%B8%8Edefer%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" target="_blank">逗号 ok 模式与 defer 模式总结</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/06/18/%E9%80%97%E5%8F%B7ok%E6%A8%A1%E5%BC%8F%E4%B8%8Edefer%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" class="archive-article-date">
-        <time datetime="2022-06-18T08:39:18.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：go入门相关内容，参考：Go入门指南。"><a href="#摘要：go入门相关内容，参考：Go入门指南。" class="headerlink" title="摘要：go入门相关内容，参考：Go入门指南。"></a>摘要：go入门相关内容，参考：<a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go">Go入门指南</a>。</h1><hr>
-    
-    <a class="article-more-a" href="/2022/06/18/%E9%80%97%E5%8F%B7ok%E6%A8%A1%E5%BC%8F%E4%B8%8Edefer%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">go基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/go//" class="article-tag-list-link color3">go</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2022/06/18/%E9%80%97%E5%8F%B7ok%E6%A8%A1%E5%BC%8F%E4%B8%8Edefer%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1522,6 +1537,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">配置</a>
               </li>
              
               <li class="article-tag-list-item">
