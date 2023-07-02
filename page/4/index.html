@@ -204,6 +204,117 @@
             
 
   
+    <article id="post-Redis之从面试题到原理（拓展篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/" target="_blank">Redis 之从面试题到原理（拓展篇）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/" class="archive-article-date">
+        <time datetime="2021-05-05T08:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。"><a href="#摘要：从面试题入手，带着问题来了解-Redis-中的各种原理。" class="headerlink" title="摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。"></a>摘要：从面试题入手，带着问题来了解 Redis 中的各种原理。</h1><hr>
+<h1 id="前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on"><a href="#前言：大家在平时的开发中或多或少都应该用过-Redis-，就拿我自己来说，虽然用了-Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A-good-day-from-now-on" class="headerlink" title="前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!"></a>前言：大家在平时的开发中或多或少都应该用过 Redis ，就拿我自己来说，虽然用了 Redis，但是在大多数的场景下，只是局限于如何使用，对其中的原理没有很深入的了解，这就导致，遇到问题的时候，无法快速定位、排查问题，甚至一开始就使用错误了，其实这个是开发中的大忌—-只知其然，而不知其所以然，为了避免出现类似的情况，接下来让我们来一起学习一下其中的原理吧！下面的内容我会分成3篇文章，分别是基础篇、进阶篇、拓展篇。A good day from now on!</h1><hr>
+<h2 id="文章关联"><a href="#文章关联" class="headerlink" title="文章关联"></a>文章关联</h2><p><a href="https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89/"> Redis 之从面试题到原理（基础篇）</a></p>
+<p><a href="https://www.blog.ajie39.top/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E8%BF%9B%E9%98%B6%E7%AF%87%EF%BC%89/"> Redis 之从面试题到原理（进阶篇）</a></p>
+<hr>
+    
+    <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试/Redis//" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/05/05/Redis%E4%B9%8B%E4%BB%8E%E9%9D%A2%E8%AF%95%E9%A2%98%E5%88%B0%E5%8E%9F%E7%90%86%EF%BC%88%E6%8B%93%E5%B1%95%E7%AF%87%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Redis之从面试题到原理（进阶篇）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1147,114 +1258,6 @@
 
 
   
-    <article id="post-Mybatis笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/05/05/Mybatis%E7%AC%94%E8%AE%B0/" target="_blank">Mybatis笔记</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/05/05/Mybatis%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-        <time datetime="2021-05-05T04:26:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-05</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：Mybatis笔记"><a href="#摘要：Mybatis笔记" class="headerlink" title="摘要：Mybatis笔记"></a>摘要：Mybatis笔记</h1><hr>
-<h1 id="前言：对这段时间学习mybatis的一些记录。"><a href="#前言：对这段时间学习mybatis的一些记录。" class="headerlink" title="前言：对这段时间学习mybatis的一些记录。"></a>前言：对这段时间学习mybatis的一些记录。</h1><hr>
-    
-    <a class="article-more-a" href="/2021/05/05/Mybatis%E7%AC%94%E8%AE%B0/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ORM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ORM//" class="article-tag-list-link color4">ORM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/05/05/Mybatis%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
@@ -1431,15 +1434,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1455,15 +1458,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">feign</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
