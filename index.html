@@ -204,6 +204,109 @@
             
 
   
+    <article id="post-解密MySQL：索引—优化数据库性能的关键（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/09/17/%E8%A7%A3%E5%AF%86MySQL%EF%BC%9A%E7%B4%A2%E5%BC%95%E2%80%94%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%80%A7%E8%83%BD%E7%9A%84%E5%85%B3%E9%94%AE%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank">解密MySQL：索引—优化数据库性能的关键（一）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/09/17/%E8%A7%A3%E5%AF%86MySQL%EF%BC%9A%E7%B4%A2%E5%BC%95%E2%80%94%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%80%A7%E8%83%BD%E7%9A%84%E5%85%B3%E9%94%AE%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
+        <time datetime="2023-09-17T05:32:00.415Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-17</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="摘要：索引是关系型数据库中的关键性工具，用于加速数据检索和查询操作。通过了解索引的基本原理和工作机制，我们能够更好地优化和管理数据库，确保应用程序的高效运行。"><a href="#摘要：索引是关系型数据库中的关键性工具，用于加速数据检索和查询操作。通过了解索引的基本原理和工作机制，我们能够更好地优化和管理数据库，确保应用程序的高效运行。" class="headerlink" title="摘要：索引是关系型数据库中的关键性工具，用于加速数据检索和查询操作。通过了解索引的基本原理和工作机制，我们能够更好地优化和管理数据库，确保应用程序的高效运行。"></a>摘要：索引是关系型数据库中的关键性工具，用于加速数据检索和查询操作。通过了解索引的基本原理和工作机制，我们能够更好地优化和管理数据库，确保应用程序的高效运行。</h1><hr>
+<h2 id="一、索引基础"><a href="#一、索引基础" class="headerlink" title="一、索引基础"></a>一、索引基础</h2><p>在我们深入讨论MySQL索引的不同类型和优化策略之前，让我们首先了解一下索引的基础知识。</p>
+<h3 id="1、什么是索引？"><a href="#1、什么是索引？" class="headerlink" title="1、什么是索引？"></a>1、什么是索引？</h3><p>索引是数据库中的一种数据结构，它类似于书籍的目录。它帮助数据库管理系统快速查找和定位数据，而不必扫描整个表。</p>
+<p>索引通过创建索引键（index key）与实际数据行的对应关系，使得查询操作更加高效。</p>
+<p>索引通常基于表的一个或多个列。</p>
+    
+    <a class="article-more-a" href="/2023/09/17/%E8%A7%A3%E5%AF%86MySQL%EF%BC%9A%E7%B4%A2%E5%BC%95%E2%80%94%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%80%A7%E8%83%BD%E7%9A%84%E5%85%B3%E9%94%AE%EF%BC%88%E4%B8%80%EF%BC%89/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Mysql//" class="article-tag-list-link color1">Mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/09/17/%E8%A7%A3%E5%AF%86MySQL%EF%BC%9A%E7%B4%A2%E5%BC%95%E2%80%94%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%80%A7%E8%83%BD%E7%9A%84%E5%85%B3%E9%94%AE%EF%BC%88%E4%B8%80%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-解密MySQL：深入剖析一条SQL语句的执行过程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1221,112 +1324,9 @@
 
 
   
-    <article id="post-Go项目结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2022/06/19/Go%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/" target="_blank">Go 项目结构（草稿）</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2022/06/19/Go%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-        <time datetime="2022-06-19T08:36:50.874Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-19</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="摘要：代码组织是编写软件最难的部分之一，但是它很少得到应有的关注。"><a href="#摘要：代码组织是编写软件最难的部分之一，但是它很少得到应有的关注。" class="headerlink" title="摘要：代码组织是编写软件最难的部分之一，但是它很少得到应有的关注。"></a>摘要：代码组织是编写软件最难的部分之一，但是它很少得到应有的关注。</h1><hr>
-    
-    <a class="article-more-a" href="/2022/06/19/Go%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">工程化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/go//" class="article-tag-list-link color3">go</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2022/06/19/Go%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1468,11 +1468,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">go基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">工程化</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">go基础</a>
+                <a href="javascript:void(0)" class="js-tag color3">Jackson</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1492,15 +1500,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ORM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1512,19 +1520,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">YAML</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">配置</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1536,7 +1536,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">配置</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1545,14 +1557,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jackson</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">问题总结</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1573,10 +1577,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1608,6 +1608,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -1617,10 +1621,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博弈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
